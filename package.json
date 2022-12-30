@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx tsc && node ./dist/server.js"
+    "start": "npx tsc && node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,13 @@
   "homepage": "https://github.com/dianezhou96/lululedger#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "parcel": "^2.8.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.15"
-  }
+  },
+  "type": "module"
 }
