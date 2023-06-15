@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx webpack && npx tsc && node ./dist/server/server.js"
+    "start": "npx webpack && npx tsc && node ./dist/server/server.js",
+    "watch": "npx webpack --watch & node ./dist/server/server.js"
   },
   "repository": {
     "type": "git",
