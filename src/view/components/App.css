@@ -35,3 +35,8 @@
 .ant-layout-content {
     overflow: hidden;
 }
+
+/* TODO put this in a better place in the future */
+body {
+    margin: 0;
+}
