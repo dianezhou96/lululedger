@@ -2,6 +2,7 @@ import { Cart, Item, Product, ProductMetadata } from "../types";
 
 export function resolveItem(item): Item {
   return {
+    id: item.id,
     product: resolveProductMetadata(item.attributes.product.data),
     color: item.attributes.color.data?.attributes.color,
     size: item.attributes.size.data?.attributes.size,

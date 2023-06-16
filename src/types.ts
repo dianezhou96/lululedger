@@ -1,4 +1,5 @@
 export type Item = {
+  id: string;
   product: ProductMetadata;
   color: string | null;
   size: string | null;
@@ -26,4 +27,10 @@ export type Cart = {
     item: Item;
     quantity: number;
   }[];
+};
+
+export type CartItemPost = {
+  cart: string;
+  item: string;
+  quantity: number;
 };

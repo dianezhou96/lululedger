@@ -66,7 +66,7 @@ export const CartView: React.FC = () => {
     })
   );
   columns.push({
-    title: "Price",
+    title: "Unit Price",
     dataIndex: "price",
     key: "price",
     render: (price: number) => (price > 0 ? getPriceString(price) : ""),
@@ -103,9 +103,7 @@ export const CartView: React.FC = () => {
         return (
           <>
             <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={4} align="right">
-                <b>Summary</b>
-              </Table.Summary.Cell>
+              <Table.Summary.Cell index={0} colSpan={4} align="right" />
               <Table.Summary.Cell index={1} align="right">
                 <b>{totalQty}</b>
               </Table.Summary.Cell>

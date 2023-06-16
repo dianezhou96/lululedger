@@ -1,32 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Form, InputNumber, Popover, Table } from "antd";
-import { Product } from "../../types";
+import { CartItemPost, Product } from "../../types";
 
 interface AddToCartFormProps {
   product: Product;
 }
+
+interface FormValues {
+  [key: string]: number;
+}
+
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
-  const [cartItem, setCartItem] = useState();
-  useEffect(() => {
-    const addItemToCart = async () => {
-      const item = await fetch("/api/cart-items", {
-        method: "POST",
-        body: JSON.stringify({ cartId: 1, itemId: 2, quantity: 1 }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }).then((data) => data.json());
-      setCartItem(item);
-    };
-    console.log("HERE");
-    addItemToCart();
+  const [form] = Form.useForm();
+
+  const addItemToCart = useCallback(async (cartItem: CartItemPost) => {
+    await fetch("/api/cart-items", {
+      method: "POST",
+      body: JSON.stringify(cartItem),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
   }, []);
 
-  console.log("CART ITEM POST", cartItem);
+  const onSubmit = useCallback((values: FormValues) => {
+    for (const [key, value] of Object.entries(values)) {
+      addItemToCart({
+        cart: "1",
+        item: key,
+        quantity: value,
+      });
+    }
+  }, []);
 
   return (
     <Form
-      name="basic"
+      form={form}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -35,7 +44,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       // initialValues={{
       //   remember: true,
       // }}
-      // onFinish={onFinish}
+      onFinish={onSubmit}
       // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
@@ -49,7 +58,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
             ? item.size
             : product.name;
         return (
-          <Form.Item key={idx} label={colorSizeString} name={colorSizeString}>
+          <Form.Item key={idx} label={colorSizeString} name={item.id}>
             <InputNumber placeholder="qty" />
           </Form.Item>
         );

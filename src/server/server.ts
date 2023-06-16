@@ -1,15 +1,14 @@
 import express = require("express");
 import { Request, Response, urlencoded } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { Cart, Product } from "../types";
-// import sgMail = require("@sendgrid/mail");
-// import { API_TOKEN, API_URI, SG_API_KEY } from "./config";
-import { API_TOKEN, API_URI } from "./config";
+import { Cart, CartItemPost, Product } from "../types";
+import sgMail = require("@sendgrid/mail");
+import { API_TOKEN, API_URI, SG_API_KEY } from "./config";
 import qs = require("qs");
 import { CartFragment, ItemFragment, ProductFragment } from "./queryFragments";
 import { resolveCart, resolveProduct } from "./resolvers";
 
-// sgMail.setApiKey(SG_API_KEY);
+sgMail.setApiKey(SG_API_KEY);
 
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
@@ -50,13 +49,8 @@ router.get("/cart/:id", async (req: Request, res: Response) => {
 });
 
 router.post("/cart-items", async (req: Request, res: Response) => {
-  console.log("BODY", req.body);
-  const cartId = req.body.cartId;
-  const itemId = req.body.itemId;
-  const quantity = req.body.quantity;
-  const data = await addCartItem(cartId, itemId, quantity)
+  const data = await addCartItem(req.body)
     .then((data) => {
-      console.log(data);
       return data.json();
     })
     .then((json) => json.data);
@@ -86,16 +80,10 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-export function addCartItem(cartId: string, itemId: string, quantity: number) {
-  const data = {
-    cart: cartId,
-    item: itemId,
-    quantity: quantity,
-  };
-  console.log("DATA", data);
+export function addCartItem(cartItem: CartItemPost) {
   return fetch(API_URI + `/cart-items`, {
     method: "POST",
-    headers: { Authorization: API_TOKEN },
-    data: data,
+    body: JSON.stringify({ data: cartItem }),
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
   });
 }
