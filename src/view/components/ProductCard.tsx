@@ -1,11 +1,10 @@
 import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
-import React, { useEffect, useState } from "react";
-import { API_TOKEN, API_URI, DISCOUNT } from "../../config";
-import { PlusCircleOutlined, LinkOutlined } from "@ant-design/icons";
+import React from "react";
+import { DISCOUNT } from "../utils";
+import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
-import { strikeThrough } from "../utils";
-import { Button, Form, Input, InputNumber, Popover, Table } from "antd";
+import { Button, Form, InputNumber, Popover, Table } from "antd";
 
 interface ProductCardProps {
   product: any;
