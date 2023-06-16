@@ -4,7 +4,7 @@ import Nav from "./Nav";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { Home } from "./Home";
-import { API_TOKEN, API_URI } from "../constants";
+import { API_TOKEN, API_URI } from "../../config";
 import { Shop } from "./Shop";
 const { Header, Content, Footer, Sider } = Layout;
 
