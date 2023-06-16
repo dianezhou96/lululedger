@@ -66,9 +66,10 @@ function getPriceDescription(product: Product) {
   if (product.price_retail && !product.price_actual) {
     return (
       <span>
-        <del>{getPriceString(product.price_retail)}</del> {priceString}
+        <del>{getPriceString(product.price_retail)}</del>{" "}
+        <b style={{ color: "black" }}>{priceString}</b>
       </span>
     );
   }
-  return priceString;
+  return <span style={{ color: "black" }}>{priceString}</span>;
 }
