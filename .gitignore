@@ -131,3 +131,5 @@ dist
 
 # secrets
 src/server/config.ts
+
+*.swp
