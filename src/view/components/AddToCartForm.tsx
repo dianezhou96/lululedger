@@ -14,7 +14,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
   const [form] = Form.useForm();
 
   const addItemToCart = useCallback(async (cartItem: CartItemPost) => {
-    await fetch("/api/cart-items", {
+    await fetch("/shop/cart-items", {
       method: "POST",
       body: JSON.stringify(cartItem),
       headers: {

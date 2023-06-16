@@ -7,7 +7,9 @@ export const Shop: React.FC = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const products = await fetch("/api/products").then((data) => data.json());
+      const products = await fetch("/shop/products").then((data) =>
+        data.json()
+      );
       setProducts(products);
     };
     fetchProducts();

@@ -19,7 +19,7 @@ export const CartView: React.FC = () => {
 
   useEffect(() => {
     const fetchCart = async () => {
-      const cart = await fetch("/api/cart/1").then((data) => data.json());
+      const cart = await fetch("/shop/cart/1").then((data) => data.json());
       setCart(cart);
     };
     fetchCart();

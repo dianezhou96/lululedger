@@ -8,54 +8,20 @@ import qs = require("qs");
 import { CartFragment, ItemFragment, ProductFragment } from "./queryFragments";
 import { resolveCart, resolveProduct } from "./resolvers";
 
-sgMail.setApiKey(SG_API_KEY);
-
-const fetch = (url: RequestInfo, init?: RequestInit) =>
-  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 const app = express();
 const port = 3123;
-const router = express.Router();
+const fetch = (url: RequestInfo, init?: RequestInit) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(url, init));
+sgMail.setApiKey(SG_API_KEY);
 
-app.use("/api", router);
+// import routes
+const shop_routes = require("./routes/shop");
+// set up routes
+app.use("/shop", shop_routes);
+
+// middleware
 app.use(express.static("public"));
 app.use("/dist", express.static("dist"));
-router.use(express.json());
-
-router.get("/products", async (_: Request, res: Response) => {
-  const query = ProductFragment;
-  const data = await fetch(API_URI + `/products?${qs.stringify(query)}`, {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
-    .then((data) => data.json())
-    .then((json) => json.data);
-  const retVal: Product[] = data.map(resolveProduct);
-  res.json(retVal);
-});
-
-router.get("/cart/:id", async (req: Request, res: Response) => {
-  const query = CartFragment;
-  const data = await fetch(
-    `${API_URI}/carts/${req.params.id}?${qs.stringify(query)}`,
-    {
-      method: "GET",
-      headers: { Authorization: API_TOKEN },
-    }
-  )
-    .then((data) => data.json())
-    .then((json) => json.data);
-  const retVal: Cart = resolveCart(data);
-  res.json(retVal);
-});
-
-router.post("/cart-items", async (req: Request, res: Response) => {
-  const data = await addCartItem(req.body)
-    .then((data) => {
-      return data.json();
-    })
-    .then((json) => json.data);
-  res.status(200).json(data);
-});
 
 // app.get("/email", async (req: Request, res: Response) => {
 //   const msg = {
@@ -79,11 +45,3 @@ router.post("/cart-items", async (req: Request, res: Response) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
-export function addCartItem(cartItem: CartItemPost) {
-  return fetch(API_URI + `/cart-items`, {
-    method: "POST",
-    body: JSON.stringify({ data: cartItem }),
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
-}
