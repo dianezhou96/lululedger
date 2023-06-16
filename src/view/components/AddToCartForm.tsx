@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, InputNumber, Popover, Table } from "antd";
 import { Product } from "../../types";
 
@@ -6,16 +6,20 @@ interface AddToCartFormProps {
   product: Product;
 }
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
+  const [cartItem, setCartItem] = useState();
   useEffect(() => {
     const addItemToCart = async () => {
-      await fetch("/cart-items", {
+      const item = await fetch("/api/cart-items", {
         method: "POST",
         body: JSON.stringify({ cartId: 1, itemId: 2, quantity: 1 }),
       }).then((data) => data.json());
+      setCartItem(item);
     };
     console.log("HERE");
     addItemToCart();
   }, []);
+
+  console.log("CART ITEM POST", cartItem);
 
   return (
     <Form
