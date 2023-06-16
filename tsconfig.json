@@ -2,11 +2,11 @@
   "compilerOptions": {
     "jsx": "react",
     "allowJs": true,
-    "outDir": "dist/server",
+    "outDir": "dist",
     "esModuleInterop": true
   },
   "include": [
-    "src/server/*"
+    "src/server/*",
   ],
   "exclude": [
     "node_modules"
