@@ -1,42 +1,42 @@
 .App {
-    text-align: center;
-    display: flex;
-    width: 100vw;
-    height: 100vh;
+  text-align: center;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 
 #Nav {
-    color: white;
-    background-color: lightcoral;
-    border: 4px dashed white;
-    flex: 0 0 17em;
+  color: white;
+  background-color: lightcoral;
+  border: 4px dashed white;
+  flex: 0 0 17em;
 }
 
 .nav-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 2rem;
-    background-color: lightsalmon;
-    margin: 0.5rem 0rem;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  background-color: lightsalmon;
+  margin: 0.5rem 0rem;
+  width: 100%;
 }
 
 .nav-item-text {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 #Content {
-    color: white;
-    margin: 0 0.5rem;
+  color: white;
+  margin: 0 0.5rem;
 }
 
 .ant-layout-content {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 /* TODO put this in a better place in the future */
 body {
-    margin: 0;
+  margin: 0;
 }

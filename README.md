@@ -1,9 +1,6 @@
-
-
 ## LuluLedger
 
 Lululedger is a platform for SFIT Lululemon fundraising orders.
-
 
 ## Milestones
 
@@ -11,9 +8,10 @@ Lululedger is a platform for SFIT Lululemon fundraising orders.
 
 ## Getting Started
 
-Run `npm start` to compile source and start server
+Run `npm start` to compile source and start server.
+
+Run `npm run watch` to hot reload the frontend.
 
 ## License
 
 Distributed under the MIT License. See LICENSE.txt for more information.
-
