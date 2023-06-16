@@ -51,7 +51,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 {product.name}
               </a>
             ) : (
-              product.name
+              <span>{product.name}</span>
             )}
           </>
         }

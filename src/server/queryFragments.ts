@@ -1,6 +1,9 @@
 export const ItemFragment = {
   fields: ["unavailable"],
   populate: {
+    product: {
+      fields: ["name", "link", "price_retail", "price_actual"],
+    },
     color: {
       fields: ["color"],
     },

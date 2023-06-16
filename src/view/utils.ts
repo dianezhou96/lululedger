@@ -1,8 +1,8 @@
-import { Product } from "../types";
+import { ProductMetadata } from "../types";
 
 export const DISCOUNT = 0.4;
 
-export function getPrice(product: Product, numDecimal = 0): number {
+export function getPrice(product: ProductMetadata, numDecimal = 0): number {
   if (product.price_actual) {
     return Number(product.price_actual.toFixed(numDecimal));
   }

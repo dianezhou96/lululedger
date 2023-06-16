@@ -13,7 +13,7 @@ export const Shop: React.FC = () => {
     fetchProducts();
   }, []);
 
-  console.log("HELLO");
+  console.log("PRODUCTS");
   console.log(products);
 
   const cards = products.map((product) => (

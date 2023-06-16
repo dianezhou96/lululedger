@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, InputNumber, Popover, Table } from "antd";
 import { Product } from "../../types";
 
@@ -6,6 +6,17 @@ interface AddToCartFormProps {
   product: Product;
 }
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
+  useEffect(() => {
+    const addItemToCart = async () => {
+      await fetch("/cart-items", {
+        method: "POST",
+        body: JSON.stringify({ cartId: 1, itemId: 2, quantity: 1 }),
+      }).then((data) => data.json());
+    };
+    console.log("HERE");
+    addItemToCart();
+  }, []);
+
   return (
     <Form
       name="basic"

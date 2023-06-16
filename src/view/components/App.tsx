@@ -5,6 +5,7 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
+import { CartView } from "./Cart";
 // import { Cart } from "./Cart";
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -40,7 +41,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
-                {/* <Route path="/orders" element={<Cart />} /> */}
+                <Route path="/orders" element={<CartView />} />
               </Routes>
             </Content>
             <Footer
