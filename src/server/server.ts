@@ -20,23 +20,20 @@ app.get("/products", async (req: Request, res: Response) => {
         fields: ["link"],
       },
       items: {
-        fields: [
-          { color: { populate: { fields: ["color"] } } },
-          { size: { populate: { fields: ["size"] } } },
-          "unavailable",
-        ],
+        fields: ["unavailable"],
+        populate: {
+          color: {
+            fields: ["color"],
+          },
+          size: { fields: ["size"] },
+        },
       },
     },
   };
-  const data = await fetch(
-    API_URI +
-      "/products?populate[product_images][fields][0]=link&populate[items][populate]=*",
-    // `/products?${qs.stringify(query)}`,
-    {
-      method: "GET",
-      headers: { Authorization: API_TOKEN },
-    }
-  );
+  const data = await fetch(API_URI + `/products?${qs.stringify(query)}`, {
+    method: "GET",
+    headers: { Authorization: API_TOKEN },
+  });
   const json = await data.json();
   const products = json.data;
   const retVal: Product[] = products.map((product) => ({

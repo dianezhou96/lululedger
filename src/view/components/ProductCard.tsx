@@ -62,14 +62,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 };
 
 function getPriceDescription(product: Product) {
-  const priceString = getPriceString(getPrice(product));
+  const priceElement = (
+    <b style={{ color: "black", fontSize: "medium" }}>
+      {getPriceString(getPrice(product))}
+    </b>
+  );
   if (product.price_retail && !product.price_actual) {
     return (
       <span>
-        <del>{getPriceString(product.price_retail)}</del>{" "}
-        <b style={{ color: "black" }}>{priceString}</b>
+        <del>{getPriceString(product.price_retail)}</del> {priceElement}
       </span>
     );
   }
-  return <span style={{ color: "black" }}>{priceString}</span>;
+  return priceElement;
 }
