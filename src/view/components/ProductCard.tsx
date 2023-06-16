@@ -1,7 +1,7 @@
 import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
 import React, { useEffect, useState } from "react";
-import { API_TOKEN, API_URI, DISCOUNT } from "../constants";
+import { API_TOKEN, API_URI, DISCOUNT } from "../../config";
 import { PlusCircleOutlined, LinkOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { strikeThrough } from "../utils";
