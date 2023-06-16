@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack && npx tsc && node ./dist/server/server.js",
-    "watch": "npx webpack --watch & node ./dist/server/server.js"
+    "watch": "npx webpack --watch & node ./dist/server/server.js",
+    "watch_server": "npx tsc --watch & npx nodemon dist/server/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   "homepage": "https://github.com/dianezhou96/lululedger#readme",
   "dependencies": {
     "express": "^4.18.2",
+    "node-fetch": "^2.6.11",
     "parcel": "^2.8.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -35,6 +37,7 @@
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "declaration-bundler-webpack-plugin": "^1.0.3",
+    "nodemon": "^2.0.22",
     "react-router-dom": "^6.13.0",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.4.2",
