@@ -61,6 +61,7 @@ app.get("/cart/:id", async (req: Request, res: Response) => {
     method: "GET",
     headers: { Authorization: API_TOKEN },
   }).then((data) => data.json());
+  console.log(req.params.id);
   res.json(data);
 });
 
