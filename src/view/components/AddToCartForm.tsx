@@ -12,6 +12,9 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       const item = await fetch("/api/cart-items", {
         method: "POST",
         body: JSON.stringify({ cartId: 1, itemId: 2, quantity: 1 }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }).then((data) => data.json());
       setCartItem(item);
     };
