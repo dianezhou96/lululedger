@@ -4,8 +4,8 @@ import Nav from "./Nav";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { Home } from "./Home";
-import { API_TOKEN, API_URI } from "../../config";
 import { Shop } from "./Shop";
+// import { Cart } from "./Cart";
 const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
@@ -40,7 +40,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
-                {/* <Route path='/visualize' element={<DeltaVisualizerWidget />} /> */}
+                {/* <Route path="/orders" element={<Cart />} /> */}
               </Routes>
             </Content>
             <Footer

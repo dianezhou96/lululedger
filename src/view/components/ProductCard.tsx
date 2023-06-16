@@ -6,14 +6,15 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Button, Form, InputNumber, Popover, Table } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
+import { Product } from "../../types";
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const imgs = product.attributes.product_images.data;
-  const priceString = getPriceDescription(product.attributes);
+  const imageLinks = product.product_images;
+  const priceString = getPriceDescription(product);
   return (
     <Card
       style={{
@@ -21,11 +22,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       }}
       cover={
         <Carousel>
-          {imgs.map((img, idx) => (
+          {imageLinks.map((imageLink, idx) => (
             <div key={idx}>
               <img
-                alt={product.attributes.name + " " + (idx + 1).toString()}
-                src={img.attributes.link}
+                alt={product.name + " " + (idx + 1).toString()}
+                src={imageLink}
                 width={300}
               />
             </div>
@@ -35,9 +36,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       actions={[
         <Popover
           content={<AddToCartForm product={product} />}
-          title={`Add ${product.attributes.name} ($${getPrice(
-            product.attributes
-          )}) to cart`}
+          title={`Add ${product.name} ($${getPrice(product)}) to cart`}
           trigger="click"
         >
           <PlusCircleOutlined />
@@ -47,12 +46,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <Meta
         title={
           <>
-            {product.attributes.link ? (
-              <a href={product.attributes.link} target="_blank">
-                {product.attributes.name}
+            {product.link ? (
+              <a href={product.link} target="_blank">
+                {product.name}
               </a>
             ) : (
-              product.attributes.name
+              product.name
             )}
           </>
         }
@@ -62,13 +61,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   );
 };
 
-function getPriceDescription(productAttributes) {
-  const priceString = getPriceString(getPrice(productAttributes));
-  if (productAttributes.price_retail && !productAttributes.price_actual) {
+function getPriceDescription(product: Product) {
+  const priceString = getPriceString(getPrice(product));
+  if (product.price_retail && !product.price_actual) {
     return (
       <span>
-        <del>{getPriceString(productAttributes.price_retail)}</del>{" "}
-        {priceString}
+        <del>{getPriceString(product.price_retail)}</del> {priceString}
       </span>
     );
   }

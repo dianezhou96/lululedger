@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Form, InputNumber, Popover, Table } from "antd";
+import { Product } from "../../types";
 
 interface AddToCartFormProps {
-  product: any;
+  product: Product;
 }
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
-  const items = product.attributes.items.data;
   return (
     <Form
       name="basic"
@@ -21,11 +21,15 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       // onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      {items.map((item, idx) => {
+      {product.items.map((item, idx) => {
         const colorSizeString =
-          item.attributes.color.data.attributes.color +
-          " | " +
-          item.attributes.size.data.attributes.size;
+          item.color && item.size
+            ? item.color + " | " + item.size
+            : item.color
+            ? item.color
+            : item.size
+            ? item.size
+            : product.name;
         return (
           <Form.Item key={idx} label={colorSizeString} name={colorSizeString}>
             <InputNumber placeholder="qty" />
