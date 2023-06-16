@@ -131,3 +131,4 @@ dist
 
 # secrets
 src/config.ts
+src/server/config.ts
