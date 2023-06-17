@@ -71,11 +71,12 @@ export const CartTable: React.FC<CartTableProps> = ({ cart }) => {
   return (
     <Table
       dataSource={dataSource}
+      caption={<h2>{cart.name}</h2>}
       columns={columns}
       pagination={false}
       locale={{
         emptyText: (
-          <Empty description={"Cart is empty. Add items from the shop!"} />
+          <Empty description={"Order is empty. Add items from the shop!"} />
         ),
       }}
       summary={(data) => {

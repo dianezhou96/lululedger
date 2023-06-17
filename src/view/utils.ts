@@ -1,4 +1,4 @@
-import { ProductMetadata } from "../types";
+import { Cart, ProductMetadata } from "../types";
 
 export const DISCOUNT = 0.4;
 
@@ -14,4 +14,13 @@ export function getPrice(product: ProductMetadata, numDecimal = 0): number {
 
 export function getPriceString(price: Number, numDecimal = 0): string {
   return `$${price.toFixed(numDecimal)}`;
+}
+
+export async function fetchCarts(credential: string) {
+  return fetch("/shop/carts", {
+    method: "GET",
+    headers: {
+      Credential: credential,
+    },
+  });
 }

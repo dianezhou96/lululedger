@@ -6,32 +6,13 @@ import { PlusOutlined } from "@ant-design/icons";
 
 interface CartSelectorProps {
   carts: Cart[];
-  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
-export const CartSelector: React.FC<CartSelectorProps> = ({
-  carts,
-  setCarts,
-}) => {
+export const CartSelector: React.FC<CartSelectorProps> = ({ carts }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [cartSelected, setCartSelected] = useState<string | null>(
     searchParams.get("cart")
   );
-
-  const fetchCarts = async () => {
-    const response = await fetch("/shop/carts", {
-      method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
-    });
-    const carts: Cart[] = response.ok ? await response.json() : [];
-    setCarts(carts);
-  };
-
-  useEffect(() => {
-    fetchCarts();
-  }, [searchParams]);
 
   useEffect(() => {
     setCartSelected(searchParams.get("cart"));
@@ -48,7 +29,7 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
     setName(event.target.value);
   };
 
-  const addCart = async (cart: CartPost) => {
+  const postCart = async (cart: CartPost) => {
     const response = await fetch("/shop/carts", {
       method: "POST",
       body: JSON.stringify(cart),
@@ -60,14 +41,31 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
     console.log(response);
   };
 
-  const addItem = (e) => {
+  const addCart = (e) => {
     e.preventDefault();
     console.log("NEW CART NAME", name);
     addCart({ name: name });
     setName("");
   };
 
-  return (
+  const NewCartForm = (
+    <Space
+      style={{
+        padding: "0 8px 4px",
+      }}
+    >
+      <Input
+        placeholder={
+          carts.length ? "New cart for..." : "Start first order for..."
+        }
+        value={name}
+        onChange={onNameChange}
+      />
+      <Button icon={<PlusOutlined />} onClick={addCart} />
+    </Space>
+  );
+
+  return carts.length ? (
     <Select
       options={carts.map((cart) => ({
         value: cart.id.toString(),
@@ -85,20 +83,11 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
               margin: "8px 0",
             }}
           />
-          <Space
-            style={{
-              padding: "0 8px 4px",
-            }}
-          >
-            <Input
-              placeholder="New cart for..."
-              value={name}
-              onChange={onNameChange}
-            />
-            <Button icon={<PlusOutlined />} onClick={addItem} />
-          </Space>
+          {NewCartForm}
         </>
       )}
     />
+  ) : (
+    NewCartForm
   );
 };

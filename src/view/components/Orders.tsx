@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Cart } from "../../types";
@@ -7,6 +7,8 @@ import { CartTable } from "./CartTable";
 interface OrdersProps {
   carts: Cart[];
 }
+
+const GAP = 20;
 
 export const Orders: React.FC<OrdersProps> = ({ carts }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,21 +27,27 @@ export const Orders: React.FC<OrdersProps> = ({ carts }) => {
   };
 
   return (
-    <div style={{ margin: 20, textAlign: "center" }}>
+    <div style={{ margin: GAP, textAlign: "center" }}>
       {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
-            <div key={cart.id} style={{ paddingBottom: 5 }}>
-              <h2>Cart for {cart.name}</h2>
+            <div key={cart.id} style={{ marginBottom: GAP }}>
               <CartTable cart={cart}></CartTable>
             </div>
           );
         }
       })}
       {cartSelected && carts.length > 1 && (
-        <Button size="large" onClick={handleViewAll} style={{ marginTop: 20 }}>
+        <Button size="large" onClick={handleViewAll}>
           <b>Show all carts</b>
         </Button>
+      )}
+      {carts.length === 0 && (
+        <Empty
+          description={
+            "No orders. Create a new cart and add items from the shop!"
+          }
+        />
       )}
     </div>
   );
