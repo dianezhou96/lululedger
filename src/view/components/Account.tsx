@@ -30,9 +30,11 @@ export const Account: React.FC = () => {
   return credential ? (
     <div style={{ textAlign: "center" }}>
       <h2>Welcome!</h2>
+      <p>Your name:</p>
       <p>Your email: </p>
       <p>Skater: </p>
       <p>Team: </p>
+      <p>Your magic link:</p>
       <p>Contact X if you have any questions or concerns.</p>
     </div>
   ) : (
@@ -53,8 +55,11 @@ export const Account: React.FC = () => {
       <Form.Item label="Email" name="email">
         <Input placeholder="Email address" />
       </Form.Item>
+      <Form.Item label="Name" name="name">
+        <Input placeholder="Your name" />
+      </Form.Item>
       <Form.Item label="Skater Name" name="skater_name">
-        <Input placeholder="Which SFIT skater referred you?" />
+        <Input placeholder="Which SFIT skater referred you? (FULLNAME)" />
       </Form.Item>
       <Form.Item label="Skater Team" name="skater_team">
         <Select

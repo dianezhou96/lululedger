@@ -72,14 +72,6 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
         autoComplete="off"
         disabled={!cartId}
       >
-        {/* TODO!!!!! */}
-        {/* {cartId && (
-          <Form.Item>
-            <ShoppingCartOutlined
-              style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
-            />: {cartId}
-          </Form.Item>
-        )} */}
         {product.items.map((item, idx) => {
           const colorSizeString =
             item.color && item.size
