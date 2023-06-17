@@ -140,12 +140,14 @@ async function get_user_record(email) {
 /*
 Middleware for authenticating user, expects:
   - request must have a field called "Credential" in header with a string representing the credential
+modifies
+  - req by appending an email field with a validated email that exists in the DB
 */
 async function user_authenticated(req, res, next) {
   console.log(req.headers);
   const credentials = atob(req.get("Credential")); //decode
   if (!is_json(credentials)) {
-    console.log("shitty json encountered");
+    console.log("Invalid encountered");
     // end early
     console.log("Authentication failed");
     res.status(403).json(false);
@@ -156,6 +158,10 @@ async function user_authenticated(req, res, next) {
   const [status, user] = await get_user_record(email);
   console.log(user);
   if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
+    req.buyer = {
+      email: email,
+      id: user.id,
+    };
     console.log("Authentication success!");
     next();
   } else {
@@ -163,6 +169,17 @@ async function user_authenticated(req, res, next) {
     res.status(403).json(false);
     res.end();
   }
+}
+
+/*
+A Request is upgraded to an AuthorizedRequest after passing through user_authenticated.
+AuthorizedRequest looks identical to Request except it has a valid email that exists in the DB
+*/
+export interface AuthorizedRequest extends Request {
+  buyer?: {
+    email: string;
+    id: number;
+  };
 }
 
 module.exports = { router: router, user_authenticated: user_authenticated };
