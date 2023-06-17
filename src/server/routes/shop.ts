@@ -55,7 +55,10 @@ router.post(
   "/carts",
   user_authenticated,
   async (req: AuthorizedRequest, res: Response) => {
-    if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
+    if (!req.buyer) {
+      res.status(403).end();
+      return;
+    }
     req.body.buyer = req.buyer.id;
     const data = await fetch(API_URI + `/carts`, {
       method: "POST",
