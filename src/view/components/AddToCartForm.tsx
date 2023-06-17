@@ -26,6 +26,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       body: JSON.stringify(cartItem),
       headers: {
         "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
       },
     });
   };

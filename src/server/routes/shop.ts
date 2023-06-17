@@ -62,7 +62,7 @@ router.get("/carts", async (req: Request, res: Response) => {
   const query = {
     ...CartFragment,
     filters: {
-      buyer: req.query.buyer,
+      buyer: req.query.buyer, // TODO: Change this to be by email/token rather than id
     },
   };
   const data = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {

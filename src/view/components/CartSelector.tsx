@@ -23,9 +23,12 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
 
   useEffect(() => {
     const fetchCarts = async () => {
-      const data = await fetch("/shop/carts?buyer=1").then((data) =>
-        data.json()
-      );
+      const data = await fetch("/shop/carts", {
+        method: "GET",
+        headers: {
+          Credential: searchParams.get("credential") ?? "",
+        },
+      }).then((data) => data.json());
       const carts: Option[] = data.map((cart) => ({
         value: cart.id.toString(),
         label: cart.name,

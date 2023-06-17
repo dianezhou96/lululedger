@@ -1,26 +1,23 @@
 import React, { useMemo } from "react";
 import { Button, Form, Input, InputNumber, Select } from "antd";
-import {
-  AccountPost,
-  CartItemPost,
-  SkaterTeam,
-  SKATER_TEAMS,
-} from "../../types";
+import { AccountPost, SKATER_TEAMS } from "../../types";
 import { useSearchParams } from "react-router-dom";
-import { CartSelector } from "./CartSelector";
 
 export const AccountForm: React.FC = () => {
   const [form] = Form.useForm();
-  //   const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const signUp = async (account: AccountPost) => {
-    await fetch("/auth/signup", {
+    const credential = await fetch("/auth/signup", {
       method: "POST",
       body: JSON.stringify(account),
       headers: {
         "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
       },
-    });
+    }).then((data) => data.json());
+    searchParams.set("credeential", credential);
+    setSearchParams(searchParams);
   };
 
   const onSubmit = (values: AccountPost) => {

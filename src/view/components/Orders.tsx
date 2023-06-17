@@ -13,9 +13,12 @@ export const Orders: React.FC = () => {
 
   useEffect(() => {
     const fetchCarts = async () => {
-      const carts = await fetch("/shop/carts?buyer=1").then((data) =>
-        data.json()
-      );
+      const carts = await fetch("/shop/carts", {
+        method: "GET",
+        headers: {
+          Credential: searchParams.get("credential") ?? "",
+        },
+      }).then((data) => data.json());
       setCarts(carts);
     };
     fetchCarts();
