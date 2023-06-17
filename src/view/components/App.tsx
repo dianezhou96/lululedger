@@ -16,9 +16,8 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export interface CartProps {
   carts: Cart[];
-  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
   cartSelected: string | null;
-  setCartSelected: React.Dispatch<React.SetStateAction<string | null>>;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const App = () => {
@@ -29,14 +28,13 @@ const App = () => {
 
   const credential = searchParams.get("credential");
   const [carts, setCarts] = useState<Cart[]>([]);
-  const [cartDirty, setCartDirty] = useState(false);
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
+  const [cartDirty, setCartDirty] = useState(false);
 
   const cartProps: CartProps = {
     carts,
-    setCartDirty,
     cartSelected,
-    setCartSelected,
+    setCartDirty,
   };
 
   const getCarts = async () => {
@@ -51,6 +49,10 @@ const App = () => {
     getCarts();
     setCartDirty(false);
   }, [credential, cartDirty]);
+
+  useEffect(() => {
+    setCartSelected(searchParams.get("cart"));
+  }, [searchParams]);
 
   return (
     <div className="App">

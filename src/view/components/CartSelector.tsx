@@ -7,14 +7,14 @@ import { CartProps } from "./App";
 
 export const CartSelector: React.FC<CartProps> = ({
   carts,
-  setCartDirty,
   cartSelected,
-  setCartSelected,
+  setCartDirty,
 }) => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleCartChange = (value: string) => {
-    setCartSelected(value);
+    searchParams.set("cart", value);
+    setSearchParams(searchParams);
   };
 
   // Set up for adding new cart
@@ -33,7 +33,7 @@ export const CartSelector: React.FC<CartProps> = ({
       },
     });
     const data = await response.json();
-    setCartSelected(data.id.toString());
+    handleCartChange(data.id.toString());
   };
 
   const addCart = (e) => {
