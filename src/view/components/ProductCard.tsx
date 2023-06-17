@@ -4,9 +4,12 @@ import React from "react";
 import { DISCOUNT, getPrice, getPriceString } from "../utils";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
-import { Button, Form, InputNumber, Popover, Table } from "antd";
+import { Button, Empty, Form, InputNumber, Popover, Table } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
 import { Product } from "../../types";
+
+const COVER_WIDTH = 300;
+const COVER_HEIGHT = 360;
 
 interface ProductCardProps {
   product: Product;
@@ -18,20 +21,35 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <Card
       style={{
-        width: 300,
+        width: COVER_WIDTH,
       }}
       cover={
-        <Carousel>
-          {imageLinks.map((imageLink, idx) => (
-            <div key={idx}>
+        imageLinks.length ? (
+          <Carousel>
+            {imageLinks.map((imageLink, idx) => (
               <img
+                key={idx}
                 alt={product.name + " " + (idx + 1).toString()}
                 src={imageLink}
-                width={300}
               />
-            </div>
-          ))}
-        </Carousel>
+            ))}
+          </Carousel>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              width: COVER_WIDTH,
+              height: COVER_HEIGHT,
+            }}
+          >
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description="Images unavailable"
+              style={{ margin: "auto" }}
+            />
+          </div>
+        )
       }
       actions={[
         <Popover

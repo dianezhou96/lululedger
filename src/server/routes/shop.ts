@@ -14,6 +14,7 @@ router.use(express.json());
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
+// Get all products
 router.get("/products", async (_: Request, res: Response) => {
   const query = ProductFragment;
   const data = await fetch(API_URI + `/products?${qs.stringify(query)}`, {
@@ -26,6 +27,7 @@ router.get("/products", async (_: Request, res: Response) => {
   res.json(retVal);
 });
 
+// Get cart by id
 router.get("/cart/:id", async (req: Request, res: Response) => {
   const query = CartFragment;
   const data = await fetch(
@@ -41,9 +43,13 @@ router.get("/cart/:id", async (req: Request, res: Response) => {
   res.json(retVal);
 });
 
+// Add item to cart
 router.post("/cart-items", async (req: Request, res: Response) => {
-  console.log(req.body);
-  const data = await addCartItem(req.body)
+  const data = await fetch(API_URI + `/cart-items`, {
+    method: "POST",
+    body: JSON.stringify({ data: req.body }),
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  })
     .then((data) => {
       return data.json();
     })
@@ -51,12 +57,22 @@ router.post("/cart-items", async (req: Request, res: Response) => {
   res.status(200).json(data);
 });
 
-function addCartItem(cartItem: CartItemPost) {
-  return fetch(API_URI + `/cart-items`, {
-    method: "POST",
-    body: JSON.stringify({ data: cartItem }),
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+// Get carts by buyer
+router.get("/carts", async (req: Request, res: Response) => {
+  const query = qs.stringify({
+    filters: {
+      buyer: req.query.buyer,
+    },
+    CartFragment,
   });
-}
+  const data = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
+    method: "GET",
+    headers: { Authorization: API_TOKEN },
+  })
+    .then((data) => data.json())
+    .then((json) => json.data);
+  const retVal: Cart[] = data.map((cart) => resolveCart(cart));
+  res.json(retVal);
+});
 
 module.exports = router;

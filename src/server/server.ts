@@ -23,24 +23,24 @@ app.use("/shop", shop_routes);
 app.use(express.static("public"));
 app.use("/dist", express.static("dist"));
 
-// app.get("/email", async (req: Request, res: Response) => {
-//   const msg = {
-//     to: "dianezhou96@gmail.com",
-//     from: "dianez.mit@gmail.com",
-//     subject: "SFIT x lululemon",
-//     text: "This is your secret login link to our shop! Please do not share it with those you do not wish to have access to your account.",
-//   };
-//   let code = 200;
-//   try {
-//     const response = await sgMail.send(msg);
-//     code = response[0].statusCode;
-//     console.log(code);
-//   } catch (error) {
-//     console.log(error);
-//     code = 500;
-//   }
-//   res.sendStatus(code);
-// });
+app.get("/email", async (req: Request, res: Response) => {
+  const msg = {
+    to: "dianezhou96@gmail.com",
+    from: "dianez.mit@gmail.com",
+    subject: "SFIT x lululemon",
+    text: "This is your secret login link to our shop! Please do not share it with those you do not wish to have access to your account.",
+  };
+  let code = 200;
+  try {
+    const response = await sgMail.send(msg);
+    code = response[0].statusCode;
+    console.log(code);
+  } catch (error) {
+    console.log(error);
+    code = 500;
+  }
+  res.sendStatus(code);
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

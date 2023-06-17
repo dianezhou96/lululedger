@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -33,7 +32,11 @@
 }
 
 .ant-layout-content {
-  overflow: hidden;
+  overflow: scroll;
+}
+
+.ant-card-cover {
+  height: 360px;
 }
 
 /* TODO put this in a better place in the future */

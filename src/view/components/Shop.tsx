@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "../../types";
+import { CartSelector } from "./CartSelector";
 import { ProductCard } from "./ProductCard";
+
+const GAP = 10;
 
 export const Shop: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -22,5 +25,16 @@ export const Shop: React.FC = () => {
     <ProductCard key={product.id} product={product} />
   ));
 
-  return <>{cards}</>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexWrap: "wrap",
+        gap: GAP,
+        margin: GAP,
+      }}
+    >
+      {cards}
+    </div>
+  );
 };

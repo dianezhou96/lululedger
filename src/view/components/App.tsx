@@ -6,7 +6,7 @@ import { Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { CartView } from "./Cart";
-// import { Cart } from "./Cart";
+import { CartSelector } from "./CartSelector";
 const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
@@ -19,7 +19,10 @@ const App = () => {
       <div className="App">
         <Layout>
           <Sider breakpoint="lg" collapsedWidth="0" width="12rem">
-            <h2 style={{ color: "#f5f5f5" }} className="logo">
+            <h2
+              style={{ color: "#f5f5f5", textAlign: "center" }}
+              className="logo"
+            >
               lululedger
             </h2>
             <Nav />
@@ -27,15 +30,17 @@ const App = () => {
           <Layout>
             <Header
               style={{
-                padding: 0,
+                padding: 20,
                 background: colorBgContainer,
                 display: "flex",
-                justifyContent: "center",
                 alignItems: "center",
                 borderBottom: "solid #f5f5f5",
               }}
             >
-              <h3>SFIT x Lululemon Fundraiser June 2023</h3>
+              <h2 style={{ lineHeight: "1.2em" }}>
+                SFIT x Lululemon Fundraiser June 2023
+              </h2>
+              <CartSelector />
             </Header>
             <Content style={{}}>
               <Routes>

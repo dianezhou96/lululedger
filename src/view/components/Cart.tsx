@@ -1,4 +1,4 @@
-import { Table, TableColumnType } from "antd";
+import { Empty, Table, TableColumnType } from "antd";
 import { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { Cart } from "../../types";
@@ -15,24 +15,20 @@ type RecordType = {
 };
 
 export const CartView: React.FC = () => {
+  const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<Cart>();
 
   useEffect(() => {
     const fetchCart = async () => {
       const cart = await fetch("/shop/cart/1").then((data) => data.json());
       setCart(cart);
+      setLoading(false);
     };
     fetchCart();
   }, []);
 
   console.log("CART");
   console.log(cart);
-
-  // const cards = products.map((product) => (
-  //   <ProductCard key={product.id} product={product} />
-  // ));
-
-  // return <>{cards}</>;
 
   const dataSource: RecordType[] =
     cart?.cart_items.map((cartItem, idx) => {
@@ -91,6 +87,12 @@ export const CartView: React.FC = () => {
       dataSource={dataSource}
       columns={columns}
       pagination={false}
+      loading={loading}
+      locale={{
+        emptyText: (
+          <Empty description="Cart is empty. Add items from the shop!" />
+        ),
+      }}
       summary={(data) => {
         let totalQty = 0;
         let subtotal = 0;
@@ -100,7 +102,7 @@ export const CartView: React.FC = () => {
         });
         const fee = subtotal * 0.1;
         const totalDue = subtotal + fee;
-        return (
+        return totalQty ? (
           <>
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={4} align="right" />
@@ -132,6 +134,8 @@ export const CartView: React.FC = () => {
               </Table.Summary.Cell>
             </Table.Summary.Row>
           </>
+        ) : (
+          <></>
         );
       }}
     />
