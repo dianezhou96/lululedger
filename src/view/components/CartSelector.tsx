@@ -1,13 +1,8 @@
 import { Button, Divider, Input, Select, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Cart } from "../../types";
+import { Cart, CartPost } from "../../types";
 import { PlusOutlined } from "@ant-design/icons";
-
-type Option = {
-  value: string;
-  label: string;
-};
 
 interface CartSelectorProps {
   carts: Cart[];
@@ -36,18 +31,7 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
       setLoading(false);
     };
     fetchCarts();
-    console.log("CARTS", carts);
-  }, []);
-
-  const [name, setName] = useState("");
-  const onNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const addItem = (e) => {
-    e.preventDefault();
-    console.log("NEW CART NAME", name);
-    setName("");
-  };
+  }, [searchParams]);
 
   useEffect(() => {
     setCartSelected(searchParams.get("cart"));
@@ -56,6 +40,31 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
   const handleCartChange = (value: string) => {
     searchParams.set("cart", value);
     setSearchParams(searchParams);
+  };
+
+  // Set up for adding new cart
+  const [name, setName] = useState("");
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+
+  const addCart = async (cart: CartPost) => {
+    const response = await fetch("/shop/carts", {
+      method: "POST",
+      body: JSON.stringify(cart),
+      headers: {
+        "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+    console.log(response);
+  };
+
+  const addItem = (e) => {
+    e.preventDefault();
+    console.log("NEW CART NAME", name);
+    addCart({ name: name });
+    setName("");
   };
 
   return (

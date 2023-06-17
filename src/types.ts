@@ -29,6 +29,10 @@ export type Cart = {
   }[];
 };
 
+export type CartPost = {
+  name: string;
+};
+
 export type CartItemPost = {
   cart: number; //id
   item: number; //id
