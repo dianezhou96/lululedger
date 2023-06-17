@@ -14,7 +14,7 @@ const COVER_HEIGHT = 360;
 interface ProductCardProps {
   product: Product;
   carts: Cart[];
-  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = (props) => {

@@ -11,11 +11,14 @@ interface FormValues {
 interface AddToCartFormProps {
   product: Product;
   carts: Cart[];
-  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
-  const { product } = props;
+export const AddToCartForm: React.FC<AddToCartFormProps> = ({
+  product,
+  carts,
+  setCartDirty,
+}) => {
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
 
@@ -45,6 +48,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
         quantity: value,
       });
     }
+    setCartDirty(true);
   };
 
   return (
@@ -55,7 +59,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
         ) : (
           <b style={{ color: "red" }}>Select a cart to add items to</b>
         )}
-        <CartSelector {...props} />
+        <CartSelector carts={carts} />
       </div>
       <Form
         form={form}
