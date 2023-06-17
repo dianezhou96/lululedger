@@ -1,23 +1,26 @@
 import React, { useMemo } from "react";
 import { Button, Form, InputNumber } from "antd";
-import { CartItemPost, Product } from "../../types";
+import { Cart, CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
 
 interface FormValues {
-  [key: string]: number;
+  [key: number]: number;
 }
 
 interface AddToCartFormProps {
   product: Product;
+  carts: Cart[];
+  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
-export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
+export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
+  const { product } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
 
   const cartId = useMemo(() => {
-    return searchParams.get("cart");
+    return Number(searchParams.get("cart"));
   }, [searchParams]);
 
   const addItemToCart = async (cartItem: CartItemPost) => {
@@ -38,7 +41,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
     for (const [key, value] of Object.entries(values)) {
       addItemToCart({
         cart: cartId,
-        item: key,
+        item: Number(key),
         quantity: value,
       });
     }
@@ -49,7 +52,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       {!cartId && (
         <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
           <b style={{ color: "red" }}>Select a cart to add items</b>
-          <CartSelector />
+          <CartSelector {...props} />
         </div>
       )}
       <Form

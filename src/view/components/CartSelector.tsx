@@ -1,6 +1,8 @@
-import { Select } from "antd";
+import { Button, Divider, Input, Select, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { Cart } from "../../types";
+import { PlusOutlined } from "@ant-design/icons";
 
 type Option = {
   value: string;
@@ -8,13 +10,14 @@ type Option = {
 };
 
 interface CartSelectorProps {
-  label?: string;
+  carts: Cart[];
+  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
 export const CartSelector: React.FC<CartSelectorProps> = ({
-  label = "Select a cart",
+  carts,
+  setCarts,
 }) => {
-  const [carts, setCarts] = useState<Option[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [cartSelected, setCartSelected] = useState<string | null>(
@@ -23,21 +26,28 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
 
   useEffect(() => {
     const fetchCarts = async () => {
-      const data = await fetch("/shop/carts", {
+      const carts = await fetch("/shop/carts", {
         method: "GET",
         headers: {
           Credential: searchParams.get("credential") ?? "",
         },
       }).then((data) => data.json());
-      const carts: Option[] = data.map((cart) => ({
-        value: cart.id.toString(),
-        label: cart.name,
-      }));
       setCarts(carts);
       setLoading(false);
     };
     fetchCarts();
+    console.log("CARTS", carts);
   }, []);
+
+  const [name, setName] = useState("");
+  const onNameChange = (event) => {
+    setName(event.target.value);
+  };
+  const addItem = (e) => {
+    e.preventDefault();
+    console.log("NEW CART NAME", name);
+    setName("");
+  };
 
   useEffect(() => {
     setCartSelected(searchParams.get("cart"));
@@ -48,16 +58,39 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
     setSearchParams(searchParams);
   };
 
-  console.log("CARTS", carts);
-
   return (
     <Select
       loading={loading}
-      options={carts}
+      options={carts.map((cart) => ({
+        value: cart.id.toString(),
+        label: cart.name,
+      }))}
       value={cartSelected}
-      placeholder={label}
+      placeholder="Select a cart"
       onChange={handleCartChange}
-      style={{ width: 150 }}
+      style={{ width: 180 }}
+      dropdownRender={(menu) => (
+        <>
+          {menu}
+          <Divider
+            style={{
+              margin: "8px 0",
+            }}
+          />
+          <Space
+            style={{
+              padding: "0 8px 4px",
+            }}
+          >
+            <Input
+              placeholder="New cart for..."
+              value={name}
+              onChange={onNameChange}
+            />
+            <Button icon={<PlusOutlined />} onClick={addItem} />
+          </Space>
+        </>
+      )}
     />
   );
 };

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Product } from "../../types";
+import { Cart, Product } from "../../types";
 import { ProductCard } from "./ProductCard";
 
 const GAP = 10;
 
-export const Shop: React.FC = () => {
+interface ShopProps {
+  carts: Cart[];
+  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
+}
+
+export const Shop: React.FC<ShopProps> = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -15,13 +20,12 @@ export const Shop: React.FC = () => {
       setProducts(products);
     };
     fetchProducts();
+    console.log("PRODUCTS");
+    console.log(products);
   }, []);
 
-  console.log("PRODUCTS");
-  console.log(products);
-
   const cards = products.map((product) => (
-    <ProductCard key={product.id} product={product} />
+    <ProductCard key={product.id} product={product} {...props} />
   ));
 
   return (

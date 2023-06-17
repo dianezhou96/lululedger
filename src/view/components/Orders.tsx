@@ -4,25 +4,15 @@ import { useSearchParams } from "react-router-dom";
 import { Cart } from "../../types";
 import { CartTable } from "./CartTable";
 
-export const Orders: React.FC = () => {
-  const [carts, setCarts] = useState<Cart[]>([]);
+interface OrdersProps {
+  carts: Cart[];
+}
+
+export const Orders: React.FC<OrdersProps> = ({ carts }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [cartSelected, setCartSelected] = useState<string | null>(
     searchParams.get("cart")
   );
-
-  useEffect(() => {
-    const fetchCarts = async () => {
-      const carts = await fetch("/shop/carts", {
-        method: "GET",
-        headers: {
-          Credential: searchParams.get("credential") ?? "",
-        },
-      }).then((data) => data.json());
-      setCarts(carts);
-    };
-    fetchCarts();
-  }, []);
 
   useEffect(() => {
     setCartSelected(searchParams.get("cart"));

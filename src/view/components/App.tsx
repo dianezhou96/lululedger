@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  useSearchParams,
+} from "react-router-dom";
 import { Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
@@ -9,6 +14,7 @@ import { Orders } from "./Orders";
 import { CartSelector } from "./CartSelector";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { AccountForm } from "./Account";
+import { Cart } from "../../types";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -16,6 +22,7 @@ const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  const [carts, setCarts] = useState<Cart[]>([]);
 
   return (
     <Router>
@@ -46,13 +53,16 @@ const App = () => {
               <ShoppingCartOutlined
                 style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
               />
-              <CartSelector />
+              <CartSelector carts={carts} setCarts={setCarts} />
             </Header>
             <Content style={{}}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/orders" element={<Orders />} />
+                <Route
+                  path="/shop"
+                  element={<Shop carts={carts} setCarts={setCarts} />}
+                />
+                <Route path="/orders" element={<Orders carts={carts} />} />
                 <Route path="/account" element={<AccountForm />} />
               </Routes>
             </Content>

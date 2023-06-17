@@ -6,16 +6,19 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Empty, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
-import { Product } from "../../types";
+import { Cart, Product } from "../../types";
 
 const COVER_WIDTH = 300;
 const COVER_HEIGHT = 360;
 
 interface ProductCardProps {
   product: Product;
+  carts: Cart[];
+  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = (props) => {
+  const { product } = props;
   const imageLinks = product.product_images;
   const priceString = getPriceDescription(product);
   return (
@@ -53,7 +56,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       }
       actions={[
         <Popover
-          content={<AddToCartForm product={product} />}
+          content={<AddToCartForm {...props} />}
           title={`Add ${product.name} ($${getPrice(product)}) to cart`}
           trigger="click"
         >
