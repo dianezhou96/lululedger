@@ -1,10 +1,11 @@
 import express = require("express");
+import morgan = require("morgan");
+import sgMail = require("@sendgrid/mail");
+import qs = require("qs");
 import { Request, Response, urlencoded } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { Cart, CartItemPost, Product } from "../types";
-import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "./config";
-import qs = require("qs");
 import { CartFragment, ItemFragment, ProductFragment } from "./queryFragments";
 import { resolveCart, resolveProduct } from "./resolvers";
 
@@ -14,10 +15,15 @@ const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 sgMail.setApiKey(SG_API_KEY);
 
+// logging
+app.use(morgan("dev"));
+
 // import routes
 const shop_routes = require("./routes/shop");
+const auth_routes = require("./routes/auth");
 // set up routes
 app.use("/shop", shop_routes);
+app.use("/auth", auth_routes);
 
 // middleware
 app.use(express.static("public"));
