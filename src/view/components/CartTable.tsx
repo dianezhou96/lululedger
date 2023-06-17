@@ -1,9 +1,8 @@
 import { Empty, Table, TableColumnType } from "antd";
 import { ColumnType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
-import { useSearchParams } from "react-router-dom";
 
 type RecordType = {
   key: number;
@@ -15,50 +14,31 @@ type RecordType = {
   totalPrice: number;
 };
 
-export const CartView: React.FC = () => {
-  const [loading, setLoading] = useState(true);
-  const [cart, setCart] = useState<Cart>();
-  const [searchParams] = useSearchParams();
+interface CartTableProps {
+  cart: Cart;
+}
 
-  useEffect(() => {
-    const fetchCart = async (cartId) => {
-      const cart = await fetch(`/shop/cart/${cartId}`).then((data) =>
-        data.json()
-      );
-      setCart(cart);
+export const CartTable: React.FC<CartTableProps> = ({ cart }) => {
+  const dataSource: RecordType[] = cart.cart_items.map((cartItem, idx) => {
+    const product = cartItem.item.product;
+    const productElement = product.link ? (
+      <a href={product.link} target="_blank">
+        {product.name}
+      </a>
+    ) : (
+      <span>{product.name}</span>
+    );
+    const price = getPrice(product);
+    return {
+      key: idx,
+      product: productElement,
+      color: cartItem.item.color,
+      size: cartItem.item.size,
+      price: price,
+      quantity: cartItem.quantity,
+      totalPrice: price * cartItem.quantity,
     };
-    const cartId = searchParams.get("cart");
-    if (cartId) {
-      fetchCart(cartId);
-    }
-    setLoading(false);
-  }, [searchParams]);
-
-  console.log("CART");
-  console.log(cart);
-
-  const dataSource: RecordType[] | undefined = cart?.cart_items.map(
-    (cartItem, idx) => {
-      const product = cartItem.item.product;
-      const productElement = product.link ? (
-        <a href={product.link} target="_blank">
-          {product.name}
-        </a>
-      ) : (
-        <span>{product.name}</span>
-      );
-      const price = getPrice(product);
-      return {
-        key: idx,
-        product: productElement,
-        color: cartItem.item.color,
-        size: cartItem.item.size,
-        price: price,
-        quantity: cartItem.quantity,
-        totalPrice: price * cartItem.quantity,
-      };
-    }
-  );
+  });
 
   const columns: ColumnType<RecordType>[] = ["Product", "Color", "Size"].map(
     (title) => ({
@@ -93,16 +73,9 @@ export const CartView: React.FC = () => {
       dataSource={dataSource}
       columns={columns}
       pagination={false}
-      loading={loading}
       locale={{
         emptyText: (
-          <Empty
-            description={
-              dataSource
-                ? "Cart is empty. Add items from the shop!"
-                : "Pick a cart to view."
-            }
-          />
+          <Empty description={"Cart is empty. Add items from the shop!"} />
         ),
       }}
       summary={(data) => {

@@ -59,12 +59,12 @@ router.post("/cart-items", async (req: Request, res: Response) => {
 
 // Get carts by buyer
 router.get("/carts", async (req: Request, res: Response) => {
-  const query = qs.stringify({
+  const query = {
+    ...CartFragment,
     filters: {
       buyer: req.query.buyer,
     },
-    CartFragment,
-  });
+  };
   const data = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
     method: "GET",
     headers: { Authorization: API_TOKEN },

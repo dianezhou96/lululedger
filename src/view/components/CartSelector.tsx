@@ -7,7 +7,13 @@ type Option = {
   label: string;
 };
 
-export const CartSelector: React.FC = () => {
+interface CartSelectorProps {
+  label?: string;
+}
+
+export const CartSelector: React.FC<CartSelectorProps> = ({
+  label = "Select a cart",
+}) => {
   const [carts, setCarts] = useState<Option[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,8 +36,11 @@ export const CartSelector: React.FC = () => {
     fetchCarts();
   }, []);
 
+  useEffect(() => {
+    setCartSelected(searchParams.get("cart"));
+  }, [searchParams]);
+
   const handleCartChange = (value: string) => {
-    setCartSelected(value);
     searchParams.set("cart", value);
     setSearchParams(searchParams);
   };
@@ -43,7 +52,7 @@ export const CartSelector: React.FC = () => {
       loading={loading}
       options={carts}
       value={cartSelected}
-      placeholder={"Select a cart"}
+      placeholder={label}
       onChange={handleCartChange}
       style={{ width: 150, marginLeft: "auto" }}
     />

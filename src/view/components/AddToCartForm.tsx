@@ -13,7 +13,7 @@ interface AddToCartFormProps {
 
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
   const [form] = Form.useForm();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const cartId = useMemo(() => {
     return searchParams.get("cart");
@@ -75,8 +75,10 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       })}
 
       <Form.Item>
-        <span style={{ marginRight: 5 }}>
-          {!cartId && <b>Select a cart to add items</b>}
+        <span style={{ marginRight: 10 }}>
+          {!cartId && (
+            <b style={{ color: "red" }}>Select a cart to add items</b>
+          )}
         </span>
         <Button type="primary" htmlType="submit">
           Submit

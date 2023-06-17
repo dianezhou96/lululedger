@@ -5,16 +5,14 @@ import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
-import { CartView } from "./Cart";
+import { Orders } from "./Orders";
 import { CartSelector } from "./CartSelector";
-import { useLocation } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  // const location = useLocation();
 
   return (
     <Router>
@@ -48,7 +46,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
-                <Route path="/orders" element={<CartView />} />
+                <Route path="/orders" element={<Orders />} />
               </Routes>
             </Content>
             <Footer
