@@ -99,6 +99,22 @@ router.get(
 );
 
 /*
+Looks up an authenticated user in the DB and returns the record
+*/
+router.get(
+  "/user",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer) {
+      res.status(403).end();
+      return;
+    }
+    const [status, user] = await get_user_record(req.buyer.email);
+    res.status(status).json(user);
+  }
+);
+
+/*
 Check whether a JSON string is valid, expects:
   - str: a string representing a JSON object
 */
@@ -147,7 +163,7 @@ async function user_authenticated(req, res, next) {
   console.log(req.headers);
   const credentials = atob(req.get("Credential")); //decode
   if (!is_json(credentials)) {
-    console.log("Invalid encountered");
+    console.log("Invalid credential encountered");
     // end early
     console.log("Authentication failed");
     res.status(403).json(false);
