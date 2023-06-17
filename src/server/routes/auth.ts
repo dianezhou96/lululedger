@@ -9,6 +9,8 @@ import qs = require("qs");
 import { BuyerFragment } from "../queryFragments";
 import { resolveCart, resolveProduct } from "../resolvers";
 
+sgMail.setApiKey(SG_API_KEY);
+
 const router = express.Router();
 router.use(express.json());
 
@@ -44,6 +46,8 @@ router.post("/signup", async (req: Request, res: Response) => {
     magic_token: record.magic_token,
   };
   const status = response.status;
+  if (status == 200)
+    send_magic_link(record.email, btoa(JSON.stringify(credential)));
   res
     .status(status)
     .json(status == 200 ? btoa(JSON.stringify(credential)) : ""); // only send magic link upon first adding
@@ -163,4 +167,29 @@ async function user_authenticated(req, res, next) {
   }
 }
 
+async function send_magic_link(email, credential) {
+  const msg = {
+    trackingSettings: {
+      clickTracking: {
+        enable: false,
+        enableText: false,
+      },
+    },
+    to: email,
+    from: "dianez.mit@gmail.com",
+    subject: "SFIT x lululemon",
+    text:
+      "This is your secret login link to our shop! Please do not share it with those you do not wish to have access to your account.\nhttp://localhost:3123/#/shop?credential=" +
+      credential,
+  };
+  let code = 200;
+  try {
+    const response = await sgMail.send(msg);
+    code = response[0].statusCode;
+    console.log(code);
+  } catch (error) {
+    console.log(error);
+    code = 500;
+  }
+}
 module.exports = { router: router, user_authenticated: user_authenticated };
