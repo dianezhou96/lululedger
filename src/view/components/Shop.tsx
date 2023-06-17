@@ -6,7 +6,7 @@ const GAP = 10;
 
 interface ShopProps {
   carts: Cart[];
-  setCarts: React.Dispatch<React.SetStateAction<Cart[]>>;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const Shop: React.FC<ShopProps> = (props) => {
@@ -19,8 +19,6 @@ export const Shop: React.FC<ShopProps> = (props) => {
 
   useEffect(() => {
     fetchProducts();
-    console.log("PRODUCTS");
-    console.log(products);
   }, []);
 
   const cards = products.map((product) => (
