@@ -3,9 +3,11 @@ import { Button, Form, Input, InputNumber, Select } from "antd";
 import { AccountPost, SKATER_TEAMS } from "../../types";
 import { useSearchParams } from "react-router-dom";
 
-export const AccountForm: React.FC = () => {
+export const Account: React.FC = () => {
   const [form] = Form.useForm();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const credential = searchParams.get("credential");
 
   const signUp = async (account: AccountPost) => {
     const credential = await fetch("/auth/signup", {
@@ -25,7 +27,15 @@ export const AccountForm: React.FC = () => {
     signUp(values);
   };
 
-  return (
+  return credential ? (
+    <div style={{ textAlign: "center" }}>
+      <h2>Welcome!</h2>
+      <p>Your email: </p>
+      <p>Skater: </p>
+      <p>Team: </p>
+      <p>Contact X if you have any questions or concerns.</p>
+    </div>
+  ) : (
     <Form
       form={form}
       style={{

@@ -13,7 +13,7 @@ import { Shop } from "./Shop";
 import { Orders } from "./Orders";
 import { CartSelector } from "./CartSelector";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { AccountForm } from "./Account";
+import { Account } from "./Account";
 import { Cart } from "../../types";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -63,7 +63,7 @@ const App = () => {
                   element={<Shop carts={carts} setCarts={setCarts} />}
                 />
                 <Route path="/orders" element={<Orders carts={carts} />} />
-                <Route path="/account" element={<AccountForm />} />
+                <Route path="/account" element={<Account />} />
               </Routes>
             </Content>
             <Footer

@@ -54,19 +54,18 @@ export default function Nav() {
         <span>Account</span>
         <Link
           to={"/account"}
-          // onClick={(e) => {
-          //   e.preventDefault();
-          //   const credential = searchParams.get("credential");
-          //   if (credential) {
-          //     setSearchParams({ credential: credential }, { replace: true });
-          //   } else {
-          //     setSearchParams({}, { replace: true });
-          //   }
-          //   navigate({
-          //     pathname: "/account",
-          //     search: searchParams.toString(),
-          //   });
-          // }}
+          onClick={(e) => {
+            e.preventDefault();
+            const credential = searchParams.get("credential");
+            const newSearchParams: any = credential
+              ? { credential: credential }
+              : {};
+            setSearchParams(newSearchParams, { replace: true });
+            navigate({
+              pathname: "/account",
+              search: credential ? `?credential=${credential}` : "",
+            });
+          }}
         />
       </Menu.Item>
     </Menu>
