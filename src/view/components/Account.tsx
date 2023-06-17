@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { Button, Form, Input, InputNumber, Select } from "antd";
+import React from "react";
+import { Button, Form, Input, Select } from "antd";
 import { AccountPost, SKATER_TEAMS } from "../../types";
 import { useSearchParams } from "react-router-dom";
 
