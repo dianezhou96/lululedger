@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Cart } from "../../types";
 
@@ -15,10 +15,15 @@ export const CartSelector: React.FC = () => {
         data.json()
       );
       setCarts(carts);
-      setCartSelected(carts[0].id);
       setLoading(false);
     };
     fetchCarts();
+  }, []);
+
+  const handleCartChange = useCallback((cartId) => {
+    setCartSelected(cartId);
+    searchParams.set("cart", cartId);
+    setSearchParams(searchParams);
   }, []);
 
   console.log("CARTS", carts);
@@ -31,7 +36,8 @@ export const CartSelector: React.FC = () => {
         label: cart.name,
       }))}
       value={cartSelected}
-      onChange={setCartSelected}
+      placeholder={"Select a cart"}
+      onChange={handleCartChange}
       style={{ width: 150, marginLeft: "auto" }}
     />
   );
