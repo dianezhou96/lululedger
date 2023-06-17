@@ -6,8 +6,12 @@ import { Request, Response, urlencoded } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { Cart, CartItemPost, Product } from "../types";
 import { API_TOKEN, API_URI, SG_API_KEY } from "./config";
-import { CartFragment, ItemFragment, ProductFragment } from "./queryFragments";
-import { resolveCart, resolveProduct } from "./resolvers";
+import {
+  CartFragment,
+  ItemFragment,
+  ProductFragment,
+} from "./utils/queryFragments";
+import { resolveCart, resolveProduct } from "./utils/resolvers";
 
 const app = express();
 const port = 3123;

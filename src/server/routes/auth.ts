@@ -3,13 +3,11 @@ import { v4 as uuidv4 } from "uuid";
 import { Request, Response, urlencoded } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { Cart, CartItemPost, Product } from "../../types";
-import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
-import { BuyerFragment } from "../queryFragments";
-import { resolveCart, resolveProduct } from "../resolvers";
-
-sgMail.setApiKey(SG_API_KEY);
+import { BuyerFragment } from "../utils/queryFragments";
+import { resolveCart, resolveProduct } from "../utils/resolvers";
+import { send_magic_link } from "../utils/email";
 
 const router = express.Router();
 router.use(express.json());
@@ -167,29 +165,4 @@ async function user_authenticated(req, res, next) {
   }
 }
 
-async function send_magic_link(email, credential) {
-  const msg = {
-    trackingSettings: {
-      clickTracking: {
-        enable: false,
-        enableText: false,
-      },
-    },
-    to: email,
-    from: "dianez.mit@gmail.com",
-    subject: "SFIT x lululemon",
-    text:
-      "This is your secret login link to our shop! Please do not share it with those you do not wish to have access to your account.\nhttp://localhost:3123/#/shop?credential=" +
-      credential,
-  };
-  let code = 200;
-  try {
-    const response = await sgMail.send(msg);
-    code = response[0].statusCode;
-    console.log(code);
-  } catch (error) {
-    console.log(error);
-    code = 500;
-  }
-}
 module.exports = { router: router, user_authenticated: user_authenticated };

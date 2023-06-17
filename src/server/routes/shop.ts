@@ -5,8 +5,12 @@ import { Cart, CartItemPost, Product } from "../../types";
 import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
-import { CartFragment, ItemFragment, ProductFragment } from "../queryFragments";
-import { resolveCart, resolveProduct } from "../resolvers";
+import {
+  CartFragment,
+  ItemFragment,
+  ProductFragment,
+} from "../utils/queryFragments";
+import { resolveCart, resolveProduct } from "../utils/resolvers";
 
 const user_authenticated = require("./auth").user_authenticated;
 

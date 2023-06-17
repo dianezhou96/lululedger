@@ -1,4 +1,4 @@
-import { Cart, Item, Product, ProductMetadata } from "../types";
+import { Cart, Item, Product, ProductMetadata } from "../../types";
 
 export function resolveItem(item): Item {
   return {
