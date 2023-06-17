@@ -24,8 +24,8 @@ export const AccountForm: React.FC = () => {
   };
 
   const onSubmit = (values: AccountPost) => {
-    console.log(values);
-    // signUp(values);
+    // console.log(values);
+    signUp(values);
   };
 
   return (
