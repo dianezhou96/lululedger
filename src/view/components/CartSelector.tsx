@@ -44,7 +44,7 @@ export const CartSelector: React.FC<CartSelectorProps> = ({ carts }) => {
   const addCart = (e) => {
     e.preventDefault();
     console.log("NEW CART NAME", name);
-    addCart({ name: name });
+    postCart({ name: name });
     setName("");
   };
 

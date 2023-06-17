@@ -15,7 +15,7 @@ export const Account: React.FC = () => {
       body: JSON.stringify(account),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
+        Credential: searchParams.get("credential") ?? "", // TODO: WHY IS THIS NEEDED
       },
     }).then((data) => data.json());
     searchParams.set("credential", credential);
