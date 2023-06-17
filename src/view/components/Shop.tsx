@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Product } from "../../types";
-import { CartSelector } from "./CartSelector";
 import { ProductCard } from "./ProductCard";
 
 const GAP = 10;

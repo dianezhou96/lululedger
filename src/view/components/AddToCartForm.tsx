@@ -1,19 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Form, InputNumber, Popover, Table } from "antd";
+import React, { useMemo } from "react";
+import { Button, Form, InputNumber } from "antd";
 import { CartItemPost, Product } from "../../types";
-
-interface AddToCartFormProps {
-  product: Product;
-}
+import { useSearchParams } from "react-router-dom";
 
 interface FormValues {
   [key: string]: number;
 }
 
+interface AddToCartFormProps {
+  product: Product;
+}
+
 export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
   const [form] = Form.useForm();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const addItemToCart = useCallback(async (cartItem: CartItemPost) => {
+  const cartId = useMemo(() => {
+    return searchParams.get("cart");
+  }, [searchParams]);
+
+  const addItemToCart = async (cartItem: CartItemPost) => {
     await fetch("/shop/cart-items", {
       method: "POST",
       body: JSON.stringify(cartItem),
@@ -21,17 +27,20 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
         "Content-Type": "application/json",
       },
     });
-  }, []);
+  };
 
-  const onSubmit = useCallback((values: FormValues) => {
+  const onSubmit = (values: FormValues) => {
+    if (!cartId) {
+      return;
+    }
     for (const [key, value] of Object.entries(values)) {
       addItemToCart({
-        cart: "1",
+        cart: cartId,
         item: key,
         quantity: value,
       });
     }
-  }, []);
+  };
 
   return (
     <Form
@@ -47,6 +56,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       onFinish={onSubmit}
       // onFinishFailed={onFinishFailed}
       autoComplete="off"
+      disabled={!cartId}
     >
       {product.items.map((item, idx) => {
         const colorSizeString =
@@ -65,6 +75,9 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({ product }) => {
       })}
 
       <Form.Item>
+        <span style={{ marginRight: 5 }}>
+          {!cartId && <b>Select a cart to add items</b>}
+        </span>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>

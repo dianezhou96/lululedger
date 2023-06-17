@@ -7,12 +7,14 @@ import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { CartView } from "./Cart";
 import { CartSelector } from "./CartSelector";
+import { useLocation } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  // const location = useLocation();
 
   return (
     <Router>

@@ -3,6 +3,8 @@ import { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { CartSelector } from "./CartSelector";
 
 type RecordType = {
   key: number;
@@ -83,61 +85,64 @@ export const CartView: React.FC = () => {
   });
 
   return (
-    <Table
-      dataSource={dataSource}
-      columns={columns}
-      pagination={false}
-      loading={loading}
-      locale={{
-        emptyText: (
-          <Empty description="Cart is empty. Add items from the shop!" />
-        ),
-      }}
-      summary={(data) => {
-        let totalQty = 0;
-        let subtotal = 0;
-        data.forEach(({ quantity, totalPrice }) => {
-          totalQty += quantity;
-          subtotal += totalPrice;
-        });
-        const fee = subtotal * 0.1;
-        const totalDue = subtotal + fee;
-        return totalQty ? (
-          <>
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={4} align="right" />
-              <Table.Summary.Cell index={1} align="right">
-                <b>{totalQty}</b>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={2} align="right">
-                <b>{getPriceString(subtotal, 2)}</b>
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={5} align="right">
-                Estimated tax + shipping (10%)
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={1} align="right">
-                {getPriceString(fee, 2)}
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={5} align="right">
-                <u>
-                  <b>Estimated total due</b>
-                </u>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={1} align="right">
-                <u>
-                  <b>{getPriceString(totalDue, 2)}</b>
-                </u>
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
-          </>
-        ) : (
-          <></>
-        );
-      }}
-    />
+    <>
+      {/* <CartSelector /> */}
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        pagination={false}
+        loading={loading}
+        locale={{
+          emptyText: (
+            <Empty description="Cart is empty. Add items from the shop!" />
+          ),
+        }}
+        summary={(data) => {
+          let totalQty = 0;
+          let subtotal = 0;
+          data.forEach(({ quantity, totalPrice }) => {
+            totalQty += quantity;
+            subtotal += totalPrice;
+          });
+          const fee = subtotal * 0.1;
+          const totalDue = subtotal + fee;
+          return totalQty ? (
+            <>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={4} align="right" />
+                <Table.Summary.Cell index={1} align="right">
+                  <b>{totalQty}</b>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={2} align="right">
+                  <b>{getPriceString(subtotal, 2)}</b>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={5} align="right">
+                  Estimated tax + shipping (10%)
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} align="right">
+                  {getPriceString(fee, 2)}
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={5} align="right">
+                  <u>
+                    <b>Estimated total due</b>
+                  </u>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} align="right">
+                  <u>
+                    <b>{getPriceString(totalDue, 2)}</b>
+                  </u>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            </>
+          ) : (
+            <></>
+          );
+        }}
+      />
+    </>
   );
 };
