@@ -24,8 +24,8 @@ export const AccountForm: React.FC = () => {
   };
 
   const onSubmit = (values: AccountPost) => {
-    // console.log(values);
-    signUp(values);
+    console.log(values);
+    // signUp(values);
   };
 
   return (
@@ -46,10 +46,10 @@ export const AccountForm: React.FC = () => {
       <Form.Item label="Email" name="email">
         <Input placeholder="Email address" />
       </Form.Item>
-      <Form.Item label="Skater Name" name="name">
+      <Form.Item label="Skater Name" name="skater_name">
         <Input placeholder="Which SFIT skater referred you?" />
       </Form.Item>
-      <Form.Item label="Skater Team" name="team">
+      <Form.Item label="Skater Team" name="skater_team">
         <Select
           placeholder="Which team is the skater on?"
           options={SKATER_TEAMS.map((team) => ({ value: team, label: team }))}

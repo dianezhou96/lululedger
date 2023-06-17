@@ -46,6 +46,6 @@ export type SkaterTeam = (typeof SKATER_TEAMS)[number];
 
 export type AccountPost = {
   email: string;
-  name: string;
-  team: SkaterTeam;
+  skater_name: string;
+  skater_team: SkaterTeam;
 };
