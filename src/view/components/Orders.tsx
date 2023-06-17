@@ -28,6 +28,7 @@ export const Orders: React.FC = () => {
   const handleViewAll = () => {
     searchParams.delete("cart");
     setSearchParams(searchParams);
+    window.scrollTo(0, 0);
   };
 
   return (

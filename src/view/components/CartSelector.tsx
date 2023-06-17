@@ -54,7 +54,7 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
       value={cartSelected}
       placeholder={label}
       onChange={handleCartChange}
-      style={{ width: 150, marginLeft: "auto" }}
+      style={{ width: 150 }}
     />
   );
 };

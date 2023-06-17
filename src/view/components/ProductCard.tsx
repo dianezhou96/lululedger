@@ -1,10 +1,10 @@
 import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
 import React from "react";
-import { DISCOUNT, getPrice, getPriceString } from "../utils";
+import { getPrice, getPriceString } from "../utils";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
-import { Button, Empty, Form, InputNumber, Popover, Table } from "antd";
+import { Empty, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
 import { Product } from "../../types";
 

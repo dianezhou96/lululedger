@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import Nav from "./Nav";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
@@ -7,6 +7,8 @@ import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
 import { CartSelector } from "./CartSelector";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const App = () => {
@@ -40,6 +42,9 @@ const App = () => {
               <h2 style={{ lineHeight: "1.2em" }}>
                 SFIT x Lululemon Fundraiser June 2023
               </h2>
+              <ShoppingCartOutlined
+                style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
+              />
               <CartSelector />
             </Header>
             <Content style={{}}>
