@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
-import { Route, Routes, useSearchParams } from "react-router-dom";
-import { Layout, theme } from "antd";
+import { Link, Route, Routes, useSearchParams } from "react-router-dom";
+import { Button, Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
@@ -10,9 +10,15 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Account } from "./Account";
 import { Cart } from "../../types";
 import { fetchCarts } from "../utils";
-import { LoginButton } from "./LoginButton";
+import { CartSelector } from "./CartSelector";
 
 const { Header, Content, Footer, Sider } = Layout;
+
+export interface CartProps {
+  carts: Cart[];
+  cartSelected: string | null;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const App = () => {
   const {
@@ -20,9 +26,16 @@ const App = () => {
   } = theme.useToken();
   const [searchParams] = useSearchParams();
 
-  const [carts, setCarts] = useState<Cart[]>([]);
-  const [cartDirty, setCartDirty] = useState(false);
   const credential = searchParams.get("credential");
+  const [carts, setCarts] = useState<Cart[]>([]);
+  const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
+  const [cartDirty, setCartDirty] = useState(false);
+
+  const cartProps: CartProps = {
+    carts,
+    cartSelected,
+    setCartDirty,
+  };
 
   const getCarts = async () => {
     if (credential) {
@@ -36,6 +49,10 @@ const App = () => {
     getCarts();
     setCartDirty(false);
   }, [credential, cartDirty]);
+
+  useEffect(() => {
+    setCartSelected(searchParams.get("cart"));
+  }, [searchParams]);
 
   return (
     <div className="App">
@@ -65,15 +82,18 @@ const App = () => {
             <ShoppingCartOutlined
               style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
             />
-            <LoginButton credential={credential} carts={carts} />
+            {credential ? (
+              <CartSelector {...cartProps} />
+            ) : (
+              <Button>
+                <Link to="/account">Sign up to order!</Link>
+              </Button>
+            )}
           </Header>
           <Content style={{}}>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route
-                path="/shop"
-                element={<Shop carts={carts} setCartDirty={setCartDirty} />}
-              />
+              <Route path="/shop" element={<Shop {...cartProps} />} />
               <Route path="/orders" element={<Orders carts={carts} />} />
               <Route path="/account" element={<Account />} />
             </Routes>

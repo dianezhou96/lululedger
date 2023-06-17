@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { Button, Form, InputNumber } from "antd";
-import { Cart, CartItemPost, Product } from "../../types";
+import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
+import { CartProps } from "./App";
 
 interface FormValues {
   [key: number]: number;
@@ -10,15 +11,12 @@ interface FormValues {
 
 interface AddToCartFormProps {
   product: Product;
-  carts: Cart[];
-  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AddToCartForm: React.FC<AddToCartFormProps> = ({
-  product,
-  carts,
-  setCartDirty,
-}) => {
+export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
+  props
+) => {
+  const { product, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
 
@@ -59,7 +57,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = ({
         ) : (
           <b style={{ color: "red" }}>Select a cart to add items to</b>
         )}
-        <CartSelector carts={carts} />
+        <CartSelector {...props} />
       </div>
       <Form
         form={form}

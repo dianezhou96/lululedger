@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Cart, Product } from "../../types";
+import { Product } from "../../types";
+import { CartProps } from "./App";
 import { ProductCard } from "./ProductCard";
 
 const GAP = 10;
 
-interface ShopProps {
-  carts: Cart[];
-  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const Shop: React.FC<ShopProps> = (props) => {
+export const Shop: React.FC<CartProps> = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
   const fetchProducts = async () => {

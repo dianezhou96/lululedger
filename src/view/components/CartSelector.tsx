@@ -1,22 +1,16 @@
 import { Button, Divider, Input, Select, Space } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Cart, CartPost } from "../../types";
+import { CartPost } from "../../types";
 import { PlusOutlined } from "@ant-design/icons";
+import { CartProps } from "./App";
 
-interface CartSelectorProps {
-  carts: Cart[];
-}
-
-export const CartSelector: React.FC<CartSelectorProps> = ({ carts }) => {
+export const CartSelector: React.FC<CartProps> = ({
+  carts,
+  cartSelected,
+  setCartDirty,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cartSelected, setCartSelected] = useState<string | null>(
-    searchParams.get("cart")
-  );
-
-  useEffect(() => {
-    setCartSelected(searchParams.get("cart"));
-  }, [searchParams]);
 
   const handleCartChange = (value: string) => {
     searchParams.set("cart", value);
@@ -38,13 +32,14 @@ export const CartSelector: React.FC<CartSelectorProps> = ({ carts }) => {
         Credential: searchParams.get("credential") ?? "",
       },
     });
-    console.log(response);
+    const data = await response.json();
+    handleCartChange(data.id.toString());
   };
 
   const addCart = (e) => {
     e.preventDefault();
-    console.log("NEW CART NAME", name);
     postCart({ name: name });
+    setCartDirty(true);
     setName("");
   };
 

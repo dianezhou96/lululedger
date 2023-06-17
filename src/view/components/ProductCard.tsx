@@ -6,18 +6,17 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Empty, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
-import { Cart, Product } from "../../types";
+import { Product } from "../../types";
+import { CartProps } from "./App";
 
 const COVER_WIDTH = 300;
 const COVER_HEIGHT = 360;
 
 interface ProductCardProps {
   product: Product;
-  carts: Cart[];
-  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = (props) => {
+export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
   const { product } = props;
   const imageLinks = product.product_images;
   const priceString = getPriceDescription(product);
