@@ -49,12 +49,14 @@ export const AddToCartForm: React.FC<AddToCartFormProps> = (props) => {
 
   return (
     <>
-      {!cartId && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-          <b style={{ color: "red" }}>Select a cart to add items</b>
-          <CartSelector {...props} />
-        </div>
-      )}
+      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+        {cartId ? (
+          <b>Adding to cart for</b>
+        ) : (
+          <b style={{ color: "red" }}>Select a cart to add items to</b>
+        )}
+        <CartSelector {...props} />
+      </div>
       <Form
         form={form}
         style={{

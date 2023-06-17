@@ -13,24 +13,23 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
   carts,
   setCarts,
 }) => {
-  const [loading, setLoading] = useState(true);
   const [searchParams, setSearchParams] = useSearchParams();
   const [cartSelected, setCartSelected] = useState<string | null>(
     searchParams.get("cart")
   );
 
+  const fetchCarts = async () => {
+    const response = await fetch("/shop/carts", {
+      method: "GET",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+    const carts: Cart[] = response.ok ? await response.json() : [];
+    setCarts(carts);
+  };
+
   useEffect(() => {
-    const fetchCarts = async () => {
-      const response = await fetch("/shop/carts", {
-        method: "GET",
-        headers: {
-          Credential: searchParams.get("credential") ?? "",
-        },
-      });
-      const carts: Cart[] = response.ok ? await response.json() : [];
-      setCarts(carts);
-      setLoading(false);
-    };
     fetchCarts();
   }, [searchParams]);
 
@@ -70,7 +69,6 @@ export const CartSelector: React.FC<CartSelectorProps> = ({
 
   return (
     <Select
-      loading={loading}
       options={carts.map((cart) => ({
         value: cart.id.toString(),
         label: cart.name,

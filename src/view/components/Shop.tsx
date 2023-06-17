@@ -12,13 +12,12 @@ interface ShopProps {
 export const Shop: React.FC<ShopProps> = (props) => {
   const [products, setProducts] = useState<Product[]>([]);
 
+  const fetchProducts = async () => {
+    const products = await fetch("/shop/products").then((data) => data.json());
+    setProducts(products);
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await fetch("/shop/products").then((data) =>
-        data.json()
-      );
-      setProducts(products);
-    };
     fetchProducts();
     console.log("PRODUCTS");
     console.log(products);
