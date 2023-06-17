@@ -3,8 +3,7 @@ import { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
-import { useLocation, useSearchParams } from "react-router-dom";
-import { CartSelector } from "./CartSelector";
+import { useSearchParams } from "react-router-dom";
 
 type RecordType = {
   key: number;
@@ -19,21 +18,27 @@ type RecordType = {
 export const CartView: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState<Cart>();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const fetchCart = async () => {
-      const cart = await fetch("/shop/cart/1").then((data) => data.json());
+    const fetchCart = async (cartId) => {
+      const cart = await fetch(`/shop/cart/${cartId}`).then((data) =>
+        data.json()
+      );
       setCart(cart);
-      setLoading(false);
     };
-    fetchCart();
-  }, []);
+    const cartId = searchParams.get("cart");
+    if (cartId) {
+      fetchCart(cartId);
+    }
+    setLoading(false);
+  }, [searchParams]);
 
   console.log("CART");
   console.log(cart);
 
-  const dataSource: RecordType[] =
-    cart?.cart_items.map((cartItem, idx) => {
+  const dataSource: RecordType[] | undefined = cart?.cart_items.map(
+    (cartItem, idx) => {
       const product = cartItem.item.product;
       const productElement = product.link ? (
         <a href={product.link} target="_blank">
@@ -52,9 +57,8 @@ export const CartView: React.FC = () => {
         quantity: cartItem.quantity,
         totalPrice: price * cartItem.quantity,
       };
-    }) ?? [];
-
-  console.log(dataSource);
+    }
+  );
 
   const columns: ColumnType<RecordType>[] = ["Product", "Color", "Size"].map(
     (title) => ({
@@ -85,64 +89,67 @@ export const CartView: React.FC = () => {
   });
 
   return (
-    <>
-      {/* <CartSelector /> */}
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        pagination={false}
-        loading={loading}
-        locale={{
-          emptyText: (
-            <Empty description="Cart is empty. Add items from the shop!" />
-          ),
-        }}
-        summary={(data) => {
-          let totalQty = 0;
-          let subtotal = 0;
-          data.forEach(({ quantity, totalPrice }) => {
-            totalQty += quantity;
-            subtotal += totalPrice;
-          });
-          const fee = subtotal * 0.1;
-          const totalDue = subtotal + fee;
-          return totalQty ? (
-            <>
-              <Table.Summary.Row>
-                <Table.Summary.Cell index={0} colSpan={4} align="right" />
-                <Table.Summary.Cell index={1} align="right">
-                  <b>{totalQty}</b>
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={2} align="right">
-                  <b>{getPriceString(subtotal, 2)}</b>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell index={0} colSpan={5} align="right">
-                  Estimated tax + shipping (10%)
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={1} align="right">
-                  {getPriceString(fee, 2)}
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-              <Table.Summary.Row>
-                <Table.Summary.Cell index={0} colSpan={5} align="right">
-                  <u>
-                    <b>Estimated total due</b>
-                  </u>
-                </Table.Summary.Cell>
-                <Table.Summary.Cell index={1} align="right">
-                  <u>
-                    <b>{getPriceString(totalDue, 2)}</b>
-                  </u>
-                </Table.Summary.Cell>
-              </Table.Summary.Row>
-            </>
-          ) : (
-            <></>
-          );
-        }}
-      />
-    </>
+    <Table
+      dataSource={dataSource}
+      columns={columns}
+      pagination={false}
+      loading={loading}
+      locale={{
+        emptyText: (
+          <Empty
+            description={
+              dataSource
+                ? "Cart is empty. Add items from the shop!"
+                : "Pick a cart to view."
+            }
+          />
+        ),
+      }}
+      summary={(data) => {
+        let totalQty = 0;
+        let subtotal = 0;
+        data.forEach(({ quantity, totalPrice }) => {
+          totalQty += quantity;
+          subtotal += totalPrice;
+        });
+        const fee = subtotal * 0.1;
+        const totalDue = subtotal + fee;
+        return totalQty ? (
+          <>
+            <Table.Summary.Row>
+              <Table.Summary.Cell index={0} colSpan={4} align="right" />
+              <Table.Summary.Cell index={1} align="right">
+                <b>{totalQty}</b>
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} align="right">
+                <b>{getPriceString(subtotal, 2)}</b>
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+            <Table.Summary.Row>
+              <Table.Summary.Cell index={0} colSpan={5} align="right">
+                Estimated tax + shipping (10%)
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right">
+                {getPriceString(fee, 2)}
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+            <Table.Summary.Row>
+              <Table.Summary.Cell index={0} colSpan={5} align="right">
+                <u>
+                  <b>Estimated total due</b>
+                </u>
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right">
+                <u>
+                  <b>{getPriceString(totalDue, 2)}</b>
+                </u>
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+          </>
+        ) : (
+          <></>
+        );
+      }}
+    />
   );
 };
