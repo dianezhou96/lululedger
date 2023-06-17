@@ -6,17 +6,17 @@ import {
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 export default function Nav() {
   const hrefs = window.location.href.split("/"); // get the current browser URL
   const [href, setHref] = useState("/" + hrefs[3]); // keep this in a state
   const location = useLocation();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setHref(location.pathname); // whenever react-router updates browser URL, update href
-    console.log("NAV LOCATION", location);
   }, [location]);
   return (
     // use href to highlight selected Menu.Item with selectedKeys
@@ -52,7 +52,22 @@ export default function Nav() {
       </Menu.Item>
       <Menu.Item key="/account" icon={React.createElement(SettingOutlined)}>
         <span>Account</span>
-        <Link to="/account" />
+        <Link
+          to={"/account"}
+          // onClick={(e) => {
+          //   e.preventDefault();
+          //   const credential = searchParams.get("credential");
+          //   if (credential) {
+          //     setSearchParams({ credential: credential }, { replace: true });
+          //   } else {
+          //     setSearchParams({}, { replace: true });
+          //   }
+          //   navigate({
+          //     pathname: "/account",
+          //     search: searchParams.toString(),
+          //   });
+          // }}
+        />
       </Menu.Item>
     </Menu>
   );
