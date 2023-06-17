@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 
 // import routes
 const shop_routes = require("./routes/shop");
-const auth_routes = require("./routes/auth");
+const auth_routes = require("./routes/auth").router;
 // set up routes
 app.use("/shop", shop_routes);
 app.use("/auth", auth_routes);

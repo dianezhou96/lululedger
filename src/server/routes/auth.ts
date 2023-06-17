@@ -135,4 +135,32 @@ async function get_user_record(email) {
   return [response.status, result.length ? result[0] : null];
 }
 
-module.exports = router;
+/*
+Middleware for authenticating user, expects:
+  - request must have a field called "Credential" in header with a string representing the credential
+*/
+async function user_authenticated(req, res, next) {
+  console.log(req.headers);
+  const credentials = atob(req.get("Credential")); //decode
+  if (!is_json(credentials)) {
+    console.log("shitty json encountered");
+    // end early
+    console.log("Authentication failed");
+    res.status(403).json(false);
+    res.end();
+    return;
+  }
+  const { email, magic_token: token } = JSON.parse(credentials);
+  const [status, user] = await get_user_record(email);
+  console.log(user);
+  if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
+    console.log("Authentication success!");
+    next();
+  } else {
+    console.log("Authentication failed");
+    res.status(403).json(false);
+    res.end();
+  }
+}
+
+module.exports = { router: router, user_authenticated: user_authenticated };

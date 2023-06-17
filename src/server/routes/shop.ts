@@ -8,6 +8,8 @@ import qs = require("qs");
 import { CartFragment, ItemFragment, ProductFragment } from "../queryFragments";
 import { resolveCart, resolveProduct } from "../resolvers";
 
+const user_authenticated = require("./auth").user_authenticated;
+
 const router = express.Router();
 router.use(express.json());
 
@@ -45,6 +47,9 @@ router.get("/cart/:id", async (req: Request, res: Response) => {
 
 // Add item to cart
 router.post("/cart-items", async (req: Request, res: Response) => {
+  // check cart ID belongs to buyer
+
+  // add item if good
   const data = await fetch(API_URI + `/cart-items`, {
     method: "POST",
     body: JSON.stringify({ data: req.body }),
@@ -58,21 +63,25 @@ router.post("/cart-items", async (req: Request, res: Response) => {
 });
 
 // Get carts by buyer
-router.get("/carts", async (req: Request, res: Response) => {
-  const query = {
-    ...CartFragment,
-    filters: {
-      buyer: req.query.buyer, // TODO: Change this to be by email/token rather than id
-    },
-  };
-  const data = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
-    .then((data) => data.json())
-    .then((json) => json.data);
-  const retVal: Cart[] = data.map((cart) => resolveCart(cart));
-  res.json(retVal);
-});
+router.get(
+  "/carts",
+  user_authenticated,
+  async (req: Request, res: Response) => {
+    const query = {
+      ...CartFragment,
+      filters: {
+        buyer: req.query.buyer, // TODO: Change this to be by email/token rather than id
+      },
+    };
+    const data = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
+      method: "GET",
+      headers: { Authorization: API_TOKEN },
+    })
+      .then((data) => data.json())
+      .then((json) => json.data);
+    const retVal: Cart[] = data.map((cart) => resolveCart(cart));
+    res.json(retVal);
+  }
+);
 
 module.exports = router;
