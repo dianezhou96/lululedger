@@ -45,6 +45,20 @@ router.get("/cart/:id", async (req: Request, res: Response) => {
   res.json(retVal);
 });
 
+// Add a new cart
+router.post("/carts", async (req: Request, res: Response) => {
+  const data = await fetch(API_URI + `/carts`, {
+    method: "POST",
+    body: JSON.stringify({ data: req.body }), // TODO: Add buyer relationship
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  })
+    .then((data) => {
+      return data.json();
+    })
+    .then((json) => json.data);
+  res.status(200).json(data);
+});
+
 // Add item to cart
 router.post("/cart-items", async (req: Request, res: Response) => {
   // check cart ID belongs to buyer

@@ -16,7 +16,7 @@ export const AccountForm: React.FC = () => {
         Credential: searchParams.get("credential") ?? "",
       },
     }).then((data) => data.json());
-    searchParams.set("credeential", credential);
+    searchParams.set("credential", credential);
     setSearchParams(searchParams);
   };
 
