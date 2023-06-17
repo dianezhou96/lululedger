@@ -34,3 +34,18 @@ export type CartItemPost = {
   item: string;
   quantity: number;
 };
+
+export const SKATER_TEAMS = [
+  "Adult",
+  "Junior",
+  "Novice",
+  "Preliminary",
+  "Alum",
+] as const;
+export type SkaterTeam = (typeof SKATER_TEAMS)[number];
+
+export type AccountPost = {
+  email: string;
+  name: string;
+  team: SkaterTeam;
+};

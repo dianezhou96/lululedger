@@ -3,7 +3,6 @@ import { Button, Form, InputNumber } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 
 interface FormValues {
   [key: string]: number;

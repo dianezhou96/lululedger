@@ -8,6 +8,7 @@ import { Shop } from "./Shop";
 import { Orders } from "./Orders";
 import { CartSelector } from "./CartSelector";
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import { AccountForm } from "./Account";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -52,6 +53,7 @@ const App = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/orders" element={<Orders />} />
+                <Route path="/account" element={<AccountForm />} />
               </Routes>
             </Content>
             <Footer
