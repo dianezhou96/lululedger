@@ -18,6 +18,7 @@ import { Account } from "./Account";
 import { Cart } from "../../types";
 import { fetchCarts } from "../utils";
 import { CartSelector } from "./CartSelector";
+import { Spin } from "antd";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -132,7 +133,11 @@ const App = () => {
                   fontSize: "0.75rem",
                 }}
               >
-                {cartItemCount}
+                {cartDirty ? (
+                  <Spin size="small" style={{ transform: "scale(0.75)" }} />
+                ) : (
+                  cartItemCount
+                )}
               </div>
             </div>
             {credential ? (
