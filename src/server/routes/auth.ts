@@ -116,6 +116,29 @@ router.get(
 );
 
 /*
+Resends a magic link email expects:
+  - a valid email
+triggers a backend action to resend magic link email if email is registered
+*/
+router.get("/resend/:email", async (req: Request, res: Response) => {
+  console.log("got resend email requeset for", req.params.email);
+  const [status, user] = await get_user_record(req.params.email);
+  if (!user) {
+    res.status(403).end();
+    return;
+  }
+  console.log("resending email for", user.attributes.email);
+  const credential = {
+    email: user.attributes.email,
+    magic_token: user.attributes.magic_token,
+  };
+  // const status = response.status;
+  if (status == 200 && user)
+    send_magic_link(user.attributes.email, btoa(JSON.stringify(credential)));
+  res.status(status).end();
+});
+
+/*
 Check whether a JSON string is valid, expects:
   - str: a string representing a JSON object
 */
@@ -139,7 +162,7 @@ async function get_user_record(email) {
   const query = {
     filters: {
       email: {
-        $eq: email,
+        $eq: email instanceof String ? email : "", // TODO make sure this is safe we MUST have email "" if input is invalid
       },
     },
     BuyerFragment,
@@ -151,6 +174,7 @@ async function get_user_record(email) {
   const json = await response.json();
   let result = []; // default to no results in case connection doesn't succeed
   result = json.data;
+  console.log(result);
   return [response.status, result.length ? result[0] : null];
 }
 
