@@ -2,7 +2,7 @@ import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
 import React, { useState } from "react";
 import { getPrice, getPriceString } from "../utils";
-import { PlusCircleOutlined } from "@ant-design/icons";
+import { PlusCircleTwoTone } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Empty, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
@@ -62,7 +62,7 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
           open={open}
           onOpenChange={setOpen}
         >
-          <PlusCircleOutlined />
+          <PlusCircleTwoTone />
         </Popover>,
       ]}
     >

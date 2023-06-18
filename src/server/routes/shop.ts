@@ -101,6 +101,32 @@ router.post(
   }
 );
 
+router.delete(
+  "/carts/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer) return;
+    const carts = await get_carts(req.buyer.id);
+    // check cart ID belongs to buyer
+    const search = carts.find((x) => x.id.toString() === req.params.id);
+    if (!search) {
+      res.status(403).end();
+      return;
+    }
+    console.log("Found cart for user", req.buyer.email, "- deleting cart");
+    // delete cart if good
+    const data = await fetch(API_URI + `/carts/${req.params.id}`, {
+      method: "DELETE",
+      headers: { Authorization: API_TOKEN },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((json) => json.data);
+    res.status(200).json(data);
+  }
+);
+
 // Get carts by buyer
 router.get(
   "/carts",

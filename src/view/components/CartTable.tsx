@@ -1,8 +1,10 @@
-import { Empty, Table, TableColumnType } from "antd";
+import { Button, Empty, Table } from "antd";
 import { ColumnType } from "antd/es/table";
 import React from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
+import { DeleteTwoTone } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
 
 type RecordType = {
   key: number;
@@ -16,9 +18,12 @@ type RecordType = {
 
 interface CartTableProps {
   cart: Cart;
+  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const CartTable: React.FC<CartTableProps> = ({ cart }) => {
+export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
+  const [searchParams] = useSearchParams();
+
   const dataSource: RecordType[] = cart.cart_items.map((cartItem, idx) => {
     const product = cartItem.item.product;
     const productElement = product.link ? (
@@ -68,6 +73,20 @@ export const CartTable: React.FC<CartTableProps> = ({ cart }) => {
     align: "right",
   });
 
+  const deleteCart = async (cartId) => {
+    await fetch(`/shop/carts/${cartId}`, {
+      method: "DELETE",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
+  const handleDeleteOrder = () => {
+    deleteCart(cart.id);
+    setCartDirty(true);
+  };
+
   return (
     <Table
       dataSource={dataSource}
@@ -79,6 +98,11 @@ export const CartTable: React.FC<CartTableProps> = ({ cart }) => {
           <Empty description={"Order is empty. Add items from the shop!"} />
         ),
       }}
+      footer={() => (
+        <Button danger onClick={handleDeleteOrder}>
+          <DeleteTwoTone twoToneColor="red" /> Delete this order
+        </Button>
+      )}
       summary={(data) => {
         let totalQty = 0;
         let subtotal = 0;

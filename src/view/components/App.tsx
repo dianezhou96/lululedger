@@ -13,7 +13,7 @@ import { Button, Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
-import { ShoppingCartOutlined } from "@ant-design/icons";
+import { ShoppingTwoTone } from "@ant-design/icons";
 import { Account } from "./Account";
 import { Cart } from "../../types";
 import { fetchCarts } from "../utils";
@@ -88,7 +88,7 @@ const App = () => {
             <h2 style={{ lineHeight: "1.2em" }}>
               SFIT x Lululemon Fundraiser June 2023
             </h2>
-            <ShoppingCartOutlined
+            <ShoppingTwoTone
               style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
               onClick={() =>
                 navigate({
@@ -109,7 +109,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/shop" element={<Shop {...cartProps} />} />
-              <Route path="/orders" element={<Orders carts={carts} />} />
+              <Route path="/orders" element={<Orders {...cartProps} />} />
               <Route path="/account" element={<Account />} />
             </Routes>
           </Content>

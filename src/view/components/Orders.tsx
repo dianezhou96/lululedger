@@ -1,24 +1,17 @@
 import { Button, Empty } from "antd";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { Cart } from "../../types";
+import { CartProps } from "./App";
 import { CartTable } from "./CartTable";
-
-interface OrdersProps {
-  carts: Cart[];
-}
 
 const GAP = 20;
 
-export const Orders: React.FC<OrdersProps> = ({ carts }) => {
+export const Orders: React.FC<CartProps> = ({
+  carts,
+  cartSelected,
+  setCartDirty,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cartSelected, setCartSelected] = useState<string | null>(
-    searchParams.get("cart")
-  );
-
-  useEffect(() => {
-    setCartSelected(searchParams.get("cart"));
-  }, [searchParams]);
 
   const handleViewAll = () => {
     searchParams.delete("cart");
@@ -32,14 +25,14 @@ export const Orders: React.FC<OrdersProps> = ({ carts }) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
             <div key={cart.id} style={{ marginBottom: GAP }}>
-              <CartTable cart={cart}></CartTable>
+              <CartTable cart={cart} setCartDirty={setCartDirty}></CartTable>
             </div>
           );
         }
       })}
       {cartSelected && carts.length > 1 && (
         <Button size="large" onClick={handleViewAll}>
-          <b>Show all carts</b>
+          <b>Show all orders</b>
         </Button>
       )}
       {carts.length === 0 && (
