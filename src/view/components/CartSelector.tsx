@@ -71,7 +71,7 @@ export const CartSelector: React.FC<CartProps> = ({
         label: cart.name,
       }))}
       loading={!carts}
-      value={cartSelected}
+      value={carts ? cartSelected : ""}
       placeholder="Select a cart"
       onChange={handleCartChange}
       style={{ width: 180 }}
