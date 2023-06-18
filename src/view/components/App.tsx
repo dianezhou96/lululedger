@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
-import { Link, Route, Routes, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { Button, Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
@@ -25,6 +32,8 @@ const App = () => {
     token: { colorBgContainer },
   } = theme.useToken();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const credential = searchParams.get("credential");
   const [carts, setCarts] = useState<Cart[]>([]);
@@ -81,6 +90,12 @@ const App = () => {
             </h2>
             <ShoppingCartOutlined
               style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
+              onClick={() =>
+                navigate({
+                  pathname: "/orders",
+                  search: location.search,
+                })
+              }
             />
             {credential ? (
               <CartSelector {...cartProps} />

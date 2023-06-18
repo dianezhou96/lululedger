@@ -48,7 +48,7 @@ export const SKATER_TEAMS = [
 ] as const;
 export type SkaterTeam = (typeof SKATER_TEAMS)[number];
 
-export type AccountPost = {
+export type BuyerPost = {
   email: string;
   name: string;
   skater_name: string;

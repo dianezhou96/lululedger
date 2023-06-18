@@ -11,12 +11,13 @@ interface FormValues {
 
 interface AddToCartFormProps {
   product: Product;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   props
 ) => {
-  const { product, setCartDirty } = props;
+  const { product, setOpen, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
 
@@ -36,17 +37,17 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   };
 
   const onSubmit = (values: FormValues) => {
-    if (!cartId) {
-      return;
+    if (cartId) {
+      for (const [key, value] of Object.entries(values)) {
+        addItemToCart({
+          cart: cartId,
+          item: Number(key),
+          quantity: value,
+        });
+      }
+      setCartDirty(true);
     }
-    for (const [key, value] of Object.entries(values)) {
-      addItemToCart({
-        cart: cartId,
-        item: Number(key),
-        quantity: value,
-      });
-    }
-    setCartDirty(true);
+    setOpen(false);
   };
 
   return (

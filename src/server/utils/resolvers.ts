@@ -1,4 +1,4 @@
-import { Cart, Item, Product, ProductMetadata } from "../../types";
+import { Buyer, Cart, Item, Product, ProductMetadata } from "../../types";
 
 export function resolveItem(item): Item {
   return {
@@ -41,5 +41,15 @@ export function resolveCart(cart): Cart {
         item: resolveItem(cart_item.attributes.item.data),
         quantity: cart_item.attributes.quantity,
       })) ?? [],
+  };
+}
+
+export function resolveBuyer(buyer): Buyer {
+  return {
+    id: buyer.id,
+    name: buyer.attributes.name,
+    email: buyer.attributes.email,
+    skater_name: buyer.attributes.skater_name,
+    skater_team: buyer.attributes.skater_team,
   };
 }

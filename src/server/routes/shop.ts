@@ -137,7 +137,6 @@ async function get_carts(id) {
     headers: { Authorization: API_TOKEN },
   });
   const json = await response.json();
-  console.log(json);
   const data = json.data;
   const retVal: Cart[] = data.map((cart) => resolveCart(cart));
   return retVal;

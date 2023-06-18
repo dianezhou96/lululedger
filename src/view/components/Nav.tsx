@@ -56,14 +56,9 @@ export default function Nav() {
           to={"/account"}
           onClick={(e) => {
             e.preventDefault();
-            const credential = searchParams.get("credential");
-            const newSearchParams: any = credential
-              ? { credential: credential }
-              : {};
-            setSearchParams(newSearchParams, { replace: true });
             navigate({
               pathname: "/account",
-              search: credential ? `?credential=${credential}` : "",
+              search: location.search,
             });
           }}
         />

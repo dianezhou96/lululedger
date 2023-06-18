@@ -2,11 +2,11 @@ import express = require("express");
 import { v4 as uuidv4 } from "uuid";
 import { Request, Response, urlencoded } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { Cart, CartItemPost, Product } from "../../types";
+import { Buyer, Cart, CartItemPost, Product } from "../../types";
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
 import { BuyerFragment } from "../utils/queryFragments";
-import { resolveCart, resolveProduct } from "../utils/resolvers";
+import { resolveBuyer, resolveCart, resolveProduct } from "../utils/resolvers";
 import { send_magic_link } from "../utils/email";
 
 const router = express.Router();
@@ -110,7 +110,8 @@ router.get(
       return;
     }
     const [status, user] = await get_user_record(req.buyer.email);
-    res.status(status).json(user);
+    const retVal: Buyer = resolveBuyer(user);
+    res.status(status).json(retVal);
   }
 );
 

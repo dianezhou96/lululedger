@@ -1,6 +1,6 @@
 import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
-import React from "react";
+import React, { useState } from "react";
 import { getPrice, getPriceString } from "../utils";
 import { PlusCircleOutlined } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
@@ -20,6 +20,7 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
   const { product } = props;
   const imageLinks = product.product_images;
   const priceString = getPriceDescription(product);
+  const [open, setOpen] = useState(false);
   return (
     <Card
       style={{
@@ -55,9 +56,11 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
       }
       actions={[
         <Popover
-          content={<AddToCartForm {...props} />}
+          content={<AddToCartForm {...props} setOpen={setOpen} />}
           title={`Add ${product.name} ($${getPrice(product)}) to cart`}
           trigger="click"
+          open={open}
+          onOpenChange={setOpen}
         >
           <PlusCircleOutlined />
         </Popover>,
