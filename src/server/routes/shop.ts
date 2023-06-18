@@ -59,6 +59,12 @@ router.post(
       res.status(403).end();
       return;
     }
+    const valid =
+      (typeof req.body.name === "string" || req.body.name instanceof String) &&
+      req.body.name.length > 0;
+    if (!valid) {
+      res.status(400).end();
+    }
     req.body.buyer = req.buyer.id;
     const data = await fetch(API_URI + `/carts`, {
       method: "POST",
