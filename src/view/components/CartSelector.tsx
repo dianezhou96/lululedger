@@ -5,6 +5,8 @@ import { CartPost } from "../../types";
 import { PlusOutlined } from "@ant-design/icons";
 import { CartProps } from "./App";
 
+const WIDTH = 200;
+
 export const CartSelector: React.FC<CartProps> = ({
   carts,
   cartSelected,
@@ -51,12 +53,11 @@ export const CartSelector: React.FC<CartProps> = ({
     <Space
       style={{
         padding: "0 8px 4px",
+        ...(!carts.length && { width: WIDTH }),
       }}
     >
       <Input
-        placeholder={
-          carts && carts.length ? "New cart for..." : "Start first order for..."
-        }
+        placeholder={carts.length ? "New cart for..." : "Name new cart!"}
         value={name}
         onChange={onNameChange}
         onPressEnter={addCart}
@@ -75,7 +76,7 @@ export const CartSelector: React.FC<CartProps> = ({
       value={cartDirty ? null : cartSelected}
       placeholder="Select a cart"
       onChange={handleCartChange}
-      style={{ width: 180 }}
+      style={{ width: WIDTH }}
       dropdownRender={(menu) => (
         <>
           {menu}
