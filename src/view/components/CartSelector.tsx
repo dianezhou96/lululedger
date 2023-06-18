@@ -11,7 +11,6 @@ export const CartSelector: React.FC<CartProps> = ({
   setCartDirty,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [open, setOpen] = useState(false);
 
   const handleCartChange = (value: string) => {
     searchParams.set("cart", value);
@@ -39,7 +38,9 @@ export const CartSelector: React.FC<CartProps> = ({
 
   const addCart = (e) => {
     e.preventDefault();
-    setOpen(false);
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     postCart({ name: name });
     setCartDirty(true);
     setName("");
@@ -72,18 +73,6 @@ export const CartSelector: React.FC<CartProps> = ({
       value={cartSelected}
       placeholder="Select a cart"
       onChange={handleCartChange}
-      onSelect={(val) => {
-        console.log("hello");
-        setOpen(false);
-      }}
-      onClick={() => {
-        console.log("hello2");
-        if (!open) setOpen(true);
-      }}
-      onBlur={() => {
-        setOpen(false);
-      }}
-      open={open}
       style={{ width: 180 }}
       dropdownRender={(menu) => (
         <>
