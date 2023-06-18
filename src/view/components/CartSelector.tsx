@@ -55,6 +55,7 @@ export const CartSelector: React.FC<CartProps> = ({
         }
         value={name}
         onChange={onNameChange}
+        onPressEnter={addCart}
       />
       <Button icon={<PlusOutlined />} onClick={addCart} />
     </Space>
