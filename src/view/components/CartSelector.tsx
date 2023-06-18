@@ -73,6 +73,7 @@ export const CartSelector: React.FC<CartProps> = ({
         label: cart.name,
       }))}
       loading={cartDirty}
+      disabled={cartDirty}
       value={cartDirty ? null : cartSelected}
       placeholder="Select a cart"
       onChange={handleCartChange}
