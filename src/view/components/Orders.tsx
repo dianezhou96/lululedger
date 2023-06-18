@@ -1,4 +1,4 @@
-import { Button, Empty } from "antd";
+import { Button, Empty, Spin } from "antd";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { CartProps } from "./App";
@@ -9,6 +9,7 @@ const GAP = 20;
 export const Orders: React.FC<CartProps> = ({
   carts,
   cartSelected,
+  cartDirty,
   setCartDirty,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,10 +20,13 @@ export const Orders: React.FC<CartProps> = ({
     window.scrollTo(0, 0);
   };
 
-  return (
+  return cartDirty ? (
+    <div style={{ marginTop: "50px", textAlign: "center" }}>
+      <Spin />
+    </div>
+  ) : (
     <div style={{ margin: GAP, textAlign: "center" }}>
-      {!carts && <p>Loading...</p>}
-      {carts?.map((cart) => {
+      {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
             <div key={cart.id} style={{ marginBottom: GAP }}>
@@ -31,7 +35,7 @@ export const Orders: React.FC<CartProps> = ({
           );
         }
       })}
-      {cartSelected && carts && carts.length > 1 && (
+      {cartSelected && carts.length > 1 && (
         <Button size="large" onClick={handleViewAll}>
           <b>Show all orders</b>
         </Button>

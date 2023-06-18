@@ -1,4 +1,4 @@
-import { Button, Divider, Input, Select, Space } from "antd";
+import { Button, Divider, Input, Select, Spin, Space } from "antd";
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CartPost } from "../../types";
@@ -8,6 +8,7 @@ import { CartProps } from "./App";
 export const CartSelector: React.FC<CartProps> = ({
   carts,
   cartSelected,
+  cartDirty,
   setCartDirty,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,14 +65,14 @@ export const CartSelector: React.FC<CartProps> = ({
     </Space>
   );
 
-  return !carts || carts.length ? (
+  return cartDirty || carts.length ? (
     <Select
-      options={carts?.map((cart) => ({
+      options={carts.map((cart) => ({
         value: cart.id.toString(),
         label: cart.name,
       }))}
-      loading={!carts}
-      value={carts ? cartSelected : ""}
+      loading={cartDirty}
+      value={cartDirty ? null : cartSelected}
       placeholder="Select a cart"
       onChange={handleCartChange}
       style={{ width: 180 }}

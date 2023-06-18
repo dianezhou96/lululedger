@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Buyer } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { AccountForm } from "./AccountForm";
+import { Spin } from "antd";
 
 export const Account: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -29,7 +30,7 @@ export const Account: React.FC = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       {loading ? (
-        <p>Loading...</p>
+        <Spin />
       ) : buyer ? (
         <>
           <h2>Your Account Info</h2>

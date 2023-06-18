@@ -22,8 +22,9 @@ import { CartSelector } from "./CartSelector";
 const { Header, Content, Footer, Sider } = Layout;
 
 export interface CartProps {
-  carts: Cart[] | undefined;
+  carts: Cart[];
   cartSelected: string | null;
+  cartDirty: boolean;
   setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -36,13 +37,14 @@ const App = () => {
   const location = useLocation();
 
   const credential = searchParams.get("credential");
-  const [carts, setCarts] = useState<Cart[]>();
+  const [carts, setCarts] = useState<Cart[]>([]);
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
-  const [cartDirty, setCartDirty] = useState(false);
+  const [cartDirty, setCartDirty] = useState(true);
 
   const cartProps: CartProps = {
     carts,
     cartSelected,
+    cartDirty,
     setCartDirty,
   };
 
@@ -51,12 +53,12 @@ const App = () => {
       const response = await fetchCarts(credential);
       const carts: Cart[] = response.ok ? await response.json() : [];
       setCarts(carts);
+      setCartDirty(false);
     }
   };
 
   useEffect(() => {
     getCarts();
-    setCartDirty(false);
   }, [credential, cartDirty]);
 
   useEffect(() => {
