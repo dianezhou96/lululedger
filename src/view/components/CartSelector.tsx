@@ -80,6 +80,9 @@ export const CartSelector: React.FC<CartProps> = ({
         console.log("hello2");
         if (!open) setOpen(true);
       }}
+      onBlur={() => {
+        setOpen(false);
+      }}
       open={open}
       style={{ width: 180 }}
       dropdownRender={(menu) => (
