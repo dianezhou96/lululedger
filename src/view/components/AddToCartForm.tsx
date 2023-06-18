@@ -26,7 +26,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   }, [searchParams]);
 
   const addItemToCart = async (cartItem: CartItemPost) => {
-    await fetch("/shop/cart-items", {
+    fetch("/shop/cart-items", {
       method: "POST",
       body: JSON.stringify(cartItem),
       headers: {
@@ -39,14 +39,16 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   const onSubmit = (values: FormValues) => {
     if (cartId) {
       for (const [key, value] of Object.entries(values)) {
-        addItemToCart({
-          cart: cartId,
-          item: Number(key),
-          quantity: value,
-        });
+        if (value > 0)
+          addItemToCart({
+            cart: cartId,
+            item: Number(key),
+            quantity: value,
+          });
       }
       setCartDirty(true);
     }
+    form.resetFields();
     setOpen(false);
   };
 
