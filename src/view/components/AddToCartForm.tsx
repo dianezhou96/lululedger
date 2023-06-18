@@ -86,13 +86,13 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
               : product.name;
           return (
             <Form.Item key={idx} label={colorSizeString} name={item.id}>
-              <InputNumber placeholder="qty" />
+              <InputNumber placeholder="qty" style={{ width: 60 }} />
             </Form.Item>
           );
         })}
         <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Add to cart
           </Button>
         </Form.Item>
       </Form>

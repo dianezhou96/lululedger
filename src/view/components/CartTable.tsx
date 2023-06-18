@@ -22,7 +22,7 @@ interface CartTableProps {
 }
 
 export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const dataSource: RecordType[] = cart.cart_items.map((cartItem, idx) => {
     const product = cartItem.item.product;
@@ -85,6 +85,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const handleDeleteOrder = () => {
     deleteCart(cart.id);
     setCartDirty(true);
+    searchParams.delete("cart");
+    setSearchParams(searchParams);
   };
 
   return (

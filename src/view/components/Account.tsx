@@ -34,8 +34,6 @@ export const Account: React.FC = () => {
       ) : buyer ? (
         <>
           <h2>Your Account Info</h2>
-          <p>Here is the information we have on file about you.</p>
-          <br />
           <h3>Contact</h3>
           <p>{buyer.name}</p>
           <p>{buyer.email}</p>
