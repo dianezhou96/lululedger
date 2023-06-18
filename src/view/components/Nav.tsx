@@ -13,7 +13,6 @@ export default function Nav() {
   const [href, setHref] = useState("/" + hrefs[3]); // keep this in a state
   const location = useLocation();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     setHref(location.pathname); // whenever react-router updates browser URL, update href
