@@ -26,8 +26,12 @@ export const Account: React.FC = () => {
   return buyer ? (
     <div style={{ textAlign: "center" }}>
       <h2>Thank you for joining our fundraiser!</h2>
-      <p>Here is the information we have on file about you.</p>
-      <h3>Contact email</h3>
+      <p>
+        Here is the information we have on file about you. If anything is
+        incorrect, please contact Diane at dianez.mit@gmail.com.
+      </p>
+      <h3>Contact</h3>
+      <p>{buyer.name}</p>
       <p>{buyer.email}</p>
       <h3>Affiliation with SFIT</h3>
       <p>Skater: {buyer.skater_name}</p>

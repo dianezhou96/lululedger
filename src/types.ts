@@ -54,3 +54,7 @@ export type BuyerPost = {
   skater_name: string;
   skater_team: SkaterTeam;
 };
+
+export type Buyer = BuyerPost & {
+  id: number;
+};
