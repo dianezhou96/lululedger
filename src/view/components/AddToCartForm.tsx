@@ -50,7 +50,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     setOpen(false);
   };
 
-  return (
+  return product.items.length ? (
     <>
       <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
         {cartId ? (
@@ -97,5 +97,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         </Form.Item>
       </Form>
     </>
+  ) : (
+    <>Sorry, this product is unavailable!</>
   );
 };
