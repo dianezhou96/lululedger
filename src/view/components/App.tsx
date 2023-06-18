@@ -40,6 +40,7 @@ const App = () => {
   const [carts, setCarts] = useState<Cart[]>([]);
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
   const [cartDirty, setCartDirty] = useState(true);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   const cartProps: CartProps = {
     carts,
@@ -56,6 +57,17 @@ const App = () => {
       setCartDirty(false);
     }
   };
+
+  useEffect(() => {
+    if (carts.length && cartSelected) {
+      const cart = carts.find((x) => x.id === parseInt(cartSelected));
+      const total_items = cart?.cart_items.reduce(
+        (total, n) => total + n.quantity,
+        0
+      );
+      setCartItemCount(total_items ? total_items : 0);
+    }
+  }, [carts, cartSelected]);
 
   useEffect(() => {
     getCarts();
@@ -120,7 +132,7 @@ const App = () => {
                   fontSize: "0.75rem",
                 }}
               >
-                99
+                {cartItemCount}
               </div>
             </div>
             {credential ? (
