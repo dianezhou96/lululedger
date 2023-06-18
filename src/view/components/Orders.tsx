@@ -3,6 +3,7 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { CartProps } from "./App";
 import { CartTable } from "./CartTable";
+import { Loading } from "./Loading";
 
 const GAP = 20;
 
@@ -21,9 +22,7 @@ export const Orders: React.FC<CartProps> = ({
   };
 
   return cartDirty ? (
-    <div style={{ marginTop: "50px", textAlign: "center" }}>
-      <Spin />
-    </div>
+    <Loading />
   ) : (
     <div style={{ margin: GAP, textAlign: "center" }}>
       {carts.map((cart) => {
