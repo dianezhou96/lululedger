@@ -90,15 +90,39 @@ const App = () => {
             <h2 style={{ lineHeight: "1.2em" }}>
               SFIT x Lululemon Fundraiser June 2023
             </h2>
-            <ShoppingTwoTone
-              style={{ fontSize: "2em", marginLeft: "auto", marginRight: 5 }}
-              onClick={() =>
-                navigate({
-                  pathname: "/orders",
-                  search: location.search,
-                })
-              }
-            />
+            <div
+              style={{
+                display: "flex",
+                marginLeft: "auto",
+                marginRight: 5,
+                position: "relative",
+              }}
+            >
+              <ShoppingTwoTone
+                style={{ fontSize: "2.5em" }}
+                onClick={() =>
+                  navigate({
+                    pathname: "/orders",
+                    search: location.search,
+                  })
+                }
+              />
+              <div
+                style={{
+                  display: "flex",
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  pointerEvents: "none",
+                  top: "0.3rem",
+                  fontSize: "0.75rem",
+                }}
+              >
+                99
+              </div>
+            </div>
             {credential ? (
               <CartSelector {...cartProps} />
             ) : (
