@@ -162,7 +162,7 @@ async function get_user_record(email) {
   const query = {
     filters: {
       email: {
-        $eq: email instanceof String ? email : "", // TODO make sure this is safe we MUST have email "" if input is invalid
+        $eq: email ? email : "", // TODO make sure this is safe we MUST have email "" if input is invalid
       },
     },
     BuyerFragment,
