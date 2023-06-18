@@ -21,7 +21,8 @@ export const Orders: React.FC<CartProps> = ({
 
   return (
     <div style={{ margin: GAP, textAlign: "center" }}>
-      {carts.map((cart) => {
+      {!carts && <p>Loading...</p>}
+      {carts?.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
             <div key={cart.id} style={{ marginBottom: GAP }}>
@@ -30,12 +31,12 @@ export const Orders: React.FC<CartProps> = ({
           );
         }
       })}
-      {cartSelected && carts.length > 1 && (
+      {cartSelected && carts && carts.length > 1 && (
         <Button size="large" onClick={handleViewAll}>
           <b>Show all orders</b>
         </Button>
       )}
-      {carts.length === 0 && (
+      {carts && carts.length === 0 && (
         <Empty
           description={
             "No orders. Create a new cart and add items from the shop!"

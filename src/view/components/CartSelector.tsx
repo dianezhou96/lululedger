@@ -54,7 +54,7 @@ export const CartSelector: React.FC<CartProps> = ({
     >
       <Input
         placeholder={
-          carts.length ? "New cart for..." : "Start first order for..."
+          carts && carts.length ? "New cart for..." : "Start first order for..."
         }
         value={name}
         onChange={onNameChange}
@@ -64,12 +64,13 @@ export const CartSelector: React.FC<CartProps> = ({
     </Space>
   );
 
-  return carts.length ? (
+  return !carts || carts.length ? (
     <Select
-      options={carts.map((cart) => ({
+      options={carts?.map((cart) => ({
         value: cart.id.toString(),
         label: cart.name,
       }))}
+      loading={!carts}
       value={cartSelected}
       placeholder="Select a cart"
       onChange={handleCartChange}

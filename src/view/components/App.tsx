@@ -22,7 +22,7 @@ import { CartSelector } from "./CartSelector";
 const { Header, Content, Footer, Sider } = Layout;
 
 export interface CartProps {
-  carts: Cart[];
+  carts: Cart[] | undefined;
   cartSelected: string | null;
   setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -36,7 +36,7 @@ const App = () => {
   const location = useLocation();
 
   const credential = searchParams.get("credential");
-  const [carts, setCarts] = useState<Cart[]>([]);
+  const [carts, setCarts] = useState<Cart[]>();
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
   const [cartDirty, setCartDirty] = useState(false);
 
