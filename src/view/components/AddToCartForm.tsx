@@ -94,6 +94,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         onFinish={onSubmit}
         autoComplete="off"
         disabled={!cartId}
+        style={{ margin: 10 }}
       >
         {product.items.map((item, idx) => {
           const colorSizeString =
