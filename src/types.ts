@@ -6,16 +6,26 @@ export type Item = {
   unavailable: boolean;
 };
 
+export type ProductCategoryMetadata = {
+  name: string;
+  description: string;
+};
+
+export type ProductCategory = ProductCategoryMetadata & {
+  products: ProductMetadata[];
+};
+
 export type ProductMetadata = {
   id: number;
   name: string;
+  category: ProductCategoryMetadata;
   link: string | null;
+  product_images: string[] | null;
   price_actual: number | null;
   price_retail: number | null;
 };
 
 export type Product = ProductMetadata & {
-  product_images: string[];
   items: Item[];
 };
 

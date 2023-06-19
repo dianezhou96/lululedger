@@ -4,8 +4,8 @@ export function resolveItem(item): Item {
   return {
     id: item.id,
     product: resolveProductMetadata(item.attributes.product.data),
-    color: item.attributes.color.data?.attributes.color,
-    size: item.attributes.size.data?.attributes.size,
+    color: item.attributes.color,
+    size: item.attributes.size,
     unavailable: item.attributes.unavailable,
   };
 }
@@ -14,7 +14,9 @@ function resolveProductMetadata(product): ProductMetadata {
   return {
     id: product.id,
     name: product.attributes.name,
+    category: product.attributes.category,
     link: product.attributes.link,
+    product_images: product.attributes.images,
     price_actual: product.attributes.price_actual,
     price_retail: product.attributes.price_retail,
   };
@@ -23,10 +25,6 @@ function resolveProductMetadata(product): ProductMetadata {
 export function resolveProduct(product): Product {
   return {
     ...resolveProductMetadata(product),
-    product_images:
-      product.attributes.product_images.data?.map(
-        (img) => img.attributes.link
-      ) ?? [],
     items: product.attributes.items.data?.map(resolveItem) ?? [],
   };
 }
