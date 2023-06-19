@@ -67,7 +67,7 @@ const App = () => {
         0
       );
       setCartItemCount(total_items ? total_items : 0);
-    }
+    } else setCartItemCount(0);
   }, [carts, cartSelected]);
 
   useEffect(() => {

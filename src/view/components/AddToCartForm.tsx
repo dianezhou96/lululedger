@@ -26,7 +26,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   }, [searchParams]);
 
   const addItemToCart = async (cartItem: CartItemPost) => {
-    fetch("/shop/cart-items", {
+    await fetch("/shop/cart-items", {
       method: "POST",
       body: JSON.stringify(cartItem),
       headers: {
