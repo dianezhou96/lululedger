@@ -31,7 +31,7 @@ export const Account: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
+    <div style={{ textAlign: "center", marginTop: "5px" }}>
       {buyer ? (
         <>
           <h2>Your Account Info</h2>

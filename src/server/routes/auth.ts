@@ -46,9 +46,7 @@ router.post("/signup", async (req: Request, res: Response) => {
   const status = response.status;
   if (status == 200)
     send_magic_link(record.email, btoa(JSON.stringify(credential)));
-  res
-    .status(status)
-    .json(status == 200 ? btoa(JSON.stringify(credential)) : ""); // only send magic link upon first adding
+  res.status(status).end();
 });
 
 /*
