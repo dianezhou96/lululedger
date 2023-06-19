@@ -1,9 +1,9 @@
-const ProductCategoryMetadataFragment = {
-  fields: ["name", "description"],
-};
-
 const ProductMetadataFragment = {
   fields: ["name", "link", "images", "price_retail", "price_actual"],
+};
+
+const ProductCategoryMetadataFragment = {
+  fields: ["name", "description"],
 };
 
 export const ItemFragment = {
@@ -18,8 +18,15 @@ export const ItemFragment = {
 export const ProductFragment = {
   ...ProductMetadataFragment,
   populate: {
-    category: ProductCategoryMetadataFragment,
+    product_category: ProductCategoryMetadataFragment,
     items: ItemFragment,
+  },
+};
+
+export const ProductCategoryFragment = {
+  fields: ["name", "description"],
+  populate: {
+    products: ProductFragment,
   },
 };
 
