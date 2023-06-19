@@ -30,6 +30,7 @@ router.get("/products", async (_: Request, res: Response) => {
   })
     .then((data) => data.json())
     .then((json) => json.data);
+  console.log("PRD", data);
   const retVal: Product[] = data.map(resolveProduct);
   res.json(retVal);
 });

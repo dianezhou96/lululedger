@@ -19,6 +19,7 @@ export const Shop: React.FC<CartProps> = (props) => {
   useEffect(() => {
     fetchProducts();
   }, []);
+  console.log("PRODUCTS", products);
 
   const cards = products.map((product) => (
     <ProductCard key={product.id} product={product} {...props} />

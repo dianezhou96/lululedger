@@ -16,7 +16,7 @@ function resolveProductMetadata(product): ProductMetadata {
     name: product.attributes.name,
     category: product.attributes.category,
     link: product.attributes.link,
-    product_images: product.attributes.images,
+    images: product.attributes.images,
     price_actual: product.attributes.price_actual,
     price_retail: product.attributes.price_retail,
   };

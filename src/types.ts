@@ -20,7 +20,7 @@ export type ProductMetadata = {
   name: string;
   category: ProductCategoryMetadata;
   link: string | null;
-  product_images: string[] | null;
+  images: string[] | null;
   price_actual: number | null;
   price_retail: number | null;
 };

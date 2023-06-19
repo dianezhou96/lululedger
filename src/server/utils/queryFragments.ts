@@ -1,26 +1,24 @@
+const ProductCategoryMetadataFragment = {
+  fields: ["name", "description"],
+};
+
 const ProductMetadataFragment = {
-  fields: ["name", "link", "price_retail", "price_actual"],
+  fields: ["name", "link", "images", "price_retail", "price_actual"],
 };
 
 export const ItemFragment = {
-  fields: ["unavailable"],
+  fields: ["color", "size", "unavailable"],
   populate: {
     product: {
       ...ProductMetadataFragment,
     },
-    color: {
-      fields: ["color"],
-    },
-    size: { fields: ["size"] },
   },
 };
 
 export const ProductFragment = {
   ...ProductMetadataFragment,
   populate: {
-    product_images: {
-      fields: ["link"],
-    },
+    category: ProductCategoryMetadataFragment,
     items: ItemFragment,
   },
 };

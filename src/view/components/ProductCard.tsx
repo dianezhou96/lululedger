@@ -18,7 +18,7 @@ interface ProductCardProps {
 
 export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
   const { product } = props;
-  const imageLinks = product.product_images;
+  const imageLinks = product.images;
   const priceString = getPriceDescription(product);
   const [open, setOpen] = useState(false);
   return (
