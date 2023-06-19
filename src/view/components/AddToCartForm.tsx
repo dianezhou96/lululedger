@@ -58,7 +58,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     <div
       style={{
         // minWidth: COVER_WIDTH,
-        width: "fit-content",
+        width: "max-content",
         maxWidth: COVER_WIDTH * 1.2,
         maxHeight: COVER_HEIGHT * 1.2,
         // margin: 10,
