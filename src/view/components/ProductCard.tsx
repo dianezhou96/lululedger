@@ -9,8 +9,8 @@ import { AddToCartForm } from "./AddToCartForm";
 import { Product } from "../../types";
 import { CartProps } from "./App";
 
-const COVER_WIDTH = 300;
-const COVER_HEIGHT = 360;
+export const COVER_WIDTH = 300;
+export const COVER_HEIGHT = 360;
 
 interface ProductCardProps {
   product: Product;
@@ -61,6 +61,14 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
           trigger="click"
           open={open}
           onOpenChange={setOpen}
+          // autoAdjustOverflow={{ adjustY: 1 }}
+          overlayStyle={{
+            // maxWidth: COVER_WIDTH * 1.2,
+            // maxHeight: COVER_HEIGHT * 1.2,
+            // height: "max-content",
+            width: "min-content",
+            // overflow: "scroll",
+          }}
         >
           <PlusCircleTwoTone />
         </Popover>,

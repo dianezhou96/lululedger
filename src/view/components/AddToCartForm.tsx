@@ -4,6 +4,8 @@ import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
 import { CartProps } from "./App";
+import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
+import { SignUpButton } from "./SignUpButton";
 
 interface FormValues {
   [key: number]: number;
@@ -53,22 +55,45 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   };
 
   return product.items.length ? (
-    <>
-      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-        {cartId ? (
-          <b>Adding to cart for</b>
-        ) : (
-          <b style={{ color: "red" }}>Select a cart to add items to</b>
-        )}
-        <CartSelector {...props} />
-      </div>
-      <Form
-        form={form}
+    <div
+      style={{
+        // minWidth: COVER_WIDTH,
+        width: "fit-content",
+        maxWidth: COVER_WIDTH * 1.2,
+        maxHeight: COVER_HEIGHT * 1.2,
+        // margin: 10,
+        // height: "100%",
+        overflow: "scroll",
+      }}
+    >
+      <div
         style={{
           display: "flex",
           flexDirection: "column",
-          alignItems: "end",
+          gap: 5,
+          marginBottom: 5,
         }}
+      >
+        {searchParams.get("credential") ? (
+          <>
+            {cartId ? (
+              <b>Adding to cart for</b>
+            ) : (
+              <b style={{ color: "red" }}>Select a cart to add items to</b>
+            )}
+            <CartSelector {...props} />
+          </>
+        ) : (
+          <SignUpButton />
+        )}
+      </div>
+      <Form
+        form={form}
+        colon={false}
+        labelCol={{
+          span: 19,
+        }}
+        labelWrap
         onFinish={onSubmit}
         autoComplete="off"
         disabled={!cartId}
@@ -76,10 +101,10 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         {product.items.map((item, idx) => {
           const colorSizeString =
             item.color && item.size
-              ? item.color + " | " + item.size
+              ? item.color + " - Size " + item.size
               : item.color
               ? item.color
-              : item.size
+              : "Size " + item.size
               ? item.size
               : product.name;
           return (
@@ -88,13 +113,13 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             </Form.Item>
           );
         })}
-        <Form.Item>
+        <Form.Item style={{ width: "fit-content", marginLeft: "auto" }}>
           <Button type="primary" htmlType="submit">
             Add to cart
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   ) : (
     <>Sorry, this product is unavailable!</>
   );

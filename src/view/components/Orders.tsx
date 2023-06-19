@@ -9,6 +9,7 @@ import {
 import { CartProps } from "./App";
 import { CartTable } from "./CartTable";
 import { Loading } from "./Loading";
+import { SignUpButton } from "./SignUpButton";
 
 const GAP = 20;
 
@@ -62,9 +63,7 @@ export const Orders: React.FC<CartProps> = ({
               <b>Go to shop</b>
             </Button>
           ) : (
-            <Button>
-              <Link to="/account">Sign up to order!</Link>
-            </Button>
+            <SignUpButton />
           )}
         </>
       )}
