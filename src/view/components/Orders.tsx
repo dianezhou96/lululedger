@@ -1,4 +1,4 @@
-import { Button, Empty, Spin } from "antd";
+import { Button, Empty } from "antd";
 import React from "react";
 import {
   Link,
@@ -48,23 +48,24 @@ export const Orders: React.FC<CartProps> = ({
       )}
       {carts.length === 0 && (
         <>
-          <Empty
-            description={
-              "No orders. Create a new cart and add items from the shop!"
-            }
-          />
+          <Empty description={"No orders. Start shopping!"} />
           <br />
-          <Button
-            // size="large"
-            onClick={() =>
-              navigate({
-                pathname: "/shop",
-                search: location.search,
-              })
-            }
-          >
-            <b>Go to shop</b>
-          </Button>
+          {searchParams.get("credential") ? (
+            <Button
+              onClick={() =>
+                navigate({
+                  pathname: "/shop",
+                  search: location.search,
+                })
+              }
+            >
+              <b>Go to shop</b>
+            </Button>
+          ) : (
+            <Button>
+              <Link to="/account">Sign up to order!</Link>
+            </Button>
+          )}
         </>
       )}
     </div>

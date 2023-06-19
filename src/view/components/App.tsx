@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
 import {
@@ -33,15 +33,18 @@ const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const credential = searchParams.get("credential");
+  const credential = useMemo(
+    () => searchParams.get("credential"),
+    [searchParams]
+  );
   const [carts, setCarts] = useState<Cart[]>([]);
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
   const [cartDirty, setCartDirty] = useState(true);
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const [cartItemCount, setCartItemCount] = useState<number>();
 
   const cartProps: CartProps = {
     carts,
@@ -50,15 +53,40 @@ const App = () => {
     setCartDirty,
   };
 
+  const auth = async () => {
+    if (
+      !credential ||
+      !(await fetch(`/auth/authenticate/${credential}`).then((response) =>
+        response.json()
+      ))
+    ) {
+      setSearchParams({});
+    }
+  };
+
   const getCarts = async () => {
     if (credential) {
       const response = await fetchCarts(credential);
       const carts: Cart[] = response.ok ? await response.json() : [];
       setCarts(carts);
-      setCartDirty(false);
+    } else {
+      setCarts([]);
     }
+    setCartDirty(false);
   };
 
+  // Update carts
+  useEffect(() => {
+    getCarts();
+  }, [credential, cartDirty]);
+
+  // Update cart selected
+  useEffect(() => {
+    auth();
+    setCartSelected(searchParams.get("cart"));
+  }, [searchParams]);
+
+  // Update number of items in selected cart
   useEffect(() => {
     if (carts.length && cartSelected) {
       const cart = carts.find((x) => x.id === parseInt(cartSelected));
@@ -67,16 +95,8 @@ const App = () => {
         0
       );
       setCartItemCount(total_items ? total_items : 0);
-    } else setCartItemCount(0);
+    } else setCartItemCount(undefined);
   }, [carts, cartSelected]);
-
-  useEffect(() => {
-    getCarts();
-  }, [credential, cartDirty]);
-
-  useEffect(() => {
-    setCartSelected(searchParams.get("cart"));
-  }, [searchParams]);
 
   return (
     <div className="App">
