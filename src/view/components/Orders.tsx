@@ -31,7 +31,7 @@ export const Orders: React.FC<CartProps> = ({
 
   return cartDirty ? (
     <Loading />
-  ) : (
+  ) : carts.length > 1 ? (
     <div style={{ margin: GAP, textAlign: "center" }}>
       {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
@@ -47,8 +47,31 @@ export const Orders: React.FC<CartProps> = ({
           <b>Show all orders</b>
         </Button>
       )}
-      {carts.length === 0 && (
-        <>
+    </div>
+  ) : (
+    <div
+      style={{
+        height: "100%",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignContent: "center",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyItems: "center",
+          alignItems: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Empty description={"No orders. Start shopping!"} />
           <br />
           {searchParams.get("credential") ? (
@@ -65,8 +88,8 @@ export const Orders: React.FC<CartProps> = ({
           ) : (
             <SignUpButton />
           )}
-        </>
-      )}
+        </div>
+      </div>
     </div>
   );
 };
