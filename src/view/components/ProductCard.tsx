@@ -27,7 +27,7 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
         width: COVER_WIDTH,
       }}
       cover={
-        imageLinks.length ? (
+        imageLinks?.length ? (
           <Carousel>
             {imageLinks.map((imageLink, idx) => (
               <img
