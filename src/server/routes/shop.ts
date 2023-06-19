@@ -85,14 +85,16 @@ router.post(
   user_authenticated,
   async (req: AuthorizedRequest, res: Response) => {
     if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
-    const carts = await get_carts(req.buyer.id);
-    // check cart ID belongs to buyer
-    const search = carts.find((x) => x.id === req.body.cart);
-    if (!search) {
+    const authorized = await buyer_has_cart(req.buyer.id, req.params.id);
+    if (!authorized) {
       res.status(403).end();
       return;
     }
-    console.log("Found cart for user", req.buyer.email, "adding item to cart");
+    console.log(
+      "Found cart for user",
+      req.buyer.email,
+      "- adding item to cart"
+    );
     // add item if good
     const data = await fetch(API_URI + `/cart-items`, {
       method: "POST",
@@ -112,15 +114,12 @@ router.delete(
   user_authenticated,
   async (req: AuthorizedRequest, res: Response) => {
     if (!req.buyer) return;
-    const carts = await get_carts(req.buyer.id);
-    // check cart ID belongs to buyer
-    const search = carts.find((x) => x.id.toString() === req.params.id);
-    if (!search) {
+    const authorized = await buyer_has_cart(req.buyer.id, req.params.id);
+    if (!authorized) {
       res.status(403).end();
       return;
     }
     console.log("Found cart for user", req.buyer.email, "- deleting cart");
-    // delete cart if good
     const data = await fetch(API_URI + `/carts/${req.params.id}`, {
       method: "DELETE",
       headers: { Authorization: API_TOKEN },
@@ -172,6 +171,22 @@ async function get_carts(id) {
   const data = json.data;
   const retVal: Cart[] = data.map((cart) => resolveCart(cart));
   return retVal;
+}
+
+async function buyer_has_cart(buyer_id, cart_id) {
+  const query = {
+    filters: {
+      buyer: buyer_id,
+      id: cart_id,
+    },
+  };
+  const response = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
+    method: "GET",
+    headers: { Authorization: API_TOKEN },
+  });
+  const json = await response.json();
+  const data = json.data;
+  return data.length === 1;
 }
 
 module.exports = router;
