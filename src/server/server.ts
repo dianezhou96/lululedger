@@ -1,17 +1,9 @@
 import express = require("express");
 import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
-import qs = require("qs");
-import { Request, Response, urlencoded } from "express";
+import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { Cart, CartItemPost, Product } from "../types";
-import { API_TOKEN, API_URI, SG_API_KEY } from "./config";
-import {
-  CartFragment,
-  ItemFragment,
-  ProductFragment,
-} from "./utils/queryFragments";
-import { resolveCart, resolveProduct } from "./utils/resolvers";
+import { SG_API_KEY } from "./config";
 
 const app = express();
 const port = 3123;

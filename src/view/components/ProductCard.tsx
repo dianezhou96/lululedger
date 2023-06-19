@@ -61,16 +61,11 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
           trigger="click"
           open={open}
           onOpenChange={setOpen}
-          // autoAdjustOverflow={{ adjustY: 1 }}
           overlayStyle={{
-            // maxWidth: COVER_WIDTH * 1.2,
-            // maxHeight: COVER_HEIGHT * 1.2,
-            // height: "max-content",
             width: "min-content",
-            // overflow: "scroll",
           }}
         >
-          <PlusCircleTwoTone />
+          <PlusCircleTwoTone /> Add item
         </Popover>,
       ]}
     >

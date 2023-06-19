@@ -7,18 +7,18 @@ export type Item = {
 };
 
 export type ProductCategoryMetadata = {
+  id: number;
   name: string;
   description: string;
 };
 
 export type ProductCategory = ProductCategoryMetadata & {
-  products: ProductMetadata[];
+  products: Product[];
 };
 
 export type ProductMetadata = {
   id: number;
   name: string;
-  category: ProductCategoryMetadata;
   link: string | null;
   images: string[] | null;
   price_actual: number | null;
@@ -68,5 +68,3 @@ export type BuyerPost = {
 export type Buyer = BuyerPost & {
   id: number;
 };
-
-export const SHOP_NAME = "SFIT x Lululemon Fundraiser";

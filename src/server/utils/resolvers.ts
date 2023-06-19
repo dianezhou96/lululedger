@@ -1,12 +1,25 @@
-import { Buyer, Cart, Item, Product, ProductMetadata } from "../../types";
+import {
+  Buyer,
+  Cart,
+  Item,
+  Product,
+  ProductCategory,
+  ProductCategoryMetadata,
+  ProductMetadata,
+} from "../../types";
 
-export function resolveItem(item): Item {
+function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
   return {
-    id: item.id,
-    product: resolveProductMetadata(item.attributes.product.data),
-    color: item.attributes.color,
-    size: item.attributes.size,
-    unavailable: item.attributes.unavailable,
+    id: category.id,
+    name: category.attributes.name,
+    description: category.attributes.description,
+  };
+}
+
+export function resolveProductCategory(category): ProductCategory {
+  return {
+    ...resolveProductCategoryMetadata(category),
+    products: category.attributes.products.data?.map(resolveProduct) ?? [],
   };
 }
 
@@ -14,7 +27,6 @@ function resolveProductMetadata(product): ProductMetadata {
   return {
     id: product.id,
     name: product.attributes.name,
-    category: product.attributes.category,
     link: product.attributes.link,
     images: product.attributes.images,
     price_actual: product.attributes.price_actual,
@@ -22,7 +34,7 @@ function resolveProductMetadata(product): ProductMetadata {
   };
 }
 
-export function resolveProduct(product): Product {
+function resolveProduct(product): Product {
   return {
     ...resolveProductMetadata(product),
     items: product.attributes.items.data?.map(resolveItem) ?? [],
@@ -39,6 +51,16 @@ export function resolveCart(cart): Cart {
         item: resolveItem(cart_item.attributes.item.data),
         quantity: cart_item.attributes.quantity,
       })) ?? [],
+  };
+}
+
+export function resolveItem(item): Item {
+  return {
+    id: item.id,
+    product: resolveProductMetadata(item.attributes.product.data),
+    color: item.attributes.color,
+    size: item.attributes.size,
+    unavailable: item.attributes.unavailable,
   };
 }
 

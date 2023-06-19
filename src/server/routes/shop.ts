@@ -1,16 +1,12 @@
 import express = require("express");
-import { Request, Response, urlencoded } from "express";
+import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { Cart, CartItemPost, Product } from "../../types";
+import { Cart, ProductCategory } from "../../types";
 import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
-import {
-  CartFragment,
-  ItemFragment,
-  ProductFragment,
-} from "../utils/queryFragments";
-import { resolveCart, resolveProduct } from "../utils/resolvers";
+import { CartFragment, ProductCategoryFragment } from "../utils/queryFragments";
+import { resolveCart, resolveProductCategory } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
 
 const user_authenticated = require("./auth").user_authenticated;
@@ -23,15 +19,17 @@ const fetch = (url: RequestInfo, init?: RequestInit) =>
 
 // Get all products
 router.get("/products", async (_: Request, res: Response) => {
-  const query = ProductFragment;
-  const data = await fetch(API_URI + `/products?${qs.stringify(query)}`, {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
+  const query = ProductCategoryFragment;
+  const data = await fetch(
+    API_URI + `/product-categories?${qs.stringify(query)}`,
+    {
+      method: "GET",
+      headers: { Authorization: API_TOKEN },
+    }
+  )
     .then((data) => data.json())
     .then((json) => json.data);
-  console.log("PRD", data);
-  const retVal: Product[] = data.map(resolveProduct);
+  const retVal: ProductCategory[] = data.map(resolveProductCategory);
   res.json(retVal);
 });
 
