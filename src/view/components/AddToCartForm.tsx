@@ -57,12 +57,9 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   return product.items.length ? (
     <div
       style={{
-        // minWidth: COVER_WIDTH,
         width: "max-content",
         maxWidth: COVER_WIDTH * 1.2,
         maxHeight: COVER_HEIGHT * 1.2,
-        // margin: 10,
-        // height: "100%",
         overflow: "scroll",
       }}
     >
@@ -109,7 +106,12 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
               : product.name;
           return (
             <Form.Item key={idx} label={colorSizeString} name={item.id}>
-              <InputNumber placeholder="qty" style={{ width: 60 }} />
+              <InputNumber
+                placeholder="qty"
+                style={{
+                  width: "auto",
+                }}
+              />
             </Form.Item>
           );
         })}
