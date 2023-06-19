@@ -68,3 +68,5 @@ export type BuyerPost = {
 export type Buyer = BuyerPost & {
   id: number;
 };
+
+export const SHOP_NAME = "SFIT x Lululemon Fundraiser";

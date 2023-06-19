@@ -20,6 +20,7 @@ import { fetchCarts } from "../utils";
 import { CartSelector } from "./CartSelector";
 import { Spin } from "antd";
 import { SignUpButton } from "./SignUpButton";
+import { SHOP_NAME } from "../../constants";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -121,9 +122,7 @@ const App = () => {
               borderBottom: "solid #f5f5f5",
             }}
           >
-            <h2 style={{ lineHeight: "1.2em" }}>
-              SFIT x Lululemon Fundraiser June 2023
-            </h2>
+            <h2 style={{ lineHeight: "1.2em" }}>{SHOP_NAME}</h2>
             <div
               style={{
                 display: "flex",

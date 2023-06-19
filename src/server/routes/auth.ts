@@ -45,7 +45,11 @@ router.post("/signup", async (req: Request, res: Response) => {
   };
   const status = response.status;
   if (status == 200)
-    send_magic_link(record.email, btoa(JSON.stringify(credential)));
+    send_magic_link(
+      record.name,
+      record.email,
+      btoa(JSON.stringify(credential))
+    );
   res.status(status).end();
 });
 
@@ -132,7 +136,11 @@ router.get("/resend/:email", async (req: Request, res: Response) => {
   };
   // const status = response.status;
   if (status == 200 && user)
-    send_magic_link(user.attributes.email, btoa(JSON.stringify(credential)));
+    send_magic_link(
+      user.attributes.name,
+      user.attributes.email,
+      btoa(JSON.stringify(credential))
+    );
   res.status(status).end();
 });
 

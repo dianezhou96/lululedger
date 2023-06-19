@@ -32,13 +32,13 @@ export const AccountForm: React.FC = () => {
     if (!response.ok) {
       setAlert({
         message:
-          "Something went wrong with signing up, please refresh the page and try again",
+          "Something went wrong with signing up, please refresh the page and try again.",
         type: "error",
       });
     } else {
       setAlert({
         message:
-          "We have sent a login link to your email, please use that to proceed",
+          "We have sent a login link to your email, please use that to proceed!",
         type: "success",
       });
     }
