@@ -19,7 +19,6 @@ export const Shop: React.FC<CartProps> = (props) => {
   useEffect(() => {
     fetchProducts();
   }, []);
-  console.log("PRODUCTS", products);
 
   return loading ? (
     <Loading />
