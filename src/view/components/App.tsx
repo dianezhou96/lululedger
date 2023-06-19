@@ -19,6 +19,7 @@ import { Cart } from "../../types";
 import { fetchCarts } from "../utils";
 import { CartSelector } from "./CartSelector";
 import { Spin } from "antd";
+import { SignUpButton } from "./SignUpButton";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -160,13 +161,7 @@ const App = () => {
                 )}
               </div>
             </div>
-            {credential ? (
-              <CartSelector {...cartProps} />
-            ) : (
-              <Button>
-                <Link to="/account">Sign up to order!</Link>
-              </Button>
-            )}
+            {credential ? <CartSelector {...cartProps} /> : <SignUpButton />}
           </Header>
           <Content style={{}}>
             <Routes>
@@ -180,6 +175,7 @@ const App = () => {
             style={{
               textAlign: "center",
               zIndex: "2",
+              backgroundColor: "#dce0e6",
             }}
           >
             San Francisco Ice Theatre ©{new Date().getFullYear()}
