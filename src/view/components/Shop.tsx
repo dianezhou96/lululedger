@@ -1,9 +1,8 @@
-import { Spin } from "antd";
 import React, { useEffect, useState } from "react";
 import { Product } from "../../types";
 import { CartProps } from "./App";
 import { Loading } from "./Loading";
-import { ProductCard } from "./ProductCard";
+import { COVER_WIDTH, ProductCard } from "./ProductCard";
 
 const GAP = 10;
 
@@ -30,11 +29,11 @@ export const Shop: React.FC<CartProps> = (props) => {
   ) : (
     <div
       style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: GAP,
-        margin: GAP,
-        textAlign: "center",
+        display: "grid",
+        gridTemplateColumns: `repeat(auto-fill, ${COVER_WIDTH}px)`,
+        gridGap: GAP,
+        justifyContent: "center",
+        marginTop: GAP,
       }}
     >
       {cards}
