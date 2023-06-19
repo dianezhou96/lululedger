@@ -64,7 +64,7 @@ http://localhost:3123/#/shop?credential=${credential}`;
   <div class="container">
     <h1>Welcome to SFIT x lululemon</h1>
     <p>Hi,</p>
-    <p>To access your account, please usethe following link to log in:</p>
+    <p>To access your account, please use the following link to log in:</p>
     <p><a href="http://localhost:3123/#/shop?credential=${credential}" class="login-link">Log In</a></p>
     <p>If you have any questions or need assistance, please don't hesitate to contact Diane at dianez.mit@gmail.com!</p>
     <p>Best regards,<br>SFIT</p>
