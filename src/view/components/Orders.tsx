@@ -1,11 +1,6 @@
 import { Button, Empty } from "antd";
 import React from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { CartProps } from "./App";
 import { CartTable } from "./CartTable";
 import { Loading } from "./Loading";
@@ -31,7 +26,7 @@ export const Orders: React.FC<CartProps> = ({
 
   return cartDirty ? (
     <Loading />
-  ) : carts.length > 1 ? (
+  ) : carts.length > 0 ? (
     <div style={{ margin: GAP, textAlign: "center" }}>
       {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
