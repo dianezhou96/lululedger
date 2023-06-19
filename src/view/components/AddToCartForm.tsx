@@ -69,11 +69,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
           flexDirection: "column",
           alignItems: "end",
         }}
-        // initialValues={{
-        //   remember: true,
-        // }}
         onFinish={onSubmit}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
         disabled={!cartId}
       >

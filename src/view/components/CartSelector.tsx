@@ -40,13 +40,15 @@ export const CartSelector: React.FC<CartProps> = ({
   };
 
   const addCart = (e) => {
-    e.preventDefault();
-    if (document.activeElement instanceof HTMLElement) {
-      document.activeElement.blur();
+    if (name.length > 0) {
+      e.preventDefault();
+      if (document.activeElement instanceof HTMLElement) {
+        document.activeElement.blur();
+      }
+      postCart({ name: name });
+      setCartDirty(true);
+      setName("");
     }
-    postCart({ name: name });
-    setCartDirty(true);
-    setName("");
   };
 
   const NewCartForm = (

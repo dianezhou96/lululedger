@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select, Alert, AlertProps } from "antd";
+import { Button, Form, Input, Select, Alert, AlertProps, Card } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
 
 type AlertObject = {
@@ -46,39 +46,50 @@ export const AccountForm: React.FC = () => {
   };
 
   const onSubmit = (values: BuyerPost) => {
-    // console.log(values);
     signUp(values);
   };
 
   return (
-    <div>
+    <>
       <Form
         form={form}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "end",
-        }}
-        // initialValues={{
-        //   remember: true,
-        // }}
         onFinish={onSubmit}
-        // onFinishFailed={onFinishFailed}
-        autoComplete="off"
+        style={{ margin: "auto" }}
+        layout="horizontal"
+        labelCol={{
+          span: 8,
+        }}
+        requiredMark={false}
       >
-        <Form.Item label="Email" name="email">
-          <Input placeholder="Email address" />
+        <h3>
+          Thanks for checking out our fundraiser! Please fill out this form to
+          start shopping.
+        </h3>
+        <Form.Item label="Your Name" name="name">
+          <Input required />
         </Form.Item>
-        <Form.Item label="Name" name="name">
-          <Input placeholder="Your name" />
+        <Form.Item label="Contact Email" name="email">
+          <Input required />
         </Form.Item>
+        <b>Which SFIT skater brought you here?</b>
+        <p>
+          We will contact this skater in case we cannot reach you, and also
+          thank them for referring you to our fundraiser!
+        </p>
         <Form.Item label="Skater Name" name="skater_name">
-          <Input placeholder="Which SFIT skater referred you? (FULLNAME)" />
+          <Input placeholder="Include first and last name" required />
         </Form.Item>
-        <Form.Item label="Skater Team" name="skater_team">
+        <Form.Item
+          label="Team"
+          name="skater_team"
+          rules={[{ required: true, message: "Please select a team" }]}
+        >
           <Select
-            placeholder="Which team is the skater on?"
-            options={SKATER_TEAMS.map((team) => ({ value: team, label: team }))}
+            options={SKATER_TEAMS.map((team) => ({
+              value: team,
+              label: team,
+            }))}
+            style={{ textAlign: "left" }}
           />
         </Form.Item>
         <Form.Item>
@@ -87,16 +98,14 @@ export const AccountForm: React.FC = () => {
           </Button>
         </Form.Item>
       </Form>
-      {showAlert ? (
+      {showAlert && (
         <Alert
           message={alert.message}
           type={alert.type}
           onClose={() => setShowAlert(false)}
           closable
         />
-      ) : (
-        <></>
       )}
-    </div>
+    </>
   );
 };

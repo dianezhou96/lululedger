@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Buyer } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { AccountForm } from "./AccountForm";
-import { Spin } from "antd";
+import { Card, Space, Spin } from "antd";
 import { Loading } from "./Loading";
 
 export const Account: React.FC = () => {
@@ -31,27 +31,39 @@ export const Account: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <div style={{ textAlign: "center", marginTop: "5px" }}>
-      {buyer ? (
-        <>
-          <h2>Your Account Info</h2>
-          <h3>Contact</h3>
-          <p>{buyer.name}</p>
-          <p>{buyer.email}</p>
-          <br />
-          <h3>Affiliation with SFIT</h3>
-          <p>Skater: {buyer.skater_name}</p>
-          <p>Team: {buyer.skater_team}</p>
-          <br />
-          <h3>Thank you for contributing to our fundraiser!</h3>
-          <p>
-            If you need to modify any information or have any questions, please
-            contact Diane at dianez.mit@gmail.com.
-          </p>
-        </>
-      ) : (
-        <AccountForm />
-      )}
+    <div
+      style={{
+        display: "flex",
+        height: "100%",
+        alignItems: "center",
+        textAlign: "center",
+      }}
+    >
+      <Card style={{ maxWidth: 410, margin: "auto", borderRadius: 20 }}>
+        {buyer ? (
+          <div style={{ textAlign: "center" }}>
+            <h2>Your Account Information</h2>
+            <div style={{ marginBottom: "2em" }}>
+              <h3>Contact</h3>
+              <p>{buyer.name}</p>
+              <p>{buyer.email}</p>
+            </div>
+            <div style={{ marginBottom: "2em" }}>
+              <h3>Affiliation with SFIT</h3>
+              <p>Skater: {buyer.skater_name}</p>
+              <p>Team: {buyer.skater_team}</p>
+            </div>
+            {/* <br /> */}
+            <h3>Thank you for contributing to our fundraiser!</h3>
+            <p>
+              If you need to modify any information or ask questions, please
+              contact Diane at dianez.mit@gmail.com.
+            </p>
+          </div>
+        ) : (
+          <AccountForm />
+        )}
+      </Card>
     </div>
   );
 };
