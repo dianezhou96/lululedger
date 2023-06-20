@@ -122,7 +122,9 @@ const App = () => {
               borderBottom: "solid #f5f5f5",
             }}
           >
-            <h2 style={{ lineHeight: "1.2em" }}>{SHOP_NAME}</h2>
+            <h2 id={"shop-name"} style={{ lineHeight: "1.2em" }}>
+              {SHOP_NAME}
+            </h2>
             <div
               style={{
                 display: "flex",

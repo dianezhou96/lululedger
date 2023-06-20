@@ -36,10 +36,11 @@ export const Account: React.FC = () => {
         display: "flex",
         height: "100%",
         alignItems: "center",
+        justifyContent: "center",
         textAlign: "center",
       }}
     >
-      <Card style={{ maxWidth: 410, margin: "auto", borderRadius: 20 }}>
+      <Card style={{ maxWidth: 410, margin: "auto 10px", borderRadius: 20 }}>
         {buyer ? (
           <div style={{ textAlign: "center" }}>
             <h2>Your Account Information</h2>

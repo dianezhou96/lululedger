@@ -31,6 +31,15 @@
   margin: 0 0.5rem;
 }
 
+@media (max-width: 420px) {
+  h2 {
+    font-size: 1em;
+  }
+  p {
+    font-size: 0.8em;
+  }
+}
+
 .ant-layout-content {
   overflow: scroll;
   background-color: white;
