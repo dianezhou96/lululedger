@@ -65,7 +65,7 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
             width: "min-content",
           }}
         >
-          <PlusCircleTwoTone /> Add item
+          <PlusCircleTwoTone style={{ marginRight: 5 }} /> Add item
         </Popover>,
       ]}
     >

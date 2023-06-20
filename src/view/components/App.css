@@ -57,6 +57,11 @@ style because right now it'll target all antd selects
   margin: 0;
 }
 
+.ant-card-meta-title {
+  white-space: pre-line !important;
+  height: 50px;
+}
+
 /*
 Make entire card action clickable
 */

@@ -6,6 +6,7 @@ import { CartSelector } from "./CartSelector";
 import { CartProps } from "./App";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
+import { defaultItemSort } from "../utils";
 
 interface FormValues {
   [key: number]: number;
@@ -96,7 +97,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         disabled={!cartId}
         style={{ margin: 10 }}
       >
-        {product.items.map((item, idx) => {
+        {defaultItemSort(product.items).map((item, idx) => {
           const colorSizeString =
             item.color && item.size
               ? item.color + " - Size " + item.size
