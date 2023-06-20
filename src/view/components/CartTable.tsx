@@ -1,9 +1,9 @@
-import { Button, Empty, Table } from "antd";
+import { Button, Empty, InputNumber, Space, Table } from "antd";
 import { ColumnType } from "antd/es/table";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
-import { DeleteTwoTone } from "@ant-design/icons";
+import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
 type RecordType = {
@@ -23,8 +23,9 @@ interface CartTableProps {
 
 export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [editMode, setEditMode] = useState(false);
 
-  const dataSource: RecordType[] = cart.cart_items.map((cartItem, idx) => {
+  const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
     const product = cartItem.item.product;
     const productElement = product.link ? (
       <a href={product.link} target="_blank">
@@ -35,7 +36,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     );
     const price = getPrice(product);
     return {
-      key: idx,
+      key: cartItem.id,
       product: productElement,
       color: cartItem.item.color,
       size: cartItem.item.size,
@@ -44,6 +45,19 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       totalPrice: price * cartItem.quantity,
     };
   });
+
+  const [tableData, setTableData] = useState(dataSource);
+
+  const onInputChange = (key, index) => (value: number | null) => {
+    const newData = [...dataSource];
+    newData[index][key] = value;
+    updateTotalPrice(newData, index);
+    setTableData(newData);
+  };
+
+  const updateTotalPrice = (data, index) => {
+    data[index]["totalPrice"] = data[index]["quantity"] * data[index]["price"];
+  };
 
   const columns: ColumnType<RecordType>[] = ["Product", "Color", "Size"].map(
     (title) => ({
@@ -64,6 +78,16 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     dataIndex: "quantity",
     key: "qty",
     align: "right",
+    render: (value, _, index) =>
+      editMode ? (
+        <InputNumber
+          style={{ width: "4em" }}
+          value={value}
+          onChange={onInputChange("quantity", index)}
+        />
+      ) : (
+        value
+      ),
   });
   columns.push({
     title: "Total Price",
@@ -89,22 +113,77 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     setSearchParams(searchParams);
   };
 
+  const updateItem = async (cartItemId, quantity) => {
+    if (quantity > 0) {
+      await fetch(`/shop/cart-items/${cartItemId}`, {
+        method: "PUT",
+        body: JSON.stringify({ quantity: quantity }),
+        headers: {
+          "Content-Type": "application/json",
+          Credential: searchParams.get("credential") ?? "",
+        },
+      });
+    } else {
+      await fetch(`/shop/cart-items/${cartItemId}`, {
+        method: "DELETE",
+        headers: {
+          Credential: searchParams.get("credential") ?? "",
+        },
+      });
+    }
+  };
+
+  const handleSubmitOrder = () => {
+    for (const { key, quantity } of tableData) {
+      updateItem(key, quantity);
+    }
+    setCartDirty(true);
+  };
+
+  const handleCancel = () => {
+    setTableData(dataSource);
+    setEditMode(false);
+  };
+
   return (
     <Table
-      dataSource={dataSource}
-      caption={<h2>{cart.name}</h2>}
+      dataSource={tableData}
+      title={() => (
+        <span style={{ fontSize: 18 }}>
+          <b>{cart.name}</b>
+        </span>
+      )}
       columns={columns}
       pagination={false}
+      style={{
+        borderBottom: "1px #dce0e6 solid",
+      }}
       locale={{
         emptyText: (
           <Empty description={"Order is empty. Add items from the shop!"} />
         ),
       }}
-      footer={() => (
-        <Button danger onClick={handleDeleteOrder}>
-          <DeleteTwoTone twoToneColor="red" /> Delete this order
-        </Button>
-      )}
+      footer={() =>
+        editMode ? (
+          <Space>
+            <Button type="primary" onClick={handleSubmitOrder}>
+              Save
+            </Button>
+            <Button onClick={handleCancel}>Cancel</Button>
+          </Space>
+        ) : (
+          <Space>
+            {tableData.length > 0 && (
+              <Button onClick={() => setEditMode(true)}>
+                <EditTwoTone /> Edit this order
+              </Button>
+            )}
+            <Button danger onClick={handleDeleteOrder}>
+              <DeleteTwoTone twoToneColor="red" /> Delete
+            </Button>
+          </Space>
+        )
+      }
       summary={(data) => {
         let totalQty = 0;
         let subtotal = 0;

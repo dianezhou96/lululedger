@@ -108,6 +108,67 @@ router.post(
   }
 );
 
+// Update quantity in a CartItem
+router.put(
+  "/cart-items/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
+    const authorized = await buyer_has_item(req.buyer.id, req.params.id);
+    if (!authorized) {
+      res.status(403).end();
+      return;
+    }
+    console.log(
+      "Found cart item for user",
+      req.buyer.email,
+      "- updating item in cart"
+    );
+    // update item if good
+    const data = await fetch(API_URI + `/cart-items/${req.params.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ data: req.body }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((json) => json.data);
+    res.status(200).json(data);
+  }
+);
+
+// Delete a CartItem
+router.delete(
+  "/cart-items/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
+    const authorized = await buyer_has_item(req.buyer.id, req.params.id);
+    if (!authorized) {
+      res.status(403).end();
+      return;
+    }
+    console.log(
+      "Found cart item for user",
+      req.buyer.email,
+      "- deleting item from cart"
+    );
+    // delete item if good
+    const data = await fetch(API_URI + `/cart-items/${req.params.id}`, {
+      method: "DELETE",
+      headers: { Authorization: API_TOKEN },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((json) => json.data);
+    res.status(200).json(data);
+  }
+);
+
+// Delete a cart
+// TODO IDEALLY: Also delete the CartItems associated with the cart
 router.delete(
   "/carts/:id",
   user_authenticated,
@@ -186,6 +247,22 @@ async function buyer_has_cart(buyer_id, cart_id) {
   const json = await response.json();
   const data = json.data;
   return data.length === 1;
+}
+
+async function buyer_has_item(buyer_id, cart_item_id) {
+  const query = {
+    populate: ["cart"],
+  };
+  const response = await fetch(
+    `${API_URI}/cart-items/${cart_item_id}?${qs.stringify(query)}`,
+    {
+      method: "GET",
+      headers: { Authorization: API_TOKEN },
+    }
+  );
+  const data = await response.json().then((json) => json.data);
+  const cartId = data.attributes.cart?.data.id;
+  return cartId && buyer_has_cart(buyer_id, cartId);
 }
 
 module.exports = router;

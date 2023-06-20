@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Buyer } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { AccountForm } from "./AccountForm";
-import { Card, Space, Spin } from "antd";
+import { Card } from "antd";
 import { Loading } from "./Loading";
 
 export const Account: React.FC = () => {

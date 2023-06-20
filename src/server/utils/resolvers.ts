@@ -48,6 +48,7 @@ export function resolveCart(cart): Cart {
     submitted: cart.attributes.submitted,
     cart_items:
       cart.attributes.cart_items?.data?.map((cart_item) => ({
+        id: cart_item.id,
         item: resolveItem(cart_item.attributes.item.data),
         quantity: cart_item.attributes.quantity,
       })) ?? [],

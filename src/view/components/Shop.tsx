@@ -1,3 +1,4 @@
+import { Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
@@ -27,7 +28,7 @@ export const Shop: React.FC<CartProps> = (props) => {
   ) : (
     <div style={{ margin: GAP }}>
       {products.map((category) => (
-        <div key={category.id}>
+        <div key={category.id} style={{ padding: GAP }}>
           <div style={{ textAlign: "center", margin: "auto" }}>
             <h2>{category.name}</h2>
             <p>{category.description}</p>

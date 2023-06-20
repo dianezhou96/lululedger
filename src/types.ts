@@ -34,6 +34,7 @@ export type Cart = {
   name: string;
   submitted: boolean;
   cart_items: {
+    id: number;
     item: Item;
     quantity: number;
   }[];
