@@ -77,7 +77,8 @@ export const data: ProductObj[] = [
     category: 2,
     link: "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-2/_/prod9750543",
     images: [
-      "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-2/_/prod9750543",
+      "https://images.lululemon.com/is/image/lululemon/LW3BQ3S_4780_1",
+      "https://images.lululemon.com/is/image/lululemon/LW3F81S_0572_1",
     ],
     price_retail: 78,
     items: [
