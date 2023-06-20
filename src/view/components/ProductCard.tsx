@@ -34,6 +34,7 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
                 key={idx}
                 alt={product.name + " " + (idx + 1).toString()}
                 src={imageLink}
+                loading={"lazy"}
               />
             ))}
           </Carousel>
