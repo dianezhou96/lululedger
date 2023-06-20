@@ -39,6 +39,10 @@
   height: 360px;
 }
 
+body {
+  margin: 0;
+}
+
 /* 
 Increase the size of cart selector spinning,
 TODO maybe throw a class on cart selector in the future and incorporate it into this 
