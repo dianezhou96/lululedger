@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
+import { FundraiserCard } from "./FundraiserCard";
 import { Loading } from "./Loading";
 import { COVER_WIDTH, ProductCard } from "./ProductCard";
 
@@ -43,6 +44,7 @@ export const Shop: React.FC<CartProps> = (props) => {
             {defaultProductSort(category.products).map((product) => (
               <ProductCard key={product.id} product={product} {...props} />
             ))}
+            {category.id === 1 && <FundraiserCard />}
           </div>
         </div>
       ))}

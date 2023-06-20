@@ -12,7 +12,7 @@ export function getPrice(product: ProductMetadata, numDecimal = 0): number {
   return 0;
 }
 
-export function getPriceString(price: Number, numDecimal = 0): string {
+export function getPriceString(price: number, numDecimal = 0): string {
   return `$${price.toFixed(numDecimal)}`;
 }
 
