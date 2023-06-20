@@ -194,7 +194,6 @@ tags
 
 # secrets
 src/server/config.ts
-src/data.ts
 
 # Alex's notes
 notes.txt
