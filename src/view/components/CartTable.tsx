@@ -1,6 +1,6 @@
 import { Button, Empty, InputNumber, Space, Table } from "antd";
 import { ColumnType } from "antd/es/table";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
@@ -24,6 +24,7 @@ interface CartTableProps {
 export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
     const product = cartItem.item.product;
@@ -106,8 +107,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     });
   };
 
-  const handleDeleteOrder = () => {
-    deleteCart(cart.id);
+  const handleDeleteOrder = async () => {
+    await deleteCart(cart.id);
     setCartDirty(true);
     searchParams.delete("cart");
     setSearchParams(searchParams);
@@ -133,11 +134,17 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     }
   };
 
-  const handleSubmitOrder = () => {
+  const updateItemsAll = async () => {
     for (const { key, quantity } of tableData) {
-      updateItem(key, quantity);
+      await updateItem(key, quantity);
     }
     setCartDirty(true);
+    setLoading(false);
+  };
+
+  const handleSubmitOrder = () => {
+    setLoading(true);
+    updateItemsAll();
   };
 
   const handleCancel = () => {
@@ -148,6 +155,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   return (
     <Table
       dataSource={tableData}
+      loading={loading}
       title={() => (
         <span style={{ fontSize: 18 }}>
           <b>{cart.name}</b>

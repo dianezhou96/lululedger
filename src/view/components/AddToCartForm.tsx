@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, Form, InputNumber } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
@@ -23,33 +23,34 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   const { product, setOpen, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
+  const [loading, setLoading] = useState(false);
 
   const cartId = useMemo(() => {
     return Number(searchParams.get("cart"));
   }, [searchParams]);
 
-  const addItemToCart = async (cartItem: CartItemPost) => {
-    await fetch("/shop/cart-items", {
-      method: "POST",
-      body: JSON.stringify(cartItem),
-      headers: {
-        "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
-      },
-    });
+  const addItemsToCart = async (cartItems: CartItemPost[]) => {
+    for (const cartItem of cartItems) {
+      await fetch("/shop/cart-items", {
+        method: "POST",
+        body: JSON.stringify(cartItem),
+        headers: {
+          "Content-Type": "application/json",
+          Credential: searchParams.get("credential") ?? "",
+        },
+      });
+    }
+    setCartDirty(true);
   };
 
   const onSubmit = (values: FormValues) => {
     if (cartId) {
+      const cartItems: CartItemPost[] = [];
       for (const [key, value] of Object.entries(values)) {
         if (value > 0)
-          addItemToCart({
-            cart: cartId,
-            item: Number(key),
-            quantity: value,
-          });
+          cartItems.push({ cart: cartId, item: Number(key), quantity: value });
       }
-      setCartDirty(true);
+      addItemsToCart(cartItems);
     }
     form.resetFields();
     setOpen(false);

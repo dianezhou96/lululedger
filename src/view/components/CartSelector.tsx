@@ -36,17 +36,17 @@ export const CartSelector: React.FC<CartProps> = ({
       },
     });
     const data = await response.json();
+    setCartDirty(true);
     handleCartChange(data.id.toString());
   };
 
-  const addCart = (e) => {
+  const addCart = async (e) => {
     if (name.length > 0) {
       e.preventDefault();
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur();
       }
       postCart({ name: name });
-      setCartDirty(true);
       setName("");
     }
   };
