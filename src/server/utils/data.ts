@@ -7,7 +7,7 @@ type ProductObj = {
   items: { color: string; sizes: (number | string)[] }[];
 };
 
-const data: ProductObj[] = [
+export const data: ProductObj[] = [
   {
     product: "Define Jacket Luon",
     category: 2,

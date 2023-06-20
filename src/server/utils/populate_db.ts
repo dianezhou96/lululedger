@@ -22,12 +22,13 @@ This is a helper script to populate the DB given a JSON representing our invento
     ],
   },...
 ]
-Each record should be broken down and upload to 3 different tables including `products`, `product-categories`, 
+Each record should be broken down and upload to 2 different tables:`products`, `product-categories`, 
 and item
 */
 
 import { RequestInfo, RequestInit } from "node-fetch";
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
+import { data } from "./data";
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
@@ -180,7 +181,7 @@ async function addProduct(product) {
 
 let uploaded = 0;
 function main() {
-  for (const product of input) {
+  for (const product of data) {
     addProduct(product);
   }
 }
