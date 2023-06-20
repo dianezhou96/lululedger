@@ -170,15 +170,6 @@ const App = () => {
               <Route path="/account" element={<Account />} />
             </Routes>
           </Content>
-          <Footer
-            style={{
-              textAlign: "center",
-              zIndex: "2",
-              backgroundColor: "#dce0e6",
-            }}
-          >
-            San Francisco Ice Theatre ©{new Date().getFullYear()}
-          </Footer>
         </Layout>
       </Layout>
     </div>

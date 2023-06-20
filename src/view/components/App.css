@@ -33,6 +33,7 @@
 
 .ant-layout-content {
   overflow: scroll;
+  background-color: white;
 }
 
 .ant-card-cover {
@@ -50,4 +51,19 @@ style because right now it'll target all antd selects
 */
 .ant-select-arrow-loading .anticon-loading svg {
   font-size: 1.25rem;
+}
+
+.ant-card ul.ant-card-actions > li {
+  margin: 0;
+}
+
+/*
+Make entire card action clickable
+*/
+ul.ant-card-actions li span {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e6f4ff;
 }
