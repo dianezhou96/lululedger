@@ -84,7 +84,7 @@ router.post(
   user_authenticated,
   async (req: AuthorizedRequest, res: Response) => {
     if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
-    const authorized = await buyer_has_cart(req.buyer.id, req.params.id);
+    const authorized = await buyer_has_cart(req.buyer.id, req.body.cart);
     if (!authorized) {
       res.status(403).end();
       return;
@@ -236,8 +236,8 @@ async function get_carts(id) {
 async function buyer_has_cart(buyer_id, cart_id) {
   const query = {
     filters: {
-      buyer: buyer_id,
-      id: cart_id,
+      buyer: buyer_id ?? -1,
+      id: cart_id ?? -1,
     },
   };
   const response = await fetch(`${API_URI}/carts?${qs.stringify(query)}`, {
