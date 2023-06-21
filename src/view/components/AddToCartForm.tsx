@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button, Form, InputNumber } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
@@ -8,6 +8,8 @@ import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort } from "../utils";
 
+export const INIT_LIMIT = 4; // Number of items to show in the form initially
+
 interface FormValues {
   [key: number]: number;
 }
@@ -15,15 +17,16 @@ interface FormValues {
 interface AddToCartFormProps {
   product: Product;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  showAll: boolean;
+  setShowAll: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   props
 ) => {
-  const { product, setOpen, setCartDirty } = props;
+  const { product, setOpen, showAll, setShowAll, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
-  const [loading, setLoading] = useState(false);
 
   const cartId = useMemo(() => {
     return Number(searchParams.get("cart"));
@@ -56,11 +59,16 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     setOpen(false);
   };
 
-  return product.items.length ? (
+  const itemsList = defaultItemSort(product.items);
+
+  useEffect(() => {
+    if (itemsList.length < INIT_LIMIT) setShowAll(true);
+  }, [itemsList]);
+
+  return itemsList.length ? (
     <div
       style={{
-        width: "max-content",
-        maxWidth: COVER_WIDTH * 1.2,
+        width: COVER_WIDTH,
         maxHeight: COVER_HEIGHT * 1.2,
         overflow: "scroll",
       }}
@@ -98,7 +106,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         disabled={!cartId}
         style={{ margin: 10 }}
       >
-        {defaultItemSort(product.items).map((item, idx) => {
+        {itemsList.map((item, idx) => {
           const colorSizeString =
             item.color && item.size
               ? item.color + " - Size " + item.size
@@ -108,7 +116,12 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
               ? item.size
               : product.name;
           return (
-            <Form.Item key={idx} label={colorSizeString} name={item.id}>
+            <Form.Item
+              key={idx}
+              label={colorSizeString}
+              name={item.id}
+              style={idx >= INIT_LIMIT && !showAll ? { display: "none" } : {}}
+            >
               <InputNumber
                 placeholder="qty"
                 style={{
@@ -118,6 +131,27 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             </Form.Item>
           );
         })}
+        {itemsList.length > INIT_LIMIT && (
+          <div style={{ textAlign: "right", marginBottom: 16 }}>
+            {showAll ? (
+              <a
+                onClick={() => {
+                  setShowAll(false);
+                }}
+              >
+                Show fewer options
+              </a>
+            ) : (
+              <a
+                onClick={() => {
+                  setShowAll(true);
+                }}
+              >
+                Show all options... ({itemsList.length - INIT_LIMIT} more)
+              </a>
+            )}
+          </div>
+        )}
         <Form.Item style={{ width: "fit-content", marginLeft: "auto" }}>
           <Button type="primary" htmlType="submit">
             Add to cart
