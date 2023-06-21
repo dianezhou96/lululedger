@@ -1,7 +1,8 @@
 import sgMail = require("@sendgrid/mail");
 import { SG_API_KEY, GMAIL_TOKEN } from "../config";
 import nodemailer = require("nodemailer");
-import { SHOP_NAME, SHOP_URL } from "../../constants";
+import { SHOP_NAME } from "../../constants";
+import { SHOP_URL } from "../config";
 
 sgMail.setApiKey(SG_API_KEY);
 const transporter = nodemailer.createTransport({

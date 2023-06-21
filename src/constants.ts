@@ -1,7 +1,5 @@
 export const SHOP_NAME = "SFIT x Lululemon Fundraiser";
 
-export const SHOP_URL = "http://localhost:3123/#/shop";
-
 export const DISCOUNT = 0.4;
 
 export const ITEM_SIZES = [
