@@ -15,7 +15,7 @@ app.enable("trust proxy"); // allow us to deploy behind nginx proxy and log ips 
 // logging
 morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined)); // get email if possible
 morgan.token("date", () =>
-  moment().tz("America/Los_Angeles").format("MM/DD/YYYY HH:mm:ssA z")
+  moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
 );
 app.use(morgan(LOG_LEVEL));
 
