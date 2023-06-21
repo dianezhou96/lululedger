@@ -60,43 +60,53 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     data[index]["totalPrice"] = data[index]["quantity"] * data[index]["price"];
   };
 
-  const columns: ColumnType<RecordType>[] = ["Product", "Color", "Size"].map(
-    (title) => ({
-      title: title,
-      dataIndex: title.toLowerCase(),
-      key: title.toLowerCase(),
-    })
-  );
-  columns.push({
-    title: "Unit Price",
-    dataIndex: "price",
-    key: "price",
-    render: (price: number) => (price > 0 ? getPriceString(price) : ""),
-    align: "right",
-  });
-  columns.push({
-    title: "Qty",
-    dataIndex: "quantity",
-    key: "qty",
-    align: "right",
-    render: (value, _, index) =>
-      editMode ? (
-        <InputNumber
-          style={{ width: "4em" }}
-          value={value}
-          onChange={onInputChange("quantity", index)}
-        />
-      ) : (
-        value
-      ),
-  });
-  columns.push({
-    title: "Total Price",
-    dataIndex: "totalPrice",
-    key: "totalPrice",
-    render: (price: number) => getPriceString(price, 2),
-    align: "right",
-  });
+  const columns: ColumnType<RecordType>[] = [
+    {
+      title: "Product",
+      dataIndex: "product",
+      key: "product",
+    },
+    {
+      title: "Color/Style",
+      dataIndex: "color",
+      key: "color",
+    },
+    {
+      title: "Size",
+      dataIndex: "size",
+      key: "size",
+    },
+    {
+      title: "Unit Price",
+      dataIndex: "price",
+      key: "price",
+      render: (price: number) => (price > 0 ? getPriceString(price) : ""),
+      align: "right",
+    },
+    {
+      title: "Qty",
+      dataIndex: "quantity",
+      key: "qty",
+      align: "right",
+      render: (value, _, index) =>
+        editMode ? (
+          <InputNumber
+            style={{ width: "4em" }}
+            value={value}
+            onChange={onInputChange("quantity", index)}
+          />
+        ) : (
+          value
+        ),
+    },
+    {
+      title: "Total Price",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      render: (price: number) => getPriceString(price, 2),
+      align: "right",
+    },
+  ];
 
   const deleteCart = async (cartId) => {
     await fetch(`/shop/carts/${cartId}`, {
