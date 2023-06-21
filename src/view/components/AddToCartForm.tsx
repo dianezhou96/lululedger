@@ -72,6 +72,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         maxHeight: COVER_HEIGHT * 1.2,
         overflow: "scroll",
       }}
+      className="add-to-cart-form"
     >
       <div
         style={{
@@ -98,9 +99,13 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         form={form}
         colon={false}
         labelCol={{
-          span: 19,
+          flex: "1",
         }}
         labelWrap
+        wrapperCol={{
+          span: 6,
+          flex: "none",
+        }}
         onFinish={onSubmit}
         autoComplete="off"
         disabled={!cartId}
@@ -126,6 +131,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
                 placeholder="qty"
                 style={{
                   width: "auto",
+                  maxWidth: 60,
                 }}
               />
             </Form.Item>

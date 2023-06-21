@@ -50,6 +50,11 @@
   height: 360px;
 }
 
+.add-to-cart-form .ant-form-item-label {
+  text-align: right;
+  margin-right: 8px;
+}
+
 body {
   margin: 0;
 }
