@@ -3,16 +3,16 @@ import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { SG_API_KEY } from "./config";
+import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
 
 const app = express();
-const port = 3123;
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 sgMail.setApiKey(SG_API_KEY);
 
+app.enable("trust proxy"); // allow us to deploy behind nginx proxy and log ips correctly
 // logging
-app.use(morgan("dev"));
+app.use(morgan(LOG_LEVEL));
 
 // import routes
 const shop_routes = require("./routes/shop");
@@ -44,6 +44,6 @@ app.get("/email", async (req: Request, res: Response) => {
   res.sendStatus(code);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
