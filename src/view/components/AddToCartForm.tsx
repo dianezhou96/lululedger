@@ -7,7 +7,7 @@ import { CartProps } from "./App";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort } from "../utils";
-import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
+import { InfoCircleFilled } from "@ant-design/icons";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
 
@@ -93,36 +93,21 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             )}
             <span style={{ display: "flex", alignItems: "center" }}>
               <CartSelector {...props} />
-              {cart &&
-                (cart.submitted ? (
-                  <Popover
-                    title="Submitted"
-                    content={`Order for ${cart.name} was previously submitted. Items added to this order will be submitted automatically. However, you can still make modifications in the "Orders" page until the deadline.`}
-                    placement="bottom"
-                    trigger="hover"
-                    overlayStyle={{
-                      width: 200,
-                    }}
-                  >
-                    <CheckCircleOutlined
-                      style={{ marginLeft: 8, fontSize: 18, color: "#52c41a" }}
-                    />
-                  </Popover>
-                ) : (
-                  <Popover
-                    title="Pending submission"
-                    content={`Once you are done shopping for ${cart.name}, head over to the "Orders" page to submit this order!`}
-                    placement="bottom"
-                    trigger="hover"
-                    overlayStyle={{
-                      width: 200,
-                    }}
-                  >
-                    <ClockCircleOutlined
-                      style={{ marginLeft: 8, fontSize: 18, color: "#1890ff" }}
-                    />
-                  </Popover>
-                ))}
+              {cart && cart.submitted && (
+                <Popover
+                  title="Adding to submitted cart"
+                  content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline.`}
+                  placement="bottom"
+                  trigger="hover"
+                  overlayStyle={{
+                    width: 200,
+                  }}
+                >
+                  <InfoCircleFilled
+                    style={{ marginLeft: 8, fontSize: 18, color: "#007bff" }}
+                  />
+                </Popover>
+              )}
             </span>
           </>
         ) : (

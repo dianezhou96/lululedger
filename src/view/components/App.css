@@ -32,14 +32,6 @@
 }
 
 @media (max-width: 420px) {
-  h2 {
-    font-size: 1em;
-  }
-  p,
-  li {
-    font-size: 0.8em;
-  }
-
   header {
     position: sticky;
     top: 0;
@@ -49,6 +41,10 @@
   html,
   body {
     scroll-behavior: smooth;
+  }
+
+  .shop-name {
+    font-size: 1em;
   }
 
   .custom-sider {
@@ -75,13 +71,6 @@
   .cart-table .ant-table-container {
     overflow-x: auto;
   }
-
-  /* .cart-table .ant-table-thead,
-  .cart-table .ant-table-tfoot {
-    position: sticky;
-    z-index: 1;
-    left: 0;
-  } */
 }
 
 .ant-layout-content {

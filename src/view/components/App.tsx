@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
 import {
-  Link,
   Route,
   Routes,
   useLocation,
@@ -85,7 +84,17 @@ const App = () => {
   // Update cart selected
   useEffect(() => {
     auth();
-    setCartSelected(searchParams.get("cart"));
+    if (
+      carts.find(
+        (cart) => cart.id.toString() === searchParams.get("cart") ?? ""
+      )
+    )
+      setCartSelected(searchParams.get("cart"));
+    else {
+      setCartSelected(null);
+      searchParams.delete("cart");
+      setSearchParams(searchParams);
+    }
   }, [searchParams]);
 
   // Update number of items in selected cart
@@ -127,7 +136,11 @@ const App = () => {
               borderBottom: "solid #f5f5f5",
             }}
           >
-            <h2 id={"shop-name"} style={{ lineHeight: "1.2em" }}>
+            <h2
+              className="shop-name"
+              id="shop-name"
+              style={{ lineHeight: "1.2em" }}
+            >
               {SHOP_NAME}
             </h2>
             <div
