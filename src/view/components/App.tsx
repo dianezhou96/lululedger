@@ -8,7 +8,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { Layout, theme } from "antd";
+import { Layout, Grid, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
@@ -22,6 +22,7 @@ import { SignUpButton } from "./SignUpButton";
 import { SHOP_NAME } from "../../constants";
 
 const { Header, Content, Footer, Sider } = Layout;
+const { useBreakpoint } = Grid;
 
 export interface CartProps {
   carts: Cart[];
@@ -109,6 +110,14 @@ const App = () => {
     } else setCartItemCount(undefined);
   }, [carts, cartSelected]);
 
+  const screens = useBreakpoint();
+  const [siderCollapsed, setSiderCollapsed] = useState(true);
+  const handleMenuClick = () => {
+    if ((screens.xs || screens.sm || screens.md) && !screens.lg)
+      setSiderCollapsed(true);
+    else setSiderCollapsed(false);
+  };
+
   return (
     <div className="App">
       <Layout>
@@ -117,6 +126,8 @@ const App = () => {
           breakpoint="lg"
           collapsedWidth="0"
           width="12rem"
+          collapsed={siderCollapsed}
+          onCollapse={setSiderCollapsed}
         >
           <h2
             style={{ color: "#f5f5f5", textAlign: "center" }}
@@ -124,7 +135,7 @@ const App = () => {
           >
             lululedger
           </h2>
-          <Nav />
+          <Nav handleMenuClick={handleMenuClick} />
         </Sider>
         <Layout>
           <Header

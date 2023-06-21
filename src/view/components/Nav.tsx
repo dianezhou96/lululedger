@@ -1,5 +1,5 @@
 import {
-  UnorderedListOutlined,
+  ShoppingOutlined,
   ShoppingCartOutlined,
   SettingOutlined,
 } from "@ant-design/icons";
@@ -8,7 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
 
-export default function Nav() {
+export default function Nav({ handleMenuClick }) {
   const hrefs = window.location.href.split("/"); // get the current browser URL
   const [href, setHref] = useState("/" + hrefs[3]); // keep this in a state
   const location = useLocation();
@@ -26,6 +26,7 @@ export default function Nav() {
           to={"/shop"}
           onClick={(e) => {
             e.preventDefault();
+            handleMenuClick();
             navigate({
               pathname: "/shop",
               search: location.search,
@@ -33,15 +34,13 @@ export default function Nav() {
           }}
         />
       </Menu.Item>
-      <Menu.Item
-        key="/orders"
-        icon={React.createElement(UnorderedListOutlined)}
-      >
+      <Menu.Item key="/orders" icon={React.createElement(ShoppingOutlined)}>
         <span>Orders</span>
         <Link
           to={"/orders"}
           onClick={(e) => {
             e.preventDefault();
+            handleMenuClick();
             navigate({
               pathname: "/orders",
               search: location.search,
@@ -55,6 +54,7 @@ export default function Nav() {
           to={"/account"}
           onClick={(e) => {
             e.preventDefault();
+            handleMenuClick();
             navigate({
               pathname: "/account",
               search: location.search,
