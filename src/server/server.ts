@@ -50,5 +50,5 @@ app.get("/email", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`lululedger listening on port ${PORT}`);
 });
