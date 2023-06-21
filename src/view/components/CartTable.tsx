@@ -2,7 +2,6 @@ import {
   Button,
   Empty,
   InputNumber,
-  List,
   Popconfirm,
   Space,
   Table,
@@ -198,25 +197,32 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   };
 
   const confirmationDescription = (
-    <div style={{ maxWidth: 500 }}>
-      By submitting this order, you acknowledge that:
-      <List>
-        <List.Item>
+    <div
+      style={{
+        maxWidth: 500,
+        maxHeight: 480,
+        overflowY: "scroll",
+        margin: 10,
+      }}
+    >
+      <p>By submitting this order, you acknowledge that:</p>
+      <ol>
+        <li>
           SFIT does not guarantee that all items in your order will be fulfilled
           as it depends on the stock available at the time we place the order.
           You will be charged only for items that are fulfilled.
-        </List.Item>
-        <List.Item>
+        </li>
+        <li>
           All items purchased through this fundraiser are non-refundable and
           non-exchangeable.
-        </List.Item>
-        <List.Item>
+        </li>
+        <li>
           You will pay the amount due, preferably via PayPal or Venmo, or
           otherwise arranged with Diane or an SFIT team manager. The amount due
           may differ from the estimated total due stated depending on final
           shipping costs.
-        </List.Item>
-      </List>
+        </li>
+      </ol>
     </div>
   );
 
@@ -259,7 +265,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
               okText="Confirm"
               icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
             >
-              <Button type="primary">Submit</Button>
+              <Button type="primary">Save and submit</Button>
             </Popconfirm>
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>

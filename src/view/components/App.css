@@ -35,7 +35,8 @@
   h2 {
     font-size: 1em;
   }
-  p {
+  p,
+  li {
     font-size: 0.8em;
   }
 }
