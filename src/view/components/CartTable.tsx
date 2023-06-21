@@ -1,4 +1,13 @@
-import { Button, Empty, InputNumber, Space, Table, Tag } from "antd";
+import {
+  Button,
+  Empty,
+  InputNumber,
+  List,
+  Popconfirm,
+  Space,
+  Table,
+  Tag,
+} from "antd";
 import { ColumnType } from "antd/es/table";
 import React, { useState } from "react";
 import { Cart } from "../../types";
@@ -8,8 +17,10 @@ import {
   EditTwoTone,
   CheckCircleOutlined,
   ClockCircleOutlined,
+  WarningOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 type RecordType = {
   key: number;
@@ -30,6 +41,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
     const product = cartItem.item.product;
@@ -184,6 +197,29 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     setEditMode(false);
   };
 
+  const confirmationDescription = (
+    <div style={{ maxWidth: 500 }}>
+      By submitting this order, you acknowledge that:
+      <List>
+        <List.Item>
+          SFIT does not guarantee that all items in your order will be fulfilled
+          as it depends on the stock available at the time we place the order.
+          You will be charged only for items that are fulfilled.
+        </List.Item>
+        <List.Item>
+          All items purchased through this fundraiser are non-refundable and
+          non-exchangeable.
+        </List.Item>
+        <List.Item>
+          You will pay the amount due, preferably via PayPal or Venmo, or
+          otherwise arranged with Diane or an SFIT team manager. The amount due
+          may differ from the estimated total due stated depending on final
+          shipping costs.
+        </List.Item>
+      </List>
+    </div>
+  );
+
   return (
     <Table
       dataSource={tableData}
@@ -216,9 +252,15 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       footer={() =>
         editMode ? (
           <Space>
-            <Button type="primary" onClick={handleSaveOrder}>
-              Save and submit
-            </Button>
+            <Popconfirm
+              title={`Submit order for ${cart.name}`}
+              description={confirmationDescription}
+              onConfirm={handleSaveOrder}
+              okText="Confirm"
+              icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
+            >
+              <Button type="primary">Submit</Button>
+            </Popconfirm>
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
         ) : (
@@ -229,18 +271,45 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
                 : 'Click "Submit this order" to confirm your selections. After submission, you may still edit your order until the deadline.')}
             <Space>
               {tableData.length > 0 && !cart.submitted && (
-                <Button type="primary" onClick={() => handleSubmitOrder()}>
-                  Submit this order!
-                </Button>
+                <Popconfirm
+                  title={`Submit order for ${cart.name}`}
+                  description={confirmationDescription}
+                  onConfirm={handleSubmitOrder}
+                  okText="Confirm"
+                  icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
+                >
+                  <Button type="primary">Submit this order!</Button>
+                </Popconfirm>
               )}
               {tableData.length > 0 && (
                 <Button onClick={() => setEditMode(true)}>
                   <EditTwoTone /> Edit
                 </Button>
               )}
-              <Button danger onClick={handleDeleteOrder}>
-                <DeleteTwoTone twoToneColor="red" /> Delete
-              </Button>
+              {tableData.length === 0 && (
+                <Button
+                  onClick={() =>
+                    navigate({
+                      pathname: "/shop",
+                      search: location.search,
+                    })
+                  }
+                >
+                  <b>Go to shop</b>
+                </Button>
+              )}
+              <Popconfirm
+                title="Delete order"
+                description={`Confirm deleting order for ${cart.name}?`}
+                onConfirm={handleDeleteOrder}
+                okText="Yes, delete"
+                icon={<WarningOutlined style={{ color: "red" }} />}
+              >
+                <Button danger>
+                  <DeleteTwoTone twoToneColor="red" /> Delete
+                  {tableData.length === 0 && " this order"}
+                </Button>
+              </Popconfirm>
             </Space>
           </Space>
         )
