@@ -103,7 +103,12 @@ const App = () => {
   return (
     <div className="App">
       <Layout>
-        <Sider breakpoint="lg" collapsedWidth="0" width="12rem">
+        <Sider
+          className="custom-sider"
+          breakpoint="lg"
+          collapsedWidth="0"
+          width="12rem"
+        >
           <h2
             style={{ color: "#f5f5f5", textAlign: "center" }}
             className="logo"

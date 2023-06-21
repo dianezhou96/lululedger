@@ -200,10 +200,9 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     <div
       style={{
         maxWidth: 500,
-        maxHeight: 480,
-        overflowY: "scroll",
         margin: 10,
       }}
+      className="confirmation-description"
     >
       <p>By submitting this order, you acknowledge that:</p>
       <ol>
@@ -228,6 +227,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
 
   return (
     <Table
+      className="cart-table"
       dataSource={tableData}
       loading={loading}
       title={() => (

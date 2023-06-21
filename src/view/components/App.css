@@ -39,6 +39,49 @@
   li {
     font-size: 0.8em;
   }
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+
+  .custom-sider {
+    position: fixed !important;
+    z-index: 10;
+    height: 100vh;
+    transition: transform 0.3s;
+    transform: translateX(0);
+  }
+
+  .custom-sider.collapsed {
+    transition: transform 0.3s;
+    transform: translateX(-100%);
+  }
+
+  .confirmation-description {
+    font-size: 12px;
+  }
+
+  .cart-table .ant-table {
+    scroll-behavior: smooth;
+  }
+
+  .cart-table .ant-table-container {
+    overflow-x: auto;
+  }
+
+  /* .cart-table .ant-table-thead,
+  .cart-table .ant-table-tfoot {
+    position: sticky;
+    z-index: 1;
+    left: 0;
+  } */
 }
 
 .ant-layout-content {
