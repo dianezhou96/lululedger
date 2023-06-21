@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Form, InputNumber } from "antd";
+import { Button, Form, InputNumber, Popconfirm, Popover } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
@@ -7,6 +7,7 @@ import { CartProps } from "./App";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort } from "../utils";
+import { CheckCircleOutlined, ClockCircleOutlined } from "@ant-design/icons";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
 
@@ -24,12 +25,14 @@ interface AddToCartFormProps {
 export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   props
 ) => {
-  const { product, setOpen, showAll, setShowAll, setCartDirty } = props;
+  const { product, setOpen, showAll, setShowAll, carts, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
 
-  const cartId = useMemo(() => {
-    return Number(searchParams.get("cart"));
+  const cart = useMemo(() => {
+    return carts.find(
+      (cart) => cart.id.toString() === searchParams.get("cart")
+    );
   }, [searchParams]);
 
   const addItemsToCart = async (cartItems: CartItemPost[]) => {
@@ -47,11 +50,11 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   };
 
   const onSubmit = (values: FormValues) => {
-    if (cartId) {
+    if (cart) {
       const cartItems: CartItemPost[] = [];
       for (const [key, value] of Object.entries(values)) {
         if (value > 0)
-          cartItems.push({ cart: cartId, item: Number(key), quantity: value });
+          cartItems.push({ cart: cart.id, item: Number(key), quantity: value });
       }
       addItemsToCart(cartItems);
     }
@@ -84,12 +87,44 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
       >
         {searchParams.get("credential") ? (
           <>
-            {cartId ? (
+            {cart ? (
               <b>Adding to cart for</b>
             ) : (
               <b style={{ color: "red" }}>Select a cart to add items to</b>
             )}
-            <CartSelector {...props} />
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <CartSelector {...props} />
+              {cart &&
+                (cart.submitted ? (
+                  <Popover
+                    title="Submitted"
+                    content={`Order for ${cart.name} was previously submitted. Items added to this order will be submitted automatically. However, you can still make modifications in the "Orders" page until the deadline.`}
+                    placement="bottom"
+                    trigger="hover"
+                    overlayStyle={{
+                      width: 200,
+                    }}
+                  >
+                    <CheckCircleOutlined
+                      style={{ marginLeft: 8, fontSize: 18, color: "#52c41a" }}
+                    />
+                  </Popover>
+                ) : (
+                  <Popover
+                    title="Pending submission"
+                    content={`Once you are done shopping for ${cart.name}, head over to the "Orders" page to submit this order!`}
+                    placement="bottom"
+                    trigger="hover"
+                    overlayStyle={{
+                      width: 200,
+                    }}
+                  >
+                    <ClockCircleOutlined
+                      style={{ marginLeft: 8, fontSize: 18, color: "#1890ff" }}
+                    />
+                  </Popover>
+                ))}
+            </span>
           </>
         ) : (
           <SignUpButton />
@@ -108,7 +143,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         }}
         onFinish={onSubmit}
         autoComplete="off"
-        disabled={!cartId}
+        disabled={!cart}
         style={{ margin: 10 }}
       >
         {itemsList.map((item, idx) => {
