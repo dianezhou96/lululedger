@@ -32,11 +32,44 @@
 }
 
 @media (max-width: 420px) {
-  h2 {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  html,
+  body {
+    scroll-behavior: smooth;
+  }
+
+  .shop-name {
     font-size: 1em;
   }
-  p {
-    font-size: 0.8em;
+
+  .custom-sider {
+    position: fixed !important;
+    z-index: 10;
+    height: 100vh;
+    transition: transform 0.3s;
+    transform: translateX(0);
+  }
+
+  .custom-sider.collapsed {
+    transition: transform 0.3s;
+    transform: translateX(-100%);
+  }
+
+  .confirmation-description {
+    font-size: 12px;
+  }
+
+  .cart-table .ant-table {
+    scroll-behavior: smooth;
+  }
+
+  .cart-table .ant-table-container {
+    overflow-x: auto;
   }
 }
 
@@ -47,6 +80,11 @@
 
 .ant-card-cover {
   height: 360px;
+}
+
+.add-to-cart-form .ant-form-item-label {
+  text-align: right;
+  margin-right: 8px;
 }
 
 body {

@@ -2,14 +2,13 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Nav from "./Nav";
 import {
-  Link,
   Route,
   Routes,
   useLocation,
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { Button, Layout, theme } from "antd";
+import { Layout, Grid, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
@@ -23,6 +22,7 @@ import { SignUpButton } from "./SignUpButton";
 import { SHOP_NAME } from "../../constants";
 
 const { Header, Content, Footer, Sider } = Layout;
+const { useBreakpoint } = Grid;
 
 export interface CartProps {
   carts: Cart[];
@@ -85,6 +85,18 @@ const App = () => {
   // Update cart selected
   useEffect(() => {
     auth();
+    // TODO: Only update cartSelected if it's one of the carts the buyer has.
+    // if (
+    //   carts.find(
+    //     (cart) => cart.id.toString() === searchParams.get("cart") ?? ""
+    //   )
+    // )
+    //   setCartSelected(searchParams.get("cart"));
+    // else {
+    //   setCartSelected(null);
+    //   searchParams.delete("cart");
+    //   setSearchParams(searchParams);
+    // }
     setCartSelected(searchParams.get("cart"));
   }, [searchParams]);
 
@@ -100,17 +112,32 @@ const App = () => {
     } else setCartItemCount(undefined);
   }, [carts, cartSelected]);
 
+  const screens = useBreakpoint();
+  const [siderCollapsed, setSiderCollapsed] = useState(true);
+  const handleMenuClick = () => {
+    if ((screens.xs || screens.sm || screens.md) && !screens.lg)
+      setSiderCollapsed(true);
+    else setSiderCollapsed(false);
+  };
+
   return (
     <div className="App">
       <Layout>
-        <Sider breakpoint="lg" collapsedWidth="0" width="12rem">
+        <Sider
+          className="custom-sider"
+          breakpoint="lg"
+          collapsedWidth="0"
+          width="12rem"
+          collapsed={siderCollapsed}
+          onCollapse={setSiderCollapsed}
+        >
           <h2
             style={{ color: "#f5f5f5", textAlign: "center" }}
             className="logo"
           >
             lululedger
           </h2>
-          <Nav />
+          <Nav handleMenuClick={handleMenuClick} />
         </Sider>
         <Layout>
           <Header
@@ -122,7 +149,11 @@ const App = () => {
               borderBottom: "solid #f5f5f5",
             }}
           >
-            <h2 id={"shop-name"} style={{ lineHeight: "1.2em" }}>
+            <h2
+              className="shop-name"
+              id="shop-name"
+              style={{ lineHeight: "1.2em" }}
+            >
               {SHOP_NAME}
             </h2>
             <div

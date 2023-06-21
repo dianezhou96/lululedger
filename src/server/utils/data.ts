@@ -14,7 +14,7 @@ export const data: ProductObj[] = [
     link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
     images: [
       "https://images.lululemon.com/is/image/lululemon/LW4AWLS_0001_1",
-      "https://images.lululemon.com/is/image/lululemon/LW4AWKS_0002_1",
+      "https://images.lululemon.com/is/image/lululemon/LW4AWLS_031382_1",
     ],
     price_retail: 118,
     items: [
@@ -169,7 +169,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [2, 4, 6, 8, 10, 12, 14] }],
   },
   {
-    product: "Hotty Hot High-Rise Lined Short 2.5",
+    product: "Hotty Hot High-Rise Lined Short 2.5″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-shorts/Hotty-Hot-Short-HR/_/prod9250076",
     images: [
@@ -189,7 +189,7 @@ export const data: ProductObj[] = [
     ],
   },
   {
-    product: "Hotty Hot Low-Rise Lined Short 2.5",
+    product: "Hotty Hot Low-Rise Lined Short 2.5″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-shorts/Hotty-Hot-Short-II/_/prod8551591",
     images: ["https://images.lululemon.com/is/image/lululemon/LW7AUSR_0001_1"],
@@ -197,7 +197,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14] }],
   },
   {
-    product: "Hotty Hot High-Rise Lined Short 4",
+    product: "Hotty Hot High-Rise Lined Short 4″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-shorts/Hotty-Hot-Short-HR-Long/_/prod9250073",
     images: [
@@ -217,7 +217,7 @@ export const data: ProductObj[] = [
     ],
   },
   {
-    product: "lululemon Align™ High-Rise Short 6",
+    product: "lululemon Align™ High-Rise Short 6″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-shorts/Align-Short-6/_/prod8351150",
     images: ["https://images.lululemon.com/is/image/lululemon/LW7CU9S_0001_1"],
@@ -225,7 +225,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
-    product: "lululemon Align™ High-Rise Pant with Pockets 25",
+    product: "lululemon Align™ High-Rise Pant with Pockets 25″",
     category: 2,
     link: "https://shop.lululemon.com/p/womens-leggings/Align-HighRise-Tight-25-Pockets/_/prod10370071",
     images: ["https://images.lululemon.com/is/image/lululemon/LW5EHBS_0001_1"],
@@ -233,7 +233,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
-    product: "lululemon Align™ High-Rise Mini-Flared Pant 32",
+    product: "lululemon Align™ High-Rise Mini-Flared Pant 32″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-pants/Align-HR-Mini-Flare-32/_/prod11250399",
     images: ["https://images.lululemon.com/is/image/lululemon/LW5EUSS_0001_1"],
@@ -249,7 +249,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
-    product: "Fast and Free High-Rise Tight 25",
+    product: "Fast and Free High-Rise Tight 25″",
     category: 2,
     link: "https://shop.lululemon.com/p/womens-leggings/Fast-And-Free-Tight-II-NR/_/prod8960003",
     images: ["https://images.lululemon.com/is/image/lululemon/LW5BXQS_0001_1"],
@@ -257,7 +257,7 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
-    product: "Wunder Train High-Rise Tight 28",
+    product: "Wunder Train High-Rise Tight 28″",
     category: 2,
     link: "https://shop.lululemon.com/p/womens-leggings/Wunder-Train-HR-Tight-28/_/prod10440282",
     images: ["https://images.lululemon.com/is/image/lululemon/LW5DJ0S_0001_1"],

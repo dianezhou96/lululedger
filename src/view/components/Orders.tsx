@@ -27,7 +27,7 @@ export const Orders: React.FC<CartProps> = ({
   return cartDirty ? (
     <Loading />
   ) : carts.length > 0 ? (
-    <div style={{ margin: GAP, textAlign: "center" }}>
+    <div style={{ textAlign: "center" }}>
       {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (

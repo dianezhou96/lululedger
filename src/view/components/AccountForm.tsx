@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select, Alert, AlertProps, Card } from "antd";
+import { Button, Form, Input, Select, Alert, AlertProps } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
 
 type AlertObject = {

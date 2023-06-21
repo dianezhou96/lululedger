@@ -21,6 +21,15 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
   const imageLinks = product.images;
   const priceString = getPriceDescription(product);
   const [open, setOpen] = useState(false);
+  const [showAll, setShowAll] = useState(false);
+
+  const handleOpenChange = (newOpen) => {
+    setOpen(newOpen);
+    if (!newOpen) {
+      setShowAll(false);
+    }
+  };
+
   return (
     <Card
       style={{
@@ -57,11 +66,18 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
       }
       actions={[
         <Popover
-          content={<AddToCartForm {...props} setOpen={setOpen} />}
+          content={
+            <AddToCartForm
+              {...props}
+              setOpen={setOpen}
+              showAll={showAll}
+              setShowAll={setShowAll}
+            />
+          }
           title={`Add ${product.name} ($${getPrice(product)}) to cart`}
           trigger="click"
           open={open}
-          onOpenChange={setOpen}
+          onOpenChange={handleOpenChange}
           overlayStyle={{
             width: "min-content",
           }}
