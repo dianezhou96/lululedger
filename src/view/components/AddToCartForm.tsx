@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Button, Form, InputNumber, Popconfirm, Popover } from "antd";
+import { Button, Form, InputNumber, Popover } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
@@ -28,12 +28,11 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   const { product, setOpen, showAll, setShowAll, carts, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
-
   const cart = useMemo(() => {
     return carts.find(
-      (cart) => cart.id.toString() === searchParams.get("cart")
+      (cart) => cart?.id.toString() === searchParams.get("cart")
     );
-  }, [searchParams]);
+  }, [carts, searchParams]);
 
   const addItemsToCart = async (cartItems: CartItemPost[]) => {
     for (const cartItem of cartItems) {
