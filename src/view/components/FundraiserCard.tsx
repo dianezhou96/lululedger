@@ -2,7 +2,7 @@ import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
 import React, { useState } from "react";
 import { PlusCircleTwoTone } from "@ant-design/icons";
-import { Empty, Popover } from "antd";
+import { Empty } from "antd";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 
 export const FundraiserCard: React.FC = () => {

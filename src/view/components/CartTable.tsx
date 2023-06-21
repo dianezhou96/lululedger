@@ -1,6 +1,6 @@
 import { Button, Empty, InputNumber, Space, Table } from "antd";
 import { ColumnType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
 import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";

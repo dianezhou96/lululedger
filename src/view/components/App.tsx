@@ -9,7 +9,7 @@ import {
   useNavigate,
   useSearchParams,
 } from "react-router-dom";
-import { Button, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";

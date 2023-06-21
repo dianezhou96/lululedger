@@ -5,7 +5,7 @@ import { getPrice, getPriceString } from "../utils";
 import { PlusCircleTwoTone } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Empty, Popover } from "antd";
-import { AddToCartForm, INIT_LIMIT } from "./AddToCartForm";
+import { AddToCartForm } from "./AddToCartForm";
 import { Product } from "../../types";
 import { CartProps } from "./App";
 
