@@ -85,17 +85,19 @@ const App = () => {
   // Update cart selected
   useEffect(() => {
     auth();
-    if (
-      carts.find(
-        (cart) => cart.id.toString() === searchParams.get("cart") ?? ""
-      )
-    )
-      setCartSelected(searchParams.get("cart"));
-    else {
-      setCartSelected(null);
-      searchParams.delete("cart");
-      setSearchParams(searchParams);
-    }
+    // TODO: Only update cartSelected if it's one of the carts the buyer has.
+    // if (
+    //   carts.find(
+    //     (cart) => cart.id.toString() === searchParams.get("cart") ?? ""
+    //   )
+    // )
+    //   setCartSelected(searchParams.get("cart"));
+    // else {
+    //   setCartSelected(null);
+    //   searchParams.delete("cart");
+    //   setSearchParams(searchParams);
+    // }
+    setCartSelected(searchParams.get("cart"));
   }, [searchParams]);
 
   // Update number of items in selected cart
