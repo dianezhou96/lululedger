@@ -78,6 +78,32 @@ router.post(
   }
 );
 
+// Submit a cart
+router.put(
+  "/carts/submit/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer) return; // terminate early if not authorized TODO: might not be needed since user_authenticated ends request
+    const authorized = await buyer_has_cart(req.buyer.id, req.params.id);
+    if (!authorized) {
+      res.status(403).end();
+      return;
+    }
+    console.log("Found cart for user", req.buyer.email, "- submitting cart");
+    // submit cart if good
+    const data = await fetch(API_URI + `/carts/${req.params.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ data: { submitted: true } }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    })
+      .then((data) => {
+        return data.json();
+      })
+      .then((json) => json.data);
+    res.status(200).json(data);
+  }
+);
+
 // Add item to cart
 router.post(
   "/cart-items",

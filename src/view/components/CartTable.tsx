@@ -1,9 +1,14 @@
-import { Button, Empty, InputNumber, Space, Table } from "antd";
+import { Button, Empty, InputNumber, Space, Table, Tag } from "antd";
 import { ColumnType } from "antd/es/table";
 import React, { useState } from "react";
 import { Cart } from "../../types";
 import { getPrice, getPriceString } from "../utils";
-import { DeleteTwoTone, EditTwoTone } from "@ant-design/icons";
+import {
+  DeleteTwoTone,
+  EditTwoTone,
+  CheckCircleOutlined,
+  ClockCircleOutlined,
+} from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
 type RecordType = {
@@ -108,18 +113,18 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     },
   ];
 
-  const deleteCart = async (cartId) => {
-    await fetch(`/shop/carts/${cartId}`, {
+  const deleteCart = async () => {
+    await fetch(`/shop/carts/${cart.id}`, {
       method: "DELETE",
       headers: {
         Credential: searchParams.get("credential") ?? "",
       },
     });
+    setCartDirty(true);
   };
 
-  const handleDeleteOrder = async () => {
-    await deleteCart(cart.id);
-    setCartDirty(true);
+  const handleDeleteOrder = () => {
+    deleteCart();
     searchParams.delete("cart");
     setSearchParams(searchParams);
   };
@@ -148,13 +153,30 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     for (const { key, quantity } of tableData) {
       await updateItem(key, quantity);
     }
+    await submitOrder();
+    setCartDirty(true);
+    setLoading(false);
+  };
+
+  const handleSaveOrder = () => {
+    setLoading(true);
+    updateItemsAll();
+  };
+
+  const submitOrder = async () => {
+    await fetch(`shop/carts/submit/${cart.id}`, {
+      method: "PUT",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
     setCartDirty(true);
     setLoading(false);
   };
 
   const handleSubmitOrder = () => {
     setLoading(true);
-    updateItemsAll();
+    submitOrder();
   };
 
   const handleCancel = () => {
@@ -167,9 +189,19 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       dataSource={tableData}
       loading={loading}
       title={() => (
-        <span style={{ fontSize: 18 }}>
+        <div style={{ fontSize: 18 }}>
           <b>{cart.name}</b>
-        </span>
+          <br />
+          {cart.submitted && !editMode ? (
+            <Tag icon={<CheckCircleOutlined />} color="success">
+              Submitted
+            </Tag>
+          ) : (
+            <Tag icon={<ClockCircleOutlined />} color="default">
+              Pending submission
+            </Tag>
+          )}
+        </div>
       )}
       columns={columns}
       pagination={false}
@@ -184,21 +216,32 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       footer={() =>
         editMode ? (
           <Space>
-            <Button type="primary" onClick={handleSubmitOrder}>
-              Save
+            <Button type="primary" onClick={handleSaveOrder}>
+              Save and submit
             </Button>
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
         ) : (
-          <Space>
-            {tableData.length > 0 && (
-              <Button onClick={() => setEditMode(true)}>
-                <EditTwoTone /> Edit this order
+          <Space direction="vertical">
+            {tableData.length > 0 &&
+              (cart.submitted
+                ? "Your order has been submitted! You may still edit your order until the deadline."
+                : 'Click "Submit this order" to confirm your selections. After submission, you may still edit your order until the deadline.')}
+            <Space>
+              {tableData.length > 0 && !cart.submitted && (
+                <Button type="primary" onClick={() => handleSubmitOrder()}>
+                  Submit this order!
+                </Button>
+              )}
+              {tableData.length > 0 && (
+                <Button onClick={() => setEditMode(true)}>
+                  <EditTwoTone /> Edit
+                </Button>
+              )}
+              <Button danger onClick={handleDeleteOrder}>
+                <DeleteTwoTone twoToneColor="red" /> Delete
               </Button>
-            )}
-            <Button danger onClick={handleDeleteOrder}>
-              <DeleteTwoTone twoToneColor="red" /> Delete
-            </Button>
+            </Space>
           </Space>
         )
       }
