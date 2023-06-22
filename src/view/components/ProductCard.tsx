@@ -2,7 +2,11 @@ import Card from "antd/es/card/Card";
 import Meta from "antd/es/card/Meta";
 import React, { useState } from "react";
 import { getPrice, getPriceString } from "../utils";
-import { PlusCircleTwoTone } from "@ant-design/icons";
+import {
+  PlusCircleTwoTone,
+  LeftOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
 import { Empty, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
@@ -22,13 +26,17 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
   const priceString = getPriceDescription(product);
   const [open, setOpen] = useState(false);
   const [showAll, setShowAll] = useState(false);
-
   const handleOpenChange = (newOpen) => {
     setOpen(newOpen);
     if (!newOpen) {
       setShowAll(false);
     }
   };
+
+  // workaround as described in  https://github.com/ant-design/ant-design/issues/42115
+  const SlickButtonFix = ({ currentSlide, slideCount, children, ...props }) => (
+    <span {...props}>{children}</span>
+  );
 
   return (
     <Card
@@ -37,7 +45,20 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
       }}
       cover={
         imageLinks?.length ? (
-          <Carousel>
+          <Carousel
+            arrows
+            nextArrow={
+              // currentSlide and slideCount must be passed in even if undefined to placate typescript
+              <SlickButtonFix currentSlide slideCount>
+                <RightOutlined />
+              </SlickButtonFix>
+            }
+            prevArrow={
+              <SlickButtonFix currentSlide slideCount>
+                <LeftOutlined />
+              </SlickButtonFix>
+            }
+          >
             {imageLinks.map((imageLink, idx) => (
               <img
                 key={idx}
