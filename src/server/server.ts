@@ -28,6 +28,9 @@ liveReloadServer.server.once("connection", () => {
 });
 
 // logging
+if (process.env.NODE_ENV === "prod") {
+  console.log = function () {}; // remove logging in prod
+}
 morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined)); // get email if possible
 morgan.token("date", () =>
   moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
