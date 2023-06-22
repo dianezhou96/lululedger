@@ -45,3 +45,7 @@ export function defaultItemSort(items: Item[]) {
 function findSizeIdx(item: Item) {
   return ITEM_SIZES.findIndex((size) => size === item.size);
 }
+
+export function isValidQty(value) {
+  return Number.isInteger(value) && value > 0;
+}

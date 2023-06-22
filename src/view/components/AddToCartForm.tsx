@@ -6,7 +6,7 @@ import { CartSelector } from "./CartSelector";
 import { CartProps } from "./App";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
-import { defaultItemSort } from "../utils";
+import { defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
@@ -40,6 +40,12 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
       content: "Added to cart!",
     });
   }, []);
+  const invalidQty = useCallback((value) => {
+    messageApi.open({
+      type: "error",
+      content: `${value} is not a valid quantity.`,
+    });
+  }, []);
 
   const addItemsToCart = async (cartItems: CartItemPost[]) => {
     for (const cartItem of cartItems) {
@@ -58,14 +64,20 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
 
   const onSubmit = (values: FormValues) => {
     if (cart) {
+      let allValid = true;
       const cartItems: CartItemPost[] = [];
       for (const [key, value] of Object.entries(values)) {
-        if (value > 0 && Number.isInteger(value))
+        if (isValidQty(value))
           cartItems.push({ cart: cart.id, item: Number(key), quantity: value });
+        else if (value && !isValidQty) {
+          invalidQty(value);
+          allValid = false;
+        }
       }
-      if (cartItems.length > 0) addItemsToCart(cartItems);
+      if (!allValid || cartItems.length === 0) return;
+      addItemsToCart(cartItems);
+      form.resetFields();
     }
-    form.resetFields();
     setOpen(false);
   };
 

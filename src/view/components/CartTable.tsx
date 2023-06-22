@@ -67,7 +67,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const [tableData, setTableData] = useState(dataSource);
 
   const onInputChange = (key, index) => (value: number | null) => {
-    const newData = [...dataSource];
+    const newData = [...tableData];
     newData[index][key] = value;
     updateTotalPrice(newData, index);
     setTableData(newData);
