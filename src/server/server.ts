@@ -2,6 +2,9 @@ import express = require("express");
 import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
 import moment = require("moment-timezone");
+import path = require("path");
+import livereload = require("livereload");
+import connectLivereload = require("connect-livereload");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
@@ -10,9 +13,24 @@ const app = express();
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 sgMail.setApiKey(SG_API_KEY);
-
 app.enable("trust proxy"); // allow us to deploy behind nginx proxy and log ips correctly
+
+// live reloading
+const liveReloadServer = livereload.createServer({ delay: 25 });
+liveReloadServer.watch(path.join(__dirname, "..")); // watch the whole dist directory
+app.use(connectLivereload()); // injects neccesary HTML so our client can connect to our livereload server
+liveReloadServer.server.once("connection", () => {
+  // when server starts/restarts, trigger a browser reload after 50
+  console.log("reconnectinggg");
+  setTimeout(() => {
+    liveReloadServer.refresh("/");
+  }, 50);
+});
+
 // logging
+if (process.env.NODE_ENV === "prod") {
+  console.log = function () {}; // remove logging in prod
+}
 morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined)); // get email if possible
 morgan.token("date", () =>
   moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
@@ -50,5 +68,5 @@ app.get("/email", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`lululedger listening on port ${PORT}`);
+  console.info(`lululedger listening on port ${PORT}`);
 });
