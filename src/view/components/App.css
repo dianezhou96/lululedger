@@ -43,6 +43,11 @@
     scroll-behavior: smooth;
   }
 
+  p,
+  li {
+    font-size: 0.8em;
+  }
+
   .shop-name {
     font-size: 1em;
   }
@@ -61,7 +66,7 @@
   }
 
   .confirmation-description {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .cart-table .ant-table {

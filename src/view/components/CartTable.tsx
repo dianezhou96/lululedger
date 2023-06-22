@@ -200,26 +200,36 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     <div
       style={{
         maxWidth: 500,
-        margin: 10,
       }}
       className="confirmation-description"
     >
       <p>By submitting this order, you acknowledge that:</p>
-      <ol>
+      <ol style={{ paddingLeft: "1em" }}>
         <li>
-          SFIT does not guarantee that all items in your order will be fulfilled
-          as it depends on the stock available at the time we place the order.
-          You will be charged only for items that are fulfilled.
+          <b>
+            SFIT does not guarantee that all items in your order will be
+            fulfilled
+          </b>{" "}
+          as the order we place depends on each item's availability in stock and
+          the eligibility for discount with Lululemon. You will be charged only
+          for items that are fulfilled.
         </li>
         <li>
-          All items purchased through this fundraiser are non-refundable and
-          non-exchangeable.
+          All items purchased through this fundraiser are <b>non-refundable</b>{" "}
+          and <b>non-exchangeable</b>.
         </li>
         <li>
-          You will pay the amount due, preferably via PayPal or Venmo, or
-          otherwise arranged with Diane or an SFIT team manager. The amount due
-          may differ from the estimated total due stated depending on final
-          shipping costs.
+          You agree to pay the full amount due for this order via <b>PayPal</b>{" "}
+          or <b>Venmo</b>, or arrange another payment method with an SFIT team
+          manager. The amount due may differ from the estimated total depending
+          on final shipping costs.
+        </li>
+        <li>
+          <b>
+            Items will be shipped to SFIT and distributed via SFIT team members.
+          </b>{" "}
+          You will need to pick up the items from an SFIT team manager or team
+          member.
         </li>
       </ol>
     </div>
