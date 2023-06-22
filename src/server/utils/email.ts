@@ -68,7 +68,7 @@ ${SHOP_URL}?credential=${credential}`;
     <p>Or copy and paste this link: ${SHOP_URL}?credential=${credential}</p>
     <p><b>This link does not expire; do not share it with those you do not wish to have access to your account.</b></p>
     <p>If you have any questions or need assistance, don't hesitate to contact Diane by replying to this email!</p>
-    <p>Best regards,<br>SFIT</p>
+    <p>Best regards,<br>San Francisco Ice Theatre</p>
   </div>
 </body>
 </html>
