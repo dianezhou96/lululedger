@@ -273,8 +273,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
-                ? "Your order has been submitted! You may still edit your order until the deadline."
-                : 'Click "Submit this order" to confirm your selections. After submission, you may still edit your order until the deadline.')}
+                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline.`
+                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline.`)}
             <Space>
               {tableData.length > 0 && !cart.submitted && (
                 <Popconfirm
