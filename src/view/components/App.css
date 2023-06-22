@@ -123,6 +123,11 @@ ul.ant-card-actions li span {
   align-items: center;
   justify-content: center;
   background-color: #e6f4ff;
+  color: #1677ff;
+}
+
+ul.ant-card-actions li span:hover {
+  color: #69b1ff;
 }
 
 .ant-carousel .slick-prev,
