@@ -165,7 +165,6 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
     for (const { key, quantity } of tableData) {
       await updateItem(key, quantity);
     }
-    await submitOrder();
     setCartDirty(true);
     setLoading(false);
   };
@@ -268,15 +267,21 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       footer={() =>
         editMode ? (
           <Space>
-            <Popconfirm
-              title={`Submit order for ${cart.name}`}
-              description={confirmationDescription}
-              onConfirm={handleSaveOrder}
-              okText="Confirm"
-              icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
-            >
-              <Button type="primary">Save and submit</Button>
-            </Popconfirm>
+            {cart.submitted ? (
+              <Popconfirm
+                title={`Submit order for ${cart.name}`}
+                description={confirmationDescription}
+                onConfirm={handleSaveOrder}
+                okText="Confirm"
+                icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
+              >
+                <Button type="primary">Save and submit</Button>
+              </Popconfirm>
+            ) : (
+              <Button type="primary" onClick={handleSaveOrder}>
+                Save
+              </Button>
+            )}
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
         ) : (
