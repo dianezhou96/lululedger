@@ -1,6 +1,7 @@
 import express = require("express");
 import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
+import moment = require("moment-timezone");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
@@ -12,6 +13,10 @@ sgMail.setApiKey(SG_API_KEY);
 
 app.enable("trust proxy"); // allow us to deploy behind nginx proxy and log ips correctly
 // logging
+morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined)); // get email if possible
+morgan.token("date", () =>
+  moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
+);
 app.use(morgan(LOG_LEVEL));
 
 // import routes
@@ -45,5 +50,5 @@ app.get("/email", async (req: Request, res: Response) => {
 });
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`lululedger listening on port ${PORT}`);
 });
