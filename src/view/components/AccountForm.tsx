@@ -14,6 +14,7 @@ export const AccountForm: React.FC = () => {
     type: undefined,
   });
   const [showAlert, setShowAlert] = useState(false);
+  const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
 
   useEffect(() => {
     alert.message.length > 0 && alert.type
@@ -32,7 +33,7 @@ export const AccountForm: React.FC = () => {
     if (!response.ok) {
       setAlert({
         message:
-          "Something went wrong with signing up, please refresh the page and try again.",
+          "Something went wrong with signing up. If you already signed up with this email address before, please check your inbox for your magic link to login.",
         type: "error",
       });
     } else {
@@ -41,8 +42,8 @@ export const AccountForm: React.FC = () => {
           "We have sent a login link to your email, please use that to proceed!",
         type: "success",
       });
+      setSubmittedSuccessfully(true);
     }
-    form.resetFields();
   };
 
   const onSubmit = (values: BuyerPost) => {
@@ -60,6 +61,7 @@ export const AccountForm: React.FC = () => {
           span: 8,
         }}
         requiredMark={false}
+        disabled={submittedSuccessfully}
       >
         <h3>
           Thanks for checking out our fundraiser! Please fill out this form to
@@ -92,20 +94,22 @@ export const AccountForm: React.FC = () => {
             style={{ textAlign: "left" }}
           />
         </Form.Item>
+        {showAlert && (
+          <Form.Item>
+            <Alert
+              message={alert.message}
+              type={alert.type}
+              onClose={() => setShowAlert(false)}
+              closable
+            />
+          </Form.Item>
+        )}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Form.Item>
       </Form>
-      {showAlert && (
-        <Alert
-          message={alert.message}
-          type={alert.type}
-          onClose={() => setShowAlert(false)}
-          closable
-        />
-      )}
     </>
   );
 };
