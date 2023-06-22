@@ -9,6 +9,36 @@ type ProductObj = {
 
 export const data: ProductObj[] = [
   {
+    product: "Everywhere Belt Bag 1L",
+    category: 2,
+    link: "https://shop.lululemon.com/p/bags/Everywhere-Belt-Bag/_/prod8900747",
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LU9AX2S_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LU9AX2S_0001_6",
+      "https://images.lululemon.com/is/image/lululemon/LU9AX2S_045773_5",
+      "https://images.lululemon.com/is/image/lululemon/LU9AX2S_045773_6",
+    ],
+    price_retail: 38,
+    items: [
+      { color: "Black", sizes: [null] },
+      { color: "Pastel Pink", sizes: [null] },
+    ],
+  },
+  {
+    product: "The Mat 5mm Made With FSC™-Certified Rubber Logo",
+    category: 2,
+    link: "https://shop.lululemon.com/p/yoga-mats/The-Mat-5mm-Wordmark/_/prod10990035",
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LU9AYMS_059755_4",
+      "https://images.lululemon.com/is/image/lululemon/LU9AXGS_062117_4",
+    ],
+    price_retail: 114,
+    items: [
+      { color: "Graphite Grey/Black/Black", sizes: [null] },
+      { color: "Pastel Blue/Mint Moment", sizes: [null] },
+    ],
+  },
+  {
     product: "Define Jacket Luon",
     category: 2,
     link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
@@ -29,12 +59,29 @@ export const data: ProductObj[] = [
     ],
   },
   {
+    product: "Scuba Full-Zip Hoodie",
+    category: 2,
+    link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133",
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW4AWMS_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LW4AWNS_015157_1",
+      "https://images.lululemon.com/is/image/lululemon/LW4AWMS_027597_1",
+    ],
+    price_retail: 118,
+    items: [
+      { color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14] },
+      { color: "Heathered Speckled Black", sizes: [0, 2, 4, 6, 8, 20] },
+      { color: "Bone", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+    ],
+  },
+  {
     product: "Scuba Oversized Full Zip",
     category: 2,
     link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip/_/prod10440041",
     images: [
       "https://images.lululemon.com/is/image/lululemon/LW3EOZS_0001_1",
       "https://images.lululemon.com/is/image/lululemon/LW3ESQS_032493_1",
+      "https://images.lululemon.com/is/image/lululemon/LW3EOZS_027597_1",
     ],
     price_retail: 128,
     items: [
@@ -46,23 +93,22 @@ export const data: ProductObj[] = [
         color: "Heathered Core Ultra Light Grey",
         sizes: ["XS/S", "M/L", "XL/XXL"],
       },
+      { color: "Bone", sizes: ["XS/S", "M/L", "XL/XXL"] },
     ],
-  },
-  {
-    product: "Scuba Full-Zip Hoodie",
-    category: 2,
-    link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133",
-    images: ["https://images.lululemon.com/is/image/lululemon/LW4AWMS_0001_1"],
-    price_retail: 118,
-    items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14] }],
   },
   {
     product: "Scuba Oversized Half-Zip Hoodie",
     category: 2,
     link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-12-Zip-Hoodie/_/prod9960807",
-    images: ["https://images.lululemon.com/is/image/lululemon/LW3DM4S_0001_1"],
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW3DM4S_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LW3DM4S_027597_1",
+    ],
     price_retail: 118,
-    items: [{ color: "Black", sizes: ["XS/S", "M/L", "XL/XXL"] }],
+    items: [
+      { color: "Black", sizes: ["XS/S", "M/L", "XL/XXL"] },
+      { color: "Bone", sizes: ["XS/S", "M/L", "XL/XXL"] },
+    ],
   },
   {
     product: "Down for It All Vest",
@@ -278,6 +324,14 @@ export const data: ProductObj[] = [
     link: "https://shop.lululemon.com/p/women-pants/Groove-Pant-Flare-Nulu/_/prod9820425",
     images: ["https://images.lululemon.com/is/image/lululemon/LW5FG2S_0001_1"],
     price_retail: 118,
+    items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
+  },
+  {
+    product: "Softstreme High-Rise Pant Full Length",
+    category: 2,
+    link: "https://shop.lululemon.com/p/women-pants/Softstreme-HR-Pant/_/prod11020340",
+    images: ["https://images.lululemon.com/is/image/lululemon/LW5EGTS_0001_1"],
+    price_retail: 128,
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
