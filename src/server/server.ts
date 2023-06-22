@@ -21,7 +21,6 @@ liveReloadServer.watch(path.join(__dirname, "..")); // watch the whole dist dire
 app.use(connectLivereload()); // injects neccesary HTML so our client can connect to our livereload server
 liveReloadServer.server.once("connection", () => {
   // when server starts/restarts, trigger a browser reload after 50
-  console.log("reconnectinggg");
   setTimeout(() => {
     liveReloadServer.refresh("/");
   }, 50);
