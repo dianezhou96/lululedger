@@ -8,7 +8,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import Carousel from "antd/es/carousel";
-import { Empty, Popover } from "antd";
+import { Empty, Popconfirm, Popover } from "antd";
 import { AddToCartForm } from "./AddToCartForm";
 import { Product } from "../../types";
 import { CartProps } from "./App";
@@ -111,9 +111,15 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
         title={
           <>
             {product.link ? (
-              <a href={product.link} target="_blank">
-                {product.name}
-              </a>
+              <Popconfirm
+                title={"Going to external link"}
+                description="This will open the product page in a new tab."
+                onConfirm={() =>
+                  product.link && window.open(product.link, "_blank")
+                }
+              >
+                <a>{product.name}</a>
+              </Popconfirm>
             ) : (
               <span>{product.name}</span>
             )}

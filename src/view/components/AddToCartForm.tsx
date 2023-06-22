@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo } from "react";
-import { Button, Form, InputNumber, Popover } from "antd";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Button, Form, InputNumber, message, Popover } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { CartSelector } from "./CartSelector";
@@ -33,6 +33,13 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
       (cart) => cart?.id.toString() === searchParams.get("cart")
     );
   }, [carts, searchParams]);
+  const [messageApi, contextHolder] = message.useMessage();
+  const success = useCallback(() => {
+    messageApi.open({
+      type: "success",
+      content: "Added to cart!",
+    });
+  }, []);
 
   const addItemsToCart = async (cartItems: CartItemPost[]) => {
     for (const cartItem of cartItems) {
@@ -45,6 +52,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         },
       });
     }
+    success();
     setCartDirty(true);
   };
 
@@ -52,10 +60,10 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     if (cart) {
       const cartItems: CartItemPost[] = [];
       for (const [key, value] of Object.entries(values)) {
-        if (value > 0)
+        if (value > 0 && Number.isInteger(value))
           cartItems.push({ cart: cart.id, item: Number(key), quantity: value });
       }
-      addItemsToCart(cartItems);
+      if (cartItems.length > 0) addItemsToCart(cartItems);
     }
     form.resetFields();
     setOpen(false);
@@ -76,6 +84,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
       }}
       className="add-to-cart-form"
     >
+      {contextHolder}
       <div
         style={{
           display: "flex",
