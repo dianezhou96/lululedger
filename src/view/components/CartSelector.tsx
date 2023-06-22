@@ -52,20 +52,31 @@ export const CartSelector: React.FC<CartProps> = ({
   };
 
   const NewCartForm = (
-    <Space
-      style={{
-        padding: "0 8px 4px",
-        ...(!carts.length && { width: WIDTH }),
-      }}
-    >
-      <Input
-        placeholder={carts.length ? "New cart for..." : "Name new cart!"}
-        value={name}
-        onChange={onNameChange}
-        onPressEnter={addCart}
-      />
-      <Button icon={<PlusOutlined />} onClick={addCart} />
-    </Space>
+    <>
+      <div
+        style={{
+          fontSize: "0.8em",
+          margin: "auto",
+          padding: "0px 8px 8px 8px ",
+        }}
+      >
+        Use separate carts to order for multiple people
+      </div>
+      <Space
+        style={{
+          padding: "0 8px 4px",
+          ...(!carts.length && { width: WIDTH }),
+        }}
+      >
+        <Input
+          placeholder={carts.length ? "New cart for..." : "Name new cart!"}
+          value={name}
+          onChange={onNameChange}
+          onPressEnter={addCart}
+        />
+        <Button icon={<PlusOutlined />} onClick={addCart} />
+      </Space>
+    </>
   );
 
   return cartDirty || carts.length ? (
