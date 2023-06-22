@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx webpack && npx tsc && node ./dist/server/server.js",
     "watch": "npx webpack --watch",
-    "watch_server": "npx tsc --watch & npx nodemon dist/server/server.js & wait"
+    "watch_server": "npx tsc --watch & npx nodemon --watch dist/server/ dist/server/server.js & wait"
   },
   "repository": {
     "type": "git",
@@ -40,9 +40,11 @@
     "@webpack-cli/generators": "^3.0.1",
     "antd": "^5.6.1",
     "clean-webpack-plugin": "^4.0.0",
+    "connect-livereload": "^0.6.1",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
     "declaration-bundler-webpack-plugin": "^1.0.3",
+    "livereload": "^0.9.3",
     "nodemon": "^2.0.22",
     "react-router-dom": "^6.13.0",
     "style-loader": "^3.3.3",
