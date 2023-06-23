@@ -209,7 +209,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       <ul style={{ paddingLeft: "1em" }}>
         <li>
           <b>
-            SFIT does not guarantee that all items in your order will be
+            SFIT does not guarantee that all items in your order can be
             fulfilled.
           </b>{" "}
           Item availability depends on stock quantity and eligibility for
