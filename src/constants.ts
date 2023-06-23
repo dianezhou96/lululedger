@@ -8,6 +8,8 @@ export const FUNDRAISER_IMAGE_LINK =
 
 export const DISCOUNT = 0.4;
 
+export const DEADLINE = "Monday, July 3";
+
 export const COLORS = [
   "Black",
   "True Navy",

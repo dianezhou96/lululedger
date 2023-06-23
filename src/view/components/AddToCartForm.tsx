@@ -8,6 +8,7 @@ import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
+import { DEADLINE } from "../../constants";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
 
@@ -188,7 +189,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             {cart && cart.submitted && (
               <Popover
                 title="Adding to submitted cart"
-                content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline.`}
+                content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline (${DEADLINE}).`}
                 placement="bottom"
                 trigger="hover"
                 overlayStyle={{

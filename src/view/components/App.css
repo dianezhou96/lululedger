@@ -76,6 +76,10 @@
   .cart-table .ant-table-container {
     overflow-x: auto;
   }
+
+  .faq-list p {
+    font-size: 13px;
+  }
 }
 
 .ant-layout-content {
