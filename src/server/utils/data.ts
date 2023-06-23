@@ -230,7 +230,7 @@ export const data: ProductObj[] = [
     link: "https://shop.lululemon.com/p/women-pants/Align-HR-Mini-Flare-32/_/prod11250399",
     images: [
       "https://images.lululemon.com/is/image/lululemon/LW5EUSS_036763_1",
-      "https://images.lululemon.com/is/image/lululemon/LW5EUSS_054392_1i",
+      "https://images.lululemon.com/is/image/lululemon/LW5EUSS_054392_1",
     ],
     price_retail: 118,
     items: [

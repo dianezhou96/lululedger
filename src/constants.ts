@@ -2,6 +2,21 @@ export const SHOP_NAME = "SFIT x Lululemon Fundraiser";
 
 export const DISCOUNT = 0.4;
 
+export const COLORS = [
+  "Black",
+  "True Navy",
+  "White",
+  "Heathered Core Ultra Light Grey",
+  "Heritage 365 Camo Deep Coal Multi",
+  "Dark Oxide",
+  "Grey Sage",
+  "Utility Blue",
+  "Black/Black",
+  "Slate/White",
+  "Mineral Blue/True Navy",
+  "Graphite Grey/Black",
+];
+
 export const ITEM_SIZES = [
   "0",
   "1",

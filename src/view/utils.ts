@@ -1,4 +1,4 @@
-import { DISCOUNT, ITEM_SIZES } from "../constants";
+import { COLORS, DISCOUNT, ITEM_SIZES } from "../constants";
 import { Item, Product, ProductMetadata } from "../types";
 import { data } from "../server/utils/data";
 
@@ -36,14 +36,16 @@ function findProductIdx(product: Product) {
 export function defaultItemSort(items: Item[]) {
   // sort by size
   const itemsBySize = items.sort((a, b) => findSizeIdx(a) - findSizeIdx(b));
-  // then sort by color (alphabetical)
-  return itemsBySize.sort((a, b) =>
-    a.color && b.color ? a.color.localeCompare(b.color) : 0
-  );
+  // then sort by color
+  return itemsBySize.sort((a, b) => findColorIdx(a) - findColorIdx(b));
 }
 
 function findSizeIdx(item: Item) {
   return ITEM_SIZES.findIndex((size) => size === item.size);
+}
+
+function findColorIdx(item: Item) {
+  return COLORS.findIndex((color) => color === item.color);
 }
 
 export function isValidQty(value) {
