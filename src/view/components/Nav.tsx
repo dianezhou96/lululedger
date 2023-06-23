@@ -2,11 +2,12 @@ import {
   ShoppingOutlined,
   ShoppingCartOutlined,
   SettingOutlined,
+  QuestionCircleOutlined,
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Nav({ handleMenuClick }) {
   const hrefs = window.location.href.split("/"); // get the current browser URL
@@ -57,6 +58,20 @@ export default function Nav({ handleMenuClick }) {
             handleMenuClick();
             navigate({
               pathname: "/account",
+              search: location.search,
+            });
+          }}
+        />
+      </Menu.Item>
+      <Menu.Item key="/faq" icon={React.createElement(QuestionCircleOutlined)}>
+        <span>FAQ</span>
+        <Link
+          to={"/faq"}
+          onClick={(e) => {
+            e.preventDefault();
+            handleMenuClick();
+            navigate({
+              pathname: "/faq",
               search: location.search,
             });
           }}
