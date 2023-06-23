@@ -57,7 +57,7 @@ export const Shop: React.FC<CartProps> = (props) => {
             {defaultProductSort(category.products).map((product) => (
               <ProductCard key={product.id} product={product} {...props} />
             ))}
-            {category.id === 1 && <FundraiserCard />}
+            {category.id === 3 && <FundraiserCard />}
           </div>
         </div>
       ))}
