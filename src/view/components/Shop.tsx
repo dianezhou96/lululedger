@@ -1,4 +1,4 @@
-import { Space } from "antd";
+import { Alert, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { DEADLINE } from "../../constants";
 import { ProductCategory } from "../../types";
@@ -28,9 +28,17 @@ export const Shop: React.FC<CartProps> = (props) => {
     <Loading />
   ) : (
     <div style={{ margin: GAP }}>
-      <h3 style={{ textAlign: "center", color: "red" }}>
-        Deadline to order: {DEADLINE}
-      </h3>
+      <Alert
+        message={<b>Deadline to order: {DEADLINE}</b>}
+        type="info"
+        showIcon
+        closable
+        style={{
+          width: "fit-content",
+          margin: "auto",
+          marginTop: 16,
+        }}
+      />
       {products.map((category) => (
         <div key={category.id} style={{ padding: GAP }}>
           <div style={{ textAlign: "center", margin: "auto" }}>
