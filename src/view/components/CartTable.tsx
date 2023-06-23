@@ -203,25 +203,26 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       className="confirmation-description"
     >
       <p>By submitting this order, you acknowledge that:</p>
-      <ol style={{ paddingLeft: "1em" }}>
+      <ul style={{ paddingLeft: "1em" }}>
         <li>
           <b>
             SFIT does not guarantee that all items in your order will be
-            fulfilled
+            fulfilled.
           </b>{" "}
-          as the order we place depends on each item's availability in stock and
-          the eligibility for discount with Lululemon. You will be charged only
-          for items that are fulfilled.
+          Item availability depends on stock quantity and eligibility for
+          discount with Lululemon. You will be charged only for items that are
+          fulfilled.
         </li>
         <li>
           All items purchased through this fundraiser are <b>non-refundable</b>{" "}
           and <b>non-exchangeable</b>.
         </li>
         <li>
-          You agree to pay the full amount due for this order via <b>PayPal</b>{" "}
-          or <b>Venmo</b>, or arrange another payment method with an SFIT team
-          manager. The amount due may differ from the estimated total depending
-          on final shipping costs.
+          We will collect payment from you after we place our aggregate order.
+          You agree to pay the full amount due for this order (which may differ
+          slightly from the estimated total stated) via <b>PayPal</b> or{" "}
+          <b>Venmo</b>, or arrange another payment method with an SFIT team
+          manager.
         </li>
         <li>
           <b>
@@ -230,7 +231,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
           You will need to pick up the items from an SFIT team manager or team
           member.
         </li>
-      </ol>
+      </ul>
     </div>
   );
 
@@ -309,12 +310,13 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
               )}
               {tableData.length === 0 && (
                 <Button
-                  onClick={() =>
+                  onClick={() => {
+                    searchParams.set("cart", cart.id.toString());
                     navigate({
                       pathname: "/shop",
-                      search: location.search,
-                    })
-                  }
+                      search: searchParams.toString(),
+                    });
+                  }}
                 >
                   <b>Go to shop</b>
                 </Button>
