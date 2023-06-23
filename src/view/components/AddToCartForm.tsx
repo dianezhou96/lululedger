@@ -114,21 +114,6 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             )}
             <span style={{ display: "flex", alignItems: "center" }}>
               <CartSelector {...props} />
-              {cart && cart.submitted && (
-                <Popover
-                  title="Adding to submitted cart"
-                  content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline.`}
-                  placement="bottom"
-                  trigger="hover"
-                  overlayStyle={{
-                    width: 200,
-                  }}
-                >
-                  <InfoCircleFilled
-                    style={{ marginLeft: 8, fontSize: 18, color: "#007bff" }}
-                  />
-                </Popover>
-              )}
             </span>
           </>
         ) : (
@@ -199,9 +184,26 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
           </div>
         )}
         <Form.Item style={{ width: "fit-content", marginLeft: "auto" }}>
-          <Button type="primary" htmlType="submit">
-            Add to cart
-          </Button>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {cart && cart.submitted && (
+              <Popover
+                title="Adding to submitted cart"
+                content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline.`}
+                placement="bottom"
+                trigger="hover"
+                overlayStyle={{
+                  width: 200,
+                }}
+              >
+                <InfoCircleFilled
+                  style={{ marginRight: 8, fontSize: 18, color: "#007bff" }}
+                />
+              </Popover>
+            )}
+            <Button type="primary" htmlType="submit">
+              Add to cart
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </div>
