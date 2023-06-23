@@ -23,6 +23,9 @@ export const COLORS = [
   "Slate/White",
   "Mineral Blue/True Navy",
   "Graphite Grey/Black",
+  "Silver Blue/Tidewater Teal",
+  "Light Gray",
+  "Taupe",
 ];
 
 export const ITEM_SIZES = [
@@ -56,4 +59,15 @@ export const ITEM_SIZES = [
   "L",
   "XL",
   "XXL",
+  "Youth XS",
+  "Youth S",
+  "Youth M",
+  "Youth L",
+  "Youth XL",
+  "Adult XS",
+  "Adult S",
+  "Adult M",
+  "Adult L",
+  "Adult XL",
+  "Adult XXL",
 ];
