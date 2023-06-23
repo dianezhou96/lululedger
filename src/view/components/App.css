@@ -152,6 +152,14 @@ ul.ant-card-actions li span:hover {
   color: white;
 }
 
+#carousel-arrow-wrapper {
+  display: flex !important; /* I am sorry for I have sinned but it seems this is necessary because react-slick appends a style to the element */
+  align-items: center;
+  justify-content: center;
+  background-color: dimgray;
+  border-radius: 7px;
+}
+
 body .slick-prev::before,
 body .slick-next::before {
   display: none;

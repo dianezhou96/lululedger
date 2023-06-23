@@ -35,7 +35,9 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
 
   // workaround as described in  https://github.com/ant-design/ant-design/issues/42115
   const SlickButtonFix = ({ currentSlide, slideCount, children, ...props }) => (
-    <span {...props}>{children}</span>
+    <span id={"carousel-arrow-wrapper"} {...props}>
+      {children}
+    </span>
   );
 
   return (
