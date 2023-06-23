@@ -1,5 +1,11 @@
 export const SHOP_NAME = "SFIT x Lululemon Fundraiser";
 
+export const FUNDRAISER_LINK =
+  "https://www.gofundme.com/f/sfit-nationals-sendoff-gift";
+
+export const FUNDRAISER_IMAGE_LINK =
+  "http://animeonice.com:1337/uploads/medium_Screen_Shot_2023_06_22_at_8_32_26_PM_2b19ebf2bd.png";
+
 export const DISCOUNT = 0.4;
 
 export const COLORS = [

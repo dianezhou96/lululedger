@@ -49,6 +49,19 @@ export const Shop: React.FC<CartProps> = (props) => {
           </div>
         </div>
       ))}
+      {/* <div>
+        If you aren't interested in purchasing any items but still want to
+        contribute to our fundraiser, or to make an additional contribution, you
+        can make a donation through our GoFundMe!
+        <br />
+        <br />
+        Your donation is tax-deductible and helps our skaters pursue
+        opportunites to compete on the national and international stage.
+        <br />
+        <br />
+        Thank you for supporting SFIT skaters in sharing the joy of figure
+        skating through theatre on ice!
+      </div> */}
     </div>
   );
 };
