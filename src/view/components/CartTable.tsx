@@ -88,11 +88,13 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       title: "Color/Style",
       dataIndex: "color",
       key: "color",
+      render: (color: string) => color ?? "--",
     },
     {
       title: "Size",
       dataIndex: "size",
       key: "size",
+      render: (size: string) => size ?? "--",
     },
     {
       title: "Unit Price",
@@ -363,7 +365,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
                 Estimated tax + shipping 10% (*subject to change)
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">
-                *{getPriceString(fee, 2)}
+                {getPriceString(fee, 2)}*
               </Table.Summary.Cell>
             </Table.Summary.Row>
             <Table.Summary.Row>
@@ -374,7 +376,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">
                 <u>
-                  <b>*{getPriceString(totalDue, 2)}</b>
+                  <b>{getPriceString(totalDue, 2)}*</b>
                 </u>
               </Table.Summary.Cell>
             </Table.Summary.Row>
