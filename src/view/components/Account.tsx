@@ -26,7 +26,6 @@ export const Account: React.FC = () => {
     if (credential) getAccountInfo();
     else setLoading(false);
   }, [credential]);
-  console.log("BUYER", buyer);
 
   return loading ? (
     <Loading />
