@@ -20,6 +20,7 @@ import {
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { DEADLINE } from "../../constants";
 
 type RecordType = {
   key: number;
@@ -289,8 +290,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
-                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline.`
-                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline.`)}
+                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline (${DEADLINE}).`
+                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline (${DEADLINE}).`)}
             <Space>
               {tableData.length > 0 && !cart.submitted && (
                 <Popconfirm

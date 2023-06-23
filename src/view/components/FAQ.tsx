@@ -10,7 +10,6 @@ export const FAQ: React.FC = () => {
 
   const fetchFAQs = async () => {
     const faqs = await fetch("/shop/faqs").then((data) => data.json());
-    console.log(faqs);
     setFAQs(faqs);
     setLoading(false);
   };
@@ -22,8 +21,8 @@ export const FAQ: React.FC = () => {
   return loading ? (
     <Loading />
   ) : (
-    <Card style={{ margin: "2em" }}>
-      <List itemLayout="vertical">
+    <Card style={{ margin: "auto", maxWidth: 800 }}>
+      <List itemLayout="vertical" className="faq-list">
         {faqs.map((faq: FAQData, idx) => {
           return (
             <List.Item key={idx}>
@@ -32,16 +31,6 @@ export const FAQ: React.FC = () => {
             </List.Item>
           );
         })}
-        {/* <List.Item>
-          <h3></h3>
-          <p>
-            This fundraiser is for{" "}
-            <b>friends and family of the SFIT community</b>. Friends and family
-            get a discount on select Lululemon merchandise (along with the bonus
-            option to acquire some limited edition SFIT collectibles this time
-            around!).
-          </p>
-        </List.Item> */}
       </List>
     </Card>
   );
