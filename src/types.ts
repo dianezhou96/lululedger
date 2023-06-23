@@ -56,6 +56,7 @@ export const SKATER_TEAMS = [
   "Novice",
   "Preliminary",
   "Alum",
+  "Coach",
 ] as const;
 export type SkaterTeam = (typeof SKATER_TEAMS)[number];
 

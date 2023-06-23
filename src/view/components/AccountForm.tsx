@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Select, Alert, AlertProps } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Alert,
+  AlertProps,
+  Popconfirm,
+} from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
 
 type AlertObject = {
@@ -49,6 +57,29 @@ export const AccountForm: React.FC = () => {
   const onSubmit = (values: BuyerPost) => {
     signUp(values);
   };
+
+  const confirmation = (
+    <div
+      style={{
+        maxWidth: 500,
+      }}
+    >
+      By signing up, you confirm that:
+      <ul style={{ paddingLeft: "1em" }}>
+        <li>You are a skater, family, or friend of the SFIT community.</li>
+        <li>
+          You agree to receive and be responsive to communication from SFIT
+          regarding logistics for this fundraiser such as order confirmation and
+          adjustments, payment, and pickup.
+        </li>
+        <li>
+          You understand that the items listed on this website may have limited
+          stock, so you may not receive some items that you order. You will only
+          be charged for items you order that are in stock.
+        </li>
+      </ul>
+    </div>
+  );
 
   return (
     <>
@@ -105,9 +136,14 @@ export const AccountForm: React.FC = () => {
           </Form.Item>
         )}
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+          <Popconfirm
+            title={"Confirm sign up"}
+            description={confirmation}
+            onConfirm={form.submit}
+            okText="Confirm"
+          >
+            <Button type="primary">Sign up</Button>
+          </Popconfirm>
         </Form.Item>
       </Form>
     </>

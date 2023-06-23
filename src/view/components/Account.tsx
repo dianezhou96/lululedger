@@ -54,7 +54,6 @@ export const Account: React.FC = () => {
               <p>Skater: {buyer.skater_name}</p>
               <p>Team: {buyer.skater_team}</p>
             </div>
-            {/* <br /> */}
             <h3>Thank you for contributing to our fundraiser!</h3>
             <p>
               If you need to modify any information or ask questions, please
