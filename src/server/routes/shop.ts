@@ -1,12 +1,20 @@
 import express = require("express");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { Cart, ProductCategory } from "../../types";
+import { Cart, FAQData, ProductCategory } from "../../types";
 import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
-import { CartFragment, ProductCategoryFragment } from "../utils/queryFragments";
-import { resolveCart, resolveProductCategory } from "../utils/resolvers";
+import {
+  CartFragment,
+  FAQFragment,
+  ProductCategoryFragment,
+} from "../utils/queryFragments";
+import {
+  resolveCart,
+  resolveFAQ,
+  resolveProductCategory,
+} from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
 
 const user_authenticated = require("./auth").user_authenticated;
@@ -235,6 +243,19 @@ router.get(
     res.json(carts);
   }
 );
+
+// Get FAQs pertaining to the shop
+router.get("/faqs", async (_: Request, res: Response) => {
+  const query = FAQFragment;
+  const data = await fetch(API_URI + `/faqs?${qs.stringify(query)}`, {
+    method: "GET",
+    headers: { Authorization: API_TOKEN },
+  })
+    .then((data) => data.json())
+    .then((json) => json.data);
+  const retVal: FAQData[] = data.map(resolveFAQ);
+  res.json(retVal);
+});
 
 /*
 Gets a list of carts belonging to a user requires:

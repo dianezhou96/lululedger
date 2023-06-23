@@ -45,3 +45,7 @@ export const CartFragment = {
 export const BuyerFragment = {
   fields: ["email", "skater_name", "skater_team", "magic_token"],
 };
+
+export const FAQFragment = {
+  fields: ["question", "answer"],
+};

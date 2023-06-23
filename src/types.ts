@@ -70,3 +70,9 @@ export type BuyerPost = {
 export type Buyer = BuyerPost & {
   id: number;
 };
+
+export type FAQData = {
+  id: number;
+  question: string;
+  answer: string;
+};
