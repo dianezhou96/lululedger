@@ -67,7 +67,7 @@ router.post(
     req.body.buyer = req.buyer.id;
     const data = await fetch(API_URI + `/carts`, {
       method: "POST",
-      body: JSON.stringify({ data: req.body }), // TODO: Add buyer relationship
+      body: JSON.stringify({ data: req.body }),
       headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
     })
       .then((data) => {
