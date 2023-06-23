@@ -6,7 +6,7 @@ import {
   ProductCategory,
   ProductCategoryMetadata,
   ProductMetadata,
-  FAQ,
+  FAQData,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -76,7 +76,7 @@ export function resolveBuyer(buyer): Buyer {
   };
 }
 
-export function resolveFAQ(faq): FAQ {
+export function resolveFAQ(faq): FAQData {
   return {
     id: faq.attributes.id,
     question: faq.attributes.question,
