@@ -53,15 +53,17 @@ export const CartSelector: React.FC<CartProps> = ({
 
   const NewCartForm = (
     <>
-      <div
-        style={{
-          fontSize: "0.8em",
-          margin: "auto",
-          padding: "0px 8px 8px 8px ",
-        }}
-      >
-        Use separate carts to order for multiple people
-      </div>
+      {carts.length > 0 && (
+        <div
+          style={{
+            fontSize: "0.8em",
+            margin: "auto",
+            padding: "0px 8px 8px 8px ",
+          }}
+        >
+          Use separate carts to order for multiple people
+        </div>
+      )}
       <Space
         style={{
           padding: "0 8px 4px",
