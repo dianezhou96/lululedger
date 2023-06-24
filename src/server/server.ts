@@ -3,6 +3,7 @@ import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
 import moment = require("moment-timezone");
 import path = require("path");
+import expressStaticGZip = require("express-static-gzip");
 import livereload = require("livereload");
 import connectLivereload = require("connect-livereload");
 import { Request, Response } from "express";
@@ -15,16 +16,18 @@ const fetch = (url: RequestInfo, init?: RequestInit) =>
 sgMail.setApiKey(SG_API_KEY);
 app.enable("trust proxy"); // allow us to deploy behind nginx proxy and log ips correctly
 
-// live reloading
-const liveReloadServer = livereload.createServer({ delay: 25 });
-liveReloadServer.watch(path.join(__dirname, "..")); // watch the whole dist directory
-app.use(connectLivereload()); // injects neccesary HTML so our client can connect to our livereload server
-liveReloadServer.server.once("connection", () => {
-  // when server starts/restarts, trigger a browser reload after 50
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 50);
-});
+// live reloading only for dev
+if (process.env.NODE_ENV !== "prod") {
+  const liveReloadServer = livereload.createServer({ delay: 25 });
+  liveReloadServer.watch(path.join(__dirname, "..")); // watch the whole dist directory
+  app.use(connectLivereload()); // injects neccesary HTML so our client can connect to our livereload server
+  liveReloadServer.server.once("connection", () => {
+    // when server starts/restarts, trigger a browser reload after 50
+    setTimeout(() => {
+      liveReloadServer.refresh("/");
+    }, 50);
+  });
+}
 
 // logging
 if (process.env.NODE_ENV === "prod") {
@@ -45,7 +48,12 @@ app.use("/auth", auth_routes);
 
 // middleware
 app.use(express.static("public"));
-app.use("/view", express.static("dist/view"));
+app.use(
+  "/view",
+  process.env.NODE_ENV === "prod"
+    ? expressStaticGZip("dist/view", {})
+    : express.static("dist/view")
+);
 
 app.get("/email", async (req: Request, res: Response) => {
   const msg = {
