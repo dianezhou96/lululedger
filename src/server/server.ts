@@ -45,7 +45,7 @@ app.use("/auth", auth_routes);
 
 // middleware
 app.use(express.static("public"));
-app.use("/dist", express.static("dist"));
+app.use("/view", express.static("dist/view"));
 
 app.get("/email", async (req: Request, res: Response) => {
   const msg = {
