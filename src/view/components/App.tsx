@@ -4,9 +4,11 @@ import Nav from "./Nav";
 import {
   Route,
   Routes,
+  Navigate,
   useLocation,
   useNavigate,
   useSearchParams,
+  redirect,
 } from "react-router-dom";
 import { Layout, Grid, theme } from "antd";
 import { Home } from "./Home";
@@ -31,6 +33,22 @@ export interface CartProps {
   cartDirty: boolean;
   setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+interface NavWrapperProps {
+  to: string;
+}
+
+const NavWrapper: React.FC<NavWrapperProps> = (props: NavWrapperProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const to = props ? (props.to ? props.to : "/") : "/";
+  useEffect(() => {
+    // redirect(to);
+    navigate(to);
+    navigate(0); // seems hacky, https://stackoverflow.com/questions/68825965/react-router-v6-usenavigate-doesnt-navigate-if-replacing-last-element-in-path
+  }, []);
+  return <></>;
+};
 
 const App = () => {
   const {
@@ -198,7 +216,10 @@ const App = () => {
           </Header>
           <Content style={{}}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={<NavWrapper to={"/shop"}></NavWrapper>}
+              />
               <Route path="/shop" element={<Shop {...cartProps} />} />
               <Route path="/orders" element={<Orders {...cartProps} />} />
               <Route path="/account" element={<Account />} />
