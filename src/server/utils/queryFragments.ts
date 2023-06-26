@@ -43,7 +43,21 @@ export const CartFragment = {
 };
 
 export const BuyerFragment = {
-  fields: ["email", "skater_name", "skater_team", "magic_token"],
+  fields: [
+    "name",
+    "email",
+    "skater_name",
+    "skater_team",
+    "magic_token",
+    "admin",
+  ],
+};
+
+export const BuyerCartsFragment = {
+  ...BuyerFragment,
+  populate: {
+    carts: CartFragment,
+  },
 };
 
 export const FAQFragment = {

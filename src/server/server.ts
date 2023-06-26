@@ -42,9 +42,11 @@ app.use(morgan(LOG_LEVEL));
 // import routes
 const shop_routes = require("./routes/shop");
 const auth_routes = require("./routes/auth").router;
+const admin_routes = require("./routes/admin");
 // set up routes
 app.use("/shop", shop_routes);
 app.use("/auth", auth_routes);
+app.use("/admin", admin_routes);
 
 // middleware
 app.use(express.static("public"));

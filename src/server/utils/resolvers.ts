@@ -7,6 +7,7 @@ import {
   ProductCategoryMetadata,
   ProductMetadata,
   FAQData,
+  BuyerCarts,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -73,6 +74,14 @@ export function resolveBuyer(buyer): Buyer {
     email: buyer.attributes.email,
     skater_name: buyer.attributes.skater_name,
     skater_team: buyer.attributes.skater_team,
+    admin: buyer.attributes.admin,
+  };
+}
+
+export function resolveBuyerCarts(buyer): BuyerCarts {
+  return {
+    ...resolveBuyer(buyer),
+    carts: buyer.attributes.carts.data.map((cart) => resolveCart(cart)),
   };
 }
 

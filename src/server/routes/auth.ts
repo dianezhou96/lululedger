@@ -208,6 +208,7 @@ async function user_authenticated(req, res, next) {
     req.buyer = {
       email: email,
       id: user.id,
+      admin: user.attributes.admin,
     };
     console.log("Authentication success!");
     next();
@@ -226,6 +227,7 @@ export interface AuthorizedRequest extends Request {
   buyer?: {
     email: string;
     id: number;
+    admin: boolean;
   };
 }
 

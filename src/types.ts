@@ -69,6 +69,11 @@ export type BuyerPost = {
 
 export type Buyer = BuyerPost & {
   id: number;
+  admin: boolean | null;
+};
+
+export type BuyerCarts = Buyer & {
+  carts: Cart[];
 };
 
 export type FAQData = {

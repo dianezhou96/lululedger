@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Buyer } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { AccountForm } from "./AccountForm";
-import { Card } from "antd";
+import { Button, Card } from "antd";
 import { Loading } from "./Loading";
+import { AdminView } from "./AdminView";
 
 export const Account: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [buyer, setBuyer] = useState<Buyer>();
   const [loading, setLoading] = useState(true);
+  const [adminView, setAdminView] = useState(false);
   const credential = searchParams.get("credential");
 
   const getAccountInfo = async () => {
@@ -29,6 +31,8 @@ export const Account: React.FC = () => {
 
   return loading ? (
     <Loading />
+  ) : adminView ? (
+    <AdminView />
   ) : (
     <div
       style={{
@@ -58,6 +62,11 @@ export const Account: React.FC = () => {
               If you need to modify any information or ask questions, please
               contact Diane at dianez.mit@gmail.com.
             </p>
+            {buyer?.admin && (
+              <Button type="primary" onClick={() => setAdminView(true)}>
+                Go to admin vew
+              </Button>
+            )}
           </div>
         ) : (
           <AccountForm />
