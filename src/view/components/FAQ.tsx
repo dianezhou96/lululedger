@@ -1,6 +1,7 @@
 import { Card, List } from "antd";
 import React, { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm"; // support for github flavored markdown
 import { FAQData } from "../../types";
 import { Loading } from "./Loading";
 
@@ -27,7 +28,11 @@ export const FAQ: React.FC = () => {
           return (
             <List.Item key={idx}>
               <h3>{faq.question}</h3>
-              <ReactMarkdown>{faq.answer}</ReactMarkdown>
+              <ReactMarkdown
+                remarkPlugins={[[remarkGfm, { singleTilde: false }]]}
+              >
+                {faq.answer}
+              </ReactMarkdown>
             </List.Item>
           );
         })}
