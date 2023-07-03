@@ -29,7 +29,13 @@ export const Shop: React.FC<CartProps> = (props) => {
   ) : (
     <div style={{ margin: GAP }}>
       <Alert
-        message={<b>Deadline to order: {DEADLINE}</b>}
+        message={
+          <span>
+            <b>Deadline to order:</b> <del>Monday, July 3</del>
+            <br />
+            Extended to <b>{DEADLINE}</b>
+          </span>
+        }
         type="info"
         showIcon
         closable
