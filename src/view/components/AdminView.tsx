@@ -1,7 +1,7 @@
 import Table, { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { BuyerCarts, SkaterTeam } from "../../types";
+import { BuyerCarts, SkaterTeam, SKATER_TEAMS } from "../../types";
 
 type RecordType = {
   key: number;
@@ -61,11 +61,17 @@ export const AdminView: React.FC = () => {
       title: "Skater Name",
       dataIndex: "skaterName",
       key: "skaterName",
+      sorter: (a, b) => a.skaterName.localeCompare(b.skaterName),
     },
     {
       title: "Skater Team",
       dataIndex: "skaterTeam",
       key: "skaterTeam",
+      filters: SKATER_TEAMS.map((team) => ({
+        text: team,
+        value: team,
+      })),
+      onFilter: (value, record) => record.skaterTeam === value,
     },
     {
       title: "Carts Submitted",
