@@ -1,7 +1,7 @@
 import { Alert, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { DEADLINE } from "../../constants";
-import { ProductCategory } from "../../types";
+import { Product, ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
 import { FundraiserCard } from "./FundraiserCard";
@@ -54,9 +54,11 @@ export const Shop: React.FC<CartProps> = (props) => {
               marginTop: GAP,
             }}
           >
-            {defaultProductSort(category.products).map((product) => (
-              <ProductCard key={product.id} product={product} {...props} />
-            ))}
+            {(defaultProductSort(category.products) as Product[]).map(
+              (product) => (
+                <ProductCard key={product.id} product={product} {...props} />
+              )
+            )}
             {category.id === 3 && <FundraiserCard />}
           </div>
         </div>

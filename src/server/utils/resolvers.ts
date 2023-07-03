@@ -8,6 +8,7 @@ import {
   ProductMetadata,
   FAQData,
   BuyerCarts,
+  ProductCategoryWithQtys,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -29,8 +30,6 @@ function resolveProductMetadata(product): ProductMetadata {
   return {
     id: product.id,
     name: product.attributes.name,
-    link: product.attributes.link,
-    images: product.attributes.images,
     price_actual: product.attributes.price_actual,
     price_retail: product.attributes.price_retail,
   };
@@ -39,6 +38,8 @@ function resolveProductMetadata(product): ProductMetadata {
 function resolveProduct(product): Product {
   return {
     ...resolveProductMetadata(product),
+    link: product.attributes.link,
+    images: product.attributes.images,
     items: product.attributes.items.data?.map(resolveItem) ?? [],
   };
 }
@@ -82,6 +83,38 @@ export function resolveBuyerCarts(buyer): BuyerCarts {
   return {
     ...resolveBuyer(buyer),
     carts: buyer.attributes.carts.data.map((cart) => resolveCart(cart)),
+  };
+}
+
+export function resolveProductCategoryWithQtys(
+  category
+): ProductCategoryWithQtys {
+  return {
+    id: category.id,
+    name: category.attributes.name,
+    products: category.attributes.products.data.map((product) => ({
+      id: product.id,
+      name: product.attributes.name,
+      price_retail: product.attributes.price_retail,
+      price_actual: product.attributes.price_actual,
+      items: product.attributes.items.data.map((item) => ({
+        id: item.id,
+        color: item.attributes.color,
+        size: item.attributes.size,
+        unavailable: item.attributes.unavailable,
+        cart_items: item.attributes.cart_items.data
+          .filter((cartItem) => cartItem.attributes.cart.data)
+          .map((cartItem) => ({
+            id: cartItem.id,
+            quantity: cartItem.attributes.quantity,
+            cartSubmitted: cartItem.attributes.cart.data.attributes.submitted,
+            cartName: cartItem.attributes.cart.data.attributes.name,
+            buyer:
+              cartItem.attributes.cart.data.attributes.buyer.data.attributes
+                .name,
+          })),
+      })),
+    })),
   };
 }
 

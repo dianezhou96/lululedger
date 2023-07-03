@@ -10,12 +10,14 @@ import {
   CartFragment,
   FAQFragment,
   ProductCategoryFragment,
+  ProductCategoryWithQtyFragment,
 } from "../utils/queryFragments";
 import {
   resolveBuyerCarts,
   resolveCart,
   resolveFAQ,
   resolveProductCategory,
+  resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
 
@@ -44,6 +46,30 @@ router.get(
       .then((data) => data.json())
       .then((json) => json.data);
     const retVal: BuyerCarts[] = data.map(resolveBuyerCarts);
+    res.json(retVal);
+  }
+);
+
+// Get all items with quantities
+router.get(
+  "/items",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    const query = ProductCategoryWithQtyFragment;
+    const data = await fetch(
+      `${API_URI}/product-categories?${qs.stringify(query)}`,
+      {
+        method: "GET",
+        headers: { Authorization: API_TOKEN },
+      }
+    )
+      .then((data) => data.json())
+      .then((json) => json.data);
+    const retVal = data.map(resolveProductCategoryWithQtys);
     res.json(retVal);
   }
 );

@@ -60,6 +60,35 @@ export const BuyerCartsFragment = {
   },
 };
 
+export const ItemWithQtyFragment = {
+  ...ItemFragment,
+  populate: {
+    cart_items: {
+      fields: ["quantity"],
+      populate: {
+        cart: {
+          fields: ["submitted", "name"],
+          populate: {
+            buyer: { fields: ["name", "skater_name", "skater_team"] },
+          },
+        },
+      },
+    },
+  },
+};
+
+export const ProductCategoryWithQtyFragment = {
+  fields: ["name"],
+  populate: {
+    products: {
+      fields: ["name", "price_retail", "price_actual"],
+      populate: {
+        items: ItemWithQtyFragment,
+      },
+    },
+  },
+};
+
 export const FAQFragment = {
   fields: ["question", "answer"],
 };

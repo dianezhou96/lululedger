@@ -1,9 +1,12 @@
-export type Item = {
+export type ItemMetadata = {
   id: number;
-  product: ProductMetadata;
   color: string | null;
   size: string | null;
   unavailable: boolean;
+};
+
+export type Item = ItemMetadata & {
+  product: ProductMetadata;
 };
 
 export type ProductCategoryMetadata = {
@@ -19,13 +22,13 @@ export type ProductCategory = ProductCategoryMetadata & {
 export type ProductMetadata = {
   id: number;
   name: string;
-  link: string | null;
-  images: string[] | null;
   price_actual: number | null;
   price_retail: number | null;
 };
 
 export type Product = ProductMetadata & {
+  link: string | null;
+  images: string[] | null;
   items: Item[];
 };
 
@@ -74,6 +77,32 @@ export type Buyer = BuyerPost & {
 
 export type BuyerCarts = Buyer & {
   carts: Cart[];
+};
+
+export type CartItem = {
+  id: number;
+  quantity: number;
+  cartSubmitted: boolean;
+  cartName: string;
+  buyer: string;
+};
+
+export type ItemWithQty = ItemMetadata & {
+  cart_items: CartItem[];
+};
+
+export type ProductWithQtys = {
+  id: number;
+  name: string;
+  price_retail: number | null;
+  price_actual: number | null;
+  items: ItemWithQty[];
+};
+
+export type ProductCategoryWithQtys = {
+  id: number;
+  name: string;
+  products: ProductWithQtys[];
 };
 
 export type FAQData = {
