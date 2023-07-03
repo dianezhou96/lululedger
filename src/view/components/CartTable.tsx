@@ -24,7 +24,7 @@ import { DEADLINE } from "../../constants";
 
 type RecordType = {
   key: number;
-  product: React.JSX.Element;
+  product: string;
   color: string | null;
   size: string | null;
   price: number;
@@ -46,17 +46,10 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
 
   const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
     const product = cartItem.item.product;
-    const productElement = product.link ? (
-      <a href={product.link} target="_blank">
-        {product.name}
-      </a>
-    ) : (
-      <span>{product.name}</span>
-    );
     const price = getPrice(product);
     return {
       key: cartItem.id,
-      product: productElement,
+      product: product.name,
       color: cartItem.item.color,
       size: cartItem.item.size,
       price: price,

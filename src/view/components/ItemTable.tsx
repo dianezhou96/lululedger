@@ -11,8 +11,10 @@ import {
   defaultProductSort,
   getItemQuantity,
   getPrice,
+  getPriceString,
   getProductQuantity,
 } from "../utils";
+import { Loading } from "./Loading";
 
 type RecordType = {
   key: number;
@@ -84,6 +86,7 @@ export const ItemTable: React.FC = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
+      render: (value) => getPriceString(value),
     },
   ];
 
@@ -109,7 +112,9 @@ export const ItemTable: React.FC = () => {
     );
   };
 
-  return (
+  return loading ? (
+    <Loading />
+  ) : (
     <>
       {dataSources.map((dataSource) => (
         <Table
