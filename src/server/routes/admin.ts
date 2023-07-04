@@ -39,10 +39,13 @@ router.get(
       return;
     }
     const query = BuyerCartsFragment;
-    const data = await fetch(`${API_URI}/buyers?${qs.stringify(query)}`, {
-      method: "GET",
-      headers: { Authorization: API_TOKEN },
-    })
+    const data = await fetch(
+      `${API_URI}/buyers?${qs.stringify(query)}&pagination[pageSize]=300`,
+      {
+        method: "GET",
+        headers: { Authorization: API_TOKEN },
+      }
+    )
       .then((data) => data.json())
       .then((json) => json.data);
     const retVal: BuyerCarts[] = data.map(resolveBuyerCarts);
