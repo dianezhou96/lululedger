@@ -51,6 +51,7 @@ export const BuyerTable: React.FC = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: "Email",
@@ -91,7 +92,6 @@ export const BuyerTable: React.FC = () => {
       dataSource={dataSource}
       loading={loading}
       columns={columns}
-      pagination={false}
     />
   );
 };
