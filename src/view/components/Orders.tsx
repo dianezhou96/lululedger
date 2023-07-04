@@ -1,4 +1,4 @@
-import { Button, Empty } from "antd";
+import { Alert, Button, Empty } from "antd";
 import React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { CartProps } from "./App";
@@ -24,10 +24,68 @@ export const Orders: React.FC<CartProps> = ({
     window.scrollTo(0, 0);
   };
 
+  const numUnsubmitted = carts.filter((cart) => !cart.submitted).length;
+  const numSubmitted = carts.filter((cart) => cart.submitted).length;
+
   return cartDirty ? (
     <Loading />
   ) : carts.length > 0 ? (
     <div style={{ textAlign: "center" }}>
+      {!cartSelected && numUnsubmitted > 0 && (
+        <Alert
+          message={
+            <span>
+              <b>
+                You have {numUnsubmitted} unsubmitted cart
+                {numUnsubmitted > 1 && "s"}!
+              </b>
+            </span>
+          }
+          type="warning"
+          showIcon
+          closable
+          style={{
+            width: "fit-content",
+            margin: "auto",
+            marginTop: 16,
+          }}
+        />
+      )}
+      {!cartSelected && numSubmitted > 0 && (
+        <Alert
+          message={
+            <span>
+              You have {numSubmitted} order{numSubmitted > 1 && "s"} submitted.
+            </span>
+          }
+          type="success"
+          showIcon
+          closable
+          style={{
+            width: "fit-content",
+            margin: "auto",
+            marginTop: 16,
+          }}
+        />
+      )}
+      {cartSelected && carts.length > 1 && (
+        <Alert
+          message={
+            <span>
+              You are viewing 1 cart.{" "}
+              <a onClick={handleViewAll}>Show all carts.</a>
+            </span>
+          }
+          type="info"
+          showIcon
+          closable
+          style={{
+            width: "fit-content",
+            margin: "auto",
+            marginTop: 16,
+          }}
+        />
+      )}
       {carts.map((cart) => {
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (

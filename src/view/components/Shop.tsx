@@ -24,6 +24,8 @@ export const Shop: React.FC<CartProps> = (props) => {
     fetchProducts();
   }, []);
 
+  const numUnsubmitted = props.carts.filter((cart) => !cart.submitted).length;
+
   return loading ? (
     <Loading />
   ) : (
@@ -45,6 +47,24 @@ export const Shop: React.FC<CartProps> = (props) => {
           marginTop: 16,
         }}
       />
+      {numUnsubmitted > 0 && (
+        <Alert
+          message={
+            <b>
+              You have {numUnsubmitted} unsubmitted cart
+              {numUnsubmitted > 1 && "s"}!
+            </b>
+          }
+          type="warning"
+          showIcon
+          closable
+          style={{
+            width: "fit-content",
+            margin: "auto",
+            marginTop: 16,
+          }}
+        />
+      )}
       {products.map((category) => (
         <div key={category.id} style={{ padding: GAP }}>
           <div style={{ textAlign: "center", margin: "auto" }}>
