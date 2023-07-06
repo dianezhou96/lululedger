@@ -112,10 +112,19 @@ export const ItemTable: React.FC = () => {
     );
   };
 
+  const totalQtyLululemon =
+    items
+      ?.filter((item) => item.id === 2)[0]
+      .products.reduce(
+        (total, product) => total + getProductQuantity(product),
+        0
+      ) ?? "...";
+
   return loading ? (
     <Loading />
   ) : (
     <>
+      Total quantity of Lululemon: {totalQtyLululemon}
       {dataSources.map((dataSource) => (
         <Table
           className="buyers-table"

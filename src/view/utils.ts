@@ -1,5 +1,7 @@
 import { COLORS, DISCOUNT, ITEM_SIZES } from "../constants";
 import {
+  BuyerCarts,
+  Cart,
   CartItem,
   Item,
   ItemMetadata,
@@ -73,4 +75,19 @@ export function getItemQuantity(item: ItemWithQty) {
       cartItem.cartSubmitted ? total + cartItem.quantity : total,
     0
   );
+}
+
+function getTotalLuluByCart(cart: Cart) {
+  return (
+    cart.cart_items
+      // Lululemon items have a retail price, while others don't.
+      .filter((cartItem) => cartItem.item.product.price_retail !== null)
+      .reduce((total, cartItem) => total + cartItem.quantity, 0)
+  );
+}
+
+export function getTotalLuluByBuyer(buyer: BuyerCarts) {
+  return buyer.carts
+    .filter((cart) => cart.submitted)
+    .reduce((total, cart) => total + getTotalLuluByCart(cart), 0);
 }

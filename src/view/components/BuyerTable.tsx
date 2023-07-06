@@ -2,6 +2,7 @@ import Table, { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BuyerCarts, SkaterTeam, SKATER_TEAMS } from "../../types";
+import { getTotalLuluByBuyer } from "../utils";
 
 type RecordType = {
   key: number;
@@ -86,12 +87,19 @@ export const BuyerTable: React.FC = () => {
     },
   ];
 
+  const totalQtyLululemon =
+    buyers?.reduce((total, buyer) => total + getTotalLuluByBuyer(buyer), 0) ??
+    "...";
+
   return (
-    <Table
-      className="buyers-table"
-      dataSource={dataSource}
-      loading={loading}
-      columns={columns}
-    />
+    <>
+      Total quantity of Lululemon: {totalQtyLululemon}
+      <Table
+        className="buyers-table"
+        dataSource={dataSource}
+        loading={loading}
+        columns={columns}
+      />
+    </>
   );
 };
