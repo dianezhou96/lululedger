@@ -69,7 +69,7 @@ export const ItemWithQtyFragment = {
         cart: {
           fields: ["submitted", "name"],
           populate: {
-            buyer: { fields: ["name", "skater_name", "skater_team"] },
+            buyer: { fields: ["name", "skater_name", "skater_team", "email"] },
           },
         },
       },

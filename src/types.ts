@@ -85,7 +85,7 @@ export type CartItem = {
   quantity: number;
   cartSubmitted: boolean;
   cartName: string;
-  buyer: string;
+  buyer: Buyer;
 };
 
 export type ItemWithQty = ItemMetadata & {

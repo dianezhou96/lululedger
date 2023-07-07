@@ -16,6 +16,7 @@ import {
 } from "../utils";
 import { Loading } from "./Loading";
 
+// Product
 type RecordType = {
   key: number;
   name: string;
@@ -24,6 +25,7 @@ type RecordType = {
   items: SubRecordType[];
 };
 
+// Item
 type SubRecordType = {
   key: number;
   id: number;
@@ -31,6 +33,16 @@ type SubRecordType = {
   size: string | null;
   quantity: number;
   notes: string | null;
+  carts: SubSubRecordType[];
+};
+
+// Cart item
+type SubSubRecordType = {
+  key: number;
+  buyerName: string;
+  buyerEmail: string;
+  cartName: string;
+  quantity: number;
 };
 
 export const ItemTable: React.FC = () => {
@@ -69,6 +81,15 @@ export const ItemTable: React.FC = () => {
               size: item.size,
               quantity: getItemQuantity(item),
               notes: item.notes,
+              carts: item.cart_items
+                .filter((cartItem) => cartItem.cartSubmitted)
+                .map((cartItem) => ({
+                  key: cartItem.id,
+                  buyerName: cartItem.buyer.name,
+                  buyerEmail: cartItem.buyer.email,
+                  cartName: cartItem.cartName,
+                  quantity: cartItem.quantity,
+                })),
             })
           ),
         })
@@ -111,7 +132,28 @@ export const ItemTable: React.FC = () => {
       },
     ];
     return (
-      <Table columns={columns} dataSource={row.items} pagination={false} />
+      <Table
+        columns={columns}
+        dataSource={row.items}
+        pagination={false}
+        expandable={{ expandedRowRender: itemCartsRender }}
+      />
+    );
+  };
+
+  const itemCartsRender = (row: SubRecordType) => {
+    const columns: ColumnType<SubSubRecordType>[] = [
+      { title: "Buyer", dataIndex: "buyerName", key: "buyerName" },
+      { title: "Email", dataIndex: "buyerEmail", key: "buyerEmail" },
+      { title: "Cart", dataIndex: "cartName", key: "cartName" },
+      {
+        title: "Quantity",
+        dataIndex: "quantity",
+        key: "quantity",
+      },
+    ];
+    return (
+      <Table columns={columns} dataSource={row.carts} pagination={false} />
     );
   };
 

@@ -115,9 +115,9 @@ export function resolveProductCategoryWithQtys(
             quantity: cartItem.attributes.quantity,
             cartSubmitted: cartItem.attributes.cart.data.attributes.submitted,
             cartName: cartItem.attributes.cart.data.attributes.name,
-            buyer:
-              cartItem.attributes.cart.data.attributes.buyer.data.attributes
-                .name,
+            buyer: resolveBuyer(
+              cartItem.attributes.cart.data.attributes.buyer.data
+            ),
           })),
       })),
     })),
