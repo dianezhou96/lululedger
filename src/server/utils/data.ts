@@ -9,6 +9,36 @@ type ProductObj = {
 
 export const data: ProductObj[] = [
   {
+    product: "Scuba Oversized Half-Zip Fleece Hoodie [limited! Black M/L only]",
+    category: 2,
+    link: "https://www.lulufanatics.com/item/77881/lululemon-scuba-oversized-half-zip-fleece-hoodie-black",
+    images: [
+      "https://storage.googleapis.com/lulu-fanatics/product/77881/1280/lululemon-scuba-oversized-half-zip-fleece-hoodie-black-0001-414359.jpg",
+    ],
+    price_retail: 148,
+    items: [{ color: "Black", sizes: ["M/L"] }],
+  },
+  {
+    product: "Align Pant II 25″ [limited! Black size 10 only]",
+    category: 2,
+    link: "https://www.lulufanatics.com/item/29231/lululemon-align-pant-ii-25-black",
+    images: [
+      "https://storage.googleapis.com/lulu-fanatics/product/29231/1280/lululemon-align-pant-ii-25-black-0001-176756.jpg",
+    ],
+    price_retail: 98,
+    items: [{ color: "Black", sizes: [10] }],
+  },
+  {
+    product: "Power Thru High Rise Tight 25″ [limited! True Navy size 6 only]",
+    category: 2,
+    link: "https://www.lulufanatics.com/item/64610/lululemon-power-thru-high-rise-tight-25-true-navy",
+    images: [
+      "https://storage.googleapis.com/lulu-fanatics/product/64610/1280/lululemon-power-thru-high-rise-tight-25-true-navy-031382-354435.jpg",
+    ],
+    price_retail: 128,
+    items: [{ color: "True Navy", sizes: [6] }],
+  },
+  {
     product: "The Mat 5mm",
     category: 2,
     link: "https://shop.lululemon.com/p/accessories/The-Mat-5mm/_/prod10990033",
