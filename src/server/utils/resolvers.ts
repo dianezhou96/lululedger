@@ -9,6 +9,7 @@ import {
   FAQData,
   BuyerCarts,
   ProductCategoryWithQtys,
+  ItemMetadata,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -58,13 +59,20 @@ export function resolveCart(cart): Cart {
   };
 }
 
-export function resolveItem(item): Item {
+function resolveItemMetadata(item): ItemMetadata {
   return {
     id: item.id,
-    product: resolveProductMetadata(item.attributes.product.data),
     color: item.attributes.color,
     size: item.attributes.size,
     unavailable: item.attributes.unavailable,
+    notes: item.attributes.notes,
+  };
+}
+
+export function resolveItem(item): Item {
+  return {
+    ...resolveItemMetadata(item),
+    product: resolveProductMetadata(item.attributes.product.data),
   };
 }
 
@@ -98,11 +106,9 @@ export function resolveProductCategoryWithQtys(
       price_retail: product.attributes.price_retail,
       price_actual: product.attributes.price_actual,
       items: product.attributes.items.data.map((item) => ({
-        id: item.id,
-        color: item.attributes.color,
-        size: item.attributes.size,
-        unavailable: item.attributes.unavailable,
+        ...resolveItemMetadata(item),
         cart_items: item.attributes.cart_items.data
+          // Don't include deleted carts, i.e. cart item with null cart
           .filter((cartItem) => cartItem.attributes.cart.data)
           .map((cartItem) => ({
             id: cartItem.id,

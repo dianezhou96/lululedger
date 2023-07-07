@@ -3,6 +3,7 @@ export type ItemMetadata = {
   color: string | null;
   size: string | null;
   unavailable: boolean;
+  notes: string | null;
 };
 
 export type Item = ItemMetadata & {

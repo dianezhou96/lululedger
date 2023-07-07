@@ -7,7 +7,7 @@ const ProductCategoryMetadataFragment = {
 };
 
 export const ItemFragment = {
-  fields: ["color", "size", "unavailable"],
+  fields: ["color", "size", "unavailable", "notes"],
   populate: {
     product: {
       ...ProductMetadataFragment,

@@ -26,9 +26,11 @@ type RecordType = {
 
 type SubRecordType = {
   key: number;
+  id: number;
   color: string | null;
   size: string | null;
   quantity: number;
+  notes: string | null;
 };
 
 export const ItemTable: React.FC = () => {
@@ -62,9 +64,11 @@ export const ItemTable: React.FC = () => {
           items: (defaultItemSort(product.items) as ItemWithQty[]).map(
             (item) => ({
               key: item.id,
+              id: item.id,
               color: item.color,
               size: item.size,
               quantity: getItemQuantity(item),
+              notes: item.notes,
             })
           ),
         })
@@ -90,21 +94,20 @@ export const ItemTable: React.FC = () => {
     },
   ];
 
-  type SubRecordType = {
-    key: number;
-    color: string | null;
-    size: string | null;
-    quantity: number;
-  };
-
   const productItemsRender = (row: RecordType) => {
     const columns: ColumnType<SubRecordType>[] = [
+      { title: "ID", dataIndex: "id", key: "id" },
       { title: "Color/Style", dataIndex: "color", key: "color" },
       { title: "Size", dataIndex: "size", key: "size" },
       {
         title: "Quantity",
         dataIndex: "quantity",
         key: "quantity",
+      },
+      {
+        title: "Notes",
+        dataIndex: "notes",
+        key: "notes",
       },
     ];
     return (
