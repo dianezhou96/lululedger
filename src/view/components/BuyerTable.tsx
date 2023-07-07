@@ -2,7 +2,11 @@ import Table, { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BuyerCarts, SkaterTeam, SKATER_TEAMS } from "../../types";
-import { getTotalLuluByBuyer } from "../utils";
+import {
+  getPriceLuluByBuyer,
+  getPriceString,
+  getTotalLuluByBuyer,
+} from "../utils";
 
 type RecordType = {
   key: number;
@@ -10,6 +14,7 @@ type RecordType = {
   email: string;
   skaterName: string;
   skaterTeam: SkaterTeam;
+  totalItems: number;
   cartsSubmitted: number;
   cartsUnsubmitted: number;
 };
@@ -42,6 +47,7 @@ export const BuyerTable: React.FC = () => {
         email: buyer.email,
         skaterName: buyer.skater_name,
         skaterTeam: buyer.skater_team,
+        totalItems: getTotalLuluByBuyer(buyer),
         cartsSubmitted: buyer.carts.filter((cart) => cart.submitted).length,
         cartsUnsubmitted: buyer.carts.filter((cart) => !cart.submitted).length,
       };
@@ -76,6 +82,11 @@ export const BuyerTable: React.FC = () => {
       onFilter: (value, record) => record.skaterTeam === value,
     },
     {
+      title: "Qty Lululemon",
+      dataIndex: "totalItems",
+      key: "totalItems",
+    },
+    {
       title: "Carts Submitted",
       dataIndex: "cartsSubmitted",
       key: "cartsSubmitted",
@@ -91,9 +102,16 @@ export const BuyerTable: React.FC = () => {
     buyers?.reduce((total, buyer) => total + getTotalLuluByBuyer(buyer), 0) ??
     "...";
 
+  const totalPriceLululemon =
+    buyers?.reduce((total, buyer) => total + getPriceLuluByBuyer(buyer), 0) ??
+    "...";
+
   return (
     <>
+      <br />
       Total quantity of Lululemon: {totalQtyLululemon}
+      <br />
+      Total amount to collect for Lululemon: {totalPriceLululemon}
       <Table
         className="buyers-table"
         dataSource={dataSource}

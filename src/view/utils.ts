@@ -91,3 +91,22 @@ export function getTotalLuluByBuyer(buyer: BuyerCarts) {
     .filter((cart) => cart.submitted)
     .reduce((total, cart) => total + getTotalLuluByCart(cart), 0);
 }
+
+function getPriceLuluByCart(cart: Cart) {
+  return (
+    cart.cart_items
+      // Lululemon items have a retail price, while others don't.
+      .filter((cartItem) => cartItem.item.product.price_retail !== null)
+      .reduce(
+        (total, cartItem) =>
+          total + cartItem.quantity * getPrice(cartItem.item.product),
+        0
+      )
+  );
+}
+
+export function getPriceLuluByBuyer(buyer: BuyerCarts) {
+  return buyer.carts
+    .filter((cart) => cart.submitted)
+    .reduce((total, cart) => total + getPriceLuluByCart(cart), 0);
+}
