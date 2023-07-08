@@ -110,3 +110,20 @@ export function getPriceLuluByBuyer(buyer: BuyerCarts) {
     .filter((cart) => cart.submitted)
     .reduce((total, cart) => total + getPriceLuluByCart(cart), 0);
 }
+
+function getTotalPriceByCart(cart: Cart) {
+  return cart.cart_items.reduce(
+    (total, cartItem) =>
+      total + cartItem.quantity * getPrice(cartItem.item.product),
+    0
+  );
+}
+
+export function getTotalPriceByBuyer(buyer: BuyerCarts) {
+  return (
+    1.1 *
+    buyer.carts
+      .filter((cart) => cart.submitted)
+      .reduce((total, cart) => total + getTotalPriceByCart(cart), 0)
+  );
+}

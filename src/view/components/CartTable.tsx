@@ -20,7 +20,7 @@ import {
   InfoCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { DEADLINE, DISCOUNT } from "../../constants";
+import { DEADLINE } from "../../constants";
 
 type RecordType = {
   key: number;
@@ -35,9 +35,14 @@ type RecordType = {
 interface CartTableProps {
   cart: Cart;
   setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
+  editable?: boolean;
 }
 
-export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
+export const CartTable: React.FC<CartTableProps> = ({
+  cart,
+  setCartDirty,
+  editable = true,
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -281,7 +286,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
             )}
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
-        ) : (
+        ) : editable ? (
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
@@ -331,6 +336,8 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
               </Popconfirm>
             </Space>
           </Space>
+        ) : (
+          <></>
         )
       }
       summary={(data) => {
@@ -380,7 +387,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={5} align="right">
                 <i style={{ color: "green" }}>
-                  <b>Lululemon savings</b>
+                  <b>Lululemon savings (40% off retail price)</b>
                 </i>
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">

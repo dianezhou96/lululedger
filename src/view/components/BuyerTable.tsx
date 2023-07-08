@@ -1,12 +1,14 @@
 import Table, { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { BuyerCarts, SkaterTeam, SKATER_TEAMS } from "../../types";
+import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
   getPriceLuluByBuyer,
   getPriceString,
   getTotalLuluByBuyer,
+  getTotalPriceByBuyer,
 } from "../utils";
+import { CartTable } from "./CartTable";
 
 type RecordType = {
   key: number;
@@ -14,9 +16,11 @@ type RecordType = {
   email: string;
   skaterName: string;
   skaterTeam: SkaterTeam;
+  totalPrice: number;
   totalItems: number;
   cartsSubmitted: number;
   cartsUnsubmitted: number;
+  carts: Cart[];
 };
 
 export const BuyerTable: React.FC = () => {
@@ -47,9 +51,11 @@ export const BuyerTable: React.FC = () => {
         email: buyer.email,
         skaterName: buyer.skater_name,
         skaterTeam: buyer.skater_team,
+        totalPrice: getTotalPriceByBuyer(buyer),
         totalItems: getTotalLuluByBuyer(buyer),
         cartsSubmitted: buyer.carts.filter((cart) => cart.submitted).length,
         cartsUnsubmitted: buyer.carts.filter((cart) => !cart.submitted).length,
+        carts: buyer.carts,
       };
     }) ?? [];
 
@@ -82,6 +88,12 @@ export const BuyerTable: React.FC = () => {
       onFilter: (value, record) => record.skaterTeam === value,
     },
     {
+      title: "Total Price",
+      dataIndex: "totalPrice",
+      key: "totalPrice",
+      render: (value) => getPriceString(value, 2),
+    },
+    {
       title: "Qty Lululemon",
       dataIndex: "totalItems",
       key: "totalItems",
@@ -112,6 +124,16 @@ export const BuyerTable: React.FC = () => {
     },
   ];
 
+  const cartsRender = (row: RecordType) => {
+    return (
+      <>
+        {row.carts.map((cart) => (
+          <CartTable cart={cart} editable={false} setCartDirty={() => {}} />
+        ))}
+      </>
+    );
+  };
+
   const totalQtyLululemon =
     buyers?.reduce((total, buyer) => total + getTotalLuluByBuyer(buyer), 0) ??
     "...";
@@ -131,6 +153,7 @@ export const BuyerTable: React.FC = () => {
         dataSource={dataSource}
         loading={loading}
         columns={columns}
+        expandable={{ expandedRowRender: cartsRender }}
       />
     </>
   );
