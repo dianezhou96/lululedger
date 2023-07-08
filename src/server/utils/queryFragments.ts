@@ -34,7 +34,7 @@ export const CartFragment = {
   fields: ["name", "submitted"],
   populate: {
     cart_items: {
-      fields: ["quantity"],
+      fields: ["quantity", "status"],
       populate: {
         item: ItemFragment,
       },

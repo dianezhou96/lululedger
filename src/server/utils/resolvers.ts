@@ -10,6 +10,9 @@ import {
   BuyerCarts,
   ProductCategoryWithQtys,
   ItemMetadata,
+  CartItemWithMetadata,
+  ItemWithQty,
+  ProductWithQtys,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -55,6 +58,7 @@ export function resolveCart(cart): Cart {
         id: cart_item.id,
         item: resolveItem(cart_item.attributes.item.data),
         quantity: cart_item.attributes.quantity,
+        status: cart_item.attributes.status,
       })) ?? [],
   };
 }
@@ -97,30 +101,33 @@ export function resolveProductCategoryWithQtys(
   category
 ): ProductCategoryWithQtys {
   return {
-    id: category.id,
-    name: category.attributes.name,
-    products: category.attributes.products.data.map((product) => ({
-      id: product.id,
-      name: product.attributes.name,
-      price_retail: product.attributes.price_retail,
-      price_actual: product.attributes.price_actual,
-      items: product.attributes.items.data.map((item) => ({
-        ...resolveItemMetadata(item),
-        cart_items: item.attributes.cart_items.data
-          // Don't include deleted carts, i.e. cart item with null cart
-          .filter((cartItem) => cartItem.attributes.cart.data)
-          .map((cartItem) => ({
-            id: cartItem.id,
-            quantity: cartItem.attributes.quantity,
-            status: cartItem.attributes.status,
-            cartSubmitted: cartItem.attributes.cart.data.attributes.submitted,
-            cartName: cartItem.attributes.cart.data.attributes.name,
-            buyer: resolveBuyer(
-              cartItem.attributes.cart.data.attributes.buyer.data
-            ),
-          })),
-      })),
-    })),
+    ...resolveProductCategoryMetadata(category),
+    products: category.attributes.products.data.map(
+      (product): ProductWithQtys => ({
+        ...resolveProductMetadata(product),
+        items: product.attributes.items.data.map(
+          (item): ItemWithQty => ({
+            ...resolveItemMetadata(item),
+            cart_items: item.attributes.cart_items.data
+              // Don't include deleted carts, i.e. cart item with null cart
+              .filter((cartItem) => cartItem.attributes.cart.data)
+              .map(
+                (cartItem): CartItemWithMetadata => ({
+                  id: cartItem.id,
+                  quantity: cartItem.attributes.quantity,
+                  status: cartItem.attributes.status,
+                  cartSubmitted:
+                    cartItem.attributes.cart.data.attributes.submitted,
+                  cartName: cartItem.attributes.cart.data.attributes.name,
+                  buyer: resolveBuyer(
+                    cartItem.attributes.cart.data.attributes.buyer.data
+                  ),
+                })
+              ),
+          })
+        ),
+      })
+    ),
   };
 }
 

@@ -1,4 +1,4 @@
-import { Alert, Space } from "antd";
+import { Alert } from "antd";
 import React, { useEffect, useState } from "react";
 import { DEADLINE } from "../../constants";
 import { Product, ProductCategory } from "../../types";

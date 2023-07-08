@@ -29,6 +29,7 @@ type RecordType = {
   size: string | null;
   price: number;
   quantity: number;
+  status: string | null;
   totalPrice: number;
 };
 
@@ -57,8 +58,10 @@ export const CartTable: React.FC<CartTableProps> = ({
       color: cartItem.item.color,
       size: cartItem.item.size,
       price: price,
-      quantity: cartItem.quantity,
-      totalPrice: price * cartItem.quantity,
+      quantity: cartItem.status === "Out of stock" ? 0 : cartItem.quantity,
+      status: cartItem.status,
+      totalPrice:
+        cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
     };
   });
 
@@ -125,6 +128,12 @@ export const CartTable: React.FC<CartTableProps> = ({
       align: "right",
     },
   ];
+  if (!editable)
+    columns.push({
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+    });
 
   const deleteCart = async () => {
     await fetch(`/shop/carts/${cart.id}`, {
@@ -256,6 +265,13 @@ export const CartTable: React.FC<CartTableProps> = ({
           )}
         </div>
       )}
+      rowClassName={(record) =>
+        record.status === "Out of stock"
+          ? "red"
+          : record.status === "Replacement"
+          ? "green"
+          : ""
+      }
       columns={columns}
       pagination={false}
       style={{

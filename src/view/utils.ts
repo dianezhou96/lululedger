@@ -2,11 +2,9 @@ import { COLORS, DISCOUNT, ITEM_SIZES } from "../constants";
 import {
   BuyerCarts,
   Cart,
-  CartItem,
-  Item,
+  CartItemWithMetadata,
   ItemMetadata,
   ItemWithQty,
-  Product,
   ProductMetadata,
   ProductWithQtys,
 } from "../types";
@@ -71,8 +69,10 @@ export function getProductQuantity(product: ProductWithQtys) {
 
 export function getItemQuantity(item: ItemWithQty) {
   return item.cart_items.reduce(
-    (total: number, cartItem: CartItem) =>
-      cartItem.cartSubmitted ? total + cartItem.quantity : total,
+    (total: number, cartItem: CartItemWithMetadata) =>
+      cartItem.cartSubmitted && cartItem.status !== "Out of stock"
+        ? total + cartItem.quantity
+        : total,
     0
   );
 }
@@ -82,6 +82,7 @@ function getTotalLuluByCart(cart: Cart) {
     cart.cart_items
       // Lululemon items have a retail price, while others don't.
       .filter((cartItem) => cartItem.item.product.price_retail !== null)
+      .filter((cartItem) => cartItem.status !== "Out of stock")
       .reduce((total, cartItem) => total + cartItem.quantity, 0)
   );
 }
@@ -97,6 +98,7 @@ function getPriceLuluByCart(cart: Cart) {
     cart.cart_items
       // Lululemon items have a retail price, while others don't.
       .filter((cartItem) => cartItem.item.product.price_retail !== null)
+      .filter((cartItem) => cartItem.status !== "Out of stock")
       .reduce(
         (total, cartItem) =>
           total + cartItem.quantity * getPrice(cartItem.item.product),
@@ -112,18 +114,20 @@ export function getPriceLuluByBuyer(buyer: BuyerCarts) {
 }
 
 function getTotalPriceByCart(cart: Cart) {
-  return cart.cart_items.reduce(
-    (total, cartItem) =>
-      total + cartItem.quantity * getPrice(cartItem.item.product),
-    0
+  return (
+    1.1 *
+    cart.cart_items
+      .filter((cartItem) => cartItem.status !== "Out of stock")
+      .reduce(
+        (total, cartItem) =>
+          total + cartItem.quantity * getPrice(cartItem.item.product),
+        0
+      )
   );
 }
 
 export function getTotalPriceByBuyer(buyer: BuyerCarts) {
-  return (
-    1.1 *
-    buyer.carts
-      .filter((cart) => cart.submitted)
-      .reduce((total, cart) => total + getTotalPriceByCart(cart), 0)
-  );
+  return buyer.carts
+    .filter((cart) => cart.submitted)
+    .reduce((total, cart) => total + getTotalPriceByCart(cart), 0);
 }

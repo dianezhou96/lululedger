@@ -36,11 +36,7 @@ export type Cart = {
   id: number;
   name: string;
   submitted: boolean;
-  cart_items: {
-    id: number;
-    item: Item;
-    quantity: number;
-  }[];
+  cart_items: (CartItemMetadata & { item: Item })[];
 };
 
 export type CartPost = {
@@ -51,6 +47,14 @@ export type CartItemPost = {
   cart: number; //id
   item: number; //id
   quantity: number;
+};
+
+type CartItemStatus = "Out of stock" | "Replacement" | null;
+
+type CartItemMetadata = {
+  id: number;
+  quantity: number;
+  status: CartItemStatus;
 };
 
 export const SKATER_TEAMS = [
@@ -79,19 +83,14 @@ export type BuyerCarts = Buyer & {
   carts: Cart[];
 };
 
-export type CartItemStatus = "Out of stock" | "Replacement" | null;
-
-export type CartItem = {
-  id: number;
-  quantity: number;
-  status: CartItemStatus;
+export type CartItemWithMetadata = CartItemMetadata & {
   cartSubmitted: boolean;
   cartName: string;
   buyer: Buyer;
 };
 
 export type ItemWithQty = ItemMetadata & {
-  cart_items: CartItem[];
+  cart_items: CartItemWithMetadata[];
 };
 
 export type ProductWithQtys = {

@@ -97,6 +97,14 @@
   margin-right: 8px;
 }
 
+.cart-table .red {
+  color: red;
+}
+
+.cart-table .green {
+  color: green;
+}
+
 body {
   margin: 0;
 }
