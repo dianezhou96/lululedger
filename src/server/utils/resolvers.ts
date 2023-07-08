@@ -64,7 +64,6 @@ function resolveItemMetadata(item): ItemMetadata {
     id: item.id,
     color: item.attributes.color,
     size: item.attributes.size,
-    unavailable: item.attributes.unavailable,
     notes: item.attributes.notes,
   };
 }
@@ -113,6 +112,7 @@ export function resolveProductCategoryWithQtys(
           .map((cartItem) => ({
             id: cartItem.id,
             quantity: cartItem.attributes.quantity,
+            status: cartItem.attributes.status,
             cartSubmitted: cartItem.attributes.cart.data.attributes.submitted,
             cartName: cartItem.attributes.cart.data.attributes.name,
             buyer: resolveBuyer(

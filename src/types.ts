@@ -2,7 +2,6 @@ export type ItemMetadata = {
   id: number;
   color: string | null;
   size: string | null;
-  unavailable: boolean;
   notes: string | null;
 };
 
@@ -80,9 +79,12 @@ export type BuyerCarts = Buyer & {
   carts: Cart[];
 };
 
+export type CartItemStatus = "Out of stock" | "Replacement" | null;
+
 export type CartItem = {
   id: number;
   quantity: number;
+  status: CartItemStatus;
   cartSubmitted: boolean;
   cartName: string;
   buyer: Buyer;

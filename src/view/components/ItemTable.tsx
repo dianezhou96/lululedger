@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import Table, { ColumnType } from "antd/es/table";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -15,6 +16,7 @@ import {
   getProductQuantity,
 } from "../utils";
 import { Loading } from "./Loading";
+import { EditOutlined } from "@ant-design/icons";
 
 // Product
 type RecordType = {
@@ -89,6 +91,7 @@ export const ItemTable: React.FC = () => {
                   buyerEmail: cartItem.buyer.email,
                   cartName: cartItem.cartName,
                   quantity: cartItem.quantity,
+                  status: cartItem.status,
                 })),
             })
           ),
@@ -124,11 +127,18 @@ export const ItemTable: React.FC = () => {
         title: "Quantity",
         dataIndex: "quantity",
         key: "quantity",
+        align: "right",
       },
       {
         title: "Notes",
         dataIndex: "notes",
         key: "notes",
+        render: (value: string | null) =>
+          value ? (
+            <span style={{ color: "red" }}>{value}</span>
+          ) : (
+            <span>{value}</span>
+          ),
       },
     ];
     return (
@@ -150,7 +160,9 @@ export const ItemTable: React.FC = () => {
         title: "Quantity",
         dataIndex: "quantity",
         key: "quantity",
+        align: "right",
       },
+      { title: "Status", dataIndex: "status", key: "status" },
     ];
     return (
       <Table columns={columns} dataSource={row.carts} pagination={false} />
@@ -170,9 +182,10 @@ export const ItemTable: React.FC = () => {
   ) : (
     <>
       Total quantity of Lululemon: {totalQtyLululemon}
-      {dataSources.map((dataSource) => (
+      {dataSources.map((dataSource, idx) => (
         <Table
           className="buyers-table"
+          key={idx}
           dataSource={dataSource}
           loading={loading}
           columns={columns}
