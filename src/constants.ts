@@ -8,7 +8,7 @@ export const FUNDRAISER_IMAGE_LINK =
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Friday, July 7";
+export const DEADLINE = "Saturday, July 8";
 
 export const COLORS = [
   "Black",
