@@ -90,11 +90,25 @@ export const BuyerTable: React.FC = () => {
       title: "Carts Submitted",
       dataIndex: "cartsSubmitted",
       key: "cartsSubmitted",
+      filters: [
+        {
+          text: ">0",
+          value: 0,
+        },
+      ],
+      onFilter: (value, record) => record.cartsSubmitted > value,
     },
     {
       title: "Carts Unsubmitted",
       dataIndex: "cartsUnsubmitted",
       key: "cartsUnsubmitted",
+      filters: [
+        {
+          text: ">0",
+          value: 0,
+        },
+      ],
+      onFilter: (value, record) => record.cartsUnsubmitted > value,
     },
   ];
 
