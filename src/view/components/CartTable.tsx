@@ -9,7 +9,7 @@ import {
 } from "antd";
 import { ColumnType } from "antd/es/table";
 import React, { useState } from "react";
-import { Cart } from "../../types";
+import { Cart, ProductMetadata } from "../../types";
 import { getPrice, getPriceString } from "../utils";
 import {
   DeleteTwoTone,
@@ -19,12 +19,12 @@ import {
   WarningOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { DEADLINE } from "../../constants";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { DEADLINE, DISCOUNT } from "../../constants";
 
 type RecordType = {
   key: number;
-  product: string;
+  product: ProductMetadata;
   color: string | null;
   size: string | null;
   price: number;
@@ -42,14 +42,13 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
 
   const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
     const product = cartItem.item.product;
     const price = getPrice(product);
     return {
       key: cartItem.id,
-      product: product.name,
+      product: product,
       color: cartItem.item.color,
       size: cartItem.item.size,
       price: price,
@@ -76,6 +75,7 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       title: "Product",
       dataIndex: "product",
       key: "product",
+      render: (product: ProductMetadata) => product.name,
     },
     {
       title: "Color/Style",
@@ -336,9 +336,13 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
       summary={(data) => {
         let totalQty = 0;
         let subtotal = 0;
-        data.forEach(({ quantity, totalPrice }) => {
+        let totalSavings = 0;
+        data.forEach(({ product, quantity, totalPrice }) => {
           totalQty += quantity;
           subtotal += totalPrice;
+          if (!product.price_actual && product.price_retail) {
+            totalSavings += product.price_retail * quantity - totalPrice;
+          }
         });
         const fee = subtotal * 0.1;
         const totalDue = subtotal + fee;
@@ -371,6 +375,18 @@ export const CartTable: React.FC<CartTableProps> = ({ cart, setCartDirty }) => {
                 <u>
                   <b>{getPriceString(totalDue, 2)}*</b>
                 </u>
+              </Table.Summary.Cell>
+            </Table.Summary.Row>
+            <Table.Summary.Row>
+              <Table.Summary.Cell index={0} colSpan={5} align="right">
+                <i style={{ color: "green" }}>
+                  <b>Lululemon savings</b>
+                </i>
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={1} align="right">
+                <i style={{ color: "green" }}>
+                  <b>{getPriceString(totalSavings, 2)}</b>
+                </i>
               </Table.Summary.Cell>
             </Table.Summary.Row>
           </>
