@@ -10,6 +10,8 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Saturday, July 8";
 
+export const CLOSED = true;
+
 export const COLORS = [
   "Black",
   "True Navy",
