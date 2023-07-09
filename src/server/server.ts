@@ -42,17 +42,17 @@ app.use(morgan(LOG_LEVEL));
 
 // shop closed gatekeeping
 const check_admin = require("./routes/auth").check_admin;
-app.use(async (req, res, next) => {
-  if (await check_admin(req)) {
-    next(); // admins can do whatever they want
-  } else if (CLOSED) {
-    // allow read only requests to go through, in our case GETs
-    if (req.method === "GET") next();
-    else res.status(403).end();
-  } else {
-    next(); // let the request continue as usual
-  }
-});
+if (CLOSED)
+  app.use(async (req, res, next) => {
+    if (await check_admin(req)) {
+      next(); // admins can do whatever they want
+    } else if (req.method === "GET") {
+      // allow read only requests to go through, in our case GETs
+      next();
+    } else {
+      res.status(403).end();
+    }
+  });
 
 // import routes
 const shop_routes = require("./routes/shop");
