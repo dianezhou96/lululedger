@@ -52,7 +52,7 @@ export type CartItemPost = {
   quantity: number;
 };
 
-type CartItemStatus = "Out of stock" | "Replacement" | null;
+export type CartItemStatus = "Out of stock" | "Replacement" | null;
 
 type CartItemMetadata = {
   id: number;
