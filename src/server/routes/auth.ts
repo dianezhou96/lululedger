@@ -219,6 +219,29 @@ async function user_authenticated(req, res, next) {
   }
 }
 
+/* 
+This function checks whether a request is coming from an admin
+*/
+async function check_admin(req) {
+  const credentials = atob(req.get("Credential")); //decode
+  if (!is_json(credentials)) {
+    // end early
+    return false;
+  }
+  const { email, magic_token: token } = JSON.parse(credentials);
+  const [status, user] = await get_user_record(email);
+  if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
+    req.buyer = {
+      email: email,
+      id: user.id,
+      admin: user.attributes.admin,
+    };
+    return user.attributes.admin ?? false;
+  } else {
+    return false;
+  }
+}
+
 /*
 A Request is upgraded to an AuthorizedRequest after passing through user_authenticated.
 AuthorizedRequest looks identical to Request except it has a valid email that exists in the DB
@@ -231,4 +254,8 @@ export interface AuthorizedRequest extends Request {
   };
 }
 
-module.exports = { router: router, user_authenticated: user_authenticated };
+module.exports = {
+  router: router,
+  user_authenticated: user_authenticated,
+  check_admin: check_admin,
+};
