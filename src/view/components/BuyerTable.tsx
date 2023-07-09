@@ -104,11 +104,16 @@ export const BuyerTable: React.FC = () => {
       key: "cartsSubmitted",
       filters: [
         {
-          text: ">0",
+          text: "=0",
           value: 0,
         },
+        {
+          text: ">0",
+          value: 1,
+        },
       ],
-      onFilter: (value, record) => record.cartsSubmitted > value,
+      onFilter: (value, record) =>
+        value === 0 ? record.cartsSubmitted === 0 : record.cartsSubmitted > 0,
     },
     {
       title: "Carts Unsubmitted",
