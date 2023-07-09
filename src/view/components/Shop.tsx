@@ -1,6 +1,6 @@
 import { Alert } from "antd";
 import React, { useEffect, useState } from "react";
-import { DEADLINE } from "../../constants";
+import { CLOSED, DEADLINE } from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
@@ -26,18 +26,22 @@ export const Shop: React.FC<CartProps> = (props) => {
 
   const numUnsubmitted = props.carts.filter((cart) => !cart.submitted).length;
 
+  const announcement = CLOSED ? (
+    <>This fundraiser has ended.</>
+  ) : (
+    <span>
+      <b>Deadline to order:</b> <del>Monday, July 3</del>
+      <br />
+      Extended to <b>{DEADLINE}</b>
+    </span>
+  );
+
   return loading ? (
     <Loading />
   ) : (
     <div style={{ margin: GAP }}>
       <Alert
-        message={
-          <span>
-            <b>Deadline to order:</b> <del>Monday, July 3</del>
-            <br />
-            Extended to <b>{DEADLINE}</b>
-          </span>
-        }
+        message={announcement}
         type="info"
         showIcon
         closable
@@ -47,7 +51,7 @@ export const Shop: React.FC<CartProps> = (props) => {
           marginTop: 16,
         }}
       />
-      {numUnsubmitted > 0 && (
+      {numUnsubmitted > 0 && !CLOSED && (
         <Alert
           message={
             <b>

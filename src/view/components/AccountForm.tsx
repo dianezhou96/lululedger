@@ -9,6 +9,7 @@ import {
   Popconfirm,
 } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
+import { CLOSED } from "../../constants";
 
 type AlertObject = {
   message: string;
@@ -92,8 +93,9 @@ export const AccountForm: React.FC = () => {
           span: 8,
         }}
         requiredMark={false}
-        disabled={submittedSuccessfully}
+        disabled={submittedSuccessfully || CLOSED}
       >
+        {CLOSED && <p style={{ color: "red" }}>This fundraiser has ended.</p>}
         <h3>
           Thanks for checking out our fundraiser! Please fill out this form to
           start shopping.

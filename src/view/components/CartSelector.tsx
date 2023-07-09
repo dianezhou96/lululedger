@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { CartPost } from "../../types";
 import { PlusOutlined } from "@ant-design/icons";
 import { CartProps } from "./App";
+import { CLOSED } from "../../constants";
 
 const WIDTH = 200;
 
@@ -51,7 +52,9 @@ export const CartSelector: React.FC<CartProps> = ({
     }
   };
 
-  const NewCartForm = (
+  const NewCartForm = CLOSED ? (
+    <></>
+  ) : (
     <>
       {carts.length > 0 && (
         <div

@@ -1,6 +1,7 @@
 import { Alert, Button, Empty } from "antd";
 import React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { CLOSED } from "../../constants";
 import { CartProps } from "./App";
 import { CartTable } from "./CartTable";
 import { Loading } from "./Loading";
@@ -30,8 +31,8 @@ export const Orders: React.FC<CartProps> = ({
   return cartDirty ? (
     <Loading />
   ) : carts.length > 0 ? (
-    <div style={{ textAlign: "center" }}>
-      {!cartSelected && numUnsubmitted > 0 && (
+    <div style={{ textAlign: "center", marginBottom: GAP }}>
+      {!cartSelected && numUnsubmitted > 0 && !CLOSED && (
         <Alert
           message={
             <span>
@@ -51,7 +52,7 @@ export const Orders: React.FC<CartProps> = ({
           }}
         />
       )}
-      {!cartSelected && numSubmitted > 0 && (
+      {!cartSelected && numSubmitted > 0 && !CLOSED && (
         <Alert
           message={
             <span>

@@ -18,9 +18,10 @@ import {
   ClockCircleOutlined,
   WarningOutlined,
   InfoCircleOutlined,
+  MinusCircleOutlined,
 } from "@ant-design/icons";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { DEADLINE } from "../../constants";
+import { CLOSED, DEADLINE } from "../../constants";
 
 type RecordType = {
   key: number;
@@ -258,6 +259,10 @@ export const CartTable: React.FC<CartTableProps> = ({
             <Tag icon={<CheckCircleOutlined />} color="success">
               Submitted
             </Tag>
+          ) : CLOSED ? (
+            <Tag icon={<MinusCircleOutlined />} color="default">
+              Canceled
+            </Tag>
           ) : (
             <Tag icon={<ClockCircleOutlined />} color="default">
               Pending submission
@@ -302,7 +307,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             )}
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
-        ) : editable ? (
+        ) : editable && !CLOSED ? (
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
