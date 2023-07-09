@@ -9,6 +9,7 @@ import connectLivereload = require("connect-livereload");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
+import { CLOSED } from "../constants";
 
 const app = express();
 const fetch = (url: RequestInfo, init?: RequestInit) =>
@@ -38,6 +39,20 @@ morgan.token("date", () =>
   moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
 );
 app.use(morgan(LOG_LEVEL));
+
+// shop closed gatekeeping
+const check_admin = require("./routes/auth").check_admin;
+app.use(async (req, res, next) => {
+  if (await check_admin(req)) {
+    next(); // admins can do whatever they want
+  } else if (CLOSED) {
+    // allow read only requests to go through, in our case GETs
+    if (req.method === "GET") next();
+    else res.status(403).end();
+  } else {
+    next(); // let the request continue as usual
+  }
+});
 
 // import routes
 const shop_routes = require("./routes/shop");
