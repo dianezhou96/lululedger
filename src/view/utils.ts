@@ -70,7 +70,7 @@ export function getProductQuantity(product: ProductWithQtys) {
 export function getItemQuantity(item: ItemWithQty) {
   return item.cart_items.reduce(
     (total: number, cartItem: CartItemWithMetadata) =>
-      cartItem.cartSubmitted && cartItem.status !== "Out of stock"
+      cartItem.cart.submitted && cartItem.status !== "Out of stock"
         ? total + cartItem.quantity
         : total,
     0

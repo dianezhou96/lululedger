@@ -84,12 +84,13 @@ export const ItemTable: React.FC = () => {
               quantity: getItemQuantity(item),
               notes: item.notes,
               carts: item.cart_items
-                .filter((cartItem) => cartItem.cartSubmitted)
+                .filter((cartItem) => cartItem.cart.submitted)
                 .map((cartItem) => ({
                   key: cartItem.id,
                   buyerName: cartItem.buyer.name,
                   buyerEmail: cartItem.buyer.email,
-                  cartName: cartItem.cartName,
+                  cartName: cartItem.cart.name,
+                  cartId: cartItem.cart.id,
                   quantity: cartItem.quantity,
                   status: cartItem.status,
                 })),
@@ -155,7 +156,8 @@ export const ItemTable: React.FC = () => {
     const columns: ColumnType<SubSubRecordType>[] = [
       { title: "Buyer", dataIndex: "buyerName", key: "buyerName" },
       { title: "Email", dataIndex: "buyerEmail", key: "buyerEmail" },
-      { title: "Cart", dataIndex: "cartName", key: "cartName" },
+      { title: "Cart Name", dataIndex: "cartName", key: "cartName" },
+      { title: "Cart ID", dataIndex: "cartId", key: "cartId" },
       {
         title: "Quantity",
         dataIndex: "quantity",

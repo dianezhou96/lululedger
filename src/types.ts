@@ -32,10 +32,13 @@ export type Product = ProductMetadata & {
   items: Item[];
 };
 
-export type Cart = {
+export type CartMetadata = {
   id: number;
   name: string;
   submitted: boolean;
+};
+
+export type Cart = CartMetadata & {
   cart_items: (CartItemMetadata & { item: Item })[];
 };
 
@@ -84,8 +87,7 @@ export type BuyerCarts = Buyer & {
 };
 
 export type CartItemWithMetadata = CartItemMetadata & {
-  cartSubmitted: boolean;
-  cartName: string;
+  cart: CartMetadata;
   buyer: Buyer;
 };
 

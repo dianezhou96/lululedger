@@ -13,6 +13,7 @@ import {
   CartItemWithMetadata,
   ItemWithQty,
   ProductWithQtys,
+  CartMetadata,
 } from "../../types";
 
 function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
@@ -48,11 +49,17 @@ function resolveProduct(product): Product {
   };
 }
 
-export function resolveCart(cart): Cart {
+function resolveCartMetadata(cart): CartMetadata {
   return {
     id: cart.id,
     name: cart.attributes.name,
     submitted: cart.attributes.submitted,
+  };
+}
+
+export function resolveCart(cart): Cart {
+  return {
+    ...resolveCartMetadata(cart),
     cart_items:
       cart.attributes.cart_items?.data?.map((cart_item) => ({
         id: cart_item.id,
@@ -116,9 +123,7 @@ export function resolveProductCategoryWithQtys(
                   id: cartItem.id,
                   quantity: cartItem.attributes.quantity,
                   status: cartItem.attributes.status,
-                  cartSubmitted:
-                    cartItem.attributes.cart.data.attributes.submitted,
-                  cartName: cartItem.attributes.cart.data.attributes.name,
+                  cart: resolveCartMetadata(cartItem.attributes.cart.data),
                   buyer: resolveBuyer(
                     cartItem.attributes.cart.data.attributes.buyer.data
                   ),
