@@ -91,7 +91,11 @@ export const Orders: React.FC<CartProps> = ({
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
             <div key={cart.id} style={{ marginBottom: GAP }}>
-              <CartTable cart={cart} setCartDirty={setCartDirty}></CartTable>
+              <CartTable
+                cart={cart}
+                setCartDirty={setCartDirty}
+                editable={!CLOSED}
+              ></CartTable>
             </div>
           );
         }
