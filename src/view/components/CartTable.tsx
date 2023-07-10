@@ -10,7 +10,7 @@ import {
 import { ColumnType } from "antd/es/table";
 import React, { useState } from "react";
 import { Cart, ProductMetadata } from "../../types";
-import { getPrice, getPriceString } from "../utils";
+import { getPrice, getPriceString, groupAndSortCartItems } from "../utils";
 import {
   DeleteTwoTone,
   EditTwoTone,
@@ -50,21 +50,23 @@ export const CartTable: React.FC<CartTableProps> = ({
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const dataSource: RecordType[] = cart.cart_items.map((cartItem) => {
-    const product = cartItem.item.product;
-    const price = getPrice(product);
-    return {
-      key: cartItem.id,
-      product: product,
-      color: cartItem.item.color,
-      size: cartItem.item.size,
-      price: price,
-      quantity: cartItem.status === "Out of stock" ? 0 : cartItem.quantity,
-      status: cartItem.status,
-      totalPrice:
-        cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
-    };
-  });
+  const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
+    (cartItem) => {
+      const product = cartItem.item.product;
+      const price = getPrice(product);
+      return {
+        key: cartItem.id,
+        product: product,
+        color: cartItem.item.color,
+        size: cartItem.item.size,
+        price: price,
+        quantity: cartItem.status === "Out of stock" ? 0 : cartItem.quantity,
+        status: cartItem.status,
+        totalPrice:
+          cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
+      };
+    }
+  );
 
   const [tableData, setTableData] = useState(dataSource);
 

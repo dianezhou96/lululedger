@@ -131,3 +131,12 @@ export function getTotalPriceByBuyer(buyer: BuyerCarts) {
     .filter((cart) => cart.submitted)
     .reduce((total, cart) => total + getTotalPriceByCart(cart), 0);
 }
+
+export function groupAndSortCartItems(cart: Cart) {
+  return cart.cart_items
+    .sort((a, b) => findSizeIdx(a.item) - findSizeIdx(b.item))
+    .sort((a, b) => findColorIdx(a.item) - findColorIdx(b.item))
+    .sort(
+      (a, b) => findProductIdx(a.item.product) - findProductIdx(b.item.product)
+    );
+}
