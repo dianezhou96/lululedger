@@ -1,4 +1,4 @@
-import { Button, Dropdown, MenuProps } from "antd";
+import { Button, Dropdown, Form, Input, MenuProps } from "antd";
 import Table, { ColumnType } from "antd/es/table";
 import React from "react";
 import {
@@ -15,7 +15,7 @@ import {
   getPriceString,
   getProductQuantity,
 } from "../utils";
-import { SettingOutlined } from "@ant-design/icons";
+import { SettingOutlined, CloudUploadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
 
 // Product
@@ -55,6 +55,7 @@ interface ItemTableProps {
 
 export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
   const [searchParams] = useSearchParams();
+
   const markOutOfStock = async (cartItemId: number) => {
     await fetch(`/admin/out-of-stock/${cartItemId}`, {
       method: "PUT",
@@ -67,6 +68,17 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
     await fetch(`/admin/in-stock/${cartItemId}`, {
       method: "PUT",
       headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
+  const updateNotes = async (itemId: number, notes: string) => {
+    await fetch(`/admin/notes/${itemId}`, {
+      method: "PUT",
+      body: JSON.stringify({ notes }),
+      headers: {
+        "Content-Type": "application/json",
         Credential: searchParams.get("credential") ?? "",
       },
     });
@@ -134,12 +146,25 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
         title: "Notes",
         dataIndex: "notes",
         key: "notes",
-        render: (value: string | null) =>
-          value ? (
-            <span style={{ color: "red" }}>{value}</span>
-          ) : (
-            <span>{value}</span>
-          ),
+        render: (value: string | null, record) => (
+          <>
+            <Form
+              initialValues={{ notes: value }}
+              onFinish={(values) => {
+                updateNotes(record.key, values.notes);
+                refetch();
+              }}
+              style={{ display: "flex" }}
+            >
+              <Form.Item name="notes" style={{ marginBottom: 0 }}>
+                <Input />
+              </Form.Item>
+              <Button htmlType="submit">
+                <CloudUploadOutlined />
+              </Button>
+            </Form>
+          </>
+        ),
       },
     ];
     return (

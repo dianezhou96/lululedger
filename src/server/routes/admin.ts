@@ -111,4 +111,25 @@ router.put(
   }
 );
 
+// Update item notes
+router.put(
+  "/notes/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    console.log("PUTTING", req.body);
+    const data = await fetch(`${API_URI}/items/${req.params.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ data: req.body }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    })
+      .then((data) => data.json())
+      .then((json) => json.data);
+    res.status(200).json(data);
+  }
+);
+
 module.exports = router;

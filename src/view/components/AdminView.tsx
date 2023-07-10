@@ -18,7 +18,7 @@ export const AdminView: React.FC = () => {
   const announceLoading = useCallback(() => {
     messageApi.open({
       type: "info",
-      content: "Fetching data...",
+      content: "Uploading and/or fetching data...",
       duration: 0,
     });
   }, []);
