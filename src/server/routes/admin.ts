@@ -80,7 +80,6 @@ router.put(
       console.log("unauthorized");
       return;
     }
-    console.log("HEYYYYY");
     const data = await fetch(`${API_URI}/cart-items/${req.params.id}`, {
       method: "PUT",
       body: JSON.stringify({ data: { status: "Out of stock" } }),
@@ -88,7 +87,26 @@ router.put(
     })
       .then((data) => data.json())
       .then((json) => json.data);
-    console.log("Made it hhere");
+    res.status(200).json(data);
+  }
+);
+
+// Unmark out of stock
+router.put(
+  "/in-stock/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    const data = await fetch(`${API_URI}/cart-items/${req.params.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ data: { status: null } }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    })
+      .then((data) => data.json())
+      .then((json) => json.data);
     res.status(200).json(data);
   }
 );

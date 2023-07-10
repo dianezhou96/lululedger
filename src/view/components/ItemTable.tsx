@@ -63,6 +63,14 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
       },
     });
   };
+  const unmarkOutOfStock = async (cartItemId: number) => {
+    await fetch(`/admin/in-stock/${cartItemId}`, {
+      method: "PUT",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
 
   const dataSource: RecordType[] = (
     defaultProductSort(category.products) as ProductWithQtys[]
@@ -175,8 +183,8 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
               label: 'Unmark "Out of stock"',
               key: 0,
               onClick: () => {
-                record.quantity = 100;
-                record.status = null;
+                unmarkOutOfStock(record.key);
+                refetch();
               },
             });
           else if (!value)
