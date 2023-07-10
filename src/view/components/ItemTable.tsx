@@ -157,7 +157,7 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
               style={{ display: "flex" }}
             >
               <Form.Item name="notes" style={{ marginBottom: 0 }}>
-                <Input />
+                <Input.TextArea autoSize />
               </Form.Item>
               <Button htmlType="submit">
                 <CloudUploadOutlined />
