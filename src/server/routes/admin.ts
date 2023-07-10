@@ -7,16 +7,10 @@ import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
 import {
   BuyerCartsFragment,
-  CartFragment,
-  FAQFragment,
-  ProductCategoryFragment,
   ProductCategoryWithQtyFragment,
 } from "../utils/queryFragments";
 import {
   resolveBuyerCarts,
-  resolveCart,
-  resolveFAQ,
-  resolveProductCategory,
   resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
@@ -74,6 +68,28 @@ router.get(
       .then((json) => json.data);
     const retVal = data.map(resolveProductCategoryWithQtys);
     res.json(retVal);
+  }
+);
+
+// Mark out of stock
+router.put(
+  "/out-of-stock/:id",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    console.log("HEYYYYY");
+    const data = await fetch(`${API_URI}/cart-items/${req.params.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ data: { status: "Out of stock" } }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    })
+      .then((data) => data.json())
+      .then((json) => json.data);
+    console.log("Made it hhere");
+    res.status(200).json(data);
   }
 );
 

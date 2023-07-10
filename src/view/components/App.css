@@ -105,6 +105,14 @@
   color: green;
 }
 
+.item-table .red {
+  color: red;
+}
+
+.item-table .green {
+  color: green;
+}
+
 body {
   margin: 0;
 }

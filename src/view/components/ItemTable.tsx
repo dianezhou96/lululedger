@@ -16,6 +16,7 @@ import {
   getProductQuantity,
 } from "../utils";
 import { SettingOutlined } from "@ant-design/icons";
+import { useSearchParams } from "react-router-dom";
 
 // Product
 type RecordType = {
@@ -49,9 +50,20 @@ type SubSubRecordType = {
 
 interface ItemTableProps {
   category: ProductCategoryWithQtys;
+  refetch: () => void;
 }
 
-export const ItemTable: React.FC<ItemTableProps> = ({ category }) => {
+export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
+  const [searchParams] = useSearchParams();
+  const markOutOfStock = async (cartItemId: number) => {
+    await fetch(`/admin/out-of-stock/${cartItemId}`, {
+      method: "PUT",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
   const dataSource: RecordType[] = (
     defaultProductSort(category.products) as ProductWithQtys[]
   ).map((product) => ({
@@ -143,6 +155,14 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category }) => {
         dataIndex: "quantity",
         key: "quantity",
         align: "right",
+        render: (value, record) =>
+          record.status === "Out of stock" ? (
+            <>
+              <del>{value}</del>
+            </>
+          ) : (
+            value
+          ),
       },
       {
         title: "Status",
@@ -163,7 +183,10 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category }) => {
             items.push({
               label: 'Mark "Out of stock"',
               key: 1,
-              onClick: () => {},
+              onClick: () => {
+                markOutOfStock(record.key);
+                refetch();
+              },
             });
           return (
             <>
@@ -179,7 +202,19 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category }) => {
       },
     ];
     return (
-      <Table columns={columns} dataSource={row.carts} pagination={false} />
+      <Table
+        className="item-table"
+        columns={columns}
+        dataSource={row.carts}
+        pagination={false}
+        rowClassName={(record) =>
+          record.status === "Out of stock"
+            ? "red"
+            : record.status === "Replacement"
+            ? "green"
+            : ""
+        }
+      />
     );
   };
 

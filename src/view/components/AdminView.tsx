@@ -1,5 +1,5 @@
-import { Button } from "antd";
-import React, { useEffect, useState } from "react";
+import { Alert, Button, message } from "antd";
+import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BuyerCarts, ProductCategoryWithQtys } from "../../types";
 import { getProductQuantity } from "../utils";
@@ -13,6 +13,15 @@ export const AdminView: React.FC = () => {
   const [mode, setMode] = useState<Mode>();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
+
+  const [messageApi, contextHolder] = message.useMessage();
+  const announceLoading = useCallback(() => {
+    messageApi.open({
+      type: "info",
+      content: "Fetching data...",
+      duration: 0,
+    });
+  }, []);
 
   const [buyers, setBuyers] = useState<BuyerCarts[]>();
   const fetchBuyers = async () => {
@@ -39,7 +48,8 @@ export const AdminView: React.FC = () => {
   useEffect(() => {
     fetchBuyers();
     fetchItems();
-  }, []);
+    announceLoading();
+  }, [loading]);
 
   useEffect(() => {
     if (buyers && items) {
@@ -56,13 +66,11 @@ export const AdminView: React.FC = () => {
     );
   };
 
-  useEffect(() => console.log("ITEMS", items), [items]);
-  useEffect(() => console.log("BUYERS", buyers), [buyers]);
-
   return (
     <>
       <Button onClick={() => setMode("Buyer")}>View by buyer</Button>
       <Button onClick={() => setMode("Item")}>View by item</Button>
+      {loading && contextHolder}
       {mode === "Buyer" ? (
         buyers ? (
           <BuyerTable buyers={buyers} />
@@ -81,7 +89,10 @@ export const AdminView: React.FC = () => {
                     {getTotalQtyLululemon(category)}
                   </p>
                 )}
-                <ItemTable category={category} />
+                <ItemTable
+                  category={category}
+                  refetch={() => setLoading(true)}
+                />
               </div>
             ))}
           </>
