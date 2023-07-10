@@ -1,6 +1,5 @@
 import Table, { ColumnType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
 import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
   getPriceLuluByBuyer,
@@ -23,26 +22,11 @@ type RecordType = {
   carts: Cart[];
 };
 
-export const BuyerTable: React.FC = () => {
-  const [searchParams] = useSearchParams();
-  const [buyers, setBuyers] = useState<BuyerCarts[]>();
-  const [loading, setLoading] = useState(true);
+interface BuyerTableProps {
+  buyers: BuyerCarts[];
+}
 
-  const fetchBuyers = async () => {
-    const buyers = await fetch("/admin/buyers", {
-      method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
-    }).then((data) => data.json());
-    setBuyers(buyers);
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchBuyers();
-  }, []);
-
+export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
   const dataSource: RecordType[] =
     buyers?.map((buyer) => {
       return {
@@ -156,7 +140,6 @@ export const BuyerTable: React.FC = () => {
       <Table
         className="buyers-table"
         dataSource={dataSource}
-        loading={loading}
         columns={columns}
         expandable={{ expandedRowRender: cartsRender }}
       />
