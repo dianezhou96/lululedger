@@ -1,7 +1,6 @@
 import { Button, Dropdown, MenuProps } from "antd";
 import Table, { ColumnType } from "antd/es/table";
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import React from "react";
 import {
   CartItemStatus,
   ItemWithQty,
@@ -16,7 +15,6 @@ import {
   getPriceString,
   getProductQuantity,
 } from "../utils";
-import { Loading } from "./Loading";
 import { SettingOutlined } from "@ant-design/icons";
 
 // Product
@@ -165,10 +163,7 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category }) => {
             items.push({
               label: 'Mark "Out of stock"',
               key: 1,
-              onClick: () => {
-                record.quantity = 0;
-                record.status = "Out of stock";
-              },
+              onClick: () => {},
             });
           return (
             <>
