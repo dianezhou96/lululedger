@@ -1,5 +1,7 @@
+import { Button, Popconfirm } from "antd";
 import Table, { ColumnType } from "antd/es/table";
-import React from "react";
+import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
   getPriceLuluByBuyer,
@@ -27,6 +29,31 @@ interface BuyerTableProps {
 }
 
 export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
+  const [searchParams] = useSearchParams();
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+    setSelectedRowKeys(newSelectedRowKeys);
+  };
+  const hasSelected = selectedRowKeys.length > 0;
+  const sendOrderReceivedEmail = async () => {
+    await fetch("/admin/send-order-received-email", {
+      method: "POST",
+      body: JSON.stringify(
+        buyers
+          .filter((buyer) => selectedRowKeys.includes(buyer.id))
+          .map((buyer) => ({
+            name: buyer.name,
+            email: buyer.email,
+            magic_token: buyer.magic_token,
+          }))
+      ),
+      headers: {
+        "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
   const dataSource: RecordType[] =
     buyers?.map((buyer) => {
       return {
@@ -137,11 +164,25 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       Total quantity of Lululemon: {totalQtyLululemon}
       <br />
       Total amount to collect for Lululemon: {totalPriceLululemon}
+      <br />
+      <Popconfirm
+        title={`Confirm send email to ${selectedRowKeys.length} recipients`}
+        onConfirm={sendOrderReceivedEmail}
+        okText="Confirm"
+      >
+        <Button type="primary" disabled={!hasSelected}>
+          Send order received email
+        </Button>
+      </Popconfirm>
       <Table
         className="buyers-table"
         dataSource={dataSource}
         columns={columns}
         expandable={{ expandedRowRender: cartsRender }}
+        rowSelection={{
+          selectedRowKeys,
+          onChange: onSelectChange,
+        }}
       />
     </>
   );

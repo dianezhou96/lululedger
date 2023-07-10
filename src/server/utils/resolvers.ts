@@ -100,6 +100,7 @@ export function resolveBuyer(buyer): Buyer {
 export function resolveBuyerCarts(buyer): BuyerCarts {
   return {
     ...resolveBuyer(buyer),
+    magic_token: buyer.attributes.magic_token,
     carts: buyer.attributes.carts.data.map((cart) => resolveCart(cart)),
   };
 }

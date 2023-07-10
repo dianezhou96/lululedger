@@ -14,6 +14,7 @@ import {
   resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
+import { send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
 
@@ -120,7 +121,6 @@ router.put(
       console.log("unauthorized");
       return;
     }
-    console.log("PUTTING", req.body);
     const data = await fetch(`${API_URI}/items/${req.params.id}`, {
       method: "PUT",
       body: JSON.stringify({ data: req.body }),
@@ -129,6 +129,30 @@ router.put(
       .then((data) => data.json())
       .then((json) => json.data);
     res.status(200).json(data);
+  }
+);
+
+// Send order received email
+router.post(
+  "/send-order-received-email",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    for (const buyer of req.body) {
+      const credential = {
+        email: buyer.email,
+        magic_token: buyer.magic_token,
+      };
+      send_order_received(
+        buyer.name,
+        buyer.email,
+        btoa(JSON.stringify(credential))
+      );
+    }
+    res.status(200).end();
   }
 );
 

@@ -83,6 +83,7 @@ export type Buyer = BuyerPost & {
 };
 
 export type BuyerCarts = Buyer & {
+  magic_token: string;
   carts: Cart[];
 };
 

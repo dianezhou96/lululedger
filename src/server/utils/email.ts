@@ -1,5 +1,5 @@
 import sgMail = require("@sendgrid/mail");
-import { SG_API_KEY, GMAIL_TOKEN, SHOP_URL } from "../config";
+import { SG_API_KEY, GMAIL_TOKEN, SHOP_URL, ORDERS_URL } from "../config";
 import nodemailer = require("nodemailer");
 import { SHOP_NAME } from "../../constants";
 
@@ -125,4 +125,55 @@ export async function gmail_send(msg: Email) {
   } catch (error) {
     console.log(error, "Email sent error with Gmail API");
   }
+}
+
+export async function send_order_received(name, email, credential) {
+  const text = `Hi ${name}, your ${SHOP_NAME} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
+  const html = `
+  <!DOCTYPE html>
+<html>
+<head>
+  <title>Order Received</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    p {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p>Hi ${name},</p>
+    <p>Thanks for ordering through our fundraiser! This email confirms that we received your order and that we verified that you are a friend/family of the SFIT community.</p>
+    <p>For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}</p>
+    <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item.</p>
+    <p>You can expect an invoice and instructions for payment and pickup by the end of July. Thanks for your patience and support!</p>
+    <p>Best regards,<br>San Francisco Ice Theatre</p>
+  </div>
+</body>
+</html>
+  `;
+  const msg = {
+    to: email,
+    from: "SFIT Diane <dianez.mit@gmail.com>",
+    subject: `${SHOP_NAME} Order Received`,
+    text: text,
+    html: html,
+  };
+  // sendgrid_send(msg);
+  gmail_send(msg);
 }
