@@ -60,17 +60,23 @@ export function isValidQty(value) {
   return Number.isInteger(value) && value > 0;
 }
 
-export function getProductQuantity(product: ProductWithQtys) {
+export function getProductQuantity(
+  product: ProductWithQtys,
+  oos: boolean = false
+) {
   return product.items.reduce(
-    (total: number, item: ItemWithQty) => total + getItemQuantity(item),
+    (total: number, item: ItemWithQty) => total + getItemQuantity(item, oos),
     0
   );
 }
 
-export function getItemQuantity(item: ItemWithQty) {
+export function getItemQuantity(item: ItemWithQty, oos: boolean = false) {
   return item.cart_items.reduce(
     (total: number, cartItem: CartItemWithMetadata) =>
-      cartItem.cart.submitted && cartItem.status !== "Out of stock"
+      cartItem.cart.submitted &&
+      (oos
+        ? cartItem.status === "Out of stock"
+        : cartItem.status !== "Out of stock")
         ? total + cartItem.quantity
         : total,
     0

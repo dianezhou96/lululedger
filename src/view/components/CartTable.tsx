@@ -272,13 +272,13 @@ export const CartTable: React.FC<CartTableProps> = ({
           )}
         </div>
       )}
-      rowClassName={(record) =>
-        record.status === "Out of stock"
-          ? "red"
-          : record.status === "Replacement"
-          ? "green"
-          : ""
-      }
+      // rowClassName={(record) =>
+      //   record.status === "Out of stock"
+      //     ? "red"
+      //     : record.status === "Replacement"
+      //     ? "green"
+      //     : ""
+      // }
       columns={columns}
       pagination={false}
       style={{

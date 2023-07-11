@@ -94,7 +94,7 @@ export const Orders: React.FC<CartProps> = ({
               <CartTable
                 cart={cart}
                 setCartDirty={setCartDirty}
-                editable={!CLOSED}
+                // editable={!CLOSED}
               ></CartTable>
             </div>
           );

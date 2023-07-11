@@ -24,6 +24,7 @@ type RecordType = {
   name: string;
   price: number;
   quantity: number;
+  qtyOOS: number;
   items: SubRecordType[];
 };
 
@@ -34,6 +35,7 @@ type SubRecordType = {
   color: string | null;
   size: string | null;
   quantity: number;
+  qtyOOS: number;
   notes: string | null;
   carts: SubSubRecordType[];
 };
@@ -91,12 +93,14 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
     name: product.name,
     price: getPrice(product),
     quantity: getProductQuantity(product),
+    qtyOOS: getProductQuantity(product, true),
     items: (defaultItemSort(product.items) as ItemWithQty[]).map((item) => ({
       key: item.id,
       id: item.id,
       color: item.color,
       size: item.size,
       quantity: getItemQuantity(item),
+      qtyOOS: getItemQuantity(item, true),
       notes: item.notes,
       carts: item.cart_items
         .filter((cartItem) => cartItem.cart.submitted)
@@ -119,9 +123,16 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
       key: "name",
     },
     {
-      title: "Quantity",
+      title: "Qty Fulfilled",
       dataIndex: "quantity",
       key: "quantity",
+    },
+    {
+      title: "Qty Out of Stock",
+      dataIndex: "qtyOOS",
+      key: "qtyOOS",
+      render: (value) =>
+        value > 0 ? <span style={{ color: "red" }}>{value}</span> : 0,
     },
     {
       title: "Price",
@@ -137,10 +148,18 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
       { title: "Color/Style", dataIndex: "color", key: "color" },
       { title: "Size", dataIndex: "size", key: "size" },
       {
-        title: "Quantity",
+        title: "Qty Fulfilled",
         dataIndex: "quantity",
         key: "quantity",
         align: "right",
+      },
+      {
+        title: "Qty Out of Stock",
+        dataIndex: "qtyOOS",
+        key: "qtyOOS",
+        align: "right",
+        render: (value) =>
+          value > 0 ? <span style={{ color: "red" }}>{value}</span> : 0,
       },
       {
         title: "Notes",
