@@ -7,6 +7,7 @@ import {
   getPriceLuluByBuyer,
   getPriceString,
   getTotalLuluByBuyer,
+  getTotalOutByBuyer,
   getTotalPriceByBuyer,
 } from "../utils";
 import { CartTable } from "./CartTable";
@@ -19,6 +20,7 @@ type RecordType = {
   skaterTeam: SkaterTeam;
   totalPrice: number;
   totalItems: number;
+  totalOut: number;
   cartsSubmitted: number;
   cartsUnsubmitted: number;
   carts: Cart[];
@@ -64,6 +66,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         skaterTeam: buyer.skater_team,
         totalPrice: getTotalPriceByBuyer(buyer),
         totalItems: getTotalLuluByBuyer(buyer),
+        totalOut: getTotalOutByBuyer(buyer),
         cartsSubmitted: buyer.carts.filter((cart) => cart.submitted).length,
         cartsUnsubmitted: buyer.carts.filter((cart) => !cart.submitted).length,
         carts: buyer.carts,
@@ -108,6 +111,13 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       title: "Qty Lululemon",
       dataIndex: "totalItems",
       key: "totalItems",
+      sorter: (a, b) => a.totalItems - b.totalItems,
+    },
+    {
+      title: "Qty Out of Stock",
+      dataIndex: "totalOut",
+      key: "totalOut",
+      sorter: (a, b) => a.totalOut - b.totalOut,
     },
     {
       title: "Carts Submitted",

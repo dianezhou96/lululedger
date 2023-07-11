@@ -93,6 +93,22 @@ export function getTotalLuluByBuyer(buyer: BuyerCarts) {
     .reduce((total, cart) => total + getTotalLuluByCart(cart), 0);
 }
 
+function getTotalOutByCart(cart: Cart) {
+  return (
+    cart.cart_items
+      // Lululemon items have a retail price, while others don't.
+      .filter((cartItem) => cartItem.item.product.price_retail !== null)
+      .filter((cartItem) => cartItem.status === "Out of stock")
+      .reduce((total, cartItem) => total + cartItem.quantity, 0)
+  );
+}
+
+export function getTotalOutByBuyer(buyer: BuyerCarts) {
+  return buyer.carts
+    .filter((cart) => cart.submitted)
+    .reduce((total, cart) => total + getTotalOutByCart(cart), 0);
+}
+
 function getPriceLuluByCart(cart: Cart) {
   return (
     cart.cart_items
