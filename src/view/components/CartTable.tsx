@@ -60,7 +60,7 @@ export const CartTable: React.FC<CartTableProps> = ({
         color: cartItem.item.color,
         size: cartItem.item.size,
         price: price,
-        quantity: cartItem.status === "Out of stock" ? 0 : cartItem.quantity,
+        quantity: cartItem.quantity,
         status: cartItem.status,
         totalPrice:
           cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
@@ -112,13 +112,15 @@ export const CartTable: React.FC<CartTableProps> = ({
       dataIndex: "quantity",
       key: "qty",
       align: "right",
-      render: (value, _, index) =>
+      render: (value, record, index) =>
         editMode ? (
           <InputNumber
             style={{ width: "4em" }}
             value={value}
             onChange={onInputChange("quantity", index)}
           />
+        ) : record.status === "Out of stock" ? (
+          <del>{value}</del>
         ) : (
           value
         ),
@@ -272,13 +274,13 @@ export const CartTable: React.FC<CartTableProps> = ({
           )}
         </div>
       )}
-      // rowClassName={(record) =>
-      //   record.status === "Out of stock"
-      //     ? "red"
-      //     : record.status === "Replacement"
-      //     ? "green"
-      //     : ""
-      // }
+      rowClassName={(record) =>
+        record.status === "Out of stock"
+          ? "red"
+          : record.status === "Replacement"
+          ? "green"
+          : ""
+      }
       columns={columns}
       pagination={false}
       style={{
@@ -367,8 +369,8 @@ export const CartTable: React.FC<CartTableProps> = ({
         let totalQty = 0;
         let subtotal = 0;
         let totalSavings = 0;
-        data.forEach(({ product, quantity, totalPrice }) => {
-          totalQty += quantity;
+        data.forEach(({ product, quantity, totalPrice, status }) => {
+          totalQty += status === "Out of stock" ? 0 : quantity;
           subtotal += totalPrice;
           if (!product.price_actual && product.price_retail) {
             totalSavings += product.price_retail * quantity - totalPrice;

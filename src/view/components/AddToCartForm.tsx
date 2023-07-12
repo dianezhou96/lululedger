@@ -70,6 +70,13 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
       for (const [key, value] of Object.entries(values)) {
         if (isValidQty(value))
           cartItems.push({ cart: cart.id, item: Number(key), quantity: value });
+        // For adding replacement items after shop is closed
+        // cartItems.push({
+        //   cart: cart.id,
+        //   item: Number(key),
+        //   quantity: value,
+        //   status: "Replacement",
+        // });
         else if (value && !isValidQty) {
           invalidQty(value);
           allValid = false;

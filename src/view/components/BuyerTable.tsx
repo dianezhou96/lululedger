@@ -114,7 +114,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       sorter: (a, b) => a.totalItems - b.totalItems,
     },
     {
-      title: "Qty Out of Stock",
+      title: "Qty Not Fulfilled",
       dataIndex: "totalOut",
       key: "totalOut",
       sorter: (a, b) => a.totalOut - b.totalOut,

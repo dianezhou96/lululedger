@@ -102,9 +102,10 @@ export function getTotalLuluByBuyer(buyer: BuyerCarts) {
 function getTotalOutByCart(cart: Cart) {
   return (
     cart.cart_items
-      // Lululemon items have a retail price, while others don't.
-      .filter((cartItem) => cartItem.item.product.price_retail !== null)
       .filter((cartItem) => cartItem.status === "Out of stock")
+      .reduce((total, cartItem) => total + cartItem.quantity, 0) -
+    cart.cart_items
+      .filter((cartItem) => cartItem.status === "Replacement")
       .reduce((total, cartItem) => total + cartItem.quantity, 0)
   );
 }

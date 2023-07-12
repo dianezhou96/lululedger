@@ -50,6 +50,7 @@ export type CartItemPost = {
   cart: number; //id
   item: number; //id
   quantity: number;
+  status?: CartItemStatus;
 };
 
 export type CartItemStatus = "Out of stock" | "Replacement" | null;

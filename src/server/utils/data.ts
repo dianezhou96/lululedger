@@ -123,6 +123,19 @@ export const data: ProductObj[] = [
     ],
   },
   {
+    product: "Scuba Oversized Funnel Neck",
+    category: 2,
+    link: "https://poshmark.com/listing/LULULEMON-FUNNEL-NECK-SCUBA-HALF-ZIP-644c385bf8c5dafc0f9482d4",
+    images: [],
+    price_retail: 118,
+    items: [
+      {
+        color: "Kohlrabi Green",
+        sizes: ["M/L"],
+      },
+    ],
+  },
+  {
     product: "Swiftly Tech Long-Sleeve Shirt 2.0",
     category: 2,
     link: "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-2/_/prod9750543",

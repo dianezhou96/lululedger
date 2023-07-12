@@ -10,6 +10,7 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Saturday, July 8";
 
+// export const CLOSED = false;
 export const CLOSED = true;
 
 export const COLORS = [
@@ -23,6 +24,7 @@ export const COLORS = [
   "Utility Blue",
   "Black/Black",
   "Slate/White",
+  "White/White",
   "Mineral Blue/True Navy",
   "Graphite Grey/Black",
   "Silver Blue/Tidewater Teal",
