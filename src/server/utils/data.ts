@@ -268,6 +268,14 @@ export const data: ProductObj[] = [
     items: [{ color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] }],
   },
   {
+    product: "lululemon Align™ High-Rise Pant 25″",
+    category: 2,
+    link: "https://shop.lululemon.com/p/womens-leggings/Align-Pant-2/_/prod2020012",
+    images: [],
+    price_retail: 98,
+    items: [{ color: "Black", sizes: [14] }],
+  },
+  {
     product: "lululemon Align™ High-Rise Mini-Flared Pant 32″",
     category: 2,
     link: "https://shop.lululemon.com/p/women-pants/Align-HR-Mini-Flare-32/_/prod11250399",
