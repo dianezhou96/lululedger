@@ -105,6 +105,18 @@
   color: green;
 }
 
+@media print {
+  @page {
+    margin: 200;
+  }
+  .ant-table-footer {
+    display: none;
+  }
+  .cart-table .red {
+    text-decoration: line-through;
+  }
+}
+
 .item-table .red {
   color: red;
 }

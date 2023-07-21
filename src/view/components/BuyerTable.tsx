@@ -1,6 +1,6 @@
 import { Button, Popconfirm } from "antd";
 import Table, { ColumnType } from "antd/es/table";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
@@ -11,6 +11,7 @@ import {
   getTotalPriceByBuyer,
 } from "../utils";
 import { CartTable } from "./CartTable";
+import { useReactToPrint } from "react-to-print";
 
 type RecordType = {
   key: number;
@@ -150,11 +151,41 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
     },
   ];
 
+  const componentRef = useRef<any>();
+  const SelectedCartTables = React.forwardRef<HTMLDivElement>((_, ref) => (
+    <div ref={ref}>
+      {selectedRowKeys
+        .map((key) => buyers.find((buyer) => buyer.id === key))
+        .filter((buyer): buyer is BuyerCarts => !!buyer)
+        .map((buyer, buyerIdx) => {
+          const carts = buyer.carts.filter((cart) => cart.submitted);
+          return carts.map((cart, idx) => (
+            <div
+              style={{
+                pageBreakBefore:
+                  buyerIdx === 0 && idx === 0 ? "auto" : "always",
+              }}
+              key={idx}
+            >
+              <h3>
+                {buyer.name} ({buyer.skater_name}, {buyer.skater_team} team) -
+                Cart {idx + 1} of {carts.length}
+              </h3>
+              <CartTable cart={cart} />
+            </div>
+          ));
+        })}
+    </div>
+  ));
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const cartsRender = (row: RecordType) => {
     return (
       <>
-        {row.carts.map((cart) => (
-          <CartTable cart={cart} />
+        {row.carts.map((cart, idx) => (
+          <CartTable cart={cart} key={idx} />
         ))}
       </>
     );
@@ -184,7 +215,13 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
           Send order received email
         </Button>
       </Popconfirm>
+      <Button onClick={handlePrint} disabled={!hasSelected}>
+        Export to PDF
+      </Button>
       <br />
+      <div hidden>
+        <SelectedCartTables ref={componentRef} />
+      </div>
       <Table
         className="buyers-table"
         dataSource={dataSource}
