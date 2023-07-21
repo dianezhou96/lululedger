@@ -154,7 +154,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
     return (
       <>
         {row.carts.map((cart) => (
-          <CartTable cart={cart} editable={false} setCartDirty={() => {}} />
+          <CartTable cart={cart} />
         ))}
       </>
     );
@@ -184,6 +184,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
           Send order received email
         </Button>
       </Popconfirm>
+      <br />
       <Table
         className="buyers-table"
         dataSource={dataSource}

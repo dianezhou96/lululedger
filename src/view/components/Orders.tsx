@@ -3,7 +3,7 @@ import React from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { CLOSED } from "../../constants";
 import { CartProps } from "./App";
-import { CartTable } from "./CartTable";
+import { CartTableWrapper } from "./CartTableWrapper";
 import { Loading } from "./Loading";
 import { SignUpButton } from "./SignUpButton";
 
@@ -91,11 +91,11 @@ export const Orders: React.FC<CartProps> = ({
         if (!cartSelected || cartSelected === cart.id.toString()) {
           return (
             <div key={cart.id} style={{ marginBottom: GAP }}>
-              <CartTable
+              <CartTableWrapper
                 cart={cart}
                 setCartDirty={setCartDirty}
                 editable={!CLOSED}
-              ></CartTable>
+              ></CartTableWrapper>
             </div>
           );
         }

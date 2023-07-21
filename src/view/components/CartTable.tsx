@@ -20,7 +20,6 @@ import {
   InfoCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { CLOSED, DEADLINE } from "../../constants";
 
 type RecordType = {
@@ -36,19 +35,24 @@ type RecordType = {
 
 interface CartTableProps {
   cart: Cart;
-  setCartDirty: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDeleteOrder?: () => void;
+  handleSaveOrder?: (tableData: RecordType[]) => void;
+  handleSubmitOrder?: () => void;
+  goToShop?: () => void;
+  loading?: boolean;
   editable?: boolean;
 }
 
 export const CartTable: React.FC<CartTableProps> = ({
   cart,
-  setCartDirty,
-  editable = true,
+  handleDeleteOrder = () => {},
+  handleSaveOrder = () => {},
+  handleSubmitOrder = () => {},
+  goToShop = () => {},
+  loading = false,
+  editable = false,
 }) => {
-  const [searchParams, setSearchParams] = useSearchParams();
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
     (cartItem) => {
@@ -139,71 +143,6 @@ export const CartTable: React.FC<CartTableProps> = ({
       dataIndex: "status",
       key: "status",
     });
-
-  const deleteCart = async () => {
-    await fetch(`/shop/carts/${cart.id}`, {
-      method: "DELETE",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
-    });
-    setCartDirty(true);
-  };
-
-  const handleDeleteOrder = () => {
-    deleteCart();
-    searchParams.delete("cart");
-    setSearchParams(searchParams);
-  };
-
-  const updateItem = async (cartItemId, quantity) => {
-    if (quantity > 0) {
-      await fetch(`/shop/cart-items/${cartItemId}`, {
-        method: "PUT",
-        body: JSON.stringify({ quantity: quantity }),
-        headers: {
-          "Content-Type": "application/json",
-          Credential: searchParams.get("credential") ?? "",
-        },
-      });
-    } else {
-      await fetch(`/shop/cart-items/${cartItemId}`, {
-        method: "DELETE",
-        headers: {
-          Credential: searchParams.get("credential") ?? "",
-        },
-      });
-    }
-  };
-
-  const updateItemsAll = async () => {
-    for (const { key, quantity } of tableData) {
-      await updateItem(key, quantity);
-    }
-    setCartDirty(true);
-    setLoading(false);
-  };
-
-  const handleSaveOrder = () => {
-    setLoading(true);
-    updateItemsAll();
-  };
-
-  const submitOrder = async () => {
-    await fetch(`shop/carts/submit/${cart.id}`, {
-      method: "PUT",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
-    });
-    setCartDirty(true);
-    setLoading(false);
-  };
-
-  const handleSubmitOrder = () => {
-    setLoading(true);
-    submitOrder();
-  };
 
   const handleCancel = () => {
     setTableData(dataSource);
@@ -298,14 +237,14 @@ export const CartTable: React.FC<CartTableProps> = ({
               <Popconfirm
                 title={`Submit order for ${cart.name}`}
                 description={confirmationDescription}
-                onConfirm={handleSaveOrder}
+                onConfirm={() => handleSaveOrder(tableData)}
                 okText="Confirm"
                 icon={<InfoCircleOutlined style={{ color: "#007bff" }} />}
               >
                 <Button type="primary">Save and submit</Button>
               </Popconfirm>
             ) : (
-              <Button type="primary" onClick={handleSaveOrder}>
+              <Button type="primary" onClick={() => handleSaveOrder(tableData)}>
                 Save
               </Button>
             )}
@@ -335,15 +274,7 @@ export const CartTable: React.FC<CartTableProps> = ({
                 </Button>
               )}
               {tableData.length === 0 && (
-                <Button
-                  onClick={() => {
-                    searchParams.set("cart", cart.id.toString());
-                    navigate({
-                      pathname: "/shop",
-                      search: searchParams.toString(),
-                    });
-                  }}
-                >
+                <Button onClick={goToShop}>
                   <b>Go to shop</b>
                 </Button>
               )}
