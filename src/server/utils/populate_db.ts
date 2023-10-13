@@ -51,62 +51,62 @@ interface InputProduct {
   items: Array<InputItem>;
 }
 
-const input: Array<InputProduct> = [
-  {
-    product: "Define Jacket Luon",
-    category: 2,
-    link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
-    images: [
-      "https://images.lululemon.com/is/image/lululemon/LW4AWLS_0001_1",
-      "https://images.lululemon.com/is/image/lululemon/LW4AWKS_0002_1",
-    ],
-    price_retail: 118,
-    items: [
-      {
-        color: "Black",
-        sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
-      },
-      {
-        color: "True Navy",
-        sizes: [0, 2, 4, 6, 8, 10, 12, 14],
-      },
-    ],
-  },
-  {
-    product: "Scuba Oversized Full Zip",
-    category: 2,
-    link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip/_/prod10440041",
-    images: [
-      "https://images.lululemon.com/is/image/lululemon/LW3EOZS_0001_1",
-      "https://images.lululemon.com/is/image/lululemon/LW3ESQS_032493_1",
-    ],
-    price_retail: 128,
-    items: [
-      {
-        color: "Black",
-        sizes: ["XS/S", "M/L", "XL/XXL"],
-      },
-      {
-        color: "Heathered Core Ultra Light Grey",
-        sizes: ["XS/S", "M/L", "XL/XXL"],
-      },
-    ],
-  },
-  {
-    product: "lululemon Align™ Tank Top",
-    category: 2,
-    link: "https://shop.lululemon.com/p/women-tanks/Align-Tank/_/prod9600539",
-    images: [
-      "https://images.lululemon.com/is/image/lululemon/LW1DTWS_0001_1",
-      "https://images.lululemon.com/is/image/lululemon/LW1DUDS_0002_1",
-    ],
-    price_retail: 68,
-    items: [
-      { color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
-      { color: "White", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
-    ],
-  },
-];
+// const input: Array<InputProduct> = [
+//   {
+//     product: "Define Jacket Luon",
+//     category: 2,
+//     link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
+//     images: [
+//       "https://images.lululemon.com/is/image/lululemon/LW4AWLS_0001_1",
+//       "https://images.lululemon.com/is/image/lululemon/LW4AWKS_0002_1",
+//     ],
+//     price_retail: 118,
+//     items: [
+//       {
+//         color: "Black",
+//         sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20],
+//       },
+//       {
+//         color: "True Navy",
+//         sizes: [0, 2, 4, 6, 8, 10, 12, 14],
+//       },
+//     ],
+//   },
+//   {
+//     product: "Scuba Oversized Full Zip",
+//     category: 2,
+//     link: "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip/_/prod10440041",
+//     images: [
+//       "https://images.lululemon.com/is/image/lululemon/LW3EOZS_0001_1",
+//       "https://images.lululemon.com/is/image/lululemon/LW3ESQS_032493_1",
+//     ],
+//     price_retail: 128,
+//     items: [
+//       {
+//         color: "Black",
+//         sizes: ["XS/S", "M/L", "XL/XXL"],
+//       },
+//       {
+//         color: "Heathered Core Ultra Light Grey",
+//         sizes: ["XS/S", "M/L", "XL/XXL"],
+//       },
+//     ],
+//   },
+//   {
+//     product: "lululemon Align™ Tank Top",
+//     category: 2,
+//     link: "https://shop.lululemon.com/p/women-tanks/Align-Tank/_/prod9600539",
+//     images: [
+//       "https://images.lululemon.com/is/image/lululemon/LW1DTWS_0001_1",
+//       "https://images.lululemon.com/is/image/lululemon/LW1DUDS_0002_1",
+//     ],
+//     price_retail: 68,
+//     items: [
+//       { color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+//       { color: "White", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+//     ],
+//   },
+// ];
 
 async function addItem(item: ProductItem, id: number) {
   try {

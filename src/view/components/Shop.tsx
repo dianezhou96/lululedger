@@ -30,9 +30,7 @@ export const Shop: React.FC<CartProps> = (props) => {
     <>This fundraiser has ended.</>
   ) : (
     <span>
-      <b>Deadline to order:</b> <del>Monday, July 3</del>
-      <br />
-      Extended to <b>{DEADLINE}</b>
+      <b>Deadline to order: {DEADLINE}</b>
     </span>
   );
 
