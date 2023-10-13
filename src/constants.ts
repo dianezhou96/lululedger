@@ -9,7 +9,7 @@ export const FUNDRAISER_IMAGE_LINK =
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Friday, October 13 @ 6pm";
+export const DEADLINE = "Friday, October 13 @ 9pm";
 
 export const CLOSED = false;
 // export const CLOSED = true;
