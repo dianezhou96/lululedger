@@ -322,21 +322,21 @@ export const CartTable: React.FC<CartTableProps> = ({
             </Table.Summary.Row>
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={5} align="right">
-                Estimated tax + shipping 10% (*subject to change)
+                Tax + shipping (10%)
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">
-                {getPriceString(fee, 2)}*
+                {getPriceString(fee, 2)}
               </Table.Summary.Cell>
             </Table.Summary.Row>
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={5} align="right">
                 <u>
-                  <b>Estimated total due</b>
+                  <b>Total due</b>
                 </u>
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">
                 <u>
-                  <b>{getPriceString(totalDue, 2)}*</b>
+                  <b>{getPriceString(totalDue, 2)}</b>
                 </u>
               </Table.Summary.Cell>
             </Table.Summary.Row>
