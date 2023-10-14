@@ -25,12 +25,14 @@ export const Shop: React.FC<CartProps> = (props) => {
   }, []);
 
   const numUnsubmitted = props.carts.filter((cart) => !cart.submitted).length;
+  const numSubmitted = props.carts.filter((cart) => cart.submitted).length;
 
   const announcement = CLOSED ? (
     <>This fundraiser has ended.</>
   ) : (
     <span>
-      <b>Deadline to order: {DEADLINE}</b>
+      <b>Deadline to order: </b>
+      <del>Friday, October 13</del> <b>{DEADLINE}</b>
     </span>
   );
 
@@ -58,6 +60,23 @@ export const Shop: React.FC<CartProps> = (props) => {
             </b>
           }
           type="warning"
+          showIcon
+          closable
+          style={{
+            width: "fit-content",
+            margin: "auto",
+            marginTop: 16,
+          }}
+        />
+      )}
+      {numSubmitted > 0 && !CLOSED && (
+        <Alert
+          message={
+            <span>
+              You have {numSubmitted} order{numSubmitted > 1 && "s"} submitted.
+            </span>
+          }
+          type="success"
           showIcon
           closable
           style={{
