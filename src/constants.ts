@@ -11,8 +11,8 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Saturday, October 14 @ 9pm";
 
-export const CLOSED = false;
-// export const CLOSED = true;
+// export const CLOSED = false;
+export const CLOSED = true;
 
 export const COLORS = [
   "Black",
