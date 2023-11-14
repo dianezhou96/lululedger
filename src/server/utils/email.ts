@@ -7,7 +7,7 @@ sgMail.setApiKey(SG_API_KEY);
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "dianez.mit@gmail.com",
+    user: "dianez.sfit@gmail.com",
     pass: GMAIL_TOKEN,
   },
 });
@@ -75,7 +75,7 @@ ${SHOP_URL}?credential=${credential}`;
   `;
   const msg = {
     to: email,
-    from: "SFIT Diane <dianez.mit@gmail.com>",
+    from: "SFIT Diane <dianez.sfit@gmail.com>",
     subject: SHOP_NAME,
     text: text,
     html: html,
@@ -169,7 +169,7 @@ export async function send_order_received(name, email, credential) {
   `;
   const msg = {
     to: email,
-    from: "SFIT Diane <dianez.mit@gmail.com>",
+    from: "SFIT Diane <dianez.sfit@gmail.com>",
     subject: `${SHOP_NAME} Order Received`,
     text: text,
     html: html,
