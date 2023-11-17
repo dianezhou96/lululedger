@@ -60,7 +60,7 @@ export const Account: React.FC = () => {
             <h3>Thank you for contributing to our fundraiser!</h3>
             <p>
               If you need to modify any information or ask questions, please
-              contact Diane at dianez.mit@gmail.com.
+              contact Diane at dianez.sfit@gmail.com.
             </p>
             {buyer?.admin && (
               <Button type="primary" onClick={() => setAdminView(true)}>

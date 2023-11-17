@@ -1,6 +1,6 @@
 import { Alert } from "antd";
 import React, { useEffect, useState } from "react";
-import { CLOSED, DEADLINE } from "../../constants";
+import { CLOSED, DEADLINE, PREVIEW, START_DATE } from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
@@ -28,7 +28,14 @@ export const Shop: React.FC<CartProps> = (props) => {
   const numSubmitted = props.carts.filter((cart) => cart.submitted).length;
 
   const announcement = CLOSED ? (
-    <>This fundraiser has ended.</>
+    PREVIEW ? (
+      <>
+        Items offered in this fundraiser are still TBD and subject to
+        availability. <b>Ordering begins on {START_DATE}.</b>
+      </>
+    ) : (
+      <>This fundraiser has ended.</>
+    )
   ) : (
     <span>
       <b>Deadline to order: </b>

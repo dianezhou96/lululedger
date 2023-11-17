@@ -9,7 +9,7 @@ import {
   Popconfirm,
 } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
-import { CLOSED } from "../../constants";
+import { CLOSED, PREVIEW, START_DATE } from "../../constants";
 
 type AlertObject = {
   message: string;
@@ -95,7 +95,13 @@ export const AccountForm: React.FC = () => {
         requiredMark={false}
         disabled={submittedSuccessfully || CLOSED}
       >
-        {CLOSED && <p style={{ color: "red" }}>This fundraiser has ended.</p>}
+        {CLOSED && (
+          <p style={{ color: "red" }}>
+            {PREVIEW
+              ? `Ordering begins on ${START_DATE}. Please check back then!`
+              : "This fundraiser has ended."}
+          </p>
+        )}
         <h3>
           Thanks for checking out our fundraiser! Please fill out this form to
           start shopping.
@@ -109,7 +115,8 @@ export const AccountForm: React.FC = () => {
         <b>Which SFIT skater brought you here?</b>
         <p>
           We will contact this skater in case we cannot reach you, and also
-          thank them for referring you to our fundraiser!
+          thank them for referring you to our fundraiser! (Use your own name if
+          you are a skater.)
         </p>
         <Form.Item label="Skater Name" name="skater_name">
           <Input placeholder="Include first and last name" required />
