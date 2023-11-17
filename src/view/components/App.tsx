@@ -224,6 +224,7 @@ const App = () => {
               <Route path="/orders" element={<Orders {...cartProps} />} />
               <Route path="/account" element={<Account />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/inventory" element={<></>} />
             </Routes>
           </Content>
         </Layout>
