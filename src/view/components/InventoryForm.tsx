@@ -102,7 +102,6 @@ export const InventoryForm: React.FC = () => {
                   <Input />
                 </Form.Item>
 
-                {/* Nest Form.List */}
                 <Form.Item label="Image links">
                   <Form.List name={[field.name, "images"]}>
                     {(subFields, subOpt) => (
@@ -144,7 +143,6 @@ export const InventoryForm: React.FC = () => {
                   <InputNumber />
                 </Form.Item>
 
-                {/* Nest Form.List */}
                 <Form.Item label="Variants">
                   <Form.List name={[field.name, "items"]}>
                     {(subFields, subOpt) => (
@@ -164,8 +162,8 @@ export const InventoryForm: React.FC = () => {
                               <Input />
                             </Form.Item>
                             <Form.Item label="Sizes">
-                              <Form.List name={[field.name, "sizes"]}>
-                                {(subFields, subOpt) => (
+                              <Form.List name={[subField.name, "sizes"]}>
+                                {(subSubFields, subSubOpt) => (
                                   <div
                                     style={{
                                       display: "flex",
@@ -173,24 +171,23 @@ export const InventoryForm: React.FC = () => {
                                       rowGap: 16,
                                     }}
                                   >
-                                    {subFields.map((subField) => (
-                                      <Space key={subField.key}>
+                                    {subSubFields.map((subSubField) => (
+                                      <Space key={subSubField.key}>
                                         <Form.Item
-                                          noStyle
-                                          name={[subField.name, "size"]}
+                                          name={[subSubField.name, "size"]}
                                         >
                                           <Input />
                                         </Form.Item>
                                         <CloseOutlined
                                           onClick={() => {
-                                            subOpt.remove(subField.name);
+                                            subSubOpt.remove(subSubField.name);
                                           }}
                                         />
                                       </Space>
                                     ))}
                                     <Button
                                       type="dashed"
-                                      onClick={() => subOpt.add()}
+                                      onClick={() => subSubOpt.add()}
                                       block
                                     >
                                       + Add size
@@ -228,19 +225,15 @@ export const InventoryForm: React.FC = () => {
       </Form.List>
 
       <Form.Item shouldUpdate>
-        {() => {
-          console.log("VAL", formValues);
-          console.log("NOW", form.getFieldsValue());
-          return (
-            <Button
-              type="primary"
-              htmlType="submit"
-              disabled={!form.isFieldsTouched()}
-            >
-              Save
-            </Button>
-          );
-        }}
+        {() => (
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={!form.isFieldsTouched()}
+          >
+            Save
+          </Button>
+        )}
       </Form.Item>
 
       <Form.Item noStyle shouldUpdate>
