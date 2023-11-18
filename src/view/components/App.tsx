@@ -23,6 +23,7 @@ import { Spin } from "antd";
 import { SignUpButton } from "./SignUpButton";
 import { SHOP_NAME } from "../../constants";
 import { FAQ } from "./FAQ";
+import { InventoryForm } from "./InventoryForm";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -224,7 +225,7 @@ const App = () => {
               <Route path="/orders" element={<Orders {...cartProps} />} />
               <Route path="/account" element={<Account />} />
               <Route path="/faq" element={<FAQ />} />
-              <Route path="/inventory" element={<></>} />
+              <Route path="/inventory" element={<InventoryForm />} />
             </Routes>
           </Content>
         </Layout>

@@ -167,7 +167,7 @@ router.post(
 router.post("/inventory", async (req: Request, res: Response) => {
   const data = await fetch(API_URI + `/inventories`, {
     method: "POST",
-    body: JSON.stringify({ data: req.body }),
+    body: JSON.stringify({ data: { json: req.body } }),
     headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
   });
   res.status(200).end();

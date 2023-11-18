@@ -95,4 +95,9 @@ export const FAQFragment = {
 
 export const InventoryFragment = {
   fields: ["json"],
+  sort: ["createdAt:desc"], // get the latest single record
+  pagination: {
+    start: 0,
+    limit: 1,
+  },
 };
