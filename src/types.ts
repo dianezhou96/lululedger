@@ -116,3 +116,7 @@ export type FAQData = {
   question: string;
   answer: string;
 };
+
+export type InventoryData = {
+  json: object;
+};

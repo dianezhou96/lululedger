@@ -7,6 +7,7 @@ import {
   ProductCategoryMetadata,
   ProductMetadata,
   FAQData,
+  InventoryData,
   BuyerCarts,
   ProductCategoryWithQtys,
   ItemMetadata,
@@ -139,8 +140,14 @@ export function resolveProductCategoryWithQtys(
 
 export function resolveFAQ(faq): FAQData {
   return {
-    id: faq.attributes.id,
+    id: faq.id,
     question: faq.attributes.question,
     answer: faq.attributes.answer,
+  };
+}
+
+export function resolveInventory(inventory): InventoryData {
+  return {
+    json: inventory.attributes.json,
   };
 }

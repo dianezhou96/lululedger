@@ -1,16 +1,24 @@
 import express = require("express");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import { BuyerCarts, Cart, FAQData, ProductCategory } from "../../types";
+import {
+  BuyerCarts,
+  Cart,
+  FAQData,
+  InventoryData,
+  ProductCategory,
+} from "../../types";
 import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
 import {
   BuyerCartsFragment,
+  InventoryFragment,
   ProductCategoryWithQtyFragment,
 } from "../utils/queryFragments";
 import {
   resolveBuyerCarts,
+  resolveInventory,
   resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
@@ -156,4 +164,25 @@ router.post(
   }
 );
 
+router.post("/inventory", async (req: Request, res: Response) => {
+  const data = await fetch(API_URI + `/inventories`, {
+    method: "POST",
+    body: JSON.stringify({ data: req.body }),
+    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+  });
+  res.status(200).end();
+});
+
+router.get("/inventory", async (req: Request, res: Response) => {
+  const query = InventoryFragment;
+  const data = await fetch(API_URI + `/inventories?${qs.stringify(query)}`, {
+    method: "GET",
+    headers: { Authorization: API_TOKEN },
+  })
+    .then((data) => data.json())
+    .then((json) => json.data);
+  const retVal: InventoryData[] = data.map(resolveInventory);
+  res.json(retVal);
+  res.status(200).end();
+});
 module.exports = router;

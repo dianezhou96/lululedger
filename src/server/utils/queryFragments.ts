@@ -92,3 +92,7 @@ export const ProductCategoryWithQtyFragment = {
 export const FAQFragment = {
   fields: ["question", "answer"],
 };
+
+export const InventoryFragment = {
+  fields: ["json"],
+};
