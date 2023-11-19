@@ -16,8 +16,8 @@ export const DEADLINE = "Saturday, November 25 @ 12pm";
 
 // export const CLOSED = false;
 export const CLOSED = true;
-
 export const PREVIEW = true;
+// export const PREVIEW = false;
 export const START_DATE = "Tuesday, November 21";
 
 export const COLORS = [

@@ -78,9 +78,32 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
     setLoading(false);
   };
 
-  const handleSubmitOrder = () => {
+  const sendOrderReceivedEmail = async () => {
+    const buyer = await fetch("/auth/user", {
+      method: "GET",
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    }).then((data) => data.json());
+
+    await fetch("/shop/send-order-received-email", {
+      method: "POST",
+      body: JSON.stringify({
+        name: buyer.name,
+        email: buyer.email,
+        magic_token: buyer.magic_token,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
+  const handleSubmitOrder = async () => {
     setLoading(true);
     submitOrder();
+    sendOrderReceivedEmail();
   };
 
   const goToShop = () => {

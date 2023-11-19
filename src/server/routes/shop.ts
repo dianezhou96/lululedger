@@ -16,6 +16,7 @@ import {
   resolveProductCategory,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
+import { send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
 
@@ -311,5 +312,27 @@ async function buyer_has_item(buyer_id, cart_item_id) {
   const cartId = data.attributes.cart?.data.id;
   return cartId && buyer_has_cart(buyer_id, cartId);
 }
+
+// Send order received email
+router.post(
+  "/send-order-received-email",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (req.buyer.email !== req.body.email) {
+      console.log("unauthorized");
+      return;
+    }
+    const credential = {
+      email: req.body.email,
+      magic_token: req.body.magic_token,
+    };
+    send_order_received(
+      req.body.name,
+      req.body.email,
+      btoa(JSON.stringify(credential))
+    );
+    res.status(200).end();
+  }
+);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import sgMail = require("@sendgrid/mail");
 import { SG_API_KEY, GMAIL_TOKEN, SHOP_URL, ORDERS_URL } from "../config";
 import nodemailer = require("nodemailer");
-import { SHOP_NAME } from "../../constants";
+import { DEADLINE, SHOP_NAME } from "../../constants";
 
 sgMail.setApiKey(SG_API_KEY);
 const transporter = nodemailer.createTransport({
@@ -158,10 +158,11 @@ export async function send_order_received(name, email, credential) {
 <body>
   <div class="container">
     <p>Hi ${name},</p>
-    <p>Thanks for ordering through our fundraiser! This email confirms that we received your order and that we verified that you are a friend/family of the SFIT community.</p>
+    <p>Thanks for ordering through our fundraiser! This email confirms that we received your order.</p>
     <p>For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}</p>
+    <p>You may edit your order until the deadline: ${DEADLINE}. (If it's after the deadline and you received this email, your order still made it through!)</p>
     <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item.</p>
-    <p>You can expect an invoice and instructions for payment and pickup by the end of July. Thanks for your patience and support!</p>
+    <p>You can expect an invoice and instructions for payment and pickup within a couple weeks after the deadline. Thanks for your patience and support!</p>
     <p>Best regards,<br>San Francisco Ice Theatre</p>
   </div>
 </body>
