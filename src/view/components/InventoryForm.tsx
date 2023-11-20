@@ -2,10 +2,13 @@ import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   Card,
+  Checkbox,
+  Col,
   Form,
   Input,
   InputNumber,
   message,
+  Row,
   Space,
   Typography,
 } from "antd";
@@ -173,6 +176,64 @@ export const InventoryForm: React.FC = () => {
                                   name={[subField.name, "color"]}
                                 >
                                   <Input />
+                                </Form.Item>
+                                <Form.Item
+                                  name={[subField.name, "sizes-check"]}
+                                  label="Size Checkbox"
+                                >
+                                  <Checkbox.Group>
+                                    <Row>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="A"
+                                          style={{ lineHeight: "32px" }}
+                                        >
+                                          A
+                                        </Checkbox>
+                                      </Col>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="B"
+                                          style={{ lineHeight: "32px" }}
+                                          disabled
+                                        >
+                                          B
+                                        </Checkbox>
+                                      </Col>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="C"
+                                          style={{ lineHeight: "32px" }}
+                                        >
+                                          C
+                                        </Checkbox>
+                                      </Col>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="D"
+                                          style={{ lineHeight: "32px" }}
+                                        >
+                                          D
+                                        </Checkbox>
+                                      </Col>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="E"
+                                          style={{ lineHeight: "32px" }}
+                                        >
+                                          E
+                                        </Checkbox>
+                                      </Col>
+                                      <Col span={8}>
+                                        <Checkbox
+                                          value="F"
+                                          style={{ lineHeight: "32px" }}
+                                        >
+                                          F
+                                        </Checkbox>
+                                      </Col>
+                                    </Row>
+                                  </Checkbox.Group>
                                 </Form.Item>
                                 <Form.Item label="Sizes">
                                   <Form.List name={[subField.name, "sizes"]}>
