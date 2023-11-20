@@ -14,6 +14,7 @@ import {
 } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { Loading } from "./Loading";
+import { SizeSelector } from "./SizeSelector";
 
 export const InventoryForm: React.FC = () => {
   const [form] = Form.useForm();
@@ -170,115 +171,34 @@ export const InventoryForm: React.FC = () => {
                             }}
                           >
                             {subFields.map((subField) => (
-                              <Space key={subField.key}>
-                                <Form.Item
-                                  label="Color"
-                                  name={[subField.name, "color"]}
-                                >
-                                  <Input />
-                                </Form.Item>
-                                <Form.Item
-                                  name={[subField.name, "sizes-check"]}
-                                  label="Size Checkbox"
-                                >
-                                  <Checkbox.Group>
-                                    <Row>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="A"
-                                          style={{ lineHeight: "32px" }}
-                                        >
-                                          A
-                                        </Checkbox>
-                                      </Col>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="B"
-                                          style={{ lineHeight: "32px" }}
-                                          disabled
-                                        >
-                                          B
-                                        </Checkbox>
-                                      </Col>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="C"
-                                          style={{ lineHeight: "32px" }}
-                                        >
-                                          C
-                                        </Checkbox>
-                                      </Col>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="D"
-                                          style={{ lineHeight: "32px" }}
-                                        >
-                                          D
-                                        </Checkbox>
-                                      </Col>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="E"
-                                          style={{ lineHeight: "32px" }}
-                                        >
-                                          E
-                                        </Checkbox>
-                                      </Col>
-                                      <Col span={8}>
-                                        <Checkbox
-                                          value="F"
-                                          style={{ lineHeight: "32px" }}
-                                        >
-                                          F
-                                        </Checkbox>
-                                      </Col>
-                                    </Row>
-                                  </Checkbox.Group>
-                                </Form.Item>
-                                <Form.Item label="Sizes">
-                                  <Form.List name={[subField.name, "sizes"]}>
-                                    {(subSubFields, subSubOpt) => (
-                                      <div
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                          rowGap: 16,
-                                        }}
-                                      >
-                                        {subSubFields.map((subSubField) => (
-                                          <Space key={subSubField.key}>
-                                            <Form.Item
-                                              noStyle
-                                              name={[subSubField.name, "size"]}
-                                            >
-                                              <Input />
-                                            </Form.Item>
-                                            <CloseOutlined
-                                              onClick={() => {
-                                                subSubOpt.remove(
-                                                  subSubField.name
-                                                );
-                                              }}
-                                            />
-                                          </Space>
-                                        ))}
-                                        <Button
-                                          type="dashed"
-                                          onClick={() => subSubOpt.add()}
-                                          block
-                                        >
-                                          + Add size
-                                        </Button>
-                                      </div>
-                                    )}
-                                  </Form.List>
-                                </Form.Item>
-                                <CloseOutlined
-                                  onClick={() => {
-                                    subOpt.remove(subField.name);
-                                  }}
-                                />
-                              </Space>
+                              <div>
+                                <Row>
+                                  <Col className="testing" span={22}>
+                                    <Form.Item
+                                      label="Color"
+                                      name={[subField.name, "color"]}
+                                    >
+                                      <Input />
+                                    </Form.Item>
+                                  </Col>
+                                  <Col span={2}>
+                                    <CloseOutlined
+                                      onClick={() => {
+                                        subOpt.remove(subField.name);
+                                      }}
+                                    />
+                                  </Col>
+                                </Row>
+                                <Row>
+                                  <Col span={24}>
+                                    <Form.Item
+                                      name={[subField.name, "sizes-test"]}
+                                    >
+                                      <SizeSelector></SizeSelector>
+                                    </Form.Item>
+                                  </Col>
+                                </Row>
+                              </div>
                             ))}
                             <Button
                               type="dashed"
