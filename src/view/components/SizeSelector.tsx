@@ -23,6 +23,7 @@ export const SizeSelector: React.FC<SizeSelectorProps> = (
       {ITEM_SIZES.map((size, i) => {
         return (
           <Button
+            key={i}
             type={btnState[i] ? "primary" : "default"}
             onClick={(e) => {
               // take care of the visual state of the button

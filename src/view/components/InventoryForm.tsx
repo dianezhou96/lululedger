@@ -171,7 +171,7 @@ export const InventoryForm: React.FC = () => {
                             }}
                           >
                             {subFields.map((subField) => (
-                              <div>
+                              <div key={subField.key}>
                                 <Row>
                                   <Col className="testing" span={22}>
                                     <Form.Item
