@@ -114,7 +114,7 @@ export const Shop: React.FC<CartProps> = (props) => {
                 <ProductCard key={product.id} product={product} {...props} />
               )
             )}
-            {category.id === 3 && <FundraiserCard />}
+            {category.id === 6 && <FundraiserCard />}
           </div>
         </div>
       ))}

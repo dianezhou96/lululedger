@@ -242,11 +242,22 @@ export const InventoryForm: React.FC = () => {
           </Form.Item>
 
           <Form.Item noStyle shouldUpdate>
-            {() => (
-              <Typography>
-                <pre>{JSON.stringify(form.getFieldsValue(), null, 2)}</pre>
-              </Typography>
-            )}
+            {() => {
+              const values =
+                form.getFieldsValue().items?.map((product) => ({
+                  ...product,
+                  images: product.images.map((image) => image.link),
+                  items: product.items.map((item) => ({
+                    color: item.color,
+                    sizes: item["sizes-test"],
+                  })),
+                })) ?? [];
+              return (
+                <Typography>
+                  <pre>{JSON.stringify(values, null, 2)}</pre>
+                </Typography>
+              );
+            }}
           </Form.Item>
         </Form>
       )}
