@@ -13,10 +13,7 @@ export const SizeSelector: React.FC<SizeSelectorProps> = (
   // This component wraps the checkbox component and exposes it as a button
   // We do this because Checkbox plays nicely with antd's Form.List functionality
   // but want to use a button as a checkbox
-  const [checks, setChecks] = useState(props.value ?? []);
-  const [btnState, setBtnState] = useState(
-    new Array(ITEM_SIZES.length).fill(false)
-  );
+  const [sizes, setSizes] = useState(props.value ?? []);
 
   return (
     <div>
@@ -24,26 +21,22 @@ export const SizeSelector: React.FC<SizeSelectorProps> = (
         return (
           <Button
             key={i}
-            type={btnState[i] ? "primary" : "default"}
+            type={sizes.includes(size) ? "primary" : "default"}
             onClick={(e) => {
-              // take care of the visual state of the button
-              const newState = [...btnState];
-              newState[i] = !newState[i];
-              setBtnState(newState);
-
+              const select = !sizes.includes(size);
               // update the form state
-              let newChecks = [...checks];
-              if (newState[i]) {
+              let newSizes = [...sizes];
+              if (select) {
                 // add size
-                newChecks.push(size);
+                newSizes.push(size);
               } else {
                 // remove size
-                newChecks = newChecks.filter((v) => {
+                newSizes = newSizes.filter((v) => {
                   return v !== size;
                 });
               }
-              setChecks(newChecks);
-              props.onChange && props.onChange(newChecks);
+              setSizes(newSizes);
+              props.onChange && props.onChange(newSizes);
             }}
           >
             {size}
