@@ -46,8 +46,8 @@ if (CLOSED)
   app.use(async (req, res, next) => {
     if (await check_admin(req)) {
       next(); // admins can do whatever they want
-    } else if (req.method === "GET" || req.url === "/admin/inventory") {
-      // allow read only requests to go through, in our case GETs or inventory form submission
+    } else if (req.method === "GET") {
+      // allow read only requests to go through, in our case GETs
       next();
     } else {
       res.status(403).end();

@@ -15,16 +15,28 @@ import {
 import { CloseOutlined } from "@ant-design/icons";
 import { Loading } from "./Loading";
 import { SizeSelector } from "./SizeSelector";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export const InventoryForm: React.FC = () => {
   const [form] = Form.useForm();
+  const [searchParams] = useSearchParams();
   const [formValues, setFormValues] = useState<object>();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const getFormValues = async () => {
-    const values = await fetch("/admin/inventory", {
+    const response = await fetch("/admin/inventory", {
       method: "GET",
-    }).then((data) => data.json());
+      headers: {
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+    if (response.status === 403) {
+      navigate({
+        pathname: "/shop",
+      });
+    }
+    const values = await response.json();
     setFormValues(values.length ? values[0].json : []);
     setLoading(false);
   };
@@ -46,6 +58,7 @@ export const InventoryForm: React.FC = () => {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
+        Credential: searchParams.get("credential") ?? "",
         "Content-Type": "application/json",
       },
     });

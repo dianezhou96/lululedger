@@ -164,25 +164,42 @@ router.post(
   }
 );
 
-router.post("/inventory", async (req: Request, res: Response) => {
-  const data = await fetch(API_URI + `/inventories`, {
-    method: "POST",
-    body: JSON.stringify({ data: { json: req.body } }),
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
-  res.status(200).end();
-});
+router.post(
+  "/inventory",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    const data = await fetch(API_URI + `/inventories`, {
+      method: "POST",
+      body: JSON.stringify({ data: { json: req.body } }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    });
+    res.status(200).end();
+  }
+);
 
-router.get("/inventory", async (req: Request, res: Response) => {
-  const query = InventoryFragment;
-  const data = await fetch(API_URI + `/inventories?${qs.stringify(query)}`, {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
-    .then((data) => data.json())
-    .then((json) => json.data);
-  const retVal: InventoryData[] = data.map(resolveInventory);
-  res.json(retVal);
-  res.status(200).end();
-});
+router.get(
+  "/inventory",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      res.sendStatus(403);
+      return;
+    }
+    const query = InventoryFragment;
+    const data = await fetch(API_URI + `/inventories?${qs.stringify(query)}`, {
+      method: "GET",
+      headers: { Authorization: API_TOKEN },
+    })
+      .then((data) => data.json())
+      .then((json) => json.data);
+    const retVal: InventoryData[] = data.map(resolveInventory);
+    res.json(retVal);
+    res.status(200).end();
+  }
+);
 module.exports = router;
