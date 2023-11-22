@@ -2,10 +2,6 @@
 
 Lululedger is a platform for SFIT Lululemon fundraising orders.
 
-## Milestones
-
-- [ ] Scaffold app structure
-
 ## Getting Started
 
 `config.ts` must be placed in `src/server/` with the following:
@@ -15,11 +11,29 @@ export const API_URI="your_api_uri"
 export const API_TOKEN="bearer your_API_token"
 ```
 
+TODO: Add a `config.ts.example` (there are some additional parameters now).
+
 Run `npm start` to compile source and start server.
 
-Run `npm run watch` to hot reload the frontend. Note this will not automatically reload any changes made to the server.
+OR
+- Run `npm run watch` to hot reload the frontend.
+- Run `npm run watch_server` to hot reload the backend.
 
-Run `npm run watch_server` to hot reload the backend
+## Deployment
+
+### Deploy code
+
+1. On GitHub: Create a new release.
+2. Ssh into your server.
+3. Get the code for the latest release tag, then run `npm run build_prod`.
+4. Restart the server.
+
+### Update data
+
+- A lot of constants are in `src/constants.ts`. TODO: Maybe these should live in a DB.
+- Script to automate adding products to the DB: `src/server/utils/populate_db.ts`.
+  1. Update data in `src/server/utils/data.ts`.
+  2. Run `npx ts-node src/server/utils/populate_db.ts`.
 
 ## License
 
