@@ -64,6 +64,11 @@ export const COLORS = [
   "Heathered Iron Blue",
   "Heathered Black",
   "Heathered Bone",
+  "Rhino Grey",
+  "Silver Drop",
+  "Iron Blue",
+  "Dark Forest",
+  "Nomad",
 ];
 
 export const ITEM_SIZES = [

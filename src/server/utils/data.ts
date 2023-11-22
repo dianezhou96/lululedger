@@ -754,4 +754,42 @@ export const data: ProductObj[] = [
       },
     ],
   },
+  {
+    product: "Pack It Down Jacket",
+    category: 3,
+    link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Pack-It-Down-Jacket/_/prod9090082",
+    price_retail: 198,
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_047780_1",
+    ],
+    items: [
+      { color: "Black", sizes: [2, 4, 6, 8, 10, 12, 14] },
+      { color: "Rhino Grey", sizes: [4, 6, 8, 12] },
+    ],
+  },
+  {
+    product: "ABC Jogger *Warpstreme 30",
+    category: 4,
+    link: "https://shop.lululemon.com/p/men-joggers/Abc-Jogger/_/prod8530240",
+    price_retail: 128,
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LM5AW0S_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AW0S_031382_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AJLS_026083_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AW0S_033928_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AJLS_026865_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AMZS_035955_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5AMZS_029824_1",
+    ],
+    items: [
+      { color: "Black", sizes: ["S", "M", "L", "XL", "XXL"] },
+      { color: "True Navy", sizes: ["S", "M", "L", "XL", "XXL"] },
+      { color: "Dark Olive", sizes: ["S", "M", "L", "XXL"] },
+      { color: "Silver Drop", sizes: ["S", "M", "L", "XL", "XXL"] },
+      { color: "Iron Blue", sizes: ["S", "M", "L", "XL", "XXL"] },
+      { color: "Nomad", sizes: ["S", "M", "L", "XL", "XXL"] },
+      { color: "Dark Forest", sizes: ["S", "M", "L", "XL", "XXL"] },
+    ],
+  },
 ];
