@@ -14,10 +14,10 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Saturday, November 25 @ 12pm";
 
-// export const CLOSED = false;
-export const CLOSED = true;
-export const PREVIEW = true;
-// export const PREVIEW = false;
+export const CLOSED = false;
+// export const CLOSED = true;
+// export const PREVIEW = true;
+export const PREVIEW = false;
 export const START_DATE = "Tue 11/21 ~5pm";
 
 export const COLORS = [

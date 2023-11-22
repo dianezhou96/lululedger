@@ -9,6 +9,23 @@ type ProductObj = {
 
 export const data: ProductObj[] = [
   {
+    product: 'Align Rib Mini-Flare 32"',
+    category: 3,
+    price_retail: 128,
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW5GA8S_063407_1",
+    ],
+    items: [
+      {
+        color: "Storm Teal",
+        sizes: [2, 4, 6, 8, 10, 12],
+      },
+    ],
+  },
+];
+
+export const data_old: ProductObj[] = [
+  {
     items: [
       {
         color: "Black",
@@ -160,6 +177,20 @@ export const data: ProductObj[] = [
       {
         color: "Palm Court",
         sizes: ["2", "6", "8", "10", "12"],
+      },
+    ],
+  },
+  {
+    product: 'Align Rib Mini-Flare 32"',
+    category: 3,
+    price_retail: 128,
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW5GA8S_063407_1",
+    ],
+    items: [
+      {
+        color: "Storm Teal",
+        sizes: [2, 4, 6, 8, 10, 12],
       },
     ],
   },
