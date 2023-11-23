@@ -322,15 +322,7 @@ router.post(
       console.log("unauthorized");
       return;
     }
-    const credential = {
-      email: req.body.email,
-      magic_token: req.body.magic_token,
-    };
-    send_order_received(
-      req.body.name,
-      req.body.email,
-      btoa(JSON.stringify(credential))
-    );
+    send_order_received(req.body.name, req.body.email, req.body.credential);
     res.status(200).end();
   }
 );

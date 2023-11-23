@@ -91,7 +91,7 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
       body: JSON.stringify({
         name: buyer.name,
         email: buyer.email,
-        magic_token: buyer.magic_token,
+        credential: searchParams.get("credential") ?? "",
       }),
       headers: {
         "Content-Type": "application/json",
