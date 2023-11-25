@@ -56,7 +56,7 @@ export const AccountForm: React.FC = () => {
   };
 
   const onSubmit = (values: BuyerPost) => {
-    signUp(values);
+    signUp({ ...values, email: values.email.toLocaleLowerCase() });
   };
 
   const confirmation = (
