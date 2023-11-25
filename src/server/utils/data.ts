@@ -9,6 +9,39 @@ type ProductObj = {
 
 export const data: ProductObj[] = [
   {
+    product: 'Wunder Train High-Rise Tight 28"',
+    category: 3,
+    link: "https://shop.lululemon.com/p/womens-leggings/Wunder-Train-HR-Tight-28/_/prod10440282",
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_031382_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_030210_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ3S_047184_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5EOLS_054428_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ2S_043639_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_026083_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_055138_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_063407_1",
+      "https://images.lululemon.com/is/image/lululemon/LW5DJ0S_045720_1",
+    ],
+    price_retail: 98,
+    items: [
+      { color: "Black", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+      { color: "True Navy", sizes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20] },
+      { color: "Graphite Grey", sizes: [2, 4, 6, 8, 10, 12, 14, 16] },
+      {
+        color: "Heritage 365 Camo Deep Coal Multi",
+        sizes: [2, 4, 6, 8, 10, 12],
+      },
+      { color: "Magenta Purple", sizes: [2, 4, 6, 8, 10, 12] },
+      { color: "Heathered Graphite Grey", sizes: [2, 4, 6, 8, 10, 12, 14] },
+      { color: "Dark Olive", sizes: [2, 4, 6, 8, 10, 12] },
+      { color: "Twilight Rose", sizes: [2, 4, 6, 8, 10, 12] },
+      { color: "Storm Teal", sizes: [2, 4, 6, 8, 10, 12] },
+      { color: "Violet Verbena", sizes: [4, 6, 8, 10] },
+    ],
+  },
+  {
     items: [
       {
         color: "Black",
@@ -531,6 +564,20 @@ export const data: ProductObj[] = [
     ],
   },
   {
+    product: "Pack It Down Jacket",
+    category: 3,
+    link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Pack-It-Down-Jacket/_/prod9090082",
+    price_retail: 198,
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_047780_1",
+    ],
+    items: [
+      { color: "Black", sizes: [2, 4, 6, 8, 10, 12, 14] },
+      { color: "Rhino Grey", sizes: [4, 6, 8, 12] },
+    ],
+  },
+  {
     product: "Pack It Down Vest",
     category: 3,
     link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Pack-It-Down-Vest/_/prod9090557",
@@ -752,20 +799,6 @@ export const data: ProductObj[] = [
         color: "True Navy",
         sizes: ["S", "M", "L", "XL", "XXL"],
       },
-    ],
-  },
-  {
-    product: "Pack It Down Jacket",
-    category: 3,
-    link: "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Pack-It-Down-Jacket/_/prod9090082",
-    price_retail: 198,
-    images: [
-      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_0001_1",
-      "https://images.lululemon.com/is/image/lululemon/LW4BOVS_047780_1",
-    ],
-    items: [
-      { color: "Black", sizes: [2, 4, 6, 8, 10, 12, 14] },
-      { color: "Rhino Grey", sizes: [4, 6, 8, 12] },
     ],
   },
   {
