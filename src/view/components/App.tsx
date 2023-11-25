@@ -10,7 +10,7 @@ import {
   useSearchParams,
   redirect,
 } from "react-router-dom";
-import { Layout, Grid, theme } from "antd";
+import { Layout, Grid, theme, Space } from "antd";
 import { Home } from "./Home";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
@@ -158,6 +158,10 @@ const App = () => {
             lululedger
           </h2>
           <Nav handleMenuClick={handleMenuClick} />
+          <img
+            style={{ alignSelf: "flex-end" }}
+            src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG"
+          />
         </Sider>
         <Layout>
           <Header
