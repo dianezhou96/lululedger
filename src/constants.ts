@@ -12,7 +12,7 @@ export const FUNDRAISER_IMAGE_LINK =
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Saturday, November 25 @ 12pm";
+export const DEADLINE = "Sunday, November 24 @ 9pm";
 
 export const CLOSED = false;
 // export const CLOSED = true;
@@ -24,6 +24,7 @@ export const COLORS = [
   "Black",
   "True Navy",
   "Graphite Grey",
+  "Heritage 365 Camo Deep Coal Multi",
   "Terra Orange",
   "Magenta Purple",
   "Pipe Dream Blue",
@@ -69,6 +70,7 @@ export const COLORS = [
   "Iron Blue",
   "Dark Forest",
   "Nomad",
+  "Violet Verbena",
 ];
 
 export const ITEM_SIZES = [
