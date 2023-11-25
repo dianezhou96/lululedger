@@ -38,6 +38,10 @@ morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined));
 morgan.token("date", () =>
   moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
 );
+morgan.token("body", (req, res) => {
+  const jsonString = JSON.stringify(req.body);
+  return jsonString === "{}" ? "" : jsonString;
+});
 app.use(morgan(LOG_LEVEL));
 
 // shop closed gatekeeping
