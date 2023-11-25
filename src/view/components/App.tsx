@@ -150,6 +150,7 @@ const App = () => {
           width="12rem"
           collapsed={siderCollapsed}
           onCollapse={setSiderCollapsed}
+          style={{ zIndex: 99 }}
         >
           <h2
             style={{ color: "#f5f5f5", textAlign: "center" }}
@@ -158,10 +159,14 @@ const App = () => {
             lululedger
           </h2>
           <Nav handleMenuClick={handleMenuClick} />
-          <img
-            style={{ alignSelf: "flex-end" }}
-            src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG"
-          />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <a
+              href="https://scsf.org/san-francisco-ice-theatre/"
+              target="_blank"
+            >
+              <img src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG" />
+            </a>
+          </div>
         </Sider>
         <Layout>
           <Header
