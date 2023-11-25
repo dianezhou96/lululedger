@@ -599,7 +599,7 @@ export const data: ProductObj[] = [
     items: [
       {
         color: "Black",
-        sizes: ["12"],
+        sizes: [2, 4, 6, 8, 10, 12],
       },
     ],
   },
@@ -802,7 +802,7 @@ export const data: ProductObj[] = [
     ],
   },
   {
-    product: "ABC Jogger *Warpstreme 30",
+    product: 'ABC Jogger *Warpstreme 30"',
     category: 4,
     link: "https://shop.lululemon.com/p/men-joggers/Abc-Jogger/_/prod8530240",
     price_retail: 128,
