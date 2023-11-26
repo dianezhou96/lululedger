@@ -71,6 +71,7 @@ export const COLORS = [
   "Dark Forest",
   "Nomad",
   "Violet Verbena",
+  "Trench",
 ];
 
 export const ITEM_SIZES = [
@@ -85,6 +86,15 @@ export const ITEM_SIZES = [
   "16",
   "18",
   "20",
+  "28",
+  "30",
+  "31",
+  "32",
+  "33",
+  "34",
+  "36",
+  "38",
+  "40",
   "XS/S",
   "M/L",
   "XL/XXL",

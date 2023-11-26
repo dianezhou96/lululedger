@@ -825,4 +825,22 @@ export const data: ProductObj[] = [
       { color: "Dark Forest", sizes: ["S", "M", "L", "XL", "XXL"] },
     ],
   },
+  {
+    product: 'ABC Pant Slim-Fit *Warpstreme 32"',
+    category: 4,
+    link: "https://shop.lululemon.com/p/mens-trousers/ABC-Slim-Trouser-32/_/prod11500060",
+    images: [
+      "https://images.lululemon.com/is/image/lululemon/LM5972S_0001_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5ALWS_031382_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5ALWS_033928_1",
+      "https://images.lululemon.com/is/image/lululemon/LM5972S_043731_1",
+    ],
+    price_retail: 128,
+    items: [
+      { color: "Black", sizes: [28, 30, 31, 32, 33, 34, 36, 38, 40] },
+      { color: "True Navy", sizes: [28, 30, 32, 33, 34, 36, 38, 40] },
+      { color: "Silver Drop", sizes: [28, 30, 31, 32, 33, 34, 36, 38, 40] },
+      { color: "Trench", sizes: [28, 30, 31, 32, 33, 34, 36, 38, 40] },
+    ],
+  },
 ];
