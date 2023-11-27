@@ -10,6 +10,8 @@ export const FUNDRAISER_IMAGE_LINK =
   // "https://luludb.dianeyz.me/uploads/medium_Screen_Shot_2023_06_22_at_8_32_26_PM_2b19ebf2bd.png";
   "https://luludb.dianeyz.me/uploads/medium_SFIT_Fundraiser_Giving2023_42c6b179e1.png";
 
+export const FUNDRAISER_CATEGORY_ID = 6;
+
 export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Sunday, November 26 @ 9pm";

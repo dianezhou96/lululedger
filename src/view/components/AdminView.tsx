@@ -1,6 +1,7 @@
 import { Alert, Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { FUNDRAISER_CATEGORY_ID } from "../../constants";
 import { BuyerCarts, ProductCategoryWithQtys } from "../../types";
 import { getProductQuantity } from "../utils";
 import { BuyerTable } from "./BuyerTable";
@@ -57,10 +58,17 @@ export const AdminView: React.FC = () => {
     }
   }, [buyers, items]);
 
-  const getTotalQtyLululemon = (category) => {
+  const getTotalQtyLululemon = () => {
     return (
-      category.products.reduce(
-        (total, product) => total + getProductQuantity(product),
+      items?.reduce(
+        (total, category) =>
+          total +
+          (category.id === FUNDRAISER_CATEGORY_ID
+            ? 0
+            : category.products.reduce(
+                (total, product) => total + getProductQuantity(product),
+                0
+              )),
         0
       ) ?? "..."
     );
@@ -80,15 +88,12 @@ export const AdminView: React.FC = () => {
       ) : mode === "Item" ? (
         items ? (
           <>
+            <p style={{ textAlign: "center" }}>
+              Total quantity of Lululemon: {getTotalQtyLululemon()}
+            </p>
             {items.map((category) => (
               <div key={category.id}>
                 <h3 style={{ textAlign: "center" }}>{category.name}</h3>
-                {category.id === 2 && (
-                  <p style={{ textAlign: "center" }}>
-                    Total quantity of Lululemon:{" "}
-                    {getTotalQtyLululemon(category)}
-                  </p>
-                )}
                 <ItemTable
                   category={category}
                   refetch={() => setLoading(true)}

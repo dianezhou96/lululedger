@@ -1,6 +1,12 @@
 import { Alert } from "antd";
 import React, { useEffect, useState } from "react";
-import { CLOSED, DEADLINE, PREVIEW, START_DATE } from "../../constants";
+import {
+  CLOSED,
+  DEADLINE,
+  FUNDRAISER_CATEGORY_ID,
+  PREVIEW,
+  START_DATE,
+} from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
@@ -113,7 +119,7 @@ export const Shop: React.FC<CartProps> = (props) => {
                 <ProductCard key={product.id} product={product} {...props} />
               )
             )}
-            {category.id === 6 && <FundraiserCard />}
+            {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />}
           </div>
         </div>
       ))}
