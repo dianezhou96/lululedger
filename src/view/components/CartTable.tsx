@@ -41,6 +41,7 @@ interface CartTableProps {
   goToShop?: () => void;
   loading?: boolean;
   editable?: boolean;
+  showFulfilled?: boolean;
 }
 
 export const CartTable: React.FC<CartTableProps> = ({
@@ -51,6 +52,7 @@ export const CartTable: React.FC<CartTableProps> = ({
   goToShop = () => {},
   loading = false,
   editable = false,
+  showFulfilled = false,
 }) => {
   const [editMode, setEditMode] = useState(false);
 
@@ -65,7 +67,7 @@ export const CartTable: React.FC<CartTableProps> = ({
         size: cartItem.item.size,
         price: price,
         quantity: cartItem.quantity,
-        status: cartItem.status,
+        status: cartItem.status ?? (showFulfilled ? "Ordered" : ""),
         totalPrice:
           cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
       };
@@ -91,18 +93,21 @@ export const CartTable: React.FC<CartTableProps> = ({
       dataIndex: "product",
       key: "product",
       render: (product: ProductMetadata) => product.name,
+      align: "left",
     },
     {
       title: "Color/Style",
       dataIndex: "color",
       key: "color",
       render: (color: string) => color ?? "--",
+      align: "left",
     },
     {
       title: "Size",
       dataIndex: "size",
       key: "size",
       render: (size: string) => size ?? "--",
+      align: "left",
     },
     {
       title: "Unit Price",
@@ -142,6 +147,7 @@ export const CartTable: React.FC<CartTableProps> = ({
       title: "Status",
       dataIndex: "status",
       key: "status",
+      align: "left",
     });
 
   const handleCancel = () => {

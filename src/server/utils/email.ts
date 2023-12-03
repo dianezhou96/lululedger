@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
 
 type Email = {
   to: string;
+  cc?: string;
   from: string;
   subject: string;
   text: string;
@@ -111,10 +112,11 @@ export async function sendgrid_send(msg: Email) {
 }
 
 export async function gmail_send(msg: Email) {
-  const { to, from, subject, text, html } = msg;
+  const { to, cc, from, subject, text, html } = msg;
   try {
     const result = await transporter.sendMail({
       from: from,
+      cc: cc,
       to: to,
       subject: subject,
       text: text,
@@ -176,5 +178,63 @@ export async function send_order_received(name, email, credential) {
     html: html,
   };
   // sendgrid_send(msg);
+  gmail_send(msg);
+}
+
+export async function send_invoice(name, email, order, total) {
+  const text = `Hi ${name}, your ${SHOP_NAME} order total is ${total}! You need html enabled in email to see your invoice and get payment instructions. Please contact us if you need help with this.`;
+  const html = `
+  <!DOCTYPE html>
+<html>
+<head>
+  <title>Invoice & Payment Instructions</title>
+  <style>
+    p {
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    table {
+      width: 100%;
+    }
+    .red {
+      color: red;
+    }
+    .green {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>Hi ${name},</p>
+    <p>Thank you so much for supporting us through the ${SHOP_NAME}! See your invoice at the bottom of this email.</p>
+    <p>Your total due is <b>${total}</b>. Please follow these instructions to make your payment:
+      <ol>
+        <li>Pay Jennifer Sung (CC'ed) via one of the following methods:
+          <ul>
+            <li>Paypal: wildcateyes7@yahoo.com</li>
+            <li>Venmo: @JsungRetinacat (last 4 of phone #: 2623)</li>
+          </ul>
+        <li>Payment description: Include your name and SFIT skater's team (e.g. Jane Doe, Adult team).
+        <li>Payment type: <b>Friends and Family</b> (NOT goods and services)
+      </ol>
+    </p>
+    <p>Payment is due before pickup. Pickup will be ready in a few days and instructions will be sent in a separate email.</p>
+    <p>Thanks again, and we wish you a happy holiday season!</p>
+    <p>Best regards,<br>San Francisco Ice Theatre</p>
+    <h1>Invoice</h1>
+    ${order}
+  </div>
+</body>
+</html>
+  `;
+  const msg = {
+    to: email,
+    cc: "retinacat@yahoo.com",
+    from: "SFIT Diane <dianez.sfit@gmail.com>",
+    subject: `${SHOP_NAME} Invoice & Payment Instructions`,
+    text: text,
+    html: html,
+  };
   gmail_send(msg);
 }

@@ -2,6 +2,8 @@ import { Button, Popconfirm } from "antd";
 import Table, { ColumnType } from "antd/es/table";
 import React, { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { renderToString } from "react-dom/server";
+
 import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
   getPriceLuluByBuyer,
@@ -12,6 +14,7 @@ import {
 } from "../utils";
 import { CartTable } from "./CartTable";
 import { useReactToPrint } from "react-to-print";
+import { CLOSED } from "../../constants";
 
 type RecordType = {
   key: number;
@@ -38,6 +41,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
   const hasSelected = selectedRowKeys.length > 0;
+
   const sendOrderReceivedEmail = async () => {
     await fetch("/admin/send-order-received-email", {
       method: "POST",
@@ -48,6 +52,38 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
             name: buyer.name,
             email: buyer.email,
             magic_token: buyer.magic_token,
+          }))
+      ),
+      headers: {
+        "Content-Type": "application/json",
+        Credential: searchParams.get("credential") ?? "",
+      },
+    });
+  };
+
+  const sendInvoiceEmail = async () => {
+    await fetch("/admin/send-invoice-email", {
+      method: "POST",
+      body: JSON.stringify(
+        buyers
+          .filter(
+            (buyer) =>
+              selectedRowKeys.includes(buyer.id) &&
+              buyer.carts.filter((cart) => cart.submitted).length > 0
+          )
+          .map((buyer) => ({
+            name: buyer.name,
+            email: buyer.email,
+            order: renderToString(
+              <>
+                {buyer.carts
+                  .filter((cart) => cart.submitted)
+                  .map((cart) => (
+                    <CartTable cart={cart} showFulfilled />
+                  ))}
+              </>
+            ),
+            total: getPriceString(getTotalPriceByBuyer(buyer), 2),
           }))
       ),
       headers: {
@@ -211,13 +247,20 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         onConfirm={sendOrderReceivedEmail}
         okText="Confirm"
       >
-        <Button type="primary" disabled={!hasSelected}>
-          Send order received email
-        </Button>
+        <Button disabled={!hasSelected}>Send order received email</Button>
       </Popconfirm>
       <Button onClick={handlePrint} disabled={!hasSelected}>
         Export to PDF
       </Button>
+      <Popconfirm
+        title={`Confirm send invoices to ${selectedRowKeys.length} recipients`}
+        onConfirm={sendInvoiceEmail}
+        okText="Confirm"
+      >
+        <Button type="primary" disabled={!hasSelected || !CLOSED}>
+          Send invoice
+        </Button>
+      </Popconfirm>
       <br />
       <div hidden>
         <SelectedCartTables ref={componentRef} />

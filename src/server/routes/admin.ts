@@ -22,7 +22,7 @@ import {
   resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
 import { AuthorizedRequest } from "./auth";
-import { send_order_received } from "../utils/email";
+import { send_invoice, send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
 
@@ -159,6 +159,22 @@ router.post(
         buyer.email,
         btoa(JSON.stringify(credential))
       );
+    }
+    res.status(200).end();
+  }
+);
+
+// Send invoice email
+router.post(
+  "/send-invoice-email",
+  user_authenticated,
+  async (req: AuthorizedRequest, res: Response) => {
+    if (!req.buyer.admin) {
+      console.log("unauthorized");
+      return;
+    }
+    for (const buyer of req.body) {
+      send_invoice(buyer.name, buyer.email, buyer.order, buyer.total);
     }
     res.status(200).end();
   }
