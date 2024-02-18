@@ -16,8 +16,10 @@ TODO: Add a `config.ts.example` (there are some additional parameters now).
 Run `npm start` to compile source and start server.
 
 OR
-- Run `npm run watch` to hot reload the frontend.
-- Run `npm run watch_server` to hot reload the backend.
+- Run `npm run watch` to live reload the frontend.
+- Run `npm run watch_server` to live reload the backend.
+
+It's preferred to run both `watch` and `watch_server` above for typical development
 
 ## Deployment
 
