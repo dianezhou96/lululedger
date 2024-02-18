@@ -159,7 +159,13 @@ const App = () => {
             lululedger
           </h2>
           <Nav handleMenuClick={handleMenuClick} />
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "auto",
+            }}
+          >
             <a
               href="https://scsf.org/san-francisco-ice-theatre/"
               target="_blank"
