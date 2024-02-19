@@ -98,3 +98,11 @@ app.get("/email", async (req: Request, res: Response) => {
 app.listen(PORT, "0.0.0.0", () => {
   console.info(`lululedger listening on port ${PORT}`);
 });
+
+process
+  .on("unhandledRejection", (err) => {
+    console.error(err);
+  })
+  .on("uncaughtException", (err) => {
+    console.error(err);
+  });
