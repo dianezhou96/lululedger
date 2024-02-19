@@ -197,3 +197,9 @@ body .slick-prev::before,
 body .slick-next::before {
   display: none;
 }
+
+/* change antd's sider implementation from block to flex so we can position SFIT logo at the bottom of sider */
+.custom-sider .ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
