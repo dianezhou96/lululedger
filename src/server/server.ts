@@ -10,6 +10,7 @@ import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
 import { CLOSED } from "../constants";
+import { AuthorizedRequest } from "./routes/auth";
 
 const app = express();
 const fetch = (url: RequestInfo, init?: RequestInit) =>
@@ -34,11 +35,13 @@ if (process.env.NODE_ENV !== "prod") {
 if (process.env.NODE_ENV === "prod") {
   console.log = function () {}; // remove logging in prod
 }
-morgan.token("remote-user", (req) => (req.buyer ? req.buyer.email : undefined)); // get email if possible
-morgan.token("date", () =>
+morgan.token<AuthorizedRequest>("remote-user", (req) =>
+  req.buyer ? req.buyer.email : undefined
+); // get email if possible
+morgan.token<AuthorizedRequest>("date", () =>
   moment().tz("America/Los_Angeles").format("MM/DD/YYYY hh:mm:ssA z")
 );
-morgan.token("body", (req, res) => {
+morgan.token<AuthorizedRequest>("body", (req, res) => {
   const jsonString = JSON.stringify(req.body);
   return jsonString === "{}" ? "" : jsonString;
 });
