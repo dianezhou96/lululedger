@@ -61,7 +61,7 @@ response:
   front end should explicitly check for status string for success
 
 TODO: Figure out if GET is appropriate here since we're returning a json
-and according to HTTP spec GET request responses shouldn't have body? 
+and according to HTTP spec GET request responses shouldn't have body?
 */
 router.get("/user/:email", async (req: Request, res: Response) => {
   const { email } = req.params;
@@ -81,18 +81,18 @@ response:
   front end should explicitly check for status string for success
 
 TODO: Figure out if GET is appropriate here since we're returning a json
-and according to HTTP spec GET request responses shouldn't have body? 
+and according to HTTP spec GET request responses shouldn't have body?
 */
 router.get(
   "/authenticate/:credentials",
   async (req: Request, res: Response) => {
-    const credentials = atob(req.params.credentials);
-    if (!is_json(credentials)) {
+    const credentials = get_credentials(req);
+    if (!credentials) {
       // end early
       res.status(200).json(false);
       return;
     }
-    const { email, magic_token: token } = JSON.parse(credentials);
+    const { email, token } = credentials;
     const [status, user] = await get_user_record(email);
     res
       .status(status)
@@ -162,7 +162,7 @@ Queries API for user record, expects:
   - email: an string representing email address
 returns:
   a tuple where the first element is the API fetch status code
-  and the second element is a object of the user record 
+  and the second element is a object of the user record
 */
 async function get_user_record(email) {
   const query = {
@@ -184,6 +184,20 @@ async function get_user_record(email) {
   return [response.status, result.length ? result[0] : null];
 }
 
+function get_credentials(req): { email: string; token: string } | null {
+  let credentials = undefined;
+  try {
+    credentials = atob(req.get("Credential")); //decode
+  } catch (e) {}
+  if (!credentials || !is_json(credentials)) {
+    console.log("Invalid credential encountered, authentication failed");
+    return null;
+  }
+
+  const { email, magic_token: token } = JSON.parse(credentials);
+  return { email, token };
+}
+
 /*
 Middleware for authenticating user, expects:
   - request must have a field called "Credential" in header with a string representing the credential
@@ -191,17 +205,13 @@ modifies
   - req by appending an email field with a validated email that exists in the DB
 */
 async function user_authenticated(req, res, next) {
-  console.log(req.headers);
-  const credentials = atob(req.get("Credential")); //decode
-  if (!is_json(credentials)) {
-    console.log("Invalid credential encountered");
-    // end early
-    console.log("Authentication failed");
+  const credentials = get_credentials(req);
+  if (!credentials) {
     res.status(403).json(false);
     res.end();
     return;
   }
-  const { email, magic_token: token } = JSON.parse(credentials);
+  const { email, token } = credentials;
   const [status, user] = await get_user_record(email);
   console.log(user);
   if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
@@ -219,16 +229,16 @@ async function user_authenticated(req, res, next) {
   }
 }
 
-/* 
+/*
 This function checks whether a request is coming from an admin
 */
 async function check_admin(req) {
-  const credentials = atob(req.get("Credential")); //decode
-  if (!is_json(credentials)) {
+  const credentials = get_credentials(req);
+  if (!credentials) {
     // end early
     return false;
   }
-  const { email, magic_token: token } = JSON.parse(credentials);
+  const { email, token } = credentials;
   const [status, user] = await get_user_record(email);
   if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
     req.buyer = {
