@@ -28,9 +28,6 @@ export const AdminView: React.FC = () => {
   const fetchBuyers = async () => {
     const buyers = await fetch("/admin/buyers", {
       method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     }).then((data) => data.json());
     setBuyers(buyers);
   };
@@ -39,9 +36,6 @@ export const AdminView: React.FC = () => {
   const fetchItems = async () => {
     const items = await fetch("/admin/items", {
       method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     }).then((data) => data.json());
     setItems(items);
   };

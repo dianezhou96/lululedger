@@ -6,7 +6,7 @@ import { CartSelector } from "./CartSelector";
 import { CartProps } from "./App";
 import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
-import { defaultItemSort, isValidQty } from "../utils";
+import { authState, defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { CLOSED, DEADLINE, PREVIEW, START_DATE } from "../../constants";
 
@@ -55,7 +55,6 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
         body: JSON.stringify(cartItem),
         headers: {
           "Content-Type": "application/json",
-          Credential: searchParams.get("credential") ?? "",
         },
       });
     }
@@ -95,6 +94,8 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     if (itemsList.length < INIT_LIMIT) setShowAll(true);
   }, [itemsList]);
 
+  const authenticated = authState();
+
   return itemsList.length ? (
     <div
       style={{
@@ -113,7 +114,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
           marginBottom: 5,
         }}
       >
-        {searchParams.get("credential") && !CLOSED ? (
+        {authenticated && !CLOSED ? (
           <>
             {cart ? (
               <b>Adding to cart for</b>

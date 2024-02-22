@@ -6,6 +6,7 @@ import { CartProps } from "./App";
 import { CartTableWrapper } from "./CartTableWrapper";
 import { Loading } from "./Loading";
 import { SignUpButton } from "./SignUpButton";
+import { authState } from "../utils";
 
 const GAP = 20;
 
@@ -16,6 +17,7 @@ export const Orders: React.FC<CartProps> = ({
   setCartDirty,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const authenticated = authState();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -132,7 +134,7 @@ export const Orders: React.FC<CartProps> = ({
         >
           <Empty description={"No orders. Start shopping!"} />
           <br />
-          {searchParams.get("credential") ? (
+          {authenticated ? (
             <Button
               onClick={() =>
                 navigate({
