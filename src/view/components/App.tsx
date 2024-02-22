@@ -17,7 +17,7 @@ import { Orders } from "./Orders";
 import { ShoppingTwoTone } from "@ant-design/icons";
 import { Account } from "./Account";
 import { Cart } from "../../types";
-import { fetchCarts } from "../utils";
+import { authState, fetchCarts } from "../utils";
 import { CartSelector } from "./CartSelector";
 import { Spin } from "antd";
 import { SignUpButton } from "./SignUpButton";
@@ -55,14 +55,10 @@ const App = () => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const credential = useMemo(
-    () => searchParams.get("credential"),
-    [searchParams]
-  );
   const [carts, setCarts] = useState<Cart[]>([]);
   const [cartSelected, setCartSelected] = useState(searchParams.get("cart"));
   const [cartDirty, setCartDirty] = useState(true);
@@ -75,20 +71,9 @@ const App = () => {
     setCartDirty,
   };
 
-  const auth = async () => {
-    if (
-      !credential ||
-      !(await fetch(`/auth/authenticate/${credential}`).then((response) =>
-        response.json()
-      ))
-    ) {
-      setSearchParams({});
-    }
-  };
-
   const getCarts = async () => {
-    if (credential) {
-      const response = await fetchCarts(credential);
+    if (authState()) {
+      const response = await fetchCarts();
       const carts: Cart[] = response.ok ? await response.json() : [];
       setCarts(carts);
     } else {
@@ -100,11 +85,10 @@ const App = () => {
   // Update carts
   useEffect(() => {
     getCarts();
-  }, [credential, cartDirty]);
+  }, [cartDirty]);
 
   // Update cart selected
   useEffect(() => {
-    auth();
     // TODO: Only update cartSelected if it's one of the carts the buyer has.
     // if (
     //   carts.find(
@@ -228,7 +212,7 @@ const App = () => {
                 )}
               </div>
             </div>
-            {credential ? <CartSelector {...cartProps} /> : <SignUpButton />}
+            {authState() ? <CartSelector {...cartProps} /> : <SignUpButton />}
           </Header>
           <Content style={{}}>
             <Routes>
