@@ -23,8 +23,8 @@ async function run() {
       JSON.stringify(data, null, 2)
     );
     console.log("Saved results to data.json...");
-    // Wait 10 seconds so lulu doesn't block you
-    await new Promise((resolve) => setTimeout(resolve, 10 * 1000));
+    // Wait a second so lulu doesn't block you
+    await new Promise((resolve) => setTimeout(resolve, 3 * 1000));
   }
 
   console.log("Done! View data.json.");
@@ -63,6 +63,8 @@ async function parse(url: string) {
     .all();
   const colors: any[] = [];
   for (const color of swatchColors) {
+    // We ran into occasional bugs when clicking colors too fast
+    await new Promise((resolve) => setTimeout(resolve, 500));
     await color.click();
     const colorImg = await color.locator("img");
     // const colorSrcSet = await colorImg.getAttribute("srcset");
