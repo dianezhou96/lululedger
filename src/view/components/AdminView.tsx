@@ -1,4 +1,4 @@
-import { Alert, Button, message } from "antd";
+import { Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { FUNDRAISER_CATEGORY_ID } from "../../constants";
