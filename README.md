@@ -33,6 +33,9 @@ It's preferred to run both `watch` and `watch_server` above for typical developm
 ### Update data
 
 - A lot of constants are in `src/constants.ts`. TODO: Maybe these should live in a DB.
+- Script to automate getting links from Lululemoon: `scripts/lulurl_parser.ts`.
+  1. Update data in `scripts/lulurls.txt`
+  2. Run `npm run lulurl_parser`
 - Script to automate adding products to the DB: `src/server/utils/populate_db.ts`.
   1. Update data in `src/server/utils/data.ts`.
   2. Run `npx ts-node src/server/utils/populate_db.ts`.
