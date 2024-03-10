@@ -102,34 +102,30 @@ export const Shop: React.FC<CartProps> = (props) => {
           }}
         />
       )}
-      {products.map((category) => {
-        return !CLOSED || category.id === FUNDRAISER_CATEGORY_ID ? (
-          <div key={category.id} style={{ padding: GAP }}>
-            <div style={{ textAlign: "center", margin: "auto" }}>
-              <h2>{category.name}</h2>
-              <p>{category.description}</p>
-            </div>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(auto-fill, ${COVER_WIDTH}px)`,
-                gridGap: GAP,
-                justifyContent: "center",
-                marginTop: GAP,
-              }}
-            >
-              {(defaultProductSort(category.products) as Product[]).map(
-                (product) => (
-                  <ProductCard key={product.id} product={product} {...props} />
-                )
-              )}
-              {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />}
-            </div>
+      {products.map((category) => (
+        <div key={category.id} style={{ padding: GAP }}>
+          <div style={{ textAlign: "center", margin: "auto" }}>
+            <h2>{category.name}</h2>
+            <p>{category.description}</p>
           </div>
-        ) : (
-          <></>
-        );
-      })}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(auto-fill, ${COVER_WIDTH}px)`,
+              gridGap: GAP,
+              justifyContent: "center",
+              marginTop: GAP,
+            }}
+          >
+            {(defaultProductSort(category.products) as Product[]).map(
+              (product) => (
+                <ProductCard key={product.id} product={product} {...props} />
+              )
+            )}
+            {/* {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />} */}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
