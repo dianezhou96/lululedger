@@ -76,16 +76,17 @@ async function parse(url: string) {
     const srcset = await img.getAttribute("srcset");
     const imgUrl = parseSrcSet(srcset!);
     colors.push({
-      name,
+      color: name,
       img: imgUrl,
     });
   }
 
   const data = {
-    title,
-    price,
-    colors,
-    url,
+    product: title,
+    category: 2, // this changes per fundraiser
+    link: url,
+    price_retail: price?.replace(/[^0-9]/g, ""),
+    items: colors.map((color) => ({ ...color, sizes: [] })),
   };
   await browser.close();
   return data;
