@@ -15,7 +15,7 @@ export const FUNDRAISER_CATEGORY_ID = 6;
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Friday, March 15";
+export const DEADLINE = "Thursday, March 14 @ 9pm";
 
 export const CLOSED = false;
 // export const CLOSED = true;
