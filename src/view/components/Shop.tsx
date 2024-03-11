@@ -48,7 +48,8 @@ export const Shop: React.FC<CartProps> = (props) => {
   ) : (
     <span>
       <b>Deadline to order: </b>
-      <del>Saturday, November 25</del> <b>{DEADLINE}</b>
+      {/* <del>Saturday, November 25</del>{" "} */}
+      <b>{DEADLINE}</b>
     </span>
   );
 
