@@ -1,7 +1,7 @@
 // export const SHOP_NAME = "SFIT x Lululemon Fundraiser";
 // export const SHOP_NAME = "SFIT x Lululemon Fall 2023 Flash Fundraiser";
 // export const SHOP_NAME = "SFIT x Lululemon Black Friday Sale";
-export const SHOP_NAME = "SFIT x Lululemon Spring Fundraiser";
+export const SHOP_NAME = "SFIT x Lululemon Spring Sale";
 
 export const FUNDRAISER_LINK = "";
 // "https://www.gofundme.com/f/sfit-nationals-sendoff-gift";
@@ -17,15 +17,16 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Friday, March 15";
 
-// export const CLOSED = false;
-export const CLOSED = true;
-export const PREVIEW = true;
-// export const PREVIEW = false;
+export const CLOSED = false;
+// export const CLOSED = true;
+// export const PREVIEW = true;
+export const PREVIEW = false;
 export const START_DATE = "Mon 3/11 ~1pm";
 
 export const COLORS = [
   "Black",
   "Black/Black",
+  "Black/Gold",
   "White",
   "White/White",
   "True Navy",
@@ -44,6 +45,14 @@ export const COLORS = [
   "Silver Drop",
   "Nomad",
   "Shale Blue",
+  "Medium Forest",
+  "College Crimson",
+  "Harbor Blue",
+  "Butternut Brown",
+  "Maize Yellow",
+  "Brier Rose",
+  "College Purple",
+  "Dark Olive",
 ];
 
 export const ITEM_SIZES = [
