@@ -33,7 +33,6 @@ export const CartSelector: React.FC<CartProps> = ({
       body: JSON.stringify(cart),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
       },
     });
     const data = await response.json();

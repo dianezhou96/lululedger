@@ -7,27 +7,28 @@ import { Loading } from "./Loading";
 import { AdminView } from "./AdminView";
 
 export const Account: React.FC = () => {
-  const [searchParams] = useSearchParams();
   const [buyer, setBuyer] = useState<Buyer>();
   const [loading, setLoading] = useState(true);
   const [adminView, setAdminView] = useState(false);
-  const credential = searchParams.get("credential");
 
   const getAccountInfo = async () => {
     const buyer = await fetch("/auth/user", {
       method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     }).then((data) => data.json());
     setBuyer(buyer);
     setLoading(false);
   };
 
   useEffect(() => {
-    if (credential) getAccountInfo();
-    else setLoading(false);
-  }, [credential]);
+    getAccountInfo();
+  }, []);
+
+  const logout = async () => {
+    await fetch("/auth/logout", {
+      method: "GET",
+    });
+    location.reload();
+  };
 
   return loading ? (
     <Loading />
@@ -62,11 +63,26 @@ export const Account: React.FC = () => {
               If you need to modify any information or ask questions, please
               contact Diane at dianez.sfit@gmail.com.
             </p>
-            {buyer?.admin && (
-              <Button type="primary" onClick={() => setAdminView(true)}>
-                Go to admin vew
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              {buyer?.admin && (
+                <Button
+                  style={{ marginBottom: "1em" }}
+                  type="primary"
+                  onClick={() => setAdminView(true)}
+                >
+                  Go to admin view
+                </Button>
+              )}
+              <Button type="primary" onClick={() => logout()}>
+                Logout
               </Button>
-            )}
+            </div>
           </div>
         ) : (
           <AccountForm />

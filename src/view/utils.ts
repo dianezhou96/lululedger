@@ -10,6 +10,15 @@ import {
 } from "../types";
 import { data } from "../server/utils/data";
 
+// Auth state is a constant for each session, and can only be changed through a
+// full-page refresh. It is set by the server on the window object upon page
+// load, and contains the full user object -- but for now we only use the
+// existence of it to indicate a boolean state for whether the user is
+// authenticated.
+export function authState(): boolean {
+  return !!(window as any).user;
+}
+
 export function getPrice(product: ProductMetadata, numDecimal = 0): number {
   if (product.price_actual) {
     return Number(product.price_actual.toFixed(numDecimal));
@@ -24,12 +33,9 @@ export function getPriceString(price: number, numDecimal = 0): string {
   return `$${price.toFixed(numDecimal)}`;
 }
 
-export async function fetchCarts(credential: string) {
+export async function fetchCarts() {
   return fetch("/shop/carts", {
     method: "GET",
-    headers: {
-      Credential: credential,
-    },
   });
 }
 

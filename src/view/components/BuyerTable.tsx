@@ -56,7 +56,6 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       ),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
       },
     });
   };
@@ -88,7 +87,6 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       ),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
       },
     });
   };

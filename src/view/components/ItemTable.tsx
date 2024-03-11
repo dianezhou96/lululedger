@@ -61,17 +61,11 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
   const markOutOfStock = async (cartItemId: number) => {
     await fetch(`/admin/out-of-stock/${cartItemId}`, {
       method: "PUT",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     });
   };
   const unmarkOutOfStock = async (cartItemId: number) => {
     await fetch(`/admin/in-stock/${cartItemId}`, {
       method: "PUT",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     });
   };
 
@@ -81,7 +75,6 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
       body: JSON.stringify({ notes }),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
       },
     });
   };

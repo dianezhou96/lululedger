@@ -27,9 +27,6 @@ export const InventoryForm: React.FC = () => {
   const getFormValues = async () => {
     const response = await fetch("/admin/inventory", {
       method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     });
     if (response.status === 403) {
       navigate({
@@ -58,7 +55,6 @@ export const InventoryForm: React.FC = () => {
       method: "POST",
       body: JSON.stringify(values),
       headers: {
-        Credential: searchParams.get("credential") ?? "",
         "Content-Type": "application/json",
       },
     });

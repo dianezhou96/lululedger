@@ -3,6 +3,7 @@ import morgan = require("morgan");
 import sgMail = require("@sendgrid/mail");
 import moment = require("moment-timezone");
 import path = require("path");
+import fs = require("fs");
 import expressStaticGZip = require("express-static-gzip");
 import livereload = require("livereload");
 import connectLivereload = require("connect-livereload");
@@ -11,6 +12,7 @@ import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
 import { CLOSED } from "../constants";
 import { AuthorizedRequest } from "./routes/auth";
+import cookie_parser from "cookie-parser";
 
 const app = express();
 const fetch = (url: RequestInfo, init?: RequestInit) =>
@@ -46,6 +48,7 @@ morgan.token<AuthorizedRequest>("body", (req, res) => {
   return jsonString === "{}" ? "" : jsonString;
 });
 app.use(morgan(LOG_LEVEL));
+app.use(cookie_parser());
 
 // shop closed gatekeeping
 const check_admin = require("./routes/auth").check_admin;
@@ -71,7 +74,6 @@ app.use("/auth", auth_routes);
 app.use("/admin", admin_routes);
 
 // middleware
-app.use(express.static("public"));
 app.use(
   "/view",
   process.env.NODE_ENV === "prod"
@@ -96,6 +98,22 @@ app.get("/email", async (req: Request, res: Response) => {
     code = 500;
   }
   res.sendStatus(code);
+});
+
+const authenticate = require("./routes/auth").authenticate;
+// Serve index.html
+app.use("/", async (req, res, next) => {
+  await authenticate(res, req.cookies.credentials);
+  // HACK: Workaround to accomplish some basic templating functionality without
+  // full-adopting a templating framework
+  let data = fs.readFileSync(
+    path.join(__dirname, "../../public/index.html"),
+    "utf8"
+  );
+  // Send the authenticated `user` data to the client and set it on the window
+  // object
+  data = data.replace("{{user}}", JSON.stringify(res.locals.user));
+  res.send(data);
 });
 
 app.listen(PORT, "0.0.0.0", () => {

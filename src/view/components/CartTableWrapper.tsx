@@ -21,9 +21,6 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
   const deleteCart = async () => {
     await fetch(`/shop/carts/${cart.id}`, {
       method: "DELETE",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     });
     setCartDirty(true);
   };
@@ -41,15 +38,11 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
         body: JSON.stringify({ quantity: quantity }),
         headers: {
           "Content-Type": "application/json",
-          Credential: searchParams.get("credential") ?? "",
         },
       });
     } else {
       await fetch(`/shop/cart-items/${cartItemId}`, {
         method: "DELETE",
-        headers: {
-          Credential: searchParams.get("credential") ?? "",
-        },
       });
     }
   };
@@ -70,9 +63,6 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
   const submitOrder = async () => {
     await fetch(`shop/carts/submit/${cart.id}`, {
       method: "PUT",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     });
     setCartDirty(true);
     setLoading(false);
@@ -81,9 +71,6 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
   const sendOrderReceivedEmail = async () => {
     const buyer = await fetch("/auth/user", {
       method: "GET",
-      headers: {
-        Credential: searchParams.get("credential") ?? "",
-      },
     }).then((data) => data.json());
 
     await fetch("/shop/send-order-received-email", {
@@ -91,11 +78,9 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
       body: JSON.stringify({
         name: buyer.name,
         email: buyer.email,
-        credential: searchParams.get("credential") ?? "",
       }),
       headers: {
         "Content-Type": "application/json",
-        Credential: searchParams.get("credential") ?? "",
       },
     });
   };

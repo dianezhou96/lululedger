@@ -76,29 +76,31 @@ Checks whether a credential pairing is valid, expects
       email: string representing email address
       magic_token: string representing token for account
     }
-response:
-  true if credentials match the DB record's, false if not or if connection fails
-  front end should explicitly check for status string for success
-
-TODO: Figure out if GET is appropriate here since we're returning a json
-and according to HTTP spec GET request responses shouldn't have body?
+If credentials are valid, sets a cookie in the response.
 */
-router.get(
-  "/authenticate/:credentials",
-  async (req: Request, res: Response) => {
-    const credentials = get_credentials(req);
-    if (!credentials) {
-      // end early
-      res.status(200).json(false);
-      return;
-    }
-    const { email, token } = credentials;
-    const [status, user] = await get_user_record(email);
-    res
-      .status(status)
-      .json(user ? user.attributes.magic_token === token : false);
+async function authenticate(res: Response, _credentials: string) {
+  const credentials = parse_credential(_credentials);
+  if (!credentials) {
+    return;
   }
-);
+  const { email, token } = credentials;
+  const [_, user] = await get_user_record(email);
+  if (user?.attributes?.magic_token !== token) {
+    return;
+  }
+  res
+    // set-cookie to original raw credentials
+    .cookie("credentials", _credentials);
+  res.locals.user = user;
+}
+
+router.get("/login/:credentials", async (req: Request, res: Response) => {
+  await authenticate(res, req.params.credentials);
+  res.redirect("/#/shop");
+});
+router.get("/logout", (req: Request, res: Response) => {
+  res.status(200).clearCookie("credentials").redirect("/#/shop");
+});
 
 /*
 Looks up an authenticated user in the DB and returns the record
@@ -184,10 +186,11 @@ async function get_user_record(email) {
   return [response.status, result.length ? result[0] : null];
 }
 
-function get_credentials(req): { email: string; token: string } | null {
-  let credentials = undefined;
+function parse_credential(
+  credentials: string
+): { email: string; token: string } | null {
   try {
-    credentials = atob(req.get("Credential")); //decode
+    credentials = atob(credentials); //decode
   } catch (e) {}
   if (!credentials || !is_json(credentials)) {
     console.log("Invalid credential encountered, authentication failed");
@@ -205,7 +208,7 @@ modifies
   - req by appending an email field with a validated email that exists in the DB
 */
 async function user_authenticated(req, res, next) {
-  const credentials = get_credentials(req);
+  const credentials = parse_credential(req.cookies.credentials);
   if (!credentials) {
     res.status(403).json(false);
     res.end();
@@ -213,7 +216,6 @@ async function user_authenticated(req, res, next) {
   }
   const { email, token } = credentials;
   const [status, user] = await get_user_record(email);
-  console.log(user);
   if (status == 200 && (user ? user.attributes.magic_token === token : false)) {
     req.buyer = {
       email: email,
@@ -233,7 +235,7 @@ async function user_authenticated(req, res, next) {
 This function checks whether a request is coming from an admin
 */
 async function check_admin(req) {
-  const credentials = get_credentials(req);
+  const credentials = parse_credential(req.cookies.credential);
   if (!credentials) {
     // end early
     return false;
@@ -266,6 +268,7 @@ export interface AuthorizedRequest extends Request {
 
 module.exports = {
   router: router,
+  authenticate: authenticate,
   user_authenticated: user_authenticated,
   check_admin: check_admin,
 };
