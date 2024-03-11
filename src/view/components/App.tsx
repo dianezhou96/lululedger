@@ -75,17 +75,6 @@ const App = () => {
     setCartDirty,
   };
 
-  const auth = async () => {
-    if (
-      !credential ||
-      !(await fetch(`/auth/authenticate/${credential}`).then((response) =>
-        response.json()
-      ))
-    ) {
-      setSearchParams({});
-    }
-  };
-
   const getCarts = async () => {
     if (credential) {
       const response = await fetchCarts(credential);
@@ -104,7 +93,6 @@ const App = () => {
 
   // Update cart selected
   useEffect(() => {
-    auth();
     // TODO: Only update cartSelected if it's one of the carts the buyer has.
     // if (
     //   carts.find(

@@ -70,37 +70,6 @@ router.get("/user/:email", async (req: Request, res: Response) => {
 });
 
 /*
-Checks whether a credential pairing is valid, expects
-  - req.params.credentials: a base64 encoded string of an object like the following:
-    {
-      email: string representing email address
-      magic_token: string representing token for account
-    }
-response:
-  true if credentials match the DB record's, false if not or if connection fails
-  front end should explicitly check for status string for success
-
-TODO: Figure out if GET is appropriate here since we're returning a json
-and according to HTTP spec GET request responses shouldn't have body?
-*/
-router.get(
-  "/authenticate/:credentials",
-  async (req: Request, res: Response) => {
-    const credentials = get_credentials(req);
-    if (!credentials) {
-      // end early
-      res.status(200).json(false);
-      return;
-    }
-    const { email, token } = credentials;
-    const [status, user] = await get_user_record(email);
-    res
-      .status(status)
-      .json(user ? user.attributes.magic_token === token : false);
-  }
-);
-
-/*
 Looks up an authenticated user in the DB and returns the record
 */
 router.get(
