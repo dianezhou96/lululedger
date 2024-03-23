@@ -220,7 +220,6 @@ export async function send_invoice(name, email, order, total) {
       </ol>
     </p>
     <p>Payment is due before pickup. Pickup will be ready in a few days and instructions will be sent in a separate email.</p>
-    <p>Thanks again, and we wish you a happy holiday season!</p>
     <p>Best regards,<br>San Francisco Ice Theatre</p>
     <h1>Invoice</h1>
     ${order}
