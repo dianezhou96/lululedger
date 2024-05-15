@@ -69,6 +69,14 @@ export const AccountForm: React.FC = () => {
       <ul style={{ paddingLeft: "1em" }}>
         <li>You are a skater, family, or friend of the SFIT community.</li>
         <li>
+          <b>
+            You acknowledge that we do NOT provide shipping or delivery directly
+            to your location.
+          </b>{" "}
+          You will need to pick up the items from an SFIT team manager or team
+          member.
+        </li>
+        <li>
           You agree to receive and be responsive to communication from SFIT
           regarding logistics for this fundraiser such as order confirmation and
           adjustments, payment, and pickup.

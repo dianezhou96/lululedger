@@ -322,7 +322,13 @@ router.post(
       console.log("unauthorized");
       return;
     }
-    send_order_received(req.body.name, req.body.email, req.body.credential);
+    send_order_received(
+      req.body.name,
+      req.body.email,
+      req.body.credential,
+      req.body.skater,
+      req.body.team
+    );
     res.status(200).end();
   }
 );

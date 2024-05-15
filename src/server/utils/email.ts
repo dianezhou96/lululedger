@@ -21,7 +21,7 @@ type Email = {
   html: string;
 };
 
-export async function send_magic_link(name, email, credential) {
+export async function send_magic_link(name, email, credential, skater, team) {
   const text = `Hi ${name}, this is your secret login link to order from ${SHOP_NAME}! Use this link to view and edit your orders. Please do not share it with those you do not wish to have access to your account.
 ${SHOP_URL}?credential=${credential}`;
   const html = `
@@ -68,6 +68,7 @@ ${SHOP_URL}?credential=${credential}`;
     <p><b><a href="${SHOP_URL}?credential=${credential}" class="login-link">View and edit my orders</a></b></p>
     <p>Or copy and paste this link: ${SHOP_URL}?credential=${credential}</p>
     <p><b>This link does not expire; do not share it with those you do not wish to have access to your account.</b></p>
+    <p>We have noted that you are affiliated with SFIT through ${skater} of the ${team} team.</p>
     <p>If you have any questions or need assistance, don't hesitate to contact Diane by replying to this email!</p>
     <p>Best regards,<br>San Francisco Ice Theatre</p>
   </div>
@@ -129,7 +130,13 @@ export async function gmail_send(msg: Email) {
   }
 }
 
-export async function send_order_received(name, email, credential) {
+export async function send_order_received(
+  name,
+  email,
+  credential,
+  skater,
+  team
+) {
   const text = `Hi ${name}, your ${SHOP_NAME} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
   const html = `
   <!DOCTYPE html>
@@ -163,8 +170,9 @@ export async function send_order_received(name, email, credential) {
     <p>Thanks for ordering through our fundraiser! This email confirms that we received your order.</p>
     <p>For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}</p>
     <p>You may edit your order until the deadline: ${DEADLINE}. (If it's after the deadline and you received this email, your order still made it through!)</p>
-    <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item.</p>
-    <p>You can expect an invoice and instructions for payment and pickup within a couple weeks after the deadline. Thanks for your patience and support!</p>
+    <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item and you won't be charged for it.</p>
+    <p>You can expect an invoice and instructions for payment and pickup within a couple weeks after the deadline. Reminder: <b>We do NOT offer shipping or delivery directly to your location.</b> All items will be shipped to one location for the bulk discount and distributed via SFIT skaters; if this does not work for you, please cancel your order. We have noted that you are affiliated with SFIT through ${skater} of the ${team} team.</p>
+    <p>Thank you for your patience and support!</p>
     <p>Best regards,<br>San Francisco Ice Theatre</p>
   </div>
 </body>
@@ -181,7 +189,7 @@ export async function send_order_received(name, email, credential) {
   gmail_send(msg);
 }
 
-export async function send_invoice(name, email, order, total) {
+export async function send_invoice(name, email, order, total, skater, team) {
   const text = `Hi ${name}, your ${SHOP_NAME} order total is ${total}! You need html enabled in email to see your invoice and get payment instructions. Please contact us if you need help with this.`;
   const html = `
   <!DOCTYPE html>
@@ -219,7 +227,7 @@ export async function send_invoice(name, email, order, total) {
         <li>Payment type: <b>Friends and Family</b> (NOT goods and services)
       </ol>
     </p>
-    <p>Payment is due before pickup. Pickup will be ready in a few days and instructions will be sent in a separate email.</p>
+    <p>Payment is due before pickup. Pickup will be ready in a few days and instructions will be sent in a separate email. We have noted that you are affiliated with SFIT through ${skater} of the ${team} team.</p>
     <p>Best regards,<br>San Francisco Ice Theatre</p>
     <h1>Invoice</h1>
     ${order}

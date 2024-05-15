@@ -48,7 +48,9 @@ router.post("/signup", async (req: Request, res: Response) => {
     send_magic_link(
       record.name,
       record.email,
-      btoa(JSON.stringify(credential))
+      btoa(JSON.stringify(credential)),
+      record.skater_name,
+      record.skater_team
     );
   res.status(status).end();
 });
@@ -108,7 +110,9 @@ router.get("/resend/:email", async (req: Request, res: Response) => {
     send_magic_link(
       user.attributes.name,
       user.attributes.email,
-      btoa(JSON.stringify(credential))
+      btoa(JSON.stringify(credential)),
+      user.attributes.skater_name,
+      user.attributes.skater_team
     );
   res.status(status).end();
 });

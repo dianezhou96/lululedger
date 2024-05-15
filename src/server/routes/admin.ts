@@ -157,7 +157,9 @@ router.post(
       send_order_received(
         buyer.name,
         buyer.email,
-        btoa(JSON.stringify(credential))
+        btoa(JSON.stringify(credential)),
+        buyer.skater,
+        buyer.team
       );
     }
     res.status(200).end();
@@ -174,7 +176,14 @@ router.post(
       return;
     }
     for (const buyer of req.body) {
-      send_invoice(buyer.name, buyer.email, buyer.order, buyer.total);
+      send_invoice(
+        buyer.name,
+        buyer.email,
+        buyer.order,
+        buyer.total,
+        buyer.skater,
+        buyer.team
+      );
     }
     res.status(200).end();
   }

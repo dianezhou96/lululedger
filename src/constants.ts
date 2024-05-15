@@ -19,8 +19,8 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Thursday, March 14 @ 9pm";
 
-// export const CLOSED = false;
-export const CLOSED = true;
+export const CLOSED = false;
+// export const CLOSED = true;
 // export const PREVIEW = true;
 export const PREVIEW = false;
 export const START_DATE = "Mon 3/11 ~1pm";
