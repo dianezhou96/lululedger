@@ -42,7 +42,7 @@ async function parse(url: string) {
   /**
    * On my local device:
    * - webkit doesn't work at all
-   * - chromium works in heaadless:false mode only (fastest)
+   * - chromium works in headless:false mode only (fastest)
    * - firefox works always
    */
   const browser = await chromium.launch({
@@ -64,8 +64,9 @@ async function parse(url: string) {
   const colors: any[] = [];
   for (const color of swatchColors) {
     // We ran into occasional bugs when clicking colors too fast
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     await color.click();
+    await page.waitForTimeout(1000);
     const colorImg = await color.locator("img");
     // const colorSrcSet = await colorImg.getAttribute("srcset");
     const name = await color.getAttribute("aria-label");
