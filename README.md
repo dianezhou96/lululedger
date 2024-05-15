@@ -4,18 +4,12 @@ Lululedger is a platform for SFIT Lululemon fundraising orders.
 
 ## Getting Started
 
-`config.ts` must be placed in `src/server/` with the following:
-
-```
-export const API_URI="your_api_uri"
-export const API_TOKEN="bearer your_API_token"
-```
-
-TODO: Add a `config.ts.example` (there are some additional parameters now).
+`config.ts` must be placed in `src/server/` with the variables filled out. See template in `config.example.ts`
 
 Run `npm start` to compile source and start server.
 
 OR
+
 - Run `npm run watch` to live reload the frontend.
 - Run `npm run watch_server` to live reload the backend.
 
