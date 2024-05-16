@@ -16,6 +16,7 @@ TODO: Add a `config.ts.example` (there are some additional parameters now).
 Run `npm start` to compile source and start server.
 
 OR
+
 - Run `npm run watch` to live reload the frontend.
 - Run `npm run watch_server` to live reload the backend.
 
@@ -38,7 +39,8 @@ It's preferred to run both `watch` and `watch_server` above for typical developm
   2. Run `npm run lulurl_parser`
 - Script to automate adding products to the DB: `src/server/utils/populate_db.ts`.
   1. Update data in `src/server/utils/data.ts`.
-  2. Run `npx ts-node src/server/utils/populate_db.ts`.
+  2. Transpile the code (i.e. run `npx tsc`).
+  3. Run `node dist/server/utils/populate_db.js`.
 
 ## License
 
