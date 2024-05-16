@@ -92,6 +92,8 @@ export const CartTableWrapper: React.FC<CartTableWrapperProps> = ({
         name: buyer.name,
         email: buyer.email,
         credential: searchParams.get("credential") ?? "",
+        skater: buyer.skater_name,
+        team: buyer.skater_team,
       }),
       headers: {
         "Content-Type": "application/json",

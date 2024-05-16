@@ -52,6 +52,8 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
             name: buyer.name,
             email: buyer.email,
             magic_token: buyer.magic_token,
+            skater: buyer.skater_name,
+            team: buyer.skater_team,
           }))
       ),
       headers: {
@@ -84,6 +86,8 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
               </>
             ),
             total: getPriceString(getTotalPriceByBuyer(buyer), 2),
+            skater: buyer.skater_name,
+            team: buyer.skater_team,
           }))
       ),
       headers: {

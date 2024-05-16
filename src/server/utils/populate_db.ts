@@ -124,12 +124,12 @@ async function addItem(item: ProductItem, id: number) {
     if (response.ok) uploaded += 1;
     else
       throw Error(
-        `Ecountered error adding an item with status code ${
+        `Ecountered error adding an item to product id ${id} with status code ${
           response.status
         } ${JSON.stringify(json)}`
       );
   } catch (error) {
-    console.error(`Encountered ${error} adding item`);
+    console.error(`Encountered ${error} adding item to product id ${id}`);
   }
 }
 
