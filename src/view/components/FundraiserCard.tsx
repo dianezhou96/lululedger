@@ -36,19 +36,20 @@ export const FundraiserCard: React.FC = () => {
   );
 };
 
-const pandaExpressImgLink =
-  "https://luludb.dianeyz.me/uploads/medium_sfit_panda_express_03b66923a1.jpg";
-const pandaExpressLink =
-  "https://www.community-fundraiser.com/virtual-fundraiser/events/promotions/f098974e-6353-7533-a275-104ae2295760/en/landing";
-export const PandaExpressCard: React.FC = () => {
+export const OrderCard: React.FC<{
+  imgLink: string;
+  orderLink: string;
+  title: string;
+  description: string;
+}> = ({ imgLink, orderLink, title, description }) => {
   return (
     <Card
       style={{
         width: COVER_WIDTH,
       }}
-      cover={<img src={pandaExpressImgLink} />}
+      cover={<img src={imgLink} />}
       actions={[
-        <a href={pandaExpressLink} target="_blank">
+        <a href={orderLink} target="_blank">
           <span>
             <PlusCircleTwoTone style={{ marginRight: 5 }} /> Order
           </span>
@@ -57,16 +58,40 @@ export const PandaExpressCard: React.FC = () => {
     >
       <Meta
         title={
-          <a href={pandaExpressLink} target="_blank">
-            Panda Express Fundraiser (Friday 5/17 only)
+          <a href={orderLink} target="_blank">
+            {title}
           </a>
         }
         description={
-          <i style={{ color: "black", fontSize: "medium" }}>
-            Order online for any location!
-          </i>
+          <i style={{ color: "black", fontSize: "medium" }}>{description}</i>
         }
       />
     </Card>
   );
 };
+
+const pandaExpressProps = {
+  imgLink:
+    "https://luludb.dianeyz.me/uploads/medium_sfit_panda_express_03b66923a1.jpg",
+  orderLink:
+    "https://www.community-fundraiser.com/virtual-fundraiser/events/promotions/f098974e-6353-7533-a275-104ae2295760/en/landing",
+  title: "Panda Express Fundraiser (Friday 5/17 only)",
+  description: "Order online for any location!",
+};
+
+const rockerzProps = {
+  imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
+  orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
+  title: "Rockerz Skate Guards Sale",
+  description: "Mix & match up to 4 colors!",
+};
+
+const backpackProps = {
+  imgLink:
+    "https://luludb.dianeyz.me/uploads/medium_sfit_usa_backpack_629e0acdf8.jpeg",
+  orderLink: "https://forms.gle/vA5QrJPAaAAjvyut9",
+  title: "SFIT x USA Backpack",
+  description: "With custom embroidery!",
+};
+
+export const orderCardProps = [rockerzProps, backpackProps, pandaExpressProps];
