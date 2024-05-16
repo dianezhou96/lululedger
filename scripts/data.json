@@ -288,6 +288,29 @@
     ]
   },
   {
+    "product": "lululemon Align™ High-Rise Mini-Flared Pant Regular 32\"",
+    "category": 2,
+    "link": "https://shop.lululemon.com/p/women-pants/Align-HR-Mini-Flare-32/_/prod11250399",
+    "price_retail": "118",
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5EUSS_0001_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+      },
+      {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5EUSS_031382_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
+      },
+      {
+        "color": "Washed Mauve",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5EUSS_064698_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12]
+      }
+    ]
+  },
+  {
     "product": "Wunder Train High-Rise Tight with Pockets 25\"",
     "category": 2,
     "link": "https://shop.lululemon.com/p/womens-leggings/Wunder-Train-HR-Tight-Pockets-25/_/prod11140036",
