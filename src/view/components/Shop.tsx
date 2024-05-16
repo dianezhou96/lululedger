@@ -10,7 +10,7 @@ import {
 import { Product, ProductCategory } from "../../types";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
-import { FundraiserCard } from "./FundraiserCard";
+import { FundraiserCard, PandaExpressCard } from "./FundraiserCard";
 import { Loading } from "./Loading";
 import { COVER_WIDTH, ProductCard } from "./ProductCard";
 
@@ -125,6 +125,7 @@ export const Shop: React.FC<CartProps> = (props) => {
                 )
               )}
               {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />}
+              {category.id === FUNDRAISER_CATEGORY_ID && <PandaExpressCard />}
             </div>
           </div>
         ) : (
