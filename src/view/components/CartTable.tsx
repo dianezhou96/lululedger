@@ -166,12 +166,11 @@ export const CartTable: React.FC<CartTableProps> = ({
       <ul style={{ paddingLeft: "1em" }}>
         <li>
           <b>
-            SFIT does not guarantee that all items in your order can be
-            fulfilled.
+            We do NOT provide shipping or delivery directly to your location.
           </b>{" "}
-          Item availability depends on stock quantity and eligibility for
-          discount with Lululemon. You will be charged only for items that are
-          fulfilled.
+          Items will be shipped to one location and distributed via SFIT team
+          members. You will need to pick up the items from an SFIT team manager
+          or team member.
         </li>
         <li>
           All items purchased through this fundraiser are <b>non-refundable</b>{" "}
@@ -186,10 +185,12 @@ export const CartTable: React.FC<CartTableProps> = ({
         </li>
         <li>
           <b>
-            Items will be shipped to SFIT and distributed via SFIT team members.
+            SFIT does not guarantee that all items in your order can be
+            fulfilled.
           </b>{" "}
-          You will need to pick up the items from an SFIT team manager or team
-          member.
+          Item availability depends on stock quantity and eligibility for
+          discount with Lululemon. You will be charged only for items that are
+          fulfilled.
         </li>
       </ul>
     </div>
@@ -328,7 +329,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             </Table.Summary.Row>
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={5} align="right">
-                Tax + shipping (10%)
+                Tax + fees (10%)
               </Table.Summary.Cell>
               <Table.Summary.Cell index={1} align="right">
                 {getPriceString(fee, 2)}
