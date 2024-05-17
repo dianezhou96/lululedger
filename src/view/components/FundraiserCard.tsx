@@ -82,7 +82,7 @@ const pandaExpressProps = {
 const rockerzProps = {
   imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
   orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
-  title: "Rockerz Skate Guards Sale",
+  title: "Rockerz Skate Guards - Custom Colors & Sizes ($28 - $46)",
   description: "Mix & match up to 4 colors!",
 };
 
@@ -90,8 +90,8 @@ const backpackProps = {
   imgLink:
     "https://luludb.dianeyz.me/uploads/medium_sfit_usa_backpack_629e0acdf8.jpeg",
   orderLink: "https://forms.gle/vA5QrJPAaAAjvyut9",
-  title: "SFIT x USA Backpack",
-  description: "With custom embroidery!",
+  title: "SFIT x USA Backpack with Name Embroidered ($59 - $64)",
+  description: "Fits laptop, skates, and more!",
 };
 
 export const orderCardProps = [rockerzProps, backpackProps, pandaExpressProps];
