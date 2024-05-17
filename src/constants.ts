@@ -69,6 +69,7 @@ export const COLORS = [
   "Grey Eucalyptus",
   "Light Vapor",
   "Grey Sage",
+  "Heathered Ultra Light Grey/Sea Salt",
 ];
 
 export const ITEM_SIZES = [
