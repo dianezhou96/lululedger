@@ -32,6 +32,8 @@ export const COLORS = [
   "Black/Black",
   "True Navy",
   "True Navy/True Navy",
+  "Classic Navy",
+  "Heathered True Navy",
   "White",
   "Slate/White",
   "Graphite Grey",
@@ -43,6 +45,7 @@ export const COLORS = [
   "Burnt Orange",
   "Maize Yellow",
   "Oasis Blue",
+  "Heathered Oasis Blue",
   "Strawberry Milkshake",
   "College Purple/College Purple",
   "College Cobalt/College Cobalt",
@@ -61,6 +64,11 @@ export const COLORS = [
   "Trench",
   "Spiced Chai",
   "Raw Linen",
+  "Night Sea/Soft Denim",
+  "Heathered Traverse Grey",
+  "Grey Eucalyptus",
+  "Light Vapor",
+  "Grey Sage",
 ];
 
 export const ITEM_SIZES = [

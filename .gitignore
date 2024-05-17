@@ -197,3 +197,8 @@ src/server/config.ts
 
 # Alex's notes
 notes.txt
+
+# old data
+scripts/data_*
+scripts/lulurls_*
+src/server/utils/data_*

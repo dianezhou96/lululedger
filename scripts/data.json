@@ -472,6 +472,128 @@
     ]
   },
   {
+    "product": "Metal Vent Tech Sleeveless Shirt",
+    "category": 4,
+    "link": "https://shop.lululemon.com/p/mens-tanks/Metal-Vent-Tech-Sleeveless-Shirt-3/_/prod11710143",
+    "price_retail": "68",
+    "items": [
+      {
+        "color": "Night Sea/Soft Denim",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM1364S_060163_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      }
+    ]
+  },
+  {
+    "product": "License to Train Short-Sleeve Shirt",
+    "category": 4,
+    "link": "https://shop.lululemon.com/p/mens-t-shirts/License-To-Train-SS/_/prod10030206",
+    "price_retail": "78",
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJUS_0001_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJUS_031382_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Heathered Oasis Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJVS_038872_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "College Crimson",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJUS_062325_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Heathered Traverse Grey",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJVS_065332_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Grey Eucalyptus",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJUS_064762_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      },
+      {
+        "color": "Light Vapor",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM3EJUS_056266_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      }
+    ]
+  },
+  {
+    "product": "ABC Classic-Fit Short 7\" Warpstreme",
+    "category": 4,
+    "link": "https://shop.lululemon.com/p/men-shorts/ABC-Short-Classic-7/_/prod11680716",
+    "price_retail": "88",
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM7BMHS_0001_1",
+        "sizes": [28, 30, 31, 32, 33, 34, 36, 38, 40, 42, 44, 46, 48]
+      },
+      {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM7BMHS_031382_1",
+        "sizes": [28, 30, 31, 32, 33, 34, 36, 38, 40, 42, 44, 46, 48]
+      },
+      {
+        "color": "Silver Drop",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM7B96S_033928_1",
+        "sizes": [28, 30, 31, 32, 33, 34, 36, 38, 40, 42, 44, 46, 48]
+      },
+      {
+        "color": "Obsidian",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM7BMHS_032476_1",
+        "sizes": [28, 30, 31, 32, 33, 34, 36, 38, 40, 42, 44, 46, 48]
+      },
+      {
+        "color": "Trench",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM7BMHS_043731_1",
+        "sizes": [28, 30, 31, 32, 33, 34, 36, 38, 40, 42, 44, 46, 48]
+      }
+    ]
+  },
+  {
+    "product": "City Sweat Jogger",
+    "category": 4,
+    "link": "https://shop.lululemon.com/p/men-joggers/City-Sweat-Jogger/_/prod1780030",
+    "price_retail": "118",
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AJTS_0001_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Classic Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AJTS_020111_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      },
+      {
+        "color": "Heathered True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AK1S_032489_1 ",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Grey Sage",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AJTS_036763_1",
+        "sizes": ["XS", "L", "XXL", "3XL", "4XL", "5XL"]
+      },
+      {
+        "color": "Heathered Ultra Light Grey/Sea Salt",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AJUS_032798_1",
+        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
+      }
+    ]
+  },
+  {
     "product": "ABC Classic-Fit 5 Pocket Pant 34\"L Warpstreme",
     "category": 4,
     "link": "https://shop.lululemon.com/p/mens-trousers/ABC-Pant-Classic-34/_/prod3470051",
