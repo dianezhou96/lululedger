@@ -70,15 +70,6 @@ export const OrderCard: React.FC<{
   );
 };
 
-const pandaExpressProps = {
-  imgLink:
-    "https://luludb.dianeyz.me/uploads/medium_sfit_panda_express_03b66923a1.jpg",
-  orderLink:
-    "https://www.community-fundraiser.com/virtual-fundraiser/events/promotions/f098974e-6353-7533-a275-104ae2295760/en/landing",
-  title: "Panda Express Fundraiser (Friday 5/17 only)",
-  description: "Order online for any location!",
-};
-
 const rockerzProps = {
   imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
   orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
@@ -94,4 +85,4 @@ const backpackProps = {
   description: "Fits laptop, skates, and more!",
 };
 
-export const orderCardProps = [rockerzProps, backpackProps, pandaExpressProps];
+export const orderCardProps = [rockerzProps, backpackProps];
