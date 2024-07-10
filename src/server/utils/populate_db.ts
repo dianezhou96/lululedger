@@ -180,9 +180,9 @@ async function addProduct(product) {
 }
 
 let uploaded = 0;
-function main() {
+async function main() {
   for (const product of data) {
-    addProduct(product);
+    await addProduct(product);
   }
 }
 
