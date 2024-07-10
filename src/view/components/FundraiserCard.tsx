@@ -70,11 +70,11 @@ export const OrderCard: React.FC<{
   );
 };
 
-const rockerzProps = {
-  imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
-  orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
-  title: "Rockerz Skate Guards - Custom Colors & Sizes ($28 - $46)",
-  description: "Mix & match up to 4 colors!",
-};
-
-export const orderCardProps = [rockerzProps];
+// const rockerzProps = {
+//   imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
+//   orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
+//   title: "Rockerz Skate Guards - Custom Colors & Sizes ($28 - $46)",
+//   description: "Mix & match up to 4 colors!",
+// };
+//
+// export const orderCardProps = [rockerzProps];
