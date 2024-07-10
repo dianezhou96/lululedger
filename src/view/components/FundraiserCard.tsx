@@ -70,11 +70,13 @@ export const OrderCard: React.FC<{
   );
 };
 
-// const rockerzProps = {
-//   imgLink: "https://luludb.dianeyz.me/uploads/medium_rockerz_0e62d83cbd.jpg",
-//   orderLink: "https://forms.gle/M32UyZp9KYjZMVZt6",
-//   title: "Rockerz Skate Guards - Custom Colors & Sizes ($28 - $46)",
-//   description: "Mix & match up to 4 colors!",
-// };
-//
-// export const orderCardProps = [rockerzProps];
+const donutProps = {
+  imgLink:
+    "https://luludb.dianeyz.me/uploads/medium_donut_fundraiser_7aa652f89b.PNG",
+  orderLink:
+    "https://www.groupraise.com/offer-campaigns/42446-san-francisco-ice-theatre-krispy-kreme-digital-dozens",
+  title: "SFIT x Krispy Kreme Digital Dozens (Wed 7/10 only)",
+  description: "Buy delicious dozens of donuts!",
+};
+
+export const orderCardProps = [donutProps];
