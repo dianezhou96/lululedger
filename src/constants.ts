@@ -50,6 +50,9 @@ export const COLORS = [
   "Palm Court",
   "Ruby Red",
   "Java/Gleam/Black",
+  "Palm Court/Palm Court",
+  "Night Sea/Soft Denim",
+  "Sport Red/Sport Red",
 ];
 
 export const ITEM_SIZES = [

@@ -374,5 +374,29 @@
         "sizes": [""]
       }
     ]
+  },
+  {
+    "product": "Metal Vent Tech Sleeveless Shirt Updated Fit",
+    "category": 3,
+    "link": "https://shop.lululemon.com/p/mens-tanks/Metal-Vent-Tech-Sleeveless-Shirt-3/_/prod11710143",
+    "price_retail": "68",
+    "items": [
+      {
+        "color": "Palm Court/Palm Court",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM1364S_036946_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      },
+
+      {
+        "color": "Night Sea/Soft Denim",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM1364S_060163_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      },
+      {
+        "color": "Sport Red/Sport Red",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM1252S_060170_1",
+        "sizes": ["S", "M", "L", "XL", "XXL"]
+      }
+    ]
   }
 ]
