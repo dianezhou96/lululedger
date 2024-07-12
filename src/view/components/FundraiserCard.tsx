@@ -70,13 +70,13 @@ export const OrderCard: React.FC<{
   );
 };
 
-const donutProps = {
-  imgLink:
-    "https://luludb.dianeyz.me/uploads/medium_donut_fundraiser_7aa652f89b.PNG",
-  orderLink:
-    "https://www.groupraise.com/offer-campaigns/42446-san-francisco-ice-theatre-krispy-kreme-digital-dozens",
-  title: "SFIT x Krispy Kreme Digital Dozens (Wed 7/10 only)",
-  description: "Buy delicious dozens of donuts!",
-};
+// const donutProps = {
+//   imgLink:
+//     "https://luludb.dianeyz.me/uploads/medium_donut_fundraiser_7aa652f89b.PNG",
+//   orderLink:
+//     "https://www.groupraise.com/offer-campaigns/42446-san-francisco-ice-theatre-krispy-kreme-digital-dozens",
+//   title: "SFIT x Krispy Kreme Digital Dozens (Wed 7/10 only)",
+//   description: "Buy delicious dozens of donuts!",
+// };
 
-export const orderCardProps = [donutProps];
+// export const orderCardProps = [donutProps];

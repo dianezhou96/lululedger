@@ -29,6 +29,10 @@ export const PREVIEW = false;
 export const START_DATE = "Wed 5/15 ~5pm";
 
 export const COLORS = [
+  "Glaze Pink",
+  "Concrete Blue",
+  "Burnt Orange",
+  "Maize Yellow",
   "Black",
   "Black/Black",
   "True Navy",

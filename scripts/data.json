@@ -1,5 +1,43 @@
 [
   {
+    "product": "lululemon Align™ Tank Top Light Support, A/B Cup",
+    "category": 2,
+    "link": "https://shop.lululemon.com/p/women-tanks/Align-Tank/_/prod9600539",
+    "price_retail": "48",
+    "items": [
+      {
+        "color": "Glaze Pink",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1DUDS_064717_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12]
+      },
+      {
+        "color": "Concrete Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1DUDS_034499_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
+      },
+      {
+        "color": "Burnt Orange",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1DUDS_059068_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+      },
+      {
+        "color": "Maize Yellow",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1EITS_059067_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
+      },
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1DA3S_0001_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+      },
+      {
+        "color": "White",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW1EITS_0002_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+      }
+    ]
+  },
+  {
     "product": "Classic-Fit Cotton-Blend T-Shirt",
     "category": 2,
     "link": "https://shop.lululemon.com/p/womens-t-shirts/ClassicFit-CottonBlend-T/_/prod10930297",
