@@ -41,8 +41,11 @@ export const Shop: React.FC<CartProps> = (props) => {
       </>
     ) : (
       <>
-        The Lululemon order deadline has passed. You can still make donations to
-        our GoFundMe!
+        The Lululemon order deadline has passed. You can be notified of the next
+        fundraiser by filling out{" "}
+        <a href="https://forms.gle/EUqCGE7G6GeuoNnC7" target="_blank">
+          this form.
+        </a>
       </>
     )
   ) : (
@@ -104,7 +107,8 @@ export const Shop: React.FC<CartProps> = (props) => {
         />
       )}
       {products.map((category) =>
-        !CLOSED || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
+        !CLOSED ? (
+          // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
           <div key={category.id} style={{ padding: GAP }}>
             <div style={{ textAlign: "center", margin: "auto" }}>
               <h2>{category.name}</h2>
@@ -126,7 +130,7 @@ export const Shop: React.FC<CartProps> = (props) => {
               )}
               {/* {category.id === FUNDRAISER_CATEGORY_ID &&
                 orderCardProps.map((props) => <OrderCard {...props} />)} */}
-              {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />}
+              {/* {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />} */}
             </div>
           </div>
         ) : (
