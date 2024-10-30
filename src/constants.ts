@@ -44,6 +44,7 @@ export const COLORS = [
   "Legacy Green",
   "Heathered Core Ultra Light Grey",
   "Shade/Gold",
+  "Blue Willow",
   "Espresso",
   "Nightfall",
   "Glaze Pink",
@@ -58,6 +59,8 @@ export const COLORS = [
   "Traverse Grey",
   "Rose Blush",
   "Raw Linen",
+  "Rhino Grey/Rhino Grey",
+  "Nightfall/Nightfall",
 ];
 
 export const ITEM_SIZES = [

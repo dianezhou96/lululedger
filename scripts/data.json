@@ -21,6 +21,37 @@
     "category": 2,
     "items": [
       {
+        "color": "White/White",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUPS_012826_1",
+        "sizes": [8, 10, 12, 14]
+      },
+      {
+        "color": "Nightfall/Nightfall",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUPS_066910_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
+      }
+    ],
+    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-Breeze/_/prod8510157",
+    "price_retail": "78",
+    "product": "Swiftly Relaxed Long-Sleeve Shirt Hip Length"
+  },
+  {
+    "category": 2,
+    "items": [
+      {
+        "color": "Rhino Grey/Rhino Grey",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3HQ2S_048697_1",
+        "sizes": ["XXS", "XS", "S", "M", "L", "XL"]
+      }
+    ],
+    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Wool-LS-Shirt-Waist/_/prod11750398",
+    "price_retail": "98",
+    "product": "Swiftly Wool Long-Sleeve Shirt Waist Length"
+  },
+  {
+    "category": 2,
+    "items": [
+      {
         "color": "Black/Black",
         "img": "https://images.lululemon.com/is/image/lululemon/LW3DOBS_4780_1",
         "sizes": [4, 6, 8, 10, 12, 14, 16, 18, 20]
@@ -383,6 +414,29 @@
     "link": "https://shop.lululemon.com/p/womens-sweatpants/Softstreme-HR-Pant/_/prod11020340",
     "price_retail": "128",
     "product": "Softstreme High-Rise Pant Regular"
+  },
+  {
+    "category": 2,
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_0001_1",
+        "sizes": ["S", "M", "L", "XL"]
+      },
+      {
+        "color": "Blue Willow",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_066828_1",
+        "sizes": ["XXS", "S", "M", "L", "XL"]
+      },
+      {
+        "color": "Espresso",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_019746_1",
+        "sizes": ["XXS", "S", "M", "L", "XL"]
+      }
+    ],
+    "link": "https://shop.lululemon.com/p/women-pants/Softstreme-Pintuck-MR-Pant-Regular/_/prod11750307",
+    "price_retail": "128",
+    "product": "Softstreme Pintuck Mid-Rise Pant Regular"
   },
   {
     "category": 2,
