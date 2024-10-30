@@ -3,7 +3,8 @@
 // export const SHOP_NAME = "SFIT x Lululemon Black Friday Sale";
 // export const SHOP_NAME = "SFIT x Lululemon Spring Sale";
 // export const SHOP_NAME = "SFIT Nationals 2024 Fundraiser - Lululemon + Rockerz";
-export const SHOP_NAME = "SFIT x Lululemon Summer Sale";
+// export const SHOP_NAME = "SFIT x Lululemon Summer Sale";
+export const SHOP_NAME = "SFIT x Lululemon Fall 2024 Fundraiser";
 
 export const FUNDRAISER_LINK =
   "https://www.gofundme.com/f/sfit-nationals-2024-sendoff-gift";
@@ -20,43 +21,43 @@ export const FUNDRAISER_CATEGORY_ID = 6;
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Friday, July 12 @ 8pm";
+export const DEADLINE = "Sunday, November 3 @ 5pm";
 
-// export const CLOSED = false;
-export const CLOSED = true;
+export const CLOSED = false;
+// export const CLOSED = true;
 // export const PREVIEW = true;
 export const PREVIEW = false;
 export const START_DATE = "Wed 5/15 ~5pm";
 
 export const COLORS = [
-  "Glaze Pink",
-  "Concrete Blue",
-  "Burnt Orange",
-  "Maize Yellow",
-  "Black",
   "Black/Black",
-  "True Navy",
-  "True Navy/True Navy",
-  "White",
   "White/White",
   "Slate/White",
-  "Heathered Graphite Grey",
-  "Oasis Blue",
-  "Oasis Blue/Oasis Blue",
-  "Kayak Blue Light/Kayak Blue Light",
-  "Cherry Mist/Cherry Mist",
-  "College Purple/College Purple",
-  "College Crimson/College Crimson",
-  "Cascadia Green/Cascadia Green",
-  "Army Green",
-  "Butternut Brown",
-  "Dark Olive",
+  "Black",
+  "White",
+  "True Navy",
+  "Grey Eucalyptus",
+  "Oil Grey",
+  "Sakura Pink",
+  "Bone",
   "Palm Court",
-  "Ruby Red",
-  "Java/Gleam/Black",
-  "Palm Court/Palm Court",
-  "Night Sea/Soft Denim",
-  "Sport Red/Sport Red",
+  "Legacy Green",
+  "Heathered Core Ultra Light Grey",
+  "Shade/Gold",
+  "Espresso",
+  "Nightfall",
+  "Glaze Pink",
+  "Oasis Blue",
+  "Pow Pink Tone",
+  "Filbert Tan",
+  "Jade Grey",
+  "White/Heather Grey/Black",
+  "Nautical Navy",
+  "Heathered Silver Drop",
+  "Hail",
+  "Traverse Grey",
+  "Rose Blush",
+  "Raw Linen",
 ];
 
 export const ITEM_SIZES = [
@@ -87,6 +88,8 @@ export const ITEM_SIZES = [
   "XS/S",
   "M/L",
   "XL/XXL",
+  "XXXS",
+  "XXS",
   "XS",
   "S",
   "M",
