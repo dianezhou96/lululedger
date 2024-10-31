@@ -61,6 +61,10 @@ export const COLORS = [
   "Raw Linen",
   "Rhino Grey/Rhino Grey",
   "Nightfall/Nightfall",
+  "Trench",
+  "Obsidian",
+  "Silver Drop",
+  "Blue Linen",
 ];
 
 export const ITEM_SIZES = [

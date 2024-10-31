@@ -501,6 +501,105 @@
     "category": 3,
     "items": [
       {
+        "color": "Trench",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_043731_1",
+        "sizes": [
+          "28",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "36",
+          "38",
+          "40",
+          "42",
+          "44",
+          "46",
+          "48"
+        ]
+      },
+      {
+        "color": "Obsidian",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_032476_1",
+        "sizes": [
+          "28",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "36",
+          "38",
+          "40",
+          "42",
+          "44",
+          "46",
+          "48"
+        ]
+      },
+      {
+        "color": "Grey Eucalyptus",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AO1S_064762_1",
+        "sizes": ["28", "30", "31", "32", "33", "34", "36", "38", "40"]
+      },
+      {
+        "color": "Oil Grey",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5AO1S_033123_1",
+        "sizes": ["28", "30", "31", "32", "33", "34", "36", "38", "40"]
+      },
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_0001_1",
+        "sizes": [
+          "28",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "36",
+          "38",
+          "40",
+          "42",
+          "44",
+          "46",
+          "48"
+        ]
+      },
+      {
+        "color": "Silver Drop",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_033928_1",
+        "sizes": ["28", "30", "31", "32", "36", "40", "42", "44", "46", "48"]
+      },
+      {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_031382_1",
+        "sizes": [
+          "28",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "36",
+          "38",
+          "40",
+          "42",
+          "44",
+          "46",
+          "48"
+        ]
+      }
+    ],
+    "link": "https://shop.lululemon.com/p/men-pants/ABC-Pant-Classic-32/_/prod9000003",
+    "price_retail": "128",
+    "product": "ABC Classic-Fit 5 Pocket Pant 32\"L Warpstreme"
+  },
+  {
+    "category": 3,
+    "items": [
+      {
         "color": "Black",
         "img": "https://images.lululemon.com/is/image/lululemon/LM9A09S_0001_1",
         "sizes": ["S/M"]
@@ -514,19 +613,19 @@
     "category": 3,
     "items": [
       {
-        "color": "Oasis Blue",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY3S_038470_1",
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY7S_0001_1",
         "sizes": [""]
       },
       {
-        "color": "Hail",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY3S_029797_1",
+        "color": "Blue Linen",
+        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY2S_047763_1",
         "sizes": [""]
       }
     ],
     "link": "https://shop.lululemon.com/p/yoga-accessories/Yoga-Mat-Towel-Grip/_/prod10800032",
     "price_retail": "64",
-    "product": "Yoga Mat Towel with Grip"
+    "product": "The Towel"
   },
   {
     "category": 3,
