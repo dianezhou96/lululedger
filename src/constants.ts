@@ -23,8 +23,8 @@ export const DISCOUNT = 0.4;
 
 export const DEADLINE = "Sunday, November 3 @ 5pm";
 
-export const CLOSED = false;
-// export const CLOSED = true;
+// export const CLOSED = false;
+export const CLOSED = true;
 // export const PREVIEW = true;
 export const PREVIEW = false;
 export const START_DATE = "Wed 5/15 ~5pm";
