@@ -42,6 +42,7 @@ interface CartTableProps {
   loading?: boolean;
   editable?: boolean;
   showFulfilled?: boolean;
+  isVolunteer?: boolean;
 }
 
 export const CartTable: React.FC<CartTableProps> = ({
@@ -53,13 +54,14 @@ export const CartTable: React.FC<CartTableProps> = ({
   loading = false,
   editable = false,
   showFulfilled = false,
+  isVolunteer = false,
 }) => {
   const [editMode, setEditMode] = useState(false);
 
   const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
     (cartItem) => {
       const product = cartItem.item.product;
-      const price = getPrice(product);
+      const price = getPrice(product, isVolunteer);
       return {
         key: cartItem.id,
         product: product,
@@ -314,7 +316,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             totalSavings += product.price_retail * quantity - totalPrice;
           }
         });
-        const fee = subtotal * 0.1;
+        const fee = isVolunteer ? 0 : subtotal * 0.1;
         const totalDue = subtotal + fee;
         return totalQty ? (
           <>
@@ -327,14 +329,16 @@ export const CartTable: React.FC<CartTableProps> = ({
                 <b>{getPriceString(subtotal, 2)}</b>
               </Table.Summary.Cell>
             </Table.Summary.Row>
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={5} align="right">
-                Tax + fees (10%)
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={1} align="right">
-                {getPriceString(fee, 2)}
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
+            {!isVolunteer && (
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={5} align="right">
+                  Tax + fees (10%)
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} align="right">
+                  {getPriceString(fee, 2)}
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            )}
             <Table.Summary.Row>
               <Table.Summary.Cell index={0} colSpan={5} align="right">
                 <u>
@@ -347,18 +351,20 @@ export const CartTable: React.FC<CartTableProps> = ({
                 </u>
               </Table.Summary.Cell>
             </Table.Summary.Row>
-            <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={5} align="right">
-                <i style={{ color: "green" }}>
-                  <b>Lululemon savings (40% off retail price)</b>
-                </i>
-              </Table.Summary.Cell>
-              <Table.Summary.Cell index={1} align="right">
-                <i style={{ color: "green" }}>
-                  <b>{getPriceString(totalSavings, 2)}</b>
-                </i>
-              </Table.Summary.Cell>
-            </Table.Summary.Row>
+            {!isVolunteer && (
+              <Table.Summary.Row>
+                <Table.Summary.Cell index={0} colSpan={5} align="right">
+                  <i style={{ color: "green" }}>
+                    <b>Lululemon savings (40% off retail price)</b>
+                  </i>
+                </Table.Summary.Cell>
+                <Table.Summary.Cell index={1} align="right">
+                  <i style={{ color: "green" }}>
+                    <b>{getPriceString(totalSavings, 2)}</b>
+                  </i>
+                </Table.Summary.Cell>
+              </Table.Summary.Row>
+            )}
           </>
         ) : (
           <></>
