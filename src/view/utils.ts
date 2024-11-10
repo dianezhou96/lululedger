@@ -10,12 +10,16 @@ import {
 } from "../types";
 import { data } from "../server/utils/data";
 
-export function getPrice(product: ProductMetadata, numDecimal = 0): number {
+export function getPrice(
+  product: ProductMetadata,
+  isVolunteer = false
+): number {
   if (product.price_actual) {
-    return Number(product.price_actual.toFixed(numDecimal));
+    return Number(product.price_actual.toFixed(0));
   }
   if (product.price_retail) {
-    return Number((product.price_retail * (1 - DISCOUNT)).toFixed(numDecimal));
+    const discount = isVolunteer ? 0.5 : DISCOUNT;
+    return Number((product.price_retail * (1 - discount)).toFixed(0));
   }
   return 0;
 }
@@ -136,14 +140,15 @@ export function getPriceLuluByBuyer(buyer: BuyerCarts) {
     .reduce((total, cart) => total + getPriceLuluByCart(cart), 0);
 }
 
-function getTotalPriceByCart(cart: Cart) {
+function getTotalPriceByCart(cart: Cart, isVolunteer = false) {
   return (
-    1.1 *
+    (isVolunteer ? 1 : 1.1) *
     cart.cart_items
       .filter((cartItem) => cartItem.status !== "Out of stock")
       .reduce(
         (total, cartItem) =>
-          total + cartItem.quantity * getPrice(cartItem.item.product),
+          total +
+          cartItem.quantity * getPrice(cartItem.item.product, isVolunteer),
         0
       )
   );
@@ -152,7 +157,11 @@ function getTotalPriceByCart(cart: Cart) {
 export function getTotalPriceByBuyer(buyer: BuyerCarts) {
   return buyer.carts
     .filter((cart) => cart.submitted)
-    .reduce((total, cart) => total + getTotalPriceByCart(cart), 0);
+    .reduce(
+      (total, cart) =>
+        total + getTotalPriceByCart(cart, buyer.volunteer ?? false),
+      0
+    );
 }
 
 export function groupAndSortCartItems(cart: Cart) {

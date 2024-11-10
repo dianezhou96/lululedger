@@ -28,6 +28,7 @@ type RecordType = {
   cartsSubmitted: number;
   cartsUnsubmitted: number;
   carts: Cart[];
+  isVolunteer: boolean;
 };
 
 interface BuyerTableProps {
@@ -81,7 +82,11 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
                 {buyer.carts
                   .filter((cart) => cart.submitted)
                   .map((cart) => (
-                    <CartTable cart={cart} showFulfilled />
+                    <CartTable
+                      cart={cart}
+                      showFulfilled
+                      isVolunteer={buyer.volunteer ?? false}
+                    />
                   ))}
               </>
             ),
@@ -111,6 +116,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         cartsSubmitted: buyer.carts.filter((cart) => cart.submitted).length,
         cartsUnsubmitted: buyer.carts.filter((cart) => !cart.submitted).length,
         carts: buyer.carts,
+        isVolunteer: buyer.volunteer ?? false,
       };
     }) ?? [];
 
@@ -211,7 +217,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
                 {buyer.name} ({buyer.skater_name}, {buyer.skater_team} team) -
                 Cart {idx + 1} of {carts.length}
               </h3>
-              <CartTable cart={cart} />
+              <CartTable cart={cart} isVolunteer={buyer.volunteer ?? false} />
             </div>
           ));
         })}
@@ -225,7 +231,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
     return (
       <>
         {row.carts.map((cart, idx) => (
-          <CartTable cart={cart} key={idx} />
+          <CartTable cart={cart} key={idx} isVolunteer={row.isVolunteer} />
         ))}
       </>
     );
