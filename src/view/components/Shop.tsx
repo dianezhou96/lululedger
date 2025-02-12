@@ -1,11 +1,6 @@
 import { Alert } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import {
-  CLOSED,
-  FUNDRAISER_CATEGORY_ID,
-  PREVIEW,
-  START_DATE,
-} from "../../constants";
+import { FUNDRAISER_CATEGORY_ID, START_DATE } from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { defaultProductSort } from "../utils";
@@ -34,26 +29,35 @@ export const Shop: React.FC<CartProps> = (props) => {
   const numUnsubmitted = props.carts.filter((cart) => !cart.submitted).length;
   const numSubmitted = props.carts.filter((cart) => cart.submitted).length;
 
-  const announcement = CLOSED ? (
-    PREVIEW ? (
-      <>
-        Items offered in this fundraiser are still TBD and subject to
-        availability. <b>Ordering begins on {START_DATE}.</b>
-      </>
-    ) : (
-      <>
-        The Lululemon order deadline has passed. You can be notified of the next
-        fundraiser by filling out{" "}
-        <a href="https://forms.gle/EUqCGE7G6GeuoNnC7" target="_blank">
-          this form.
-        </a>
-      </>
-    )
-  ) : (
-    <span>
-      <b>Deadline to order: {shopConfig?.deadline}</b>
-    </span>
-  );
+  let announcement = <></>;
+  switch (shopConfig?.status) {
+    case "open":
+      announcement = (
+        <span>
+          <b>Deadline to order: {shopConfig?.deadline}</b>
+        </span>
+      );
+      break;
+    case "preview":
+      announcement = (
+        <>
+          Items offered in this fundraiser are still TBD and subject to
+          availability. <b>Ordering begins on {START_DATE}.</b>
+        </>
+      );
+      break;
+    case "closed":
+      announcement = (
+        <>
+          The Lululemon order deadline has passed. You can be notified of the
+          next fundraiser by filling out{" "}
+          <a href="https://forms.gle/EUqCGE7G6GeuoNnC7" target="_blank">
+            this form.
+          </a>
+        </>
+      );
+      break;
+  }
 
   return loading ? (
     <Loading />
@@ -70,7 +74,7 @@ export const Shop: React.FC<CartProps> = (props) => {
           marginTop: 16,
         }}
       />
-      {numUnsubmitted > 0 && !CLOSED && (
+      {numUnsubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <b>
@@ -88,7 +92,7 @@ export const Shop: React.FC<CartProps> = (props) => {
           }}
         />
       )}
-      {numSubmitted > 0 && !CLOSED && (
+      {numSubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <span>
@@ -106,7 +110,7 @@ export const Shop: React.FC<CartProps> = (props) => {
         />
       )}
       {products.map((category) =>
-        !CLOSED ? (
+        !(shopConfig?.status === "closed") ? (
           // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
           <div key={category.id} style={{ padding: GAP }}>
             <div style={{ textAlign: "center", margin: "auto" }}>

@@ -20,7 +20,6 @@ import {
   InfoCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { CLOSED } from "../../constants";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type RecordType = {
@@ -211,7 +210,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             <Tag icon={<CheckCircleOutlined />} color="success">
               Submitted
             </Tag>
-          ) : CLOSED ? (
+          ) : shopConfig?.status === "closed" ? (
             <Tag icon={<MinusCircleOutlined />} color="default">
               Canceled
             </Tag>
@@ -259,7 +258,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             )}
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
-        ) : editable && !CLOSED ? (
+        ) : editable && shopConfig?.status === "open" ? (
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted

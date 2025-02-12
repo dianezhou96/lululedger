@@ -8,7 +8,7 @@ import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { CLOSED, PREVIEW, START_DATE } from "../../constants";
+import { START_DATE } from "../../constants";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
@@ -116,7 +116,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
           marginBottom: 5,
         }}
       >
-        {searchParams.get("credential") && !CLOSED ? (
+        {searchParams.get("credential") && shopConfig?.status === "open" ? (
           <>
             {cart ? (
               <b>Adding to cart for</b>
@@ -127,7 +127,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
               <CartSelector {...props} />
             </span>
           </>
-        ) : PREVIEW ? (
+        ) : shopConfig?.status === "preview" ? (
           <i style={{ color: "red" }}>
             Ordering begins on {START_DATE}. Please check back then!
           </i>
@@ -215,7 +215,11 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
                 />
               </Popover>
             )}
-            <Button type="primary" htmlType="submit" disabled={CLOSED}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={!(shopConfig?.status === "open")}
+            >
               Add to cart
             </Button>
           </div>
