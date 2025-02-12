@@ -1,4 +1,4 @@
-import { COLORS, DISCOUNT, ITEM_SIZES } from "../constants";
+import { DISCOUNT } from "../constants";
 import {
   BuyerCarts,
   Cart,
@@ -41,19 +41,27 @@ function findProductIdx(product: ProductMetadata) {
   return data.findIndex((entry) => entry.product === product.name);
 }
 
-export function defaultItemSort(items: ItemMetadata[]) {
+export function defaultItemSort(
+  itemSizes: string[],
+  itemColors: string[],
+  items: ItemMetadata[]
+) {
   // sort by size
-  const itemsBySize = items.sort((a, b) => findSizeIdx(a) - findSizeIdx(b));
+  const itemsBySize = items.sort(
+    (a, b) => findSizeIdx(itemSizes, a) - findSizeIdx(itemSizes, b)
+  );
   // then sort by color
-  return itemsBySize.sort((a, b) => findColorIdx(a) - findColorIdx(b));
+  return itemsBySize.sort(
+    (a, b) => findColorIdx(itemColors, a) - findColorIdx(itemColors, b)
+  );
 }
 
-function findSizeIdx(item: ItemMetadata) {
-  return ITEM_SIZES.findIndex((size) => size === item.size);
+function findSizeIdx(itemSizes: string[], item: ItemMetadata) {
+  return itemSizes.findIndex((size) => size === item.size);
 }
 
-function findColorIdx(item: ItemMetadata) {
-  return COLORS.findIndex((color) => color === item.color);
+function findColorIdx(itemColors: string[], item: ItemMetadata) {
+  return itemColors.findIndex((color) => color === item.color);
 }
 
 export function isValidQty(value) {
@@ -155,10 +163,19 @@ export function getTotalPriceByBuyer(buyer: BuyerCarts) {
     .reduce((total, cart) => total + getTotalPriceByCart(cart), 0);
 }
 
-export function groupAndSortCartItems(cart: Cart) {
+export function groupAndSortCartItems(
+  cart: Cart,
+  itemSizes: string[],
+  itemColors: string[]
+) {
   return cart.cart_items
-    .sort((a, b) => findSizeIdx(a.item) - findSizeIdx(b.item))
-    .sort((a, b) => findColorIdx(a.item) - findColorIdx(b.item))
+    .sort(
+      (a, b) => findSizeIdx(itemSizes, a.item) - findSizeIdx(itemSizes, b.item)
+    )
+    .sort(
+      (a, b) =>
+        findColorIdx(itemColors, a.item) - findColorIdx(itemColors, b.item)
+    )
     .sort(
       (a, b) => findProductIdx(a.item.product) - findProductIdx(b.item.product)
     );

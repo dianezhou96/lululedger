@@ -57,23 +57,25 @@ export const CartTable: React.FC<CartTableProps> = ({
   const [editMode, setEditMode] = useState(false);
   const shopConfig = useContext(ShopConfigContext);
 
-  const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
-    (cartItem) => {
-      const product = cartItem.item.product;
-      const price = getPrice(product);
-      return {
-        key: cartItem.id,
-        product: product,
-        color: cartItem.item.color,
-        size: cartItem.item.size,
-        price: price,
-        quantity: cartItem.quantity,
-        status: cartItem.status ?? (showFulfilled ? "Ordered" : ""),
-        totalPrice:
-          cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
-      };
-    }
-  );
+  const dataSource: RecordType[] = groupAndSortCartItems(
+    cart,
+    shopConfig?.sizes ?? [],
+    shopConfig?.colors ?? []
+  ).map((cartItem) => {
+    const product = cartItem.item.product;
+    const price = getPrice(product);
+    return {
+      key: cartItem.id,
+      product: product,
+      color: cartItem.item.color,
+      size: cartItem.item.size,
+      price: price,
+      quantity: cartItem.quantity,
+      status: cartItem.status ?? (showFulfilled ? "Ordered" : ""),
+      totalPrice:
+        cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
+    };
+  });
 
   const [tableData, setTableData] = useState(dataSource);
 

@@ -91,7 +91,11 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
     setOpen(false);
   };
 
-  const itemsList = defaultItemSort(product.items);
+  const itemsList = defaultItemSort(
+    shopConfig?.sizes ?? [],
+    shopConfig?.colors ?? [],
+    product.items
+  );
 
   useEffect(() => {
     if (itemsList.length < INIT_LIMIT) setShowAll(true);
