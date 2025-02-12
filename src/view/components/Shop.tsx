@@ -1,11 +1,10 @@
 import { Alert } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { FUNDRAISER_CATEGORY_ID } from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
-import { FundraiserCard } from "./FundraiserCard";
+import { LinkOnlyCard } from "./LinkOnlyCard";
 import { Loading } from "./Loading";
 import { COVER_WIDTH, ProductCard } from "./ProductCard";
 
@@ -110,7 +109,7 @@ export const Shop: React.FC<CartProps> = (props) => {
         />
       )}
       {products.map((category) =>
-        shopConfig?.status === "closed" ? ( // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
+        shopConfig?.status === "closed" && !category.link_only ? (
           <></>
         ) : (
           <div key={category.id} style={{ padding: GAP }}>
@@ -128,13 +127,17 @@ export const Shop: React.FC<CartProps> = (props) => {
               }}
             >
               {(defaultProductSort(category.products) as Product[]).map(
-                (product) => (
-                  <ProductCard key={product.id} product={product} {...props} />
-                )
+                (product) =>
+                  category.link_only ? (
+                    <LinkOnlyCard key={product.id} product={product} />
+                  ) : (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      {...props}
+                    />
+                  )
               )}
-              {/* {category.id === FUNDRAISER_CATEGORY_ID &&
-                orderCardProps.map((props) => <OrderCard {...props} />)} */}
-              {/* {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />} */}
             </div>
           </div>
         )

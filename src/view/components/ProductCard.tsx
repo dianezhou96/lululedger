@@ -17,7 +17,7 @@ import { ShopConfigContext } from "../contexts/ShopConfigContext";
 export const COVER_WIDTH = 300;
 export const COVER_HEIGHT = 360;
 
-interface ProductCardProps {
+export interface ProductCardProps {
   product: Product;
 }
 

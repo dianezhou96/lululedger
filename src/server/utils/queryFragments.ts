@@ -1,9 +1,17 @@
 const ProductMetadataFragment = {
-  fields: ["name", "link", "images", "price_retail", "price_actual"],
+  fields: [
+    "name",
+    "link",
+    "images",
+    "price_retail",
+    "price_actual",
+    "description",
+    "link_text",
+  ],
 };
 
 const ProductCategoryMetadataFragment = {
-  fields: ["name", "description"],
+  fields: ["name", "description", "link_only"],
 };
 
 export const ItemFragment = {
@@ -24,7 +32,7 @@ export const ProductFragment = {
 };
 
 export const ProductCategoryFragment = {
-  fields: ["name", "description"],
+  ...ProductCategoryMetadataFragment,
   populate: {
     products: ProductFragment,
   },

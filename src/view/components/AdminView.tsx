@@ -1,7 +1,6 @@
 import { Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { FUNDRAISER_CATEGORY_ID } from "../../constants";
 import { BuyerCarts, ProductCategoryWithQtys } from "../../types";
 import { getProductQuantity } from "../utils";
 import { BuyerTable } from "./BuyerTable";
@@ -63,12 +62,12 @@ export const AdminView: React.FC = () => {
       items?.reduce(
         (total, category) =>
           total +
-          (category.id === FUNDRAISER_CATEGORY_ID
-            ? 0
-            : category.products.reduce(
+          (category.link_only
+            ? category.products.reduce(
                 (total, product) => total + getProductQuantity(product),
                 0
-              )),
+              )
+            : 0),
         0
       ) ?? "..."
     );
