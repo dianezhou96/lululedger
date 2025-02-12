@@ -15,6 +15,8 @@ router.use(express.json());
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
+const fetchShopConfig = require("./shop").fetchShopConfig;
+
 /*
 Registers the user, expects:
   - user is not signed up already
@@ -29,31 +31,37 @@ response:
       magic_token: string representing token for account
     }
 */
-router.post("/signup", async (req: Request, res: Response) => {
-  const record = { ...req.body };
-  // generate a UUID serving as the magic token for user
-  record.magic_token = uuidv4();
-  const response = await fetch(API_URI + `/buyers`, {
-    method: "POST",
-    body: JSON.stringify({ data: record }),
-    headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
-  });
-  const data = await response.json();
-  const credential = {
-    email: record.email,
-    magic_token: record.magic_token,
-  };
-  const status = response.status;
-  if (status == 200)
-    send_magic_link(
-      record.name,
-      record.email,
-      btoa(JSON.stringify(credential)),
-      record.skater_name,
-      record.skater_team
-    );
-  res.status(status).end();
-});
+
+router.post(
+  "/signup",
+  fetchShopConfig,
+  async (req: RequestWithShopConfig, res: Response) => {
+    const record = { ...req.body };
+    // generate a UUID serving as the magic token for user
+    record.magic_token = uuidv4();
+    const response = await fetch(API_URI + `/buyers`, {
+      method: "POST",
+      body: JSON.stringify({ data: record }),
+      headers: { "Content-Type": "application/json", Authorization: API_TOKEN },
+    });
+    const data = await response.json();
+    const credential = {
+      email: record.email,
+      magic_token: record.magic_token,
+    };
+    const status = response.status;
+    if (status == 200)
+      send_magic_link(
+        record.name,
+        record.email,
+        btoa(JSON.stringify(credential)),
+        record.skater_name,
+        record.skater_team,
+        req.shopConfig.name
+      );
+    res.status(status).end();
+  }
+);
 
 /*
 Gets a user by email, expects:
@@ -93,29 +101,34 @@ Resends a magic link email expects:
   - a valid email
 triggers a backend action to resend magic link email if email is registered
 */
-router.get("/resend/:email", async (req: Request, res: Response) => {
-  console.log("got resend email requeset for", req.params.email);
-  const [status, user] = await get_user_record(req.params.email);
-  if (!user) {
-    res.status(403).end();
-    return;
+router.get(
+  "/resend/:email",
+  fetchShopConfig,
+  async (req: RequestWithShopConfig, res: Response) => {
+    console.log("got resend email requeset for", req.params.email);
+    const [status, user] = await get_user_record(req.params.email);
+    if (!user) {
+      res.status(403).end();
+      return;
+    }
+    console.log("resending email for", user.attributes.email);
+    const credential = {
+      email: user.attributes.email,
+      magic_token: user.attributes.magic_token,
+    };
+    // const status = response.status;
+    if (status == 200 && user)
+      send_magic_link(
+        user.attributes.name,
+        user.attributes.email,
+        btoa(JSON.stringify(credential)),
+        user.attributes.skater_name,
+        user.attributes.skater_team,
+        req.shopConfig.name
+      );
+    res.status(status).end();
   }
-  console.log("resending email for", user.attributes.email);
-  const credential = {
-    email: user.attributes.email,
-    magic_token: user.attributes.magic_token,
-  };
-  // const status = response.status;
-  if (status == 200 && user)
-    send_magic_link(
-      user.attributes.name,
-      user.attributes.email,
-      btoa(JSON.stringify(credential)),
-      user.attributes.skater_name,
-      user.attributes.skater_team
-    );
-  res.status(status).end();
-});
+);
 
 /*
 Check whether a JSON string is valid, expects:
@@ -234,6 +247,12 @@ export interface AuthorizedRequest extends Request {
     email: string;
     id: number;
     admin: boolean;
+  };
+}
+
+export interface RequestWithShopConfig extends Request {
+  shopConfig: {
+    name: string;
   };
 }
 

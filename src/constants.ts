@@ -1,11 +1,3 @@
-// export const SHOP_NAME = "SFIT x Lululemon Fundraiser";
-// export const SHOP_NAME = "SFIT x Lululemon Fall 2023 Flash Fundraiser";
-// export const SHOP_NAME = "SFIT x Lululemon Black Friday Sale";
-// export const SHOP_NAME = "SFIT x Lululemon Spring Sale";
-// export const SHOP_NAME = "SFIT Nationals 2024 Fundraiser - Lululemon + Rockerz";
-// export const SHOP_NAME = "SFIT x Lululemon Summer Sale";
-export const SHOP_NAME = "SFIT x Lululemon Fall 2024 Fundraiser";
-
 export const FUNDRAISER_LINK =
   "https://www.gofundme.com/f/sfit-nationals-2024-sendoff-gift";
 // "https://www.gofundme.com/f/sfit-nationals-sendoff-gift";

@@ -1,3 +1,12 @@
+export interface ShopConfig {
+  name: string;
+  status: "preview" | "open" | "closed";
+  start_date: string;
+  deadline: string;
+  colors: string[];
+  sizes: string[];
+}
+
 export type ItemMetadata = {
   id: number;
   color: string | null;
