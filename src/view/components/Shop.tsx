@@ -1,6 +1,6 @@
 import { Alert } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { FUNDRAISER_CATEGORY_ID, START_DATE } from "../../constants";
+import { FUNDRAISER_CATEGORY_ID } from "../../constants";
 import { Product, ProductCategory } from "../../types";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { defaultProductSort } from "../utils";
@@ -42,7 +42,7 @@ export const Shop: React.FC<CartProps> = (props) => {
       announcement = (
         <>
           Items offered in this fundraiser are still TBD and subject to
-          availability. <b>Ordering begins on {START_DATE}.</b>
+          availability. <b>Ordering begins on {shopConfig?.start_date}.</b>
         </>
       );
       break;

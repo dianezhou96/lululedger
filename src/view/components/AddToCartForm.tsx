@@ -8,7 +8,6 @@ import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { START_DATE } from "../../constants";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
@@ -129,7 +128,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
           </>
         ) : shopConfig?.status === "preview" ? (
           <i style={{ color: "red" }}>
-            Ordering begins on {START_DATE}. Please check back then!
+            Ordering begins on {shopConfig?.start_date}. Please check back then!
           </i>
         ) : (
           <SignUpButton />

@@ -1,7 +1,6 @@
 import { Button } from "antd";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { START_DATE } from "../../constants";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export const SignUpButton: React.FC = () => {
@@ -12,7 +11,7 @@ export const SignUpButton: React.FC = () => {
       disabled={!(shopConfig?.status === "open")}
     >
       {shopConfig?.status === "preview" ? (
-        `Ordering begins on ${START_DATE}`
+        `Ordering begins on ${shopConfig?.start_date}`
       ) : shopConfig?.status === "closed" ? (
         "This fundraiser has ended."
       ) : (

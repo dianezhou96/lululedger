@@ -13,8 +13,6 @@ export const FUNDRAISER_CATEGORY_ID = 6;
 
 export const DISCOUNT = 0.4;
 
-export const START_DATE = "Wed 5/15 ~5pm";
-
 export const COLORS = [
   "Black/Black",
   "White/White",

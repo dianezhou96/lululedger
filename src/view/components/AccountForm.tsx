@@ -9,7 +9,6 @@ import {
   Popconfirm,
 } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
-import { START_DATE } from "../../constants";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type AlertObject = {
@@ -108,7 +107,7 @@ export const AccountForm: React.FC = () => {
         {!(shopConfig?.status === "open") && (
           <p style={{ color: "red" }}>
             {shopConfig?.status === "preview"
-              ? `Ordering begins on ${START_DATE}. Please check back then!`
+              ? `Ordering begins on ${shopConfig?.start_date}. Please check back then!`
               : "This fundraiser has ended."}
           </p>
         )}
