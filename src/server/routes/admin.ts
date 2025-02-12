@@ -19,7 +19,7 @@ import { AuthorizedRequest, RequestWithShopConfig } from "./auth";
 import { send_invoice, send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
-const fetchShopConfig = require("./shop").fetchShopConfig;
+const useShopConfig = require("./config").useShopConfig;
 
 const router = express.Router();
 router.use(express.json());
@@ -166,7 +166,7 @@ router.post(
 router.post(
   "/send-invoice-email",
   user_authenticated,
-  fetchShopConfig,
+  useShopConfig,
   async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (!req.buyer.admin) {
       console.log("unauthorized");

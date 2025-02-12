@@ -9,7 +9,6 @@ import connectLivereload = require("connect-livereload");
 import { Request, Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
 import { SG_API_KEY, LOG_LEVEL, PORT } from "./config";
-import { CLOSED } from "../constants";
 import { AuthorizedRequest } from "./routes/auth";
 
 const app = express();
@@ -49,8 +48,10 @@ app.use(morgan(LOG_LEVEL));
 
 // shop closed gatekeeping
 const check_admin = require("./routes/auth").check_admin;
-if (CLOSED)
-  app.use(async (req, res, next) => {
+const getShopConfig = require("./routes/config").getShopConfig;
+app.use(async (req, res, next) => {
+  const shopConfig = await getShopConfig();
+  if (shopConfig.status !== "open") {
     if (await check_admin(req)) {
       next(); // admins can do whatever they want
     } else if (req.method === "GET") {
@@ -59,14 +60,19 @@ if (CLOSED)
     } else {
       res.status(403).end();
     }
-  });
+  } else {
+    next();
+  }
+});
 
 // import routes
 const shop_routes = require("./routes/shop");
 const auth_routes = require("./routes/auth").router;
+const config_routes = require("./routes/config").router;
 const admin_routes = require("./routes/admin");
 // set up routes
 app.use("/shop", shop_routes);
+app.use("/shop", config_routes);
 app.use("/auth", auth_routes);
 app.use("/admin", admin_routes);
 

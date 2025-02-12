@@ -15,7 +15,7 @@ router.use(express.json());
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
 
-const fetchShopConfig = require("./shop").fetchShopConfig;
+const useShopConfig = require("./config").useShopConfig;
 
 /*
 Registers the user, expects:
@@ -34,7 +34,7 @@ response:
 
 router.post(
   "/signup",
-  fetchShopConfig,
+  useShopConfig,
   async (req: RequestWithShopConfig, res: Response) => {
     const record = { ...req.body };
     // generate a UUID serving as the magic token for user
@@ -103,7 +103,7 @@ triggers a backend action to resend magic link email if email is registered
 */
 router.get(
   "/resend/:email",
-  fetchShopConfig,
+  useShopConfig,
   async (req: RequestWithShopConfig, res: Response) => {
     console.log("got resend email requeset for", req.params.email);
     const [status, user] = await get_user_record(req.params.email);

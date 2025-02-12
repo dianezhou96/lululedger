@@ -19,37 +19,13 @@ import { AuthorizedRequest, RequestWithShopConfig } from "./auth";
 import { send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
+const useShopConfig = require("./config").useShopConfig;
 
 const router = express.Router();
 router.use(express.json());
 
 const fetch = (url: RequestInfo, init?: RequestInit) =>
   import("node-fetch").then(({ default: fetch }) => fetch(url, init));
-
-/*
-Middleware for getting shop configuration
-*/
-async function fetchShopConfig(req, next) {
-  const shopConfig = await fetch(`${API_URI}/shop-configuration`, {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
-    .then((data) => data.json())
-    .then((json) => json.data);
-  req.shopConfig = shopConfig.attributes;
-  next();
-}
-
-// Get shop configuration
-router.get("/config", async (_: Request, res: Response) => {
-  const data = await fetch(API_URI + "/shop-configuration", {
-    method: "GET",
-    headers: { Authorization: API_TOKEN },
-  })
-    .then((data) => data.json())
-    .then((json) => json.data);
-  res.json(data.attributes);
-});
 
 // Get all products
 router.get("/products", async (_: Request, res: Response) => {
@@ -342,7 +318,7 @@ async function buyer_has_item(buyer_id, cart_item_id) {
 router.post(
   "/send-order-received-email",
   user_authenticated,
-  fetchShopConfig,
+  useShopConfig,
   async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (req.buyer.email !== req.body.email) {
       console.log("unauthorized");
