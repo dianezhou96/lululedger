@@ -354,7 +354,7 @@ router.post(
       req.body.credential,
       req.body.skater,
       req.body.team,
-      req.shopConfig.name
+      req.shopConfig
     );
     res.status(200).end();
   }

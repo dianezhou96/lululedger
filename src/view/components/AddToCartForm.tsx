@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useEffect, useMemo } from "react";
 import { Button, Form, InputNumber, message, Popover } from "antd";
 import { CartItemPost, Product } from "../../types";
 import { useSearchParams } from "react-router-dom";
@@ -8,7 +8,8 @@ import { COVER_HEIGHT, COVER_WIDTH } from "./ProductCard";
 import { SignUpButton } from "./SignUpButton";
 import { defaultItemSort, isValidQty } from "../utils";
 import { InfoCircleFilled } from "@ant-design/icons";
-import { CLOSED, DEADLINE, PREVIEW, START_DATE } from "../../constants";
+import { CLOSED, PREVIEW, START_DATE } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export const INIT_LIMIT = 4; // Number of items to show in the form initially
 
@@ -29,6 +30,8 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
   const { product, setOpen, showAll, setShowAll, carts, setCartDirty } = props;
   const [form] = Form.useForm();
   const [searchParams] = useSearchParams();
+  const shopConfig = useContext(ShopConfigContext);
+
   const cart = useMemo(() => {
     return carts.find(
       (cart) => cart?.id.toString() === searchParams.get("cart")
@@ -200,7 +203,7 @@ export const AddToCartForm: React.FC<AddToCartFormProps & CartProps> = (
             {cart && cart.submitted && (
               <Popover
                 title="Adding to submitted cart"
-                content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline (${DEADLINE}).`}
+                content={`Items added to the order for ${cart.name} will be submitted automatically, but you can still make modifications in the "Orders" page until the deadline (${shopConfig?.deadline}).`}
                 placement="bottom"
                 trigger="hover"
                 overlayStyle={{

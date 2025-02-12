@@ -155,7 +155,7 @@ router.post(
         btoa(JSON.stringify(credential)),
         buyer.skater,
         buyer.team,
-        req.shopConfig.name
+        req.shopConfig
       );
     }
     res.status(200).end();

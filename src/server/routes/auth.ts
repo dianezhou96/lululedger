@@ -253,6 +253,7 @@ export interface AuthorizedRequest extends Request {
 export interface RequestWithShopConfig extends Request {
   shopConfig: {
     name: string;
+    deadline: string;
   };
 }
 

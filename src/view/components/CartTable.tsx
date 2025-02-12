@@ -8,7 +8,7 @@ import {
   Tag,
 } from "antd";
 import { ColumnType } from "antd/es/table";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Cart, ProductMetadata } from "../../types";
 import { getPrice, getPriceString, groupAndSortCartItems } from "../utils";
 import {
@@ -20,7 +20,8 @@ import {
   InfoCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { CLOSED, DEADLINE } from "../../constants";
+import { CLOSED } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type RecordType = {
   key: number;
@@ -55,6 +56,7 @@ export const CartTable: React.FC<CartTableProps> = ({
   showFulfilled = false,
 }) => {
   const [editMode, setEditMode] = useState(false);
+  const shopConfig = useContext(ShopConfigContext);
 
   const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
     (cartItem) => {
@@ -261,8 +263,8 @@ export const CartTable: React.FC<CartTableProps> = ({
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
-                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline (${DEADLINE}).`
-                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline (${DEADLINE}).`)}
+                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline (${shopConfig?.deadline}).`
+                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline (${shopConfig?.deadline}).`)}
             <Space>
               {tableData.length > 0 && !cart.submitted && (
                 <Popconfirm

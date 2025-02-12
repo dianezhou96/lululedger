@@ -13,8 +13,6 @@ export const FUNDRAISER_CATEGORY_ID = 6;
 
 export const DISCOUNT = 0.4;
 
-export const DEADLINE = "Sunday, November 3 @ 5pm";
-
 // export const CLOSED = false;
 export const CLOSED = true;
 // export const PREVIEW = true;

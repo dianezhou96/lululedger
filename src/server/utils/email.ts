@@ -1,7 +1,6 @@
 import sgMail = require("@sendgrid/mail");
 import { SG_API_KEY, GMAIL_TOKEN, SHOP_URL, ORDERS_URL } from "../config";
 import nodemailer = require("nodemailer");
-import { DEADLINE } from "../../constants";
 
 sgMail.setApiKey(SG_API_KEY);
 const transporter = nodemailer.createTransport({
@@ -143,9 +142,9 @@ export async function send_order_received(
   credential,
   skater,
   team,
-  shopName
+  shopConfig
 ) {
-  const text = `Hi ${name}, your ${shopName} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
+  const text = `Hi ${name}, your ${shopConfig.name} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
   const html = `
   <!DOCTYPE html>
 <html>
@@ -177,7 +176,7 @@ export async function send_order_received(
     <p>Hi ${name},</p>
     <p>Thanks for ordering through our fundraiser! This email confirms that we received your order.</p>
     <p>For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}</p>
-    <p>You may edit your order until the deadline: ${DEADLINE}. (If it's after the deadline and you received this email, your order still made it through!)</p>
+    <p>You may edit your order until the deadline: ${shopConfig.deadline}. (If it's after the deadline and you received this email, your order still made it through!)</p>
     <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item and you won't be charged for it.</p>
     <p>You can expect an invoice and instructions for payment and pickup within a couple weeks after the deadline. Reminder: <b>We do NOT offer shipping or delivery directly to your location.</b> All items will be shipped to one location for the bulk discount and distributed via SFIT skaters; if this does not work for you, please cancel your order. We have noted that you are affiliated with SFIT through ${skater} of the ${team} team.</p>
     <p>Thank you for your patience and support!</p>
@@ -189,7 +188,7 @@ export async function send_order_received(
   const msg = {
     to: email,
     from: "SFIT Diane <dianez.sfit@gmail.com>",
-    subject: `${shopName} Order Received`,
+    subject: `${shopConfig.name} Order Received`,
     text: text,
     html: html,
   };

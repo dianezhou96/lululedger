@@ -1,13 +1,13 @@
 import { Alert } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   CLOSED,
-  DEADLINE,
   FUNDRAISER_CATEGORY_ID,
   PREVIEW,
   START_DATE,
 } from "../../constants";
 import { Product, ProductCategory } from "../../types";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
 import { FundraiserCard } from "./FundraiserCard";
@@ -19,6 +19,7 @@ const GAP = 20;
 export const Shop: React.FC<CartProps> = (props) => {
   const [products, setProducts] = useState<ProductCategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const shopConfig = useContext(ShopConfigContext);
 
   const fetchProducts = async () => {
     const products = await fetch("/shop/products").then((data) => data.json());
@@ -50,9 +51,7 @@ export const Shop: React.FC<CartProps> = (props) => {
     )
   ) : (
     <span>
-      <b>Deadline to order: </b>
-      {/* <del>Saturday, November 25</del>{" "} */}
-      <b>{DEADLINE}</b>
+      <b>Deadline to order: {shopConfig?.deadline}</b>
     </span>
   );
 
