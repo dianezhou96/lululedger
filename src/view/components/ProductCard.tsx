@@ -114,8 +114,8 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
           <>
             {product.link ? (
               <Popconfirm
-                title={"Going to external link"}
-                description="This will open the product page in a new tab."
+                title="View product details?"
+                description="This will open the Lululemon product page in a new tab. Please return here to place your order to support our fundraiser."
                 onConfirm={() =>
                   product.link && window.open(product.link, "_blank")
                 }
