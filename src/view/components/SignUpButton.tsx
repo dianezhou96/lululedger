@@ -11,7 +11,7 @@ export const SignUpButton: React.FC = () => {
       disabled={!(shopConfig?.status === "open")}
     >
       {shopConfig?.status === "preview" ? (
-        `Ordering begins on ${shopConfig?.start_date}`
+        `Ordering starts soon`
       ) : shopConfig?.status === "closed" ? (
         "This fundraiser has ended."
       ) : (

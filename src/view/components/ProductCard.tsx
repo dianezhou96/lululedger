@@ -115,10 +115,21 @@ export const ProductCard: React.FC<ProductCardProps & CartProps> = (props) => {
             {product.link ? (
               <Popconfirm
                 title="View product details?"
-                description="This will open the Lululemon product page in a new tab. Please return here to place your order to support our fundraiser."
+                description={
+                  <>
+                    This will open the Lululemon product page in a new tab.{" "}
+                    <b>
+                      Please return here to place your order to support our
+                      fundraiser.
+                    </b>
+                  </>
+                }
                 onConfirm={() =>
                   product.link && window.open(product.link, "_blank")
                 }
+                overlayStyle={{
+                  maxWidth: 400,
+                }}
               >
                 <a>{product.name}</a>
               </Popconfirm>
