@@ -1,6 +1,6 @@
 import { Button, Dropdown, Form, Input, MenuProps } from "antd";
 import Table, { ColumnType } from "antd/es/table";
-import React from "react";
+import React, { useContext } from "react";
 import {
   CartItemStatus,
   ItemWithQty,
@@ -17,6 +17,7 @@ import {
 } from "../utils";
 import { SettingOutlined, CloudUploadOutlined } from "@ant-design/icons";
 import { useSearchParams } from "react-router-dom";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 // Product
 type RecordType = {
@@ -57,6 +58,7 @@ interface ItemTableProps {
 
 export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
   const [searchParams] = useSearchParams();
+  const shopConfig = useContext(ShopConfigContext);
 
   const markOutOfStock = async (cartItemId: number) => {
     await fetch(`/admin/out-of-stock/${cartItemId}`, {
@@ -87,14 +89,23 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
   };
 
   const dataSource: RecordType[] = (
-    defaultProductSort(category.products) as ProductWithQtys[]
+    defaultProductSort(
+      shopConfig?.products ?? [],
+      category.products
+    ) as ProductWithQtys[]
   ).map((product) => ({
     key: product.id,
     name: product.name,
-    price: getPrice(product),
+    price: getPrice(product, shopConfig?.discount ?? 0.4),
     quantity: getProductQuantity(product),
     qtyOOS: getProductQuantity(product, true),
-    items: (defaultItemSort(product.items) as ItemWithQty[]).map((item) => ({
+    items: (
+      defaultItemSort(
+        shopConfig?.sizes ?? [],
+        shopConfig?.colors ?? [],
+        product.items
+      ) as ItemWithQty[]
+    ).map((item) => ({
       key: item.id,
       id: item.id,
       color: item.color,

@@ -3,9 +3,10 @@ export interface ShopConfig {
   status: "preview" | "open" | "closed";
   start_date: string;
   deadline: string;
+  discount: number;
   colors: string[];
   sizes: string[];
-  discount: number;
+  products: string[];
 }
 
 export type ItemMetadata = {

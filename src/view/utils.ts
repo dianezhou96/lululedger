@@ -36,12 +36,18 @@ export async function fetchCarts(credential: string) {
   });
 }
 
-export function defaultProductSort(products: ProductMetadata[]) {
-  return products.sort((a, b) => findProductIdx(a) - findProductIdx(b));
+export function defaultProductSort(
+  productsSorted: string[],
+  products: ProductMetadata[]
+) {
+  return products.sort(
+    (a, b) =>
+      findProductIdx(productsSorted, a) - findProductIdx(productsSorted, b)
+  );
 }
 
-function findProductIdx(product: ProductMetadata) {
-  return data.findIndex((entry) => entry.product === product.name);
+function findProductIdx(productsSorted: string[], product: ProductMetadata) {
+  return productsSorted.findIndex((entry) => entry === product.name);
 }
 
 export function defaultItemSort(
@@ -168,6 +174,7 @@ export function getTotalPriceByBuyer(buyer: BuyerCarts, discount: number) {
 
 export function groupAndSortCartItems(
   cart: Cart,
+  productsSorted: string[],
   itemSizes: string[],
   itemColors: string[]
 ) {
@@ -180,6 +187,8 @@ export function groupAndSortCartItems(
         findColorIdx(itemColors, a.item) - findColorIdx(itemColors, b.item)
     )
     .sort(
-      (a, b) => findProductIdx(a.item.product) - findProductIdx(b.item.product)
+      (a, b) =>
+        findProductIdx(productsSorted, a.item.product) -
+        findProductIdx(productsSorted, b.item.product)
     );
 }

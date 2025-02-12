@@ -126,17 +126,17 @@ export const Shop: React.FC<CartProps> = (props) => {
                 marginTop: GAP,
               }}
             >
-              {(defaultProductSort(category.products) as Product[]).map(
-                (product) =>
-                  category.link_only ? (
-                    <LinkOnlyCard key={product.id} product={product} />
-                  ) : (
-                    <ProductCard
-                      key={product.id}
-                      product={product}
-                      {...props}
-                    />
-                  )
+              {(
+                defaultProductSort(
+                  shopConfig?.products ?? [],
+                  category.products
+                ) as Product[]
+              ).map((product) =>
+                category.link_only ? (
+                  <LinkOnlyCard key={product.id} product={product} />
+                ) : (
+                  <ProductCard key={product.id} product={product} {...props} />
+                )
               )}
             </div>
           </div>

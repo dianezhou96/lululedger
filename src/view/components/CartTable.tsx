@@ -59,11 +59,12 @@ export const CartTable: React.FC<CartTableProps> = ({
 
   const dataSource: RecordType[] = groupAndSortCartItems(
     cart,
+    shopConfig?.products ?? [],
     shopConfig?.sizes ?? [],
     shopConfig?.colors ?? []
   ).map((cartItem) => {
     const product = cartItem.item.product;
-    const price = getPrice(product);
+    const price = getPrice(product, shopConfig?.discount ?? 0.4);
     return {
       key: cartItem.id,
       product: product,
