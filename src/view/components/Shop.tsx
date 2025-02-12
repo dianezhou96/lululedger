@@ -110,8 +110,9 @@ export const Shop: React.FC<CartProps> = (props) => {
         />
       )}
       {products.map((category) =>
-        !(shopConfig?.status === "closed") ? (
-          // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
+        shopConfig?.status === "closed" ? ( // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
+          <></>
+        ) : (
           <div key={category.id} style={{ padding: GAP }}>
             <div style={{ textAlign: "center", margin: "auto" }}>
               <h2>{category.name}</h2>
@@ -136,8 +137,6 @@ export const Shop: React.FC<CartProps> = (props) => {
               {/* {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />} */}
             </div>
           </div>
-        ) : (
-          <></>
         )
       )}
     </div>

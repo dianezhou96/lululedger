@@ -1,10 +1,10 @@
 import { Button, Divider, Input, Select, Space } from "antd";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { CartPost } from "../../types";
 import { PlusOutlined } from "@ant-design/icons";
 import { CartProps } from "./App";
-import { CLOSED } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 const WIDTH = 200;
 
@@ -15,6 +15,7 @@ export const CartSelector: React.FC<CartProps> = ({
   setCartDirty,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const shopConfig = useContext(ShopConfigContext);
 
   const handleCartChange = (value: string) => {
     searchParams.set("cart", value);
@@ -52,37 +53,38 @@ export const CartSelector: React.FC<CartProps> = ({
     }
   };
 
-  const NewCartForm = CLOSED ? (
-    <></>
-  ) : (
-    <>
-      {carts.length > 0 && (
-        <div
+  const NewCartForm =
+    shopConfig?.status === "open" ? (
+      <>
+        {carts.length > 0 && (
+          <div
+            style={{
+              fontSize: "0.8em",
+              margin: "auto",
+              padding: "0px 8px 8px 8px ",
+            }}
+          >
+            Use separate carts to order for multiple people
+          </div>
+        )}
+        <Space
           style={{
-            fontSize: "0.8em",
-            margin: "auto",
-            padding: "0px 8px 8px 8px ",
+            padding: "0 8px 4px",
+            ...(!carts.length && { width: WIDTH }),
           }}
         >
-          Use separate carts to order for multiple people
-        </div>
-      )}
-      <Space
-        style={{
-          padding: "0 8px 4px",
-          ...(!carts.length && { width: WIDTH }),
-        }}
-      >
-        <Input
-          placeholder={carts.length ? "New cart for..." : "Name new cart!"}
-          value={name}
-          onChange={onNameChange}
-          onPressEnter={addCart}
-        />
-        <Button icon={<PlusOutlined />} onClick={addCart} />
-      </Space>
-    </>
-  );
+          <Input
+            placeholder={carts.length ? "New cart for..." : "Name new cart!"}
+            value={name}
+            onChange={onNameChange}
+            onPressEnter={addCart}
+          />
+          <Button icon={<PlusOutlined />} onClick={addCart} />
+        </Space>
+      </>
+    ) : (
+      <></>
+    );
 
   return cartDirty || carts.length ? (
     <Select

@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Checkbox } from "antd";
-import { ITEM_SIZES } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export interface SizeSelectorProps {
   value?: Array<string>;
@@ -14,10 +14,11 @@ export const SizeSelector: React.FC<SizeSelectorProps> = (
   // We do this because Checkbox plays nicely with antd's Form.List functionality
   // but want to use a button as a checkbox
   const [sizes, setSizes] = useState(props.value ?? []);
+  const shopConfig = useContext(ShopConfigContext);
 
   return (
     <div>
-      {ITEM_SIZES.map((size, i) => {
+      {shopConfig?.sizes.map((size, i) => {
         return (
           <Button
             key={i}

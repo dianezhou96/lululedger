@@ -1,7 +1,7 @@
 import { Alert, Button, Empty } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { CLOSED } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { CartProps } from "./App";
 import { CartTableWrapper } from "./CartTableWrapper";
 import { Loading } from "./Loading";
@@ -18,7 +18,7 @@ export const Orders: React.FC<CartProps> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
-
+  const shopConfig = useContext(ShopConfigContext);
   const handleViewAll = () => {
     searchParams.delete("cart");
     setSearchParams(searchParams);
@@ -32,7 +32,7 @@ export const Orders: React.FC<CartProps> = ({
     <Loading />
   ) : carts.length > 0 ? (
     <div style={{ textAlign: "center", marginBottom: GAP }}>
-      {!cartSelected && numUnsubmitted > 0 && !CLOSED && (
+      {!cartSelected && numUnsubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <span>
@@ -52,7 +52,7 @@ export const Orders: React.FC<CartProps> = ({
           }}
         />
       )}
-      {!cartSelected && numSubmitted > 0 && !CLOSED && (
+      {!cartSelected && numSubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <span>
@@ -94,7 +94,7 @@ export const Orders: React.FC<CartProps> = ({
               <CartTableWrapper
                 cart={cart}
                 setCartDirty={setCartDirty}
-                editable={!CLOSED}
+                editable={shopConfig?.status === "open"}
               ></CartTableWrapper>
             </div>
           );

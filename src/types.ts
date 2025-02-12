@@ -5,6 +5,7 @@ export interface ShopConfig {
   deadline: string;
   colors: string[];
   sizes: string[];
+  discount: number;
 }
 
 export type ItemMetadata = {
