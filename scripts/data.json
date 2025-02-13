@@ -1,73 +1,119 @@
 [
   {
+    "product": "Cates Tee",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/womens-t-shirts/Cates-Tee/_/prod9271065",
+    "price_retail": 48,
     "items": [
       {
-        "color": "White/White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3DFNS_012826_1",
-        "sizes": [0, 2, 4, 6, 8, 10, 12, 14]
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3CIPS_0001_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14, 16]
       },
       {
-        "color": "Slate/White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3DFNS_0572_1",
-        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-t-shirts/Swiftly-Tech-SS-2/_/prod9750519",
-    "price_retail": "68",
-    "product": "Swiftly Tech Short-Sleeve Shirt 2.0 Hip Length"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "White/White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUPS_012826_1",
-        "sizes": [8, 10, 12, 14]
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3CIPS_031382_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
       },
       {
-        "color": "Nightfall/Nightfall",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUPS_066910_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
+        "color": "White",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3CIPS_0002_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
+      },
+      {
+        "color": "Heathered Core Ultra Light Grey",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3DI1S_032493_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-Breeze/_/prod8510157",
-    "price_retail": "78",
-    "product": "Swiftly Relaxed Long-Sleeve Shirt Hip Length"
+    ]
   },
   {
+    "product": "Swiftly Tech Short-Sleeve 2.0 Waist Length",
     "category": 2,
+    "link": "Black/Black 2-16 https://images.lululemon.com/is/image/lululemon/LW3DZBS_4780_1",
+    "price_retail": 68,
     "items": [
       {
-        "color": "Rhino Grey/Rhino Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3HQ2S_048697_1",
-        "sizes": ["XXS", "XS", "S", "M", "L", "XL"]
+        "color": "Passionate/Passionate",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3HT1S_068772_1",
+        "sizes": [4, 6, 8, 10, 12]
+      },
+      {
+        "color": "Crater Blue/Crater Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3HT1S_069113_1",
+        "sizes": [4, 6, 8, 10]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Wool-LS-Shirt-Waist/_/prod11750398",
-    "price_retail": "98",
-    "product": "Swiftly Wool Long-Sleeve Shirt Waist Length"
+    ]
   },
   {
+    "product": "Swiftly Tech Long-Sleeve Shirt 2.0 Waist Length",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-2-Race/_/prod9750541",
+    "price_retail": 78,
     "items": [
       {
         "color": "Black/Black",
         "img": "https://images.lululemon.com/is/image/lululemon/LW3DOBS_4780_1",
-        "sizes": [4, 6, 8, 10, 12, 14, 16, 18, 20]
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
       },
       {
         "color": "Slate/White",
         "img": "https://images.lululemon.com/is/image/lululemon/LW3FQFS_0572_1",
-        "sizes": [8, 10, 12, 14, 16]
+        "sizes": [2, 4, 6, 8, 10, 12, 14, 16]
+      },
+      {
+        "color": "Crater Blue/Crater Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3HHIS_069113_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
+      },
+      {
+        "color": "Twilight Rose/Twilight Rose",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3DOBS_055759_1",
+        "sizes": [4, 6, 8, 10, 12]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-2-Race/_/prod9750541",
-    "price_retail": "78",
-    "product": "Swiftly Tech Long-Sleeve Shirt 2.0 Waist Length"
+    ]
   },
   {
+    "product": "Swiftly Relaxed Long-Sleeve Shirt Hip Length",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/tops-long-sleeve/Swiftly-Tech-LS-Breeze/_/prod8510157",
+    "price_retail": 78,
+    "items": [
+      {
+        "color": "Slate/White",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUQS_0572_1",
+        "sizes": [2, 4, 6, 8, "14"]
+      },
+      {
+        "color": "Sea Mist/Sea Mist",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3FUPS_069103_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
+      }
+    ]
+  },
+  {
+    "product": "Down for It All Vest",
+    "category": 2,
+    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Down-For-It-All-Vest/_/prod9200030",
+    "price_retail": 168,
+    "items": [
+      {
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW4CB0S_0001_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14, 16]
+      },
+      {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW4CB0S_031382_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14]
+      }
+    ]
+  },
+  {
+    "product": "Define Jacket Luon",
+    "category": 2,
+    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
+    "price_retail": 118,
     "items": [
       {
         "color": "Black",
@@ -75,233 +121,114 @@
         "sizes": [0, 2, 4, 6, 8, 10, 12, 14]
       },
       {
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW3GQ6S_031382_1",
+        "sizes": [0, 2, 4, 6, 8, 10, 12, 14]
+      },
+      {
         "color": "White",
         "img": "https://images.lululemon.com/is/image/lululemon/LW3HN7S_0002_1",
         "sizes": [0, 2, 4, 6, 8, 10, 12, 14]
-      },
-      {
-        "color": "True Navy",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3GQ6S_031382_1",
-        "sizes": [0, 2, 4, 6, "12", "14"]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket/_/prod5020054",
-    "price_retail": "118",
-    "product": "Define Jacket Luon"
+    ]
   },
   {
+    "product": "Cross Chill Jacket",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/W-Cross-Chill-Performance-Jacket/_/prod9750597",
+    "price_retail": 198,
     "items": [
       {
-        "color": "White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CFOS_0002_1",
-        "sizes": [0, 2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Grey Eucalyptus",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CAFS_064762_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Oil Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3ID8S_033123_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Sakura Pink",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CAFS_064671_1",
-        "sizes": ["2", "12"]
+        "color": "Black",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW4BOHS_0001_1",
+        "sizes": [0, 2, 4, 6, 8]
       },
       {
         "color": "Bone",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CFOS_027597_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Palm Court",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CFOS_037125_1",
-        "sizes": [4, 6, 8, 10]
+        "img": "https://images.lululemon.com/is/image/lululemon/LW4CEGS_027597_1",
+        "sizes": ["XS", "S", "M", "L", "XL"]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Define-Jacket-Nulu/_/prod11020158",
-    "price_retail": "118",
-    "product": "Define Jacket Nulu"
+    ]
   },
   {
+    "product": "Wunder Puff Jacket",
     "category": 2,
-    "items": [
-      {
-        "color": "Grey Eucalyptus",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3HJFS_064762_1",
-        "sizes": [2, 4, 6, 8, "14"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Nulu-Cropped-Define-Jacket/_/prod10930188",
-    "price_retail": "118",
-    "product": "Define Cropped Jacket Nulu"
-  },
-  {
-    "category": 2,
+    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Wunder-Puff-Jacket/_/prod9490219",
+    "price_retail": 298,
     "items": [
       {
         "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4CEPS_0001_1",
-        "sizes": ["XXS", "XS", "S", "M", "L", "XL"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Fast-and-Free-Cropped-Waterproof-Jacket/_/prod11700129",
-    "price_retail": "228",
-    "product": "Fast and Free Cropped Waterproof Jacket"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4BWQS_0001_1",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW4CACS_0001_1",
         "sizes": [0, 2, 4, 6, 8, 10, 12, 14]
-      },
-      {
-        "color": "Legacy Green",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW4BWQS_064494_1",
-        "sizes": [6, 8, 10, 12]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/jackets-and-hoodies-jackets/Wunder-Puff-Crop-Vest/_/prod9960896",
-    "price_retail": "248",
-    "product": "Wunder Puff Cropped Vest"
+    ]
   },
   {
+    "product": "Scuba Full-Zip Hoodie",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133",
+    "price_retail": 118,
     "items": [
       {
         "color": "Black",
         "img": "https://images.lululemon.com/is/image/lululemon/LW4AWMS_0001_1",
         "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-outerwear/Scuba-Hoodie-IV/_/prod8351133",
-    "price_retail": "118",
-    "product": "Scuba Full-Zip Hoodie"
+    ]
   },
   {
+    "product": "Hotty Hot High-Rise Lined Short 2.5\"",
     "category": 2,
-    "items": [
-      {
-        "color": "Heathered Core Ultra Light Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3IG6S_032493_1",
-        "sizes": ["XS/S", "M/L", "XL/XXL"]
-      },
-      {
-        "color": "Shade/Gold",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW3EOZS_067700_1",
-        "sizes": ["M/L"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-outerwear/Scuba-Oversized-Full-Zip-MD/_/prod10550073",
-    "price_retail": "128",
-    "product": "Scuba Oversized Full-Zip Hoodie"
-  },
-  {
-    "category": 2,
+    "link": "https://shop.lululemon.com/p/women-shorts/Hotty-Hot-Short-HR/_/prod9250076",
+    "price_retail": 68,
     "items": [
       {
         "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW1DTWS_0001_1",
-        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7ARJR_0001_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14, 16, 18]
       },
       {
-        "color": "Nightfall",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW1DTWS_1263_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/women-tanks/Align-Tank/_/prod9600539",
-    "price_retail": "68",
-    "product": "lululemon Align™ Tank Top Light Support, A/B Cup"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2E05S_0001_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/women-sports-bras/License-To-Train-Triangle-Bra-LS-AB-Cup-MD/_/prod11772124",
-    "price_retail": "48",
-    "product": "License to Train Triangle Bra Light Support, A/B Cup Logo"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Espresso",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2CRHS_019746_1",
-        "sizes": [2, 4, 6, 8, 10, 12, 14]
+        "color": "True Navy",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7AYYR_031382_1",
+        "sizes": [2, 4, 6, 8, 10, 12, 14, 16]
       },
       {
-        "color": "Nightfall",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2DBQS_1263_1",
-        "sizes": [8, 10, 12]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/women-sports-bras/Flow-Y-Bra-Nulu/_/prod8910081",
-    "price_retail": "48",
-    "product": "Flow Y Bra Nulu Light Support, A–C Cups"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2BYCS_0001_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Grey Eucalyptus",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2BYCS_064762_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Glaze Pink",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2BYCS_064717_1",
-        "sizes": [4, 6, 8, 10, 12]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/women-sports-bras/Like-a-Cloud-Bra/_/prod9960745",
-    "price_retail": "58",
-    "product": "Like a Cloud Bra Light Support, B/C Cup"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW2DZXS_0001_1",
-        "sizes": [6, 8, 10, 12, 14]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/women-sports-bras/Align-V-Neck-Bra-AB-Cup-Diamond/_/prod11750052",
-    "price_retail": "58",
-    "product": "lululemon Align™ V-Neck Bra Light Support, A/B Cup Diamond"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW7BG3S_0001_1",
+        "color": "White",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7AY1R_0002_1",
         "sizes": [2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+      },
+      {
+        "color": "Passionate",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7ARJR_068605_1",
+        "sizes": [6, 8, 10]
+      },
+      {
+        "color": "Sea Mist",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7ARJR_010169_1",
+        "sizes": [6, 8]
+      },
+      {
+        "color": "Beaming Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7AYYR_7356_1",
+        "sizes": [6, 8, 10, 12, 14, 16, 18, 20]
+      },
+      {
+        "color": "Cerulean Blue",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7AYYR_027754_1",
+        "sizes": [6, 8, 10, 12]
+      },
+      {
+        "color": "College Cobalt",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW7AYYR_062329_1",
+        "sizes": [6, 8, 10, 12, 14, 16, 18]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/women-shorts/Align-Short-6/_/prod8351150",
-    "price_retail": "64",
-    "product": "lululemon Align™ High-Rise Short 6\""
+    ]
   },
   {
+    "product": "Wunder Train High-Rise Tight 25\"",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/women-pants/Wunder-Train-HR-Tight-25/_/prod9750562",
+    "price_retail": 98,
     "items": [
       {
         "color": "Black",
@@ -314,381 +241,82 @@
         "sizes": [2, 4, 6, 8, 10, 12, 14]
       },
       {
-        "color": "Oasis Blue",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5CQDS_038470_1",
+        "color": "Storm Teal",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5CQDS_063407_1",
         "sizes": [2, 4, 6, 8, 10]
-      },
-      {
-        "color": "Oil Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5CQDS_033123_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Pow Pink Tone",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5CR7S_052261_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/women-pants/Wunder-Train-HR-Tight-25/_/prod9750562",
-    "price_retail": "98",
-    "product": "Wunder Train High-Rise Tight 25\""
+    ]
   },
   {
+    "product": "Softstreme High-Rise Pant Regular",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/womens-sweatpants/Softstreme-HR-Pant/_/prod11020340",
+    "price_retail": 128,
     "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5FUAS_0001_1",
-        "sizes": [2, 4, 6, 8, 10, 12]
-      },
-      {
-        "color": "Espresso",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5FUAS_019746_1",
-        "sizes": ["2"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-leggings/Wunder-Under-SmoothCover-HR-Tight-28/_/prod11580015",
-    "price_retail": "98",
-    "product": "Wunder Under SmoothCover High-Rise Tight 28\""
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5DITS_0001_1",
-        "sizes": [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
-      },
-      {
-        "color": "True Navy",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5DITS_031382_1",
-        "sizes": ["2", 10, 12, 14]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-leggings/Align-Pant-Full-Length-28/_/prod8780551",
-    "price_retail": "98",
-    "product": "lululemon Align™ High-Rise Pant 28\""
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5GILS_0001_1",
-        "sizes": ["XXXS", "XS", "S", "M", "L", "XL"]
-      },
-      {
-        "color": "Filbert Tan",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5GILS_065427_1",
-        "sizes": ["XS", "S", "M", "L", "XL"]
-      },
-      {
-        "color": "Jade Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5GILS_036303_1",
-        "sizes": ["XS", "S", "M", "L", "XL"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-sweatpants/Dance-Studio-Relaxed-Fit-MR-Cargo-Pant/_/prod11670127",
-    "price_retail": "128",
-    "product": "Dance Studio Relaxed-Fit Mid-Rise Cargo Pant"
-  },
-  {
-    "category": 2,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5EGTS_0001_1",
-        "sizes": ["6", 12, 14, 16]
-      },
-      {
-        "color": "Grey Eucalyptus",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5EGTS_064762_1",
-        "sizes": [4, 6, 8, 10, 12]
-      },
       {
         "color": "Bone",
         "img": "https://images.lululemon.com/is/image/lululemon/LW5EGTS_027597_1",
-        "sizes": [2, 4, 6, 8, 10, 12, 14, 16]
+        "sizes": [4, 6, 8, 10, 12, 14, 16, 18]
+      },
+      {
+        "color": "Twilight Rose",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5EGTS_055138_1",
+        "sizes": [2, 4, 6, 8, 10]
+      },
+      {
+        "color": "Rainforest Green",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5EGTS_049106_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/womens-sweatpants/Softstreme-HR-Pant/_/prod11020340",
-    "price_retail": "128",
-    "product": "Softstreme High-Rise Pant Regular"
+    ]
   },
   {
+    "product": "Softstreme Pintuck Mid-Rise Pant Regular",
     "category": 2,
+    "link": "https://shop.lululemon.com/p/women-pants/Softstreme-Pintuck-MR-Pant-Regular/_/prod11750307",
+    "price_retail": 128,
     "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_0001_1",
-        "sizes": ["S", "M", "L", "XL"]
-      },
       {
         "color": "Blue Willow",
         "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_066828_1",
-        "sizes": ["XXS", "S", "M", "L", "XL"]
-      },
-      {
-        "color": "Espresso",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW5GD3S_019746_1",
-        "sizes": ["XXS", "S", "M", "L", "XL"]
+        "sizes": ["M", "L", "XL"]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/women-pants/Softstreme-Pintuck-MR-Pant-Regular/_/prod11750307",
-    "price_retail": "128",
-    "product": "Softstreme Pintuck Mid-Rise Pant Regular"
+    ]
   },
   {
+    "product": "License to Train Mid-Rise Lightweight Jogger",
     "category": 2,
-    "items": [
-      {
-        "color": "White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW9EIJS_0002_1",
-        "sizes": ["S", "L"]
-      },
-      {
-        "color": "White/Heather Grey/Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LW9EIJS_035500_1",
-        "sizes": ["S", "M", "L"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/accessories/Power-Stride-Crew-Sock-3-Pack/_/prod11020298",
-    "price_retail": "48",
-    "product": "Women's Power Stride Crew Socks 3 Pack"
-  },
-  {
-    "category": 3,
+    "link": "https://shop.lululemon.com/p/womens-joggers/License-To-Train-MR-Lightweight-Jogger/_/prod11720181",
+    "price_retail": 148,
     "items": [
       {
         "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM3BXVS_0001_1",
-        "sizes": ["M", "XL", "XXL", "3XL", "4XL", "5XL"]
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5FZAS_0001_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
       },
-      {
-        "color": "White",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM3CZPS_0002_1",
-        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
-      },
-      {
-        "color": "Nautical Navy",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM3CZPS_026857_1",
-        "sizes": ["S", "M", "L", "XL", "XXL", "3XL", "4XL", "5XL"]
-      },
-      {
-        "color": "Heathered Silver Drop",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM3CAHS_035064_1",
-        "sizes": ["S", "M", "L", "XXL"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/men-ss-tops/The-Fundamental-T/_/prod9960862",
-    "price_retail": "58",
-    "product": "lululemon Fundamental T-Shirt"
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM7APYS_0001_1",
-        "sizes": ["S", "M", "L", "XL", "XXL"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/men-shorts/License-To-Train-Short-7/_/prod10400405",
-    "price_retail": "88",
-    "product": "License to Train Linerless Short 7\""
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Trench",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_043731_1",
-        "sizes": [
-          "28",
-          "30",
-          "31",
-          "32",
-          "33",
-          "34",
-          "36",
-          "38",
-          "40",
-          "42",
-          "44",
-          "46",
-          "48"
-        ]
-      },
-      {
-        "color": "Obsidian",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_032476_1",
-        "sizes": [
-          "28",
-          "30",
-          "31",
-          "32",
-          "33",
-          "34",
-          "36",
-          "38",
-          "40",
-          "42",
-          "44",
-          "46",
-          "48"
-        ]
-      },
-      {
-        "color": "Grey Eucalyptus",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5AO1S_064762_1",
-        "sizes": ["28", "30", "31", "32", "33", "34", "36", "38", "40"]
-      },
-      {
-        "color": "Oil Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5AO1S_033123_1",
-        "sizes": ["28", "30", "31", "32", "33", "34", "36", "38", "40"]
-      },
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_0001_1",
-        "sizes": [
-          "28",
-          "30",
-          "31",
-          "32",
-          "33",
-          "34",
-          "36",
-          "38",
-          "40",
-          "42",
-          "44",
-          "46",
-          "48"
-        ]
-      },
-      {
-        "color": "Silver Drop",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_033928_1",
-        "sizes": ["28", "30", "31", "32", "36", "40", "42", "44", "46", "48"]
-      },
-      {
-        "color": "True Navy",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM5ADES_031382_1",
-        "sizes": [
-          "28",
-          "30",
-          "31",
-          "32",
-          "33",
-          "34",
-          "36",
-          "38",
-          "40",
-          "42",
-          "44",
-          "46",
-          "48"
-        ]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/men-pants/ABC-Pant-Classic-32/_/prod9000003",
-    "price_retail": "128",
-    "product": "ABC Classic-Fit 5 Pocket Pant 32\"L Warpstreme"
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LM9A09S_0001_1",
-        "sizes": ["S/M"]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/gloves-mittens/License-to-Train-Training-Glove/_/prod9820513",
-    "price_retail": "42",
-    "product": "License to Train Training Gloves"
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY7S_0001_1",
-        "sizes": [""]
-      },
-      {
-        "color": "Blue Linen",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY2S_047763_1",
-        "sizes": [""]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/yoga-accessories/Yoga-Mat-Towel-Grip/_/prod10800032",
-    "price_retail": "64",
-    "product": "The Towel"
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AY6S_0001_1",
-        "sizes": [""]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/yoga-accessories/The-Small-Towel/_/prod1410049",
-    "price_retail": "18",
-    "product": "The (Small) Towel"
-  },
-  {
-    "category": 3,
-    "items": [
-      {
-        "color": "Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9ALTS_0001_1",
-        "sizes": [""]
-      }
-    ],
-    "link": "https://shop.lululemon.com/p/bags/Everywhere-Backpack-22L/_/prod11460250",
-    "price_retail": "78",
-    "product": "Everywhere Backpack 22L"
-  },
-  {
-    "category": 3,
-    "items": [
       {
         "color": "Black/Black",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_4780_1",
-        "sizes": [""]
-      },
-      {
-        "color": "True Navy",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_031382_1",
-        "sizes": [""]
-      },
-      {
-        "color": "Pow Pink Tone",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_052261_1",
-        "sizes": [""]
-      },
-      {
-        "color": "Traverse Grey",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_063557_1",
-        "sizes": [""]
-      },
-      {
-        "color": "Rose Blush",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_026956_1",
-        "sizes": [""]
-      },
-      {
-        "color": "Raw Linen",
-        "img": "https://images.lululemon.com/is/image/lululemon/LU9AX2S_048432_1",
-        "sizes": [""]
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5FZAS_4780_1",
+        "sizes": [2, 4, 6, 8, 10, 12]
       }
-    ],
-    "link": "https://shop.lululemon.com/p/bags/Everywhere-Belt-Bag/_/prod8900747",
-    "price_retail": "38",
-    "product": "Everywhere Belt Bag 1L"
+    ]
+  },
+  {
+    "product": "Scuba Mid Rise Oversized Jogger Tall",
+    "category": 2,
+    "link": "https://shop.lululemon.com/p/womens-joggers/Scuba-MR-Oversized-Jogger-Tall/_/prod11750599",
+    "price_retail": 118,
+    "items": [
+      {
+        "color": "Heathered Core Ultra Light Grey",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5GY8S_032493_1",
+        "sizes": ["XS", "S", "M", "L", "XL"]
+      },
+      {
+        "color": "Heathered Nightfall",
+        "img": "https://images.lululemon.com/is/image/lululemon/LW5GY8S_016352_1",
+        "sizes": ["XXXS", "XXS"]
+      }
+    ]
   }
 ]

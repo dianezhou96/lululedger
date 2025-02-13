@@ -10,20 +10,19 @@ import {
   useSearchParams,
   redirect,
 } from "react-router-dom";
-import { Layout, Grid, theme, Space } from "antd";
-import { Home } from "./Home";
+import { Layout, Grid, theme } from "antd";
 import { Shop } from "./Shop";
 import { Orders } from "./Orders";
 import { ShoppingTwoTone } from "@ant-design/icons";
 import { Account } from "./Account";
-import { Cart } from "../../types";
+import { Cart, ShopConfig } from "../../types";
 import { fetchCarts } from "../utils";
 import { CartSelector } from "./CartSelector";
 import { Spin } from "antd";
 import { SignUpButton } from "./SignUpButton";
-import { SHOP_NAME } from "../../constants";
 import { FAQ } from "./FAQ";
 import { InventoryForm } from "./InventoryForm";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { useBreakpoint } = Grid;
@@ -58,6 +57,24 @@ const App = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [shopConfig, setShopConfig] = useState<ShopConfig | null>(null);
+
+  const getShopConfig = async () => {
+    try {
+      const response = await fetch("/shop/config");
+      if (response.ok) {
+        const config = await response.json();
+        setShopConfig(config);
+      }
+    } catch (error) {
+      console.error("Failed to fetch shop configuration:", error);
+    }
+  };
+
+  useEffect(() => {
+    getShopConfig();
+  }, []);
 
   const credential = useMemo(
     () => searchParams.get("credential"),
@@ -129,111 +146,113 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-      <Layout>
-        <Sider
-          className="custom-sider"
-          breakpoint="lg"
-          collapsedWidth="0"
-          width="12rem"
-          collapsed={siderCollapsed}
-          onCollapse={setSiderCollapsed}
-          style={{ zIndex: 99 }}
-        >
-          <h2
-            style={{ color: "#f5f5f5", textAlign: "center" }}
-            className="logo"
-          >
-            lululedger
-          </h2>
-          <Nav handleMenuClick={handleMenuClick} />
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "auto",
-            }}
-          >
-            <a
-              href="https://scsf.org/san-francisco-ice-theatre/"
-              target="_blank"
-            >
-              <img src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG" />
-            </a>
-          </div>
-        </Sider>
+    <ShopConfigContext.Provider value={shopConfig}>
+      <div className="App">
         <Layout>
-          <Header
-            style={{
-              padding: 20,
-              background: colorBgContainer,
-              display: "flex",
-              alignItems: "center",
-              borderBottom: "solid #f5f5f5",
-            }}
+          <Sider
+            className="custom-sider"
+            breakpoint="lg"
+            collapsedWidth="0"
+            width="12rem"
+            collapsed={siderCollapsed}
+            onCollapse={setSiderCollapsed}
+            style={{ zIndex: 99 }}
           >
             <h2
-              className="shop-name"
-              id="shop-name"
-              style={{ lineHeight: "1.2em" }}
+              style={{ color: "#f5f5f5", textAlign: "center" }}
+              className="logo"
             >
-              {SHOP_NAME}
+              lululedger
             </h2>
+            <Nav handleMenuClick={handleMenuClick} />
             <div
               style={{
                 display: "flex",
-                marginLeft: "auto",
-                marginRight: 5,
-                position: "relative",
+                justifyContent: "center",
+                marginTop: "auto",
               }}
             >
-              <ShoppingTwoTone
-                style={{ fontSize: "2.5em" }}
-                onClick={() =>
-                  navigate({
-                    pathname: "/orders",
-                    search: location.search,
-                  })
-                }
-              />
+              <a
+                href="https://scsf.org/san-francisco-ice-theatre/"
+                target="_blank"
+              >
+                <img src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG" />
+              </a>
+            </div>
+          </Sider>
+          <Layout>
+            <Header
+              style={{
+                padding: 20,
+                background: colorBgContainer,
+                display: "flex",
+                alignItems: "center",
+                borderBottom: "solid #f5f5f5",
+              }}
+            >
+              <h2
+                className="shop-name"
+                id="shop-name"
+                style={{ lineHeight: "1.2em" }}
+              >
+                {shopConfig?.name}
+              </h2>
               <div
                 style={{
                   display: "flex",
-                  position: "absolute",
-                  height: "100%",
-                  width: "100%",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  pointerEvents: "none",
-                  top: "0.3rem",
-                  fontSize: "0.75rem",
+                  marginLeft: "auto",
+                  marginRight: 5,
+                  position: "relative",
                 }}
               >
-                {cartDirty ? (
-                  <Spin size="small" style={{ transform: "scale(0.75)" }} />
-                ) : (
-                  cartItemCount
-                )}
+                <ShoppingTwoTone
+                  style={{ fontSize: "2.5em" }}
+                  onClick={() =>
+                    navigate({
+                      pathname: "/orders",
+                      search: location.search,
+                    })
+                  }
+                />
+                <div
+                  style={{
+                    display: "flex",
+                    position: "absolute",
+                    height: "100%",
+                    width: "100%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    pointerEvents: "none",
+                    top: "0.3rem",
+                    fontSize: "0.75rem",
+                  }}
+                >
+                  {cartDirty ? (
+                    <Spin size="small" style={{ transform: "scale(0.75)" }} />
+                  ) : (
+                    cartItemCount
+                  )}
+                </div>
               </div>
-            </div>
-            {credential ? <CartSelector {...cartProps} /> : <SignUpButton />}
-          </Header>
-          <Content style={{}}>
-            <Routes>
-              <Route
-                path="/"
-                element={<NavWrapper to={"/shop"}></NavWrapper>}
-              />
-              <Route path="/shop" element={<Shop {...cartProps} />} />
-              <Route path="/orders" element={<Orders {...cartProps} />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/inventory" element={<InventoryForm />} />
-            </Routes>
-          </Content>
+              {credential ? <CartSelector {...cartProps} /> : <SignUpButton />}
+            </Header>
+            <Content style={{}}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<NavWrapper to={"/shop"}></NavWrapper>}
+                />
+                <Route path="/shop" element={<Shop {...cartProps} />} />
+                <Route path="/orders" element={<Orders {...cartProps} />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/inventory" element={<InventoryForm />} />
+              </Routes>
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
-    </div>
+      </div>
+    </ShopConfigContext.Provider>
   );
 };
 

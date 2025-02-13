@@ -201,4 +201,5 @@ notes.txt
 # old data
 scripts/data_*
 scripts/lulurls_*
+scripts/luludocs_*
 src/server/utils/data_*

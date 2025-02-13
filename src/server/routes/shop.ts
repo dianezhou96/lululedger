@@ -15,10 +15,11 @@ import {
   resolveFAQ,
   resolveProductCategory,
 } from "../utils/resolvers";
-import { AuthorizedRequest } from "./auth";
+import { AuthorizedRequest, RequestWithShopConfig } from "./auth";
 import { send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
+const useShopConfig = require("./config").useShopConfig;
 
 const router = express.Router();
 router.use(express.json());
@@ -317,7 +318,8 @@ async function buyer_has_item(buyer_id, cart_item_id) {
 router.post(
   "/send-order-received-email",
   user_authenticated,
-  async (req: AuthorizedRequest, res: Response) => {
+  useShopConfig,
+  async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (req.buyer.email !== req.body.email) {
       console.log("unauthorized");
       return;
@@ -327,7 +329,8 @@ router.post(
       req.body.email,
       req.body.credential,
       req.body.skater,
-      req.body.team
+      req.body.team,
+      req.shopConfig
     );
     res.status(200).end();
   }

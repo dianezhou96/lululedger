@@ -1,6 +1,6 @@
 import { Button, Popconfirm } from "antd";
 import Table, { ColumnType } from "antd/es/table";
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { renderToString } from "react-dom/server";
 
@@ -14,7 +14,7 @@ import {
 } from "../utils";
 import { CartTable } from "./CartTable";
 import { useReactToPrint } from "react-to-print";
-import { CLOSED } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type RecordType = {
   key: number;
@@ -40,6 +40,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
   };
+  const shopConfig = useContext(ShopConfigContext);
   const hasSelected = selectedRowKeys.length > 0;
 
   const sendOrderReceivedEmail = async () => {
@@ -85,7 +86,10 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
                   ))}
               </>
             ),
-            total: getPriceString(getTotalPriceByBuyer(buyer), 2),
+            total: getPriceString(
+              getTotalPriceByBuyer(buyer, shopConfig?.discount ?? 0.4),
+              2
+            ),
             skater: buyer.skater_name,
             team: buyer.skater_team,
           }))
@@ -105,7 +109,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         email: buyer.email,
         skaterName: buyer.skater_name,
         skaterTeam: buyer.skater_team,
-        totalPrice: getTotalPriceByBuyer(buyer),
+        totalPrice: getTotalPriceByBuyer(buyer, shopConfig?.discount ?? 0.4),
         totalItems: getTotalLuluByBuyer(buyer),
         totalOut: getTotalOutByBuyer(buyer),
         cartsSubmitted: buyer.carts.filter((cart) => cart.submitted).length,
@@ -236,8 +240,11 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
     "...";
 
   const totalPriceLululemon =
-    buyers?.reduce((total, buyer) => total + getPriceLuluByBuyer(buyer), 0) ??
-    "...";
+    buyers?.reduce(
+      (total, buyer) =>
+        total + getPriceLuluByBuyer(buyer, shopConfig?.discount ?? 0.4),
+      0
+    ) ?? "...";
 
   return (
     <>
@@ -261,7 +268,10 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         onConfirm={sendInvoiceEmail}
         okText="Confirm"
       >
-        <Button type="primary" disabled={!hasSelected || !CLOSED}>
+        <Button
+          type="primary"
+          disabled={!hasSelected || !(shopConfig?.status === "open")}
+        >
           Send invoice
         </Button>
       </Popconfirm>

@@ -1,3 +1,14 @@
+export interface ShopConfig {
+  name: string;
+  status: "preview" | "open" | "closed";
+  start_date: string;
+  deadline: string;
+  discount: number;
+  colors: string[];
+  sizes: string[];
+  products: string[];
+}
+
 export type ItemMetadata = {
   id: number;
   color: string | null;
@@ -13,6 +24,7 @@ export type ProductCategoryMetadata = {
   id: number;
   name: string;
   description: string;
+  link_only?: boolean;
 };
 
 export type ProductCategory = ProductCategoryMetadata & {
@@ -24,10 +36,12 @@ export type ProductMetadata = {
   name: string;
   price_actual: number | null;
   price_retail: number | null;
+  description?: string;
 };
 
 export type Product = ProductMetadata & {
   link: string | null;
+  link_text?: string;
   images: string[] | null;
   items: Item[];
 };
@@ -105,9 +119,7 @@ export type ProductWithQtys = {
   items: ItemWithQty[];
 };
 
-export type ProductCategoryWithQtys = {
-  id: number;
-  name: string;
+export type ProductCategoryWithQtys = ProductCategoryMetadata & {
   products: ProductWithQtys[];
 };
 

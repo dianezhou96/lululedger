@@ -8,7 +8,7 @@ import {
   Tag,
 } from "antd";
 import { ColumnType } from "antd/es/table";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Cart, ProductMetadata } from "../../types";
 import { getPrice, getPriceString, groupAndSortCartItems } from "../utils";
 import {
@@ -20,7 +20,7 @@ import {
   InfoCircleOutlined,
   MinusCircleOutlined,
 } from "@ant-design/icons";
-import { CLOSED, DEADLINE } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type RecordType = {
   key: number;
@@ -55,24 +55,28 @@ export const CartTable: React.FC<CartTableProps> = ({
   showFulfilled = false,
 }) => {
   const [editMode, setEditMode] = useState(false);
+  const shopConfig = useContext(ShopConfigContext);
 
-  const dataSource: RecordType[] = groupAndSortCartItems(cart).map(
-    (cartItem) => {
-      const product = cartItem.item.product;
-      const price = getPrice(product);
-      return {
-        key: cartItem.id,
-        product: product,
-        color: cartItem.item.color,
-        size: cartItem.item.size,
-        price: price,
-        quantity: cartItem.quantity,
-        status: cartItem.status ?? (showFulfilled ? "Ordered" : ""),
-        totalPrice:
-          cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
-      };
-    }
-  );
+  const dataSource: RecordType[] = groupAndSortCartItems(
+    cart,
+    shopConfig?.products ?? [],
+    shopConfig?.sizes ?? [],
+    shopConfig?.colors ?? []
+  ).map((cartItem) => {
+    const product = cartItem.item.product;
+    const price = getPrice(product, shopConfig?.discount ?? 0.4);
+    return {
+      key: cartItem.id,
+      product: product,
+      color: cartItem.item.color,
+      size: cartItem.item.size,
+      price: price,
+      quantity: cartItem.quantity,
+      status: cartItem.status ?? (showFulfilled ? "Ordered" : ""),
+      totalPrice:
+        cartItem.status === "Out of stock" ? 0 : price * cartItem.quantity,
+    };
+  });
 
   const [tableData, setTableData] = useState(dataSource);
 
@@ -209,7 +213,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             <Tag icon={<CheckCircleOutlined />} color="success">
               Submitted
             </Tag>
-          ) : CLOSED ? (
+          ) : shopConfig?.status === "closed" ? (
             <Tag icon={<MinusCircleOutlined />} color="default">
               Canceled
             </Tag>
@@ -257,12 +261,12 @@ export const CartTable: React.FC<CartTableProps> = ({
             )}
             <Button onClick={handleCancel}>Cancel</Button>
           </Space>
-        ) : editable && !CLOSED ? (
+        ) : editable && shopConfig?.status === "open" ? (
           <Space direction="vertical">
             {tableData.length > 0 &&
               (cart.submitted
-                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline (${DEADLINE}).`
-                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline (${DEADLINE}).`)}
+                ? `Order for ${cart.name} has been submitted! You may still edit this order until the deadline (${shopConfig?.deadline}).`
+                : `Click "Submit this order!" to confirm selections for ${cart.name}. After submission, you may still edit this order until the deadline (${shopConfig?.deadline}).`)}
             <Space>
               {tableData.length > 0 && !cart.submitted && (
                 <Popconfirm
