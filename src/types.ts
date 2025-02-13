@@ -77,9 +77,9 @@ type CartItemMetadata = {
 
 export const SKATER_TEAMS = [
   "Adult",
-  "Junior",
-  "Novice",
-  "Preliminary",
+  "Gold",
+  "Silver",
+  "Bronze",
   "Alum",
   "Coach",
 ] as const;
