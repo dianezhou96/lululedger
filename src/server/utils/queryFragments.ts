@@ -86,7 +86,7 @@ export const ItemWithQtyFragment = {
 };
 
 export const ProductCategoryWithQtyFragment = {
-  fields: ["name"],
+  fields: ["name", "link_only"],
   populate: {
     products: {
       fields: ["name", "price_retail", "price_actual"],

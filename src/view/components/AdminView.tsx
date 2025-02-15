@@ -63,11 +63,11 @@ export const AdminView: React.FC = () => {
         (total, category) =>
           total +
           (category.link_only
-            ? category.products.reduce(
+            ? 0
+            : category.products.reduce(
                 (total, product) => total + getProductQuantity(product),
                 0
-              )
-            : 0),
+              )),
         0
       ) ?? "..."
     );
@@ -90,15 +90,17 @@ export const AdminView: React.FC = () => {
             <p style={{ textAlign: "center" }}>
               Total quantity of Lululemon: {getTotalQtyLululemon()}
             </p>
-            {items.map((category) => (
-              <div key={category.id}>
-                <h3 style={{ textAlign: "center" }}>{category.name}</h3>
-                <ItemTable
-                  category={category}
-                  refetch={() => setLoading(true)}
-                />
-              </div>
-            ))}
+            {items
+              .filter((category) => !category.link_only)
+              .map((category) => (
+                <div key={category.id}>
+                  <h3 style={{ textAlign: "center" }}>{category.name}</h3>
+                  <ItemTable
+                    category={category}
+                    refetch={() => setLoading(true)}
+                  />
+                </div>
+              ))}
           </>
         ) : (
           <Loading />
