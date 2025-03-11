@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Form,
@@ -9,7 +9,7 @@ import {
   Popconfirm,
 } from "antd";
 import { BuyerPost, SKATER_TEAMS } from "../../types";
-import { CLOSED, PREVIEW, START_DATE } from "../../constants";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 type AlertObject = {
   message: string;
@@ -24,6 +24,7 @@ export const AccountForm: React.FC = () => {
   });
   const [showAlert, setShowAlert] = useState(false);
   const [submittedSuccessfully, setSubmittedSuccessfully] = useState(false);
+  const shopConfig = useContext(ShopConfigContext);
 
   useEffect(() => {
     alert.message.length > 0 && alert.type
@@ -101,12 +102,12 @@ export const AccountForm: React.FC = () => {
           span: 8,
         }}
         requiredMark={false}
-        disabled={submittedSuccessfully || CLOSED}
+        disabled={submittedSuccessfully || !(shopConfig?.status === "open")}
       >
-        {CLOSED && (
+        {!(shopConfig?.status === "open") && (
           <p style={{ color: "red" }}>
-            {PREVIEW
-              ? `Ordering begins on ${START_DATE}. Please check back then!`
+            {shopConfig?.status === "preview"
+              ? `Ordering begins on ${shopConfig?.start_date}. Please check back then!`
               : "This fundraiser has ended."}
           </p>
         )}

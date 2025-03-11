@@ -1,16 +1,10 @@
 import { Alert } from "antd";
-import React, { useEffect, useState } from "react";
-import {
-  CLOSED,
-  DEADLINE,
-  FUNDRAISER_CATEGORY_ID,
-  PREVIEW,
-  START_DATE,
-} from "../../constants";
+import React, { useContext, useEffect, useState } from "react";
 import { Product, ProductCategory } from "../../types";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 import { defaultProductSort } from "../utils";
 import { CartProps } from "./App";
-import { FundraiserCard } from "./FundraiserCard";
+import { LinkOnlyCard } from "./LinkOnlyCard";
 import { Loading } from "./Loading";
 import { COVER_WIDTH, ProductCard } from "./ProductCard";
 
@@ -19,6 +13,7 @@ const GAP = 20;
 export const Shop: React.FC<CartProps> = (props) => {
   const [products, setProducts] = useState<ProductCategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const shopConfig = useContext(ShopConfigContext);
 
   const fetchProducts = async () => {
     const products = await fetch("/shop/products").then((data) => data.json());
@@ -33,28 +28,35 @@ export const Shop: React.FC<CartProps> = (props) => {
   const numUnsubmitted = props.carts.filter((cart) => !cart.submitted).length;
   const numSubmitted = props.carts.filter((cart) => cart.submitted).length;
 
-  const announcement = CLOSED ? (
-    PREVIEW ? (
-      <>
-        Items offered in this fundraiser are still TBD and subject to
-        availability. <b>Ordering begins on {START_DATE}.</b>
-      </>
-    ) : (
-      <>
-        The Lululemon order deadline has passed. You can be notified of the next
-        fundraiser by filling out{" "}
-        <a href="https://forms.gle/EUqCGE7G6GeuoNnC7" target="_blank">
-          this form.
-        </a>
-      </>
-    )
-  ) : (
-    <span>
-      <b>Deadline to order: </b>
-      {/* <del>Saturday, November 25</del>{" "} */}
-      <b>{DEADLINE}</b>
-    </span>
-  );
+  let announcement = <></>;
+  switch (shopConfig?.status) {
+    case "open":
+      announcement = (
+        <span>
+          <b>Deadline to order: {shopConfig?.deadline}</b>
+        </span>
+      );
+      break;
+    case "preview":
+      announcement = (
+        <>
+          Items offered in this fundraiser are still TBD and subject to
+          availability. <b>Ordering begins on {shopConfig?.start_date}.</b>
+        </>
+      );
+      break;
+    case "closed":
+      announcement = (
+        <>
+          The Lululemon order deadline has passed. You can be notified of the
+          next fundraiser by filling out{" "}
+          <a href="https://forms.gle/EUqCGE7G6GeuoNnC7" target="_blank">
+            this form.
+          </a>
+        </>
+      );
+      break;
+  }
 
   return loading ? (
     <Loading />
@@ -71,7 +73,7 @@ export const Shop: React.FC<CartProps> = (props) => {
           marginTop: 16,
         }}
       />
-      {numUnsubmitted > 0 && !CLOSED && (
+      {numUnsubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <b>
@@ -89,7 +91,7 @@ export const Shop: React.FC<CartProps> = (props) => {
           }}
         />
       )}
-      {numSubmitted > 0 && !CLOSED && (
+      {numSubmitted > 0 && shopConfig?.status === "open" && (
         <Alert
           message={
             <span>
@@ -107,8 +109,9 @@ export const Shop: React.FC<CartProps> = (props) => {
         />
       )}
       {products.map((category) =>
-        !CLOSED ? (
-          // || (CLOSED && category.id === FUNDRAISER_CATEGORY_ID) ? (
+        shopConfig?.status === "closed" && !category.link_only ? (
+          <></>
+        ) : (
           <div key={category.id} style={{ padding: GAP }}>
             <div style={{ textAlign: "center", margin: "auto" }}>
               <h2>{category.name}</h2>
@@ -123,18 +126,20 @@ export const Shop: React.FC<CartProps> = (props) => {
                 marginTop: GAP,
               }}
             >
-              {(defaultProductSort(category.products) as Product[]).map(
-                (product) => (
+              {(
+                defaultProductSort(
+                  shopConfig?.products ?? [],
+                  category.products
+                ) as Product[]
+              ).map((product) =>
+                category.link_only ? (
+                  <LinkOnlyCard key={product.id} product={product} />
+                ) : (
                   <ProductCard key={product.id} product={product} {...props} />
                 )
               )}
-              {/* {category.id === FUNDRAISER_CATEGORY_ID &&
-                orderCardProps.map((props) => <OrderCard {...props} />)} */}
-              {/* {category.id === FUNDRAISER_CATEGORY_ID && <FundraiserCard />} */}
             </div>
           </div>
-        ) : (
-          <></>
         )
       )}
     </div>

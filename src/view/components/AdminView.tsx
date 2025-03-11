@@ -1,7 +1,6 @@
 import { Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { FUNDRAISER_CATEGORY_ID } from "../../constants";
 import { BuyerCarts, ProductCategoryWithQtys } from "../../types";
 import { getProductQuantity } from "../utils";
 import { BuyerTable } from "./BuyerTable";
@@ -63,7 +62,7 @@ export const AdminView: React.FC = () => {
       items?.reduce(
         (total, category) =>
           total +
-          (category.id === FUNDRAISER_CATEGORY_ID
+          (category.link_only
             ? 0
             : category.products.reduce(
                 (total, product) => total + getProductQuantity(product),
@@ -91,15 +90,17 @@ export const AdminView: React.FC = () => {
             <p style={{ textAlign: "center" }}>
               Total quantity of Lululemon: {getTotalQtyLululemon()}
             </p>
-            {items.map((category) => (
-              <div key={category.id}>
-                <h3 style={{ textAlign: "center" }}>{category.name}</h3>
-                <ItemTable
-                  category={category}
-                  refetch={() => setLoading(true)}
-                />
-              </div>
-            ))}
+            {items
+              .filter((category) => !category.link_only)
+              .map((category) => (
+                <div key={category.id}>
+                  <h3 style={{ textAlign: "center" }}>{category.name}</h3>
+                  <ItemTable
+                    category={category}
+                    refetch={() => setLoading(true)}
+                  />
+                </div>
+              ))}
           </>
         ) : (
           <Loading />

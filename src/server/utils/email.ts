@@ -1,7 +1,6 @@
 import sgMail = require("@sendgrid/mail");
 import { SG_API_KEY, GMAIL_TOKEN, SHOP_URL, ORDERS_URL } from "../config";
 import nodemailer = require("nodemailer");
-import { DEADLINE, SHOP_NAME } from "../../constants";
 
 sgMail.setApiKey(SG_API_KEY);
 const transporter = nodemailer.createTransport({
@@ -21,8 +20,15 @@ type Email = {
   html: string;
 };
 
-export async function send_magic_link(name, email, credential, skater, team) {
-  const text = `Hi ${name}, this is your secret login link to order from ${SHOP_NAME}! Use this link to view and edit your orders. Please do not share it with those you do not wish to have access to your account.
+export async function send_magic_link(
+  name,
+  email,
+  credential,
+  skater,
+  team,
+  shopName
+) {
+  const text = `Hi ${name}, this is your secret login link to order from ${shopName}! Use this link to view and edit your orders. Please do not share it with those you do not wish to have access to your account.
 ${SHOP_URL}?credential=${credential}`;
   const html = `
   <!DOCTYPE html>
@@ -62,7 +68,7 @@ ${SHOP_URL}?credential=${credential}`;
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to ${SHOP_NAME}!</h1>
+    <h1>Welcome to ${shopName}!</h1>
     <p>Hi ${name},</p>
     <p>Thanks for checking out our fundraiser! To access your account, please use the following link:</p>
     <p><b><a href="${SHOP_URL}?credential=${credential}" class="login-link">View and edit my orders</a></b></p>
@@ -78,7 +84,7 @@ ${SHOP_URL}?credential=${credential}`;
   const msg = {
     to: email,
     from: "SFIT Diane <dianez.sfit@gmail.com>",
-    subject: SHOP_NAME,
+    subject: shopName,
     text: text,
     html: html,
   };
@@ -135,9 +141,10 @@ export async function send_order_received(
   email,
   credential,
   skater,
-  team
+  team,
+  shopConfig
 ) {
-  const text = `Hi ${name}, your ${SHOP_NAME} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
+  const text = `Hi ${name}, your ${shopConfig.name} order has been received! For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}`;
   const html = `
   <!DOCTYPE html>
 <html>
@@ -169,7 +176,7 @@ export async function send_order_received(
     <p>Hi ${name},</p>
     <p>Thanks for ordering through our fundraiser! This email confirms that we received your order.</p>
     <p>For your reference, you can view your order at this link: ${ORDERS_URL}?credential=${credential}</p>
-    <p>You may edit your order until the deadline: ${DEADLINE}. (If it's after the deadline and you received this email, your order still made it through!)</p>
+    <p>You may edit your order until the deadline: ${shopConfig.deadline}. (If it's after the deadline and you received this email, your order still made it through!)</p>
     <p>We will do our best to fulfill as many items in your order as possible, but note that some items may be out of stock, or may not meet the minimum requirement for bulk discount, in which case we won't order the item and you won't be charged for it.</p>
     <p>You can expect an invoice and instructions for payment and pickup within a couple weeks after the deadline. Reminder: <b>We do NOT offer shipping or delivery directly to your location.</b> All items will be shipped to one location for the bulk discount and distributed via SFIT skaters; if this does not work for you, please cancel your order. We have noted that you are affiliated with SFIT through ${skater} of the ${team} team.</p>
     <p>Thank you for your patience and support!</p>
@@ -181,7 +188,7 @@ export async function send_order_received(
   const msg = {
     to: email,
     from: "SFIT Diane <dianez.sfit@gmail.com>",
-    subject: `${SHOP_NAME} Order Received`,
+    subject: `${shopConfig.name} Order Received`,
     text: text,
     html: html,
   };
@@ -189,8 +196,16 @@ export async function send_order_received(
   gmail_send(msg);
 }
 
-export async function send_invoice(name, email, order, total, skater, team) {
-  const text = `Hi ${name}, your ${SHOP_NAME} order total is ${total}! You need html enabled in email to see your invoice and get payment instructions. Please contact us if you need help with this.`;
+export async function send_invoice(
+  name,
+  email,
+  order,
+  total,
+  skater,
+  team,
+  shopName
+) {
+  const text = `Hi ${name}, your ${shopName} order total is ${total}! You need html enabled in email to see your invoice and get payment instructions. Please contact us if you need help with this.`;
   const html = `
   <!DOCTYPE html>
 <html>
@@ -215,7 +230,7 @@ export async function send_invoice(name, email, order, total, skater, team) {
 <body>
   <div>
     <p>Hi ${name},</p>
-    <p>Thank you so much for supporting us through the ${SHOP_NAME}! See your invoice at the bottom of this email.</p>
+    <p>Thank you so much for supporting us through the ${shopName}! See your invoice at the bottom of this email.</p>
     <p>Your total due is <b>${total}</b>. Please follow these instructions to make your payment:
       <ol>
         <li>Pay Jennifer Sung (CC'ed) via one of the following methods:
@@ -239,7 +254,7 @@ export async function send_invoice(name, email, order, total, skater, team) {
     to: email,
     cc: "retinacat@yahoo.com",
     from: "SFIT Diane <dianez.sfit@gmail.com>",
-    subject: `${SHOP_NAME} Invoice & Payment Instructions`,
+    subject: `${shopName} Invoice & Payment Instructions`,
     text: text,
     html: html,
   };

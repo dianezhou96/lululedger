@@ -1,13 +1,7 @@
 import express = require("express");
-import { Request, Response } from "express";
+import { Response } from "express";
 import { RequestInfo, RequestInit } from "node-fetch";
-import {
-  BuyerCarts,
-  Cart,
-  FAQData,
-  InventoryData,
-  ProductCategory,
-} from "../../types";
+import { BuyerCarts, InventoryData } from "../../types";
 import sgMail = require("@sendgrid/mail");
 import { API_TOKEN, API_URI, SG_API_KEY } from "../config";
 import qs = require("qs");
@@ -21,10 +15,11 @@ import {
   resolveInventory,
   resolveProductCategoryWithQtys,
 } from "../utils/resolvers";
-import { AuthorizedRequest } from "./auth";
+import { AuthorizedRequest, RequestWithShopConfig } from "./auth";
 import { send_invoice, send_order_received } from "../utils/email";
 
 const user_authenticated = require("./auth").user_authenticated;
+const useShopConfig = require("./config").useShopConfig;
 
 const router = express.Router();
 router.use(express.json());
@@ -144,7 +139,7 @@ router.put(
 router.post(
   "/send-order-received-email",
   user_authenticated,
-  async (req: AuthorizedRequest, res: Response) => {
+  async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (!req.buyer.admin) {
       console.log("unauthorized");
       return;
@@ -159,7 +154,8 @@ router.post(
         buyer.email,
         btoa(JSON.stringify(credential)),
         buyer.skater,
-        buyer.team
+        buyer.team,
+        req.shopConfig
       );
     }
     res.status(200).end();
@@ -170,7 +166,8 @@ router.post(
 router.post(
   "/send-invoice-email",
   user_authenticated,
-  async (req: AuthorizedRequest, res: Response) => {
+  useShopConfig,
+  async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (!req.buyer.admin) {
       console.log("unauthorized");
       return;
@@ -182,7 +179,8 @@ router.post(
         buyer.order,
         buyer.total,
         buyer.skater,
-        buyer.team
+        buyer.team,
+        req.shopConfig.name
       );
     }
     res.status(200).end();

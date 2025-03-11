@@ -26,14 +26,19 @@ It's preferred to run both `watch` and `watch_server` above for typical developm
 
 ### Update data
 
-- A lot of constants are in `src/constants.ts`. TODO: Maybe these should live in a DB.
-- Script to automate getting links from Lululemon: `scripts/lulurl_parser.ts`.
+- Script to automate getting links from public Lululemon website: `scripts/lulurl_parser.ts`.
   1. Update data in `scripts/lulurls.txt`
   2. Run `npm run lulurl_parser`
+  3. Put the result in `src/server/utils/data.ts` and edit accordingly.
+- OR: Script to parse list of products, sizes, and links: `scripts/luludoc_parser.py`.
+  1. Update data in `scripts/luludocs.txt`
+  2. Run `python3 luludoc_parser.py` from the `scripts` directory
+  3. Put the result in `src/server/utils/data.ts`
 - Script to automate adding products to the DB: `src/server/utils/populate_db.ts`.
   1. Update data in `src/server/utils/data.ts`.
   2. Transpile the code (i.e. run `npx tsc`).
   3. Run `node dist/server/utils/populate_db.js`.
+- Update the shop configuration in the DB.
 
 ### Deployment
 

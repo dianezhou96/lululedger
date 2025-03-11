@@ -1,4 +1,3 @@
-import { COLORS, DISCOUNT, ITEM_SIZES } from "../constants";
 import {
   BuyerCarts,
   Cart,
@@ -12,14 +11,18 @@ import { data } from "../server/utils/data";
 
 export function getPrice(
   product: ProductMetadata,
-  isVolunteer = false
+  discount: number,
+  isVolunteer = false,
+  numDecimal = 0
 ): number {
   if (product.price_actual) {
     return Number(product.price_actual.toFixed(0));
   }
   if (product.price_retail) {
-    const discount = isVolunteer ? 0.5 : DISCOUNT;
-    return Number((product.price_retail * (1 - discount)).toFixed(0));
+    const discountToApply = isVolunteer ? 0.5 : discount;
+    return Number(
+      (product.price_retail * (1 - discountToApply)).toFixed(numDecimal)
+    );
   }
   return 0;
 }
@@ -37,27 +40,41 @@ export async function fetchCarts(credential: string) {
   });
 }
 
-export function defaultProductSort(products: ProductMetadata[]) {
-  return products.sort((a, b) => findProductIdx(a) - findProductIdx(b));
+export function defaultProductSort(
+  productsSorted: string[],
+  products: ProductMetadata[]
+) {
+  return products.sort(
+    (a, b) =>
+      findProductIdx(productsSorted, a) - findProductIdx(productsSorted, b)
+  );
 }
 
-function findProductIdx(product: ProductMetadata) {
-  return data.findIndex((entry) => entry.product === product.name);
+function findProductIdx(productsSorted: string[], product: ProductMetadata) {
+  return productsSorted.findIndex((entry) => entry === product.name);
 }
 
-export function defaultItemSort(items: ItemMetadata[]) {
+export function defaultItemSort(
+  itemSizes: string[],
+  itemColors: string[],
+  items: ItemMetadata[]
+) {
   // sort by size
-  const itemsBySize = items.sort((a, b) => findSizeIdx(a) - findSizeIdx(b));
+  const itemsBySize = items.sort(
+    (a, b) => findSizeIdx(itemSizes, a) - findSizeIdx(itemSizes, b)
+  );
   // then sort by color
-  return itemsBySize.sort((a, b) => findColorIdx(a) - findColorIdx(b));
+  return itemsBySize.sort(
+    (a, b) => findColorIdx(itemColors, a) - findColorIdx(itemColors, b)
+  );
 }
 
-function findSizeIdx(item: ItemMetadata) {
-  return ITEM_SIZES.findIndex((size) => size === item.size);
+function findSizeIdx(itemSizes: string[], item: ItemMetadata) {
+  return itemSizes.findIndex((size) => size === item.size);
 }
 
-function findColorIdx(item: ItemMetadata) {
-  return COLORS.findIndex((color) => color === item.color);
+function findColorIdx(itemColors: string[], item: ItemMetadata) {
+  return itemColors.findIndex((color) => color === item.color);
 }
 
 export function isValidQty(value) {
@@ -120,7 +137,7 @@ export function getTotalOutByBuyer(buyer: BuyerCarts) {
     .reduce((total, cart) => total + getTotalOutByCart(cart), 0);
 }
 
-function getPriceLuluByCart(cart: Cart) {
+function getPriceLuluByCart(cart: Cart, discount: number) {
   return (
     cart.cart_items
       // Lululemon items have a retail price, while others don't.
@@ -128,19 +145,23 @@ function getPriceLuluByCart(cart: Cart) {
       .filter((cartItem) => cartItem.status !== "Out of stock")
       .reduce(
         (total, cartItem) =>
-          total + cartItem.quantity * getPrice(cartItem.item.product),
+          total + cartItem.quantity * getPrice(cartItem.item.product, discount),
         0
       )
   );
 }
 
-export function getPriceLuluByBuyer(buyer: BuyerCarts) {
+export function getPriceLuluByBuyer(buyer: BuyerCarts, discount: number) {
   return buyer.carts
     .filter((cart) => cart.submitted)
-    .reduce((total, cart) => total + getPriceLuluByCart(cart), 0);
+    .reduce((total, cart) => total + getPriceLuluByCart(cart, discount), 0);
 }
 
-function getTotalPriceByCart(cart: Cart, isVolunteer = false) {
+function getTotalPriceByCart(
+  cart: Cart,
+  discount: number,
+  isVolunteer = false
+) {
   return (
     (isVolunteer ? 1 : 1.1) *
     cart.cart_items
@@ -148,27 +169,40 @@ function getTotalPriceByCart(cart: Cart, isVolunteer = false) {
       .reduce(
         (total, cartItem) =>
           total +
-          cartItem.quantity * getPrice(cartItem.item.product, isVolunteer),
+          cartItem.quantity *
+            getPrice(cartItem.item.product, discount, isVolunteer),
         0
       )
   );
 }
 
-export function getTotalPriceByBuyer(buyer: BuyerCarts) {
+export function getTotalPriceByBuyer(buyer: BuyerCarts, discount: number) {
   return buyer.carts
     .filter((cart) => cart.submitted)
     .reduce(
       (total, cart) =>
-        total + getTotalPriceByCart(cart, buyer.volunteer ?? false),
+        total + getTotalPriceByCart(cart, discount, buyer.volunteer ?? false),
       0
     );
 }
 
-export function groupAndSortCartItems(cart: Cart) {
+export function groupAndSortCartItems(
+  cart: Cart,
+  productsSorted: string[],
+  itemSizes: string[],
+  itemColors: string[]
+) {
   return cart.cart_items
-    .sort((a, b) => findSizeIdx(a.item) - findSizeIdx(b.item))
-    .sort((a, b) => findColorIdx(a.item) - findColorIdx(b.item))
     .sort(
-      (a, b) => findProductIdx(a.item.product) - findProductIdx(b.item.product)
+      (a, b) => findSizeIdx(itemSizes, a.item) - findSizeIdx(itemSizes, b.item)
+    )
+    .sort(
+      (a, b) =>
+        findColorIdx(itemColors, a.item) - findColorIdx(itemColors, b.item)
+    )
+    .sort(
+      (a, b) =>
+        findProductIdx(productsSorted, a.item.product) -
+        findProductIdx(productsSorted, b.item.product)
     );
 }

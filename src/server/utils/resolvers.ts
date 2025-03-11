@@ -22,6 +22,7 @@ function resolveProductCategoryMetadata(category): ProductCategoryMetadata {
     id: category.id,
     name: category.attributes.name,
     description: category.attributes.description,
+    link_only: category.attributes.link_only,
   };
 }
 
@@ -38,6 +39,7 @@ function resolveProductMetadata(product): ProductMetadata {
     name: product.attributes.name,
     price_actual: product.attributes.price_actual,
     price_retail: product.attributes.price_retail,
+    description: product.attributes.description,
   };
 }
 
@@ -45,6 +47,7 @@ function resolveProduct(product): Product {
   return {
     ...resolveProductMetadata(product),
     link: product.attributes.link,
+    link_text: product.attributes.link_text,
     images: product.attributes.images,
     items: product.attributes.items.data?.map(resolveItem) ?? [],
   };
