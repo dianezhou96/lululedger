@@ -98,6 +98,7 @@ export function resolveBuyer(buyer): Buyer {
     skater_name: buyer.attributes.skater_name,
     skater_team: buyer.attributes.skater_team,
     admin: buyer.attributes.admin,
+    volunteer: buyer.attributes.volunteer,
   };
 }
 

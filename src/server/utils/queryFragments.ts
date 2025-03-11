@@ -58,6 +58,7 @@ export const BuyerFragment = {
     "skater_team",
     "magic_token",
     "admin",
+    "volunteer",
   ],
 };
 
