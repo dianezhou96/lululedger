@@ -270,7 +270,7 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       >
         <Button
           type="primary"
-          disabled={!hasSelected || !(shopConfig?.status === "open")}
+          disabled={!hasSelected || !(shopConfig?.status === "closed")}
         >
           Send invoice
         </Button>
