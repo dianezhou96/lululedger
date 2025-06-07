@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Buyer } from "../../types";
 import { useSearchParams } from "react-router-dom";
 import { AccountForm } from "./AccountForm";
 import { Button, Card } from "antd";
 import { Loading } from "./Loading";
 import { AdminView } from "./AdminView";
+import { LoginForm } from "./LoginForm";
+import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
 export const Account: React.FC = () => {
   const [searchParams] = useSearchParams();
   const [buyer, setBuyer] = useState<Buyer>();
   const [loading, setLoading] = useState(true);
   const [adminView, setAdminView] = useState(false);
+  const [signup, setSignup] = useState(true); // signup = false means login view
+  const shopConfig = useContext(ShopConfigContext);
   const credential = searchParams.get("credential");
 
   const getAccountInfo = async () => {
@@ -68,8 +72,25 @@ export const Account: React.FC = () => {
               </Button>
             )}
           </div>
+        ) : signup ? (
+          <>
+            <AccountForm />
+            {shopConfig?.status === "open" && (
+              <>
+                <b>Already signed up?</b> Find the login link in your email, or{" "}
+                <a onClick={() => setSignup(false)}>
+                  click here to have the login link resent to you
+                </a>
+                .
+              </>
+            )}
+          </>
         ) : (
-          <AccountForm />
+          <>
+            <LoginForm />
+            <b>Haven't signed up yet?</b>{" "}
+            <a onClick={() => setSignup(true)}>Click here to sign up.</a>
+          </>
         )}
       </Card>
     </div>

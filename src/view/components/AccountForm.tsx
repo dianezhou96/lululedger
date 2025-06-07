@@ -43,7 +43,7 @@ export const AccountForm: React.FC = () => {
     if (!response.ok) {
       setAlert({
         message:
-          "Something went wrong with signing up. If you already signed up with this email address before, please check your inbox for your magic link to login.",
+          "Something went wrong with signing up. If you already signed up with this email address before, please check your inbox for your login link or click below to have it resent to you.",
         type: "error",
       });
     } else {
@@ -143,16 +143,6 @@ export const AccountForm: React.FC = () => {
             style={{ textAlign: "left" }}
           />
         </Form.Item>
-        {showAlert && (
-          <Form.Item>
-            <Alert
-              message={alert.message}
-              type={alert.type}
-              onClose={() => setShowAlert(false)}
-              closable
-            />
-          </Form.Item>
-        )}
         <Form.Item>
           <Popconfirm
             title={"Confirm sign up"}
@@ -163,6 +153,16 @@ export const AccountForm: React.FC = () => {
             <Button type="primary">Sign up</Button>
           </Popconfirm>
         </Form.Item>
+        {showAlert && (
+          <Form.Item>
+            <Alert
+              message={alert.message}
+              type={alert.type}
+              onClose={() => setShowAlert(false)}
+              closable
+            />
+          </Form.Item>
+        )}
       </Form>
     </>
   );
