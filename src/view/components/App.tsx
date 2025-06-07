@@ -234,7 +234,11 @@ const App = () => {
                   )}
                 </div>
               </div>
-              {credential ? <CartSelector {...cartProps} /> : <SignUpButton />}
+              {credential ? (
+                <CartSelector {...cartProps} />
+              ) : (
+                <SignUpButton buttonText="Sign up / Log in" />
+              )}
             </Header>
             <Content style={{}}>
               <Routes>

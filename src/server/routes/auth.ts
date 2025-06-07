@@ -101,7 +101,7 @@ Resends a magic link email expects:
   - a valid email
 triggers a backend action to resend magic link email if email is registered
 */
-router.get(
+router.post(
   "/resend/:email",
   useShopConfig,
   async (req: RequestWithShopConfig, res: Response) => {

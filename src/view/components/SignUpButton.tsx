@@ -3,7 +3,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ShopConfigContext } from "../contexts/ShopConfigContext";
 
-export const SignUpButton: React.FC = () => {
+export const SignUpButton: React.FC<{
+  buttonText?: string;
+}> = ({ buttonText }) => {
   const shopConfig = useContext(ShopConfigContext);
   return (
     <Button
@@ -15,7 +17,7 @@ export const SignUpButton: React.FC = () => {
       ) : shopConfig?.status === "closed" ? (
         "This fundraiser has ended."
       ) : (
-        <Link to="/account">Sign up to order!</Link>
+        <Link to="/account">{buttonText ?? "Sign up or log in to order!"}</Link>
       )}
     </Button>
   );
