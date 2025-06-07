@@ -46,6 +46,8 @@ type SubSubRecordType = {
   key: number;
   buyerName: string;
   buyerEmail: string;
+  buyerSkater: string;
+  buyerTeam: string;
   cartName: string;
   quantity: number;
   status: CartItemStatus;
@@ -119,8 +121,9 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
           key: cartItem.id,
           buyerName: cartItem.buyer.name,
           buyerEmail: cartItem.buyer.email,
+          buyerSkater: cartItem.buyer.skater_name,
+          buyerTeam: cartItem.buyer.skater_team,
           cartName: cartItem.cart.name,
-          cartId: cartItem.cart.id,
           quantity: cartItem.quantity,
           status: cartItem.status,
         })),
@@ -211,8 +214,9 @@ export const ItemTable: React.FC<ItemTableProps> = ({ category, refetch }) => {
     const columns: ColumnType<SubSubRecordType>[] = [
       { title: "Buyer", dataIndex: "buyerName", key: "buyerName" },
       { title: "Email", dataIndex: "buyerEmail", key: "buyerEmail" },
+      { title: "Skater Name", dataIndex: "buyerSkater", key: "buyerSkater" },
+      { title: "Skater Team", dataIndex: "buyerTeam", key: "buyerTeam" },
       { title: "Cart Name", dataIndex: "cartName", key: "cartName" },
-      { title: "Cart ID", dataIndex: "cartId", key: "cartId" },
       {
         title: "Quantity",
         dataIndex: "quantity",
