@@ -176,7 +176,7 @@ const App = () => {
                 href="https://scsf.org/san-francisco-ice-theatre/"
                 target="_blank"
               >
-                <img src="http://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG" />
+                <img src="https://luludb.dianeyz.me/uploads/thumbnail_FINAL_SFIT_logo_with_blades_75837400af.PNG" />
               </a>
             </div>
           </Sider>
