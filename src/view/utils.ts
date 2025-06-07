@@ -7,7 +7,6 @@ import {
   ProductMetadata,
   ProductWithQtys,
 } from "../types";
-import { data } from "../server/utils/data";
 
 export function getPrice(
   product: ProductMetadata,
@@ -205,4 +204,12 @@ export function groupAndSortCartItems(
         findProductIdx(productsSorted, a.item.product) -
         findProductIdx(productsSorted, b.item.product)
     );
+}
+
+export async function copyToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (err) {
+    console.error("Failed to copy:", err);
+  }
 }
