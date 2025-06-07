@@ -6,6 +6,7 @@ import { renderToString } from "react-dom/server";
 
 import { BuyerCarts, Cart, SkaterTeam, SKATER_TEAMS } from "../../types";
 import {
+  copyToClipboard,
   getPriceLuluByBuyer,
   getPriceString,
   getTotalLuluByBuyer,
@@ -104,6 +105,14 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
         Credential: searchParams.get("credential") ?? "",
       },
     });
+  };
+
+  const copyEmailAddresses = async () => {
+    const emailsStr = buyers
+      .filter((buyer) => selectedRowKeys.includes(buyer.id))
+      .map((buyer) => buyer.email)
+      .join(",");
+    copyToClipboard(emailsStr);
   };
 
   const dataSource: RecordType[] =
@@ -259,6 +268,9 @@ export const BuyerTable: React.FC<BuyerTableProps> = ({ buyers }) => {
       <br />
       Total amount to collect for Lululemon: {totalPriceLululemon}
       <br />
+      <Button disabled={!hasSelected} onClick={copyEmailAddresses}>
+        Copy email addresses
+      </Button>
       <Popconfirm
         title={`Confirm send email to ${selectedRowKeys.length} recipients`}
         onConfirm={sendOrderReceivedEmail}
