@@ -95,6 +95,24 @@ export const CartTable: React.FC<CartTableProps> = ({
 
   const columns: ColumnType<RecordType>[] = [
     {
+      title: "Qty",
+      dataIndex: "quantity",
+      key: "qty",
+      align: "right",
+      render: (value, record, index) =>
+        editMode ? (
+          <InputNumber
+            style={{ width: "4em" }}
+            value={value}
+            onChange={onInputChange("quantity", index)}
+          />
+        ) : record.status === "Out of stock" ? (
+          <del>{value}</del>
+        ) : (
+          value
+        ),
+    },
+    {
       title: "Product",
       dataIndex: "product",
       key: "product",
@@ -121,24 +139,6 @@ export const CartTable: React.FC<CartTableProps> = ({
       key: "price",
       render: (price: number) => (price > 0 ? getPriceString(price) : ""),
       align: "right",
-    },
-    {
-      title: "Qty",
-      dataIndex: "quantity",
-      key: "qty",
-      align: "right",
-      render: (value, record, index) =>
-        editMode ? (
-          <InputNumber
-            style={{ width: "4em" }}
-            value={value}
-            onChange={onInputChange("quantity", index)}
-          />
-        ) : record.status === "Out of stock" ? (
-          <del>{value}</del>
-        ) : (
-          value
-        ),
     },
     {
       title: "Total Price",
@@ -325,11 +325,17 @@ export const CartTable: React.FC<CartTableProps> = ({
         return totalQty ? (
           <>
             <Table.Summary.Row>
-              <Table.Summary.Cell index={0} colSpan={4} align="right" />
-              <Table.Summary.Cell index={1} align="right">
+              <Table.Summary.Cell index={0} align="right">
                 <b>{totalQty}</b>
               </Table.Summary.Cell>
-              <Table.Summary.Cell index={2} align="right">
+              <Table.Summary.Cell index={1}>
+                <b>Total quantity</b>
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={2} colSpan={2} align="right" />
+              <Table.Summary.Cell index={3} align="right">
+                <b>Subtotal</b>
+              </Table.Summary.Cell>
+              <Table.Summary.Cell index={4} align="right">
                 <b>{getPriceString(subtotal, 2)}</b>
               </Table.Summary.Cell>
             </Table.Summary.Row>
