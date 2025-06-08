@@ -139,6 +139,7 @@ router.put(
 router.post(
   "/send-order-received-email",
   user_authenticated,
+  useShopConfig,
   async (req: AuthorizedRequest & RequestWithShopConfig, res: Response) => {
     if (!req.buyer.admin) {
       console.log("unauthorized");
