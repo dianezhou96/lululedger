@@ -342,7 +342,7 @@ export const CartTable: React.FC<CartTableProps> = ({
             {!isVolunteer && (
               <Table.Summary.Row>
                 <Table.Summary.Cell index={0} colSpan={5} align="right">
-                  Tax + fees (10%)
+                  Shipping & handling (10%)
                 </Table.Summary.Cell>
                 <Table.Summary.Cell index={1} align="right">
                   {getPriceString(fee, 2)}
